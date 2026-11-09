@@ -834,46 +834,46 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: BEST SELLERS (2 CARDS PER SCREEN ON MOBILE) */}
+      {/* SECTION 3: BEST SELLING CAKES (2 CARDS PER SCREEN ON MOBILE) */}
       <ProductCarouselSection
-        badge="Customer Favourites"
-        title="Most Loved Best Sellers"
+        badge="Most Ordered & Loved"
+        title="Best Selling Cakes"
         categorySlug="all"
         products={displayBestSellers}
         autoScrollInterval={3000}
       />
 
-      {/* SECTION 3A: BIRTHDAY SPECIALS (2 CARDS PER SCREEN ON MOBILE) */}
+      {/* SECTION 3A: BEST SELLING BIRTHDAY CAKES (2 CARDS PER SCREEN ON MOBILE) */}
       <ProductCarouselSection
-        badge="Celebration Cakes"
-        title="Birthday Specials"
+        badge="Birthday Favorites"
+        title="Best Selling Birthday Cakes"
         categorySlug="birthday-cakes"
         products={birthdayCakes}
         autoScrollInterval={3400}
       />
 
-      {/* SECTION 3B: BELGIAN CHOCOLATE LUXE (2 CARDS PER SCREEN ON MOBILE) */}
+      {/* SECTION 3B: BEST SELLING CHOCOLATE CAKES (2 CARDS PER SCREEN ON MOBILE) */}
       <ProductCarouselSection
-        badge="Couverture Indulgence"
-        title="Belgian Chocolate Luxe"
+        badge="Pure Couverture Truffles"
+        title="Best Selling Chocolate Cakes"
         categorySlug="chocolate-cakes"
         products={chocolateCakes}
         autoScrollInterval={3600}
       />
 
-      {/* SECTION 3C: PURE EGGLESS DELIGHTS (2 CARDS PER SCREEN ON MOBILE) */}
+      {/* SECTION 3C: BEST SELLING EGGLESS CAKES (2 CARDS PER SCREEN ON MOBILE) */}
       <ProductCarouselSection
-        badge="100% Pure Veg"
-        title="Pure Eggless Delights"
+        badge="100% Pure Vegetarian"
+        title="Best Selling Eggless Cakes"
         categorySlug="eggless-cakes"
         products={egglessCakes}
         autoScrollInterval={3200}
       />
 
-      {/* SECTION 3D: WEDDING & MILESTONE TIERS (2 CARDS PER SCREEN ON MOBILE) */}
+      {/* SECTION 3D: BEST SELLING WEDDING & ANNIVERSARY CAKES (2 CARDS PER SCREEN ON MOBILE) */}
       <ProductCarouselSection
-        badge="Grand Centerpieces"
-        title="Wedding & Milestone Tiers"
+        badge="Grand Milestone Centerpieces"
+        title="Best Selling Wedding & Anniversary Cakes"
         categorySlug="wedding-cakes"
         products={weddingCakes}
         autoScrollInterval={3800}
