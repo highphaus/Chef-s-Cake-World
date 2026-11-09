@@ -23,6 +23,109 @@ import ProductCard from '@/components/products/ProductCard';
 import ProductCarouselSection from '@/components/products/ProductCarouselSection';
 import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 
+const celebrationOccasions = [
+  {
+    id: 'birthday',
+    label: 'Birthday Bash',
+    icon: '🎂',
+    subtitle: 'Free custom plaque & candles',
+    cakeName: 'Royal Belgian Couverture Birthday Cake',
+    tagline: '70% Dark Callebaut Ganache & Hazelnut Praline',
+    prices: { '0.5kg': 699, '1kg': 1299, '2kg': 2499 },
+    rating: 4.96,
+    reviews: 420,
+    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200&auto=format&fit=crop',
+    slug: 'royal-belgian-chocolate-truffle-cake',
+    badge: 'Bestselling Celebration Cake',
+    flavorDesc: 'Three tiers of moist chocolate sponge smothered in silky Callebaut ganache. Includes free custom chocolate message plaque and sparkle candles.',
+    perks: [
+      'Complimentary customized message plaque & celebration candles',
+      'Pure 70% Belgian chocolate (zero compound chocolate)',
+      'Guaranteed 2-hour doorstep delivery from nearest Kerala hub'
+    ]
+  },
+  {
+    id: 'wedding',
+    label: 'Weddings & Anniversaries',
+    icon: '💍',
+    subtitle: 'Grand multi-tier florals & gold',
+    cakeName: 'Grand 3-Tier Couverture & Floral Masterpiece',
+    tagline: 'Sculpted Tiering with 24K Edible Gold Accents',
+    prices: { '0.5kg': 1499, '1kg': 2899, '2kg': 5499 },
+    rating: 4.99,
+    reviews: 180,
+    image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1200&auto=format&fit=crop',
+    slug: 'royal-belgian-chocolate-truffle-cake',
+    badge: 'Grand Celebration Tier',
+    flavorDesc: 'Architectural centerpiece layered with Belgian truffle and Madagascar bourbon vanilla, crowned with hand-crafted sugar florals.',
+    perks: [
+      'Dedicated senior pastry chef consultation for custom tiering',
+      'Reinforced internal food-grade structure for flawless stability',
+      'White-glove climate-controlled delivery to your event banquet'
+    ]
+  },
+  {
+    id: 'chocolate',
+    label: 'Belgian Truffle Lovers',
+    icon: '🍫',
+    subtitle: 'Intense 70% Callebaut ganache',
+    cakeName: 'Decadent Dark Truffle & Roasted Hazelnut',
+    tagline: 'Intense Single-Origin Cocoa with Silky Mirror Drip',
+    prices: { '0.5kg': 749, '1kg': 1399, '2kg': 2699 },
+    rating: 4.94,
+    reviews: 310,
+    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=1200&auto=format&fit=crop',
+    slug: 'royal-belgian-chocolate-truffle-cake',
+    badge: 'Chocoholic Favorite',
+    flavorDesc: 'For true chocolate connoisseurs. Baked with pure single-origin cocoa, dressed in mirror ganache glaze and roasted hazelnut crunch.',
+    perks: [
+      '100% Callebaut Belgian couverture (no artificial fats)',
+      'Rich bittersweet notes with luxurious velvety mouthfeel',
+      'Dispatched fresh from local oven within 120 minutes'
+    ]
+  },
+  {
+    id: 'eggless',
+    label: '100% Pure Eggless',
+    icon: '🌿',
+    subtitle: 'Certified pure vegetarian line',
+    cakeName: 'Pure Eggless Red Velvet & Cream Cheese Luxe',
+    tagline: 'Whipped Philadelphia Frosting & Crimson Crumb',
+    prices: { '0.5kg': 749, '1kg': 1399, '2kg': 2699 },
+    rating: 4.92,
+    reviews: 260,
+    image: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=1200&auto=format&fit=crop',
+    slug: 'fresh-red-velvet-cream-cheese-luxe',
+    badge: '100% Pure Vegetarian',
+    flavorDesc: 'Baked in our strictly segregated pure vegetarian kitchen. Tender crimson crumb paired with tangy whipped Philadelphia cream cheese.',
+    perks: [
+      'Strictly certified vegetarian kitchen and ingredients',
+      'Feather-light moist texture with zero compromise on fluffiness',
+      'Prepared with fresh dairy cream and organic vanilla'
+    ]
+  },
+  {
+    id: 'biscoff',
+    label: 'Lotus Biscoff Gourmet',
+    icon: '✨',
+    subtitle: 'Speculoos mousse & crunchy biscuit',
+    cakeName: 'Lotus Biscoff Speculoos Dream Cake',
+    tagline: 'Caramel Cinnamon Biscuit Layering & Spread Drizzle',
+    prices: { '0.5kg': 799, '1kg': 1499, '2kg': 2899 },
+    rating: 4.98,
+    reviews: 195,
+    image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1200&auto=format&fit=crop',
+    slug: 'lotus-biscoff-speculoos-dream-cake',
+    badge: 'Trending Sensation',
+    flavorDesc: 'The modern artisan dessert sensation. Golden spiced speculoos mousse layered with crunchy biscuit crust and generous Biscoff spread drizzle.',
+    perks: [
+      'Original imported Lotus Biscoff speculoos cookies and spread',
+      'Addictive crunch balanced with light caramelized mousse',
+      'Freshly piped upon ordering for maximum biscuit crispness'
+    ]
+  }
+];
+
 export default function HomePage() {
   const [categories, setCategories] = useState<any[]>([]);
   const [bestSellers, setBestSellers] = useState<any[]>([]);
@@ -31,111 +134,6 @@ export default function HomePage() {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
   const [selectedOccasionIndex, setSelectedOccasionIndex] = useState(0);
-  const [selectedWeight, setSelectedWeight] = useState<'0.5kg' | '1kg' | '2kg'>('0.5kg');
-  const [isCarouselPaused, setIsCarouselPaused] = useState(false);
-
-  const celebrationOccasions = [
-    {
-      id: 'birthday',
-      label: 'Birthday Bash',
-      icon: '🎂',
-      subtitle: 'Free custom plaque & candles',
-      cakeName: 'Royal Belgian Couverture Birthday Cake',
-      tagline: '70% Dark Callebaut Ganache & Hazelnut Praline',
-      prices: { '0.5kg': 699, '1kg': 1299, '2kg': 2499 },
-      rating: 4.96,
-      reviews: 420,
-      image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200&auto=format&fit=crop',
-      slug: 'royal-belgian-chocolate-truffle-cake',
-      badge: 'Bestselling Celebration Cake',
-      flavorDesc: 'Three tiers of moist chocolate sponge smothered in silky Callebaut ganache. Includes free custom chocolate message plaque and sparkle candles.',
-      perks: [
-        'Complimentary customized message plaque & celebration candles',
-        'Pure 70% Belgian chocolate (zero compound chocolate)',
-        'Guaranteed 2-hour doorstep delivery from nearest Kerala hub'
-      ]
-    },
-    {
-      id: 'wedding',
-      label: 'Weddings & Anniversaries',
-      icon: '💍',
-      subtitle: 'Grand multi-tier florals & gold',
-      cakeName: 'Grand 3-Tier Couverture & Floral Masterpiece',
-      tagline: 'Sculpted Tiering with 24K Edible Gold Accents',
-      prices: { '0.5kg': 1499, '1kg': 2899, '2kg': 5499 },
-      rating: 4.99,
-      reviews: 180,
-      image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1200&auto=format&fit=crop',
-      slug: 'royal-belgian-chocolate-truffle-cake',
-      badge: 'Grand Celebration Tier',
-      flavorDesc: 'Architectural centerpiece layered with Belgian truffle and Madagascar bourbon vanilla, crowned with hand-crafted sugar florals.',
-      perks: [
-        'Dedicated senior pastry chef consultation for custom tiering',
-        'Reinforced internal food-grade structure for flawless stability',
-        'White-glove climate-controlled delivery to your event banquet'
-      ]
-    },
-    {
-      id: 'chocolate',
-      label: 'Belgian Truffle Lovers',
-      icon: '🍫',
-      subtitle: 'Intense 70% Callebaut ganache',
-      cakeName: 'Decadent Dark Truffle & Roasted Hazelnut',
-      tagline: 'Intense Single-Origin Cocoa with Silky Mirror Drip',
-      prices: { '0.5kg': 749, '1kg': 1399, '2kg': 2699 },
-      rating: 4.94,
-      reviews: 310,
-      image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=1200&auto=format&fit=crop',
-      slug: 'royal-belgian-chocolate-truffle-cake',
-      badge: 'Chocoholic Favorite',
-      flavorDesc: 'For true chocolate connoisseurs. Baked with pure single-origin cocoa, dressed in mirror ganache glaze and roasted hazelnut crunch.',
-      perks: [
-        '100% Callebaut Belgian couverture (no artificial fats)',
-        'Rich bittersweet notes with luxurious velvety mouthfeel',
-        'Dispatched fresh from local oven within 120 minutes'
-      ]
-    },
-    {
-      id: 'eggless',
-      label: '100% Pure Eggless',
-      icon: '🌿',
-      subtitle: 'Certified pure vegetarian line',
-      cakeName: 'Pure Eggless Red Velvet & Cream Cheese Luxe',
-      tagline: 'Whipped Philadelphia Frosting & Crimson Crumb',
-      prices: { '0.5kg': 749, '1kg': 1399, '2kg': 2699 },
-      rating: 4.92,
-      reviews: 260,
-      image: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=1200&auto=format&fit=crop',
-      slug: 'fresh-red-velvet-cream-cheese-luxe',
-      badge: '100% Pure Vegetarian',
-      flavorDesc: 'Baked in our strictly segregated pure vegetarian kitchen. Tender crimson crumb paired with tangy whipped Philadelphia cream cheese.',
-      perks: [
-        'Strictly certified vegetarian kitchen and ingredients',
-        'Feather-light moist texture with zero compromise on fluffiness',
-        'Prepared with fresh dairy cream and organic vanilla'
-      ]
-    },
-    {
-      id: 'biscoff',
-      label: 'Lotus Biscoff Gourmet',
-      icon: '✨',
-      subtitle: 'Speculoos mousse & crunchy biscuit',
-      cakeName: 'Lotus Biscoff Speculoos Dream Cake',
-      tagline: 'Caramel Cinnamon Biscuit Layering & Spread Drizzle',
-      prices: { '0.5kg': 799, '1kg': 1499, '2kg': 2899 },
-      rating: 4.98,
-      reviews: 195,
-      image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1200&auto=format&fit=crop',
-      slug: 'lotus-biscoff-speculoos-dream-cake',
-      badge: 'Trending Sensation',
-      flavorDesc: 'The modern artisan dessert sensation. Golden spiced speculoos mousse layered with crunchy biscuit crust and generous Biscoff spread drizzle.',
-      perks: [
-        'Original imported Lotus Biscoff speculoos cookies and spread',
-        'Addictive crunch balanced with light caramelized mousse',
-        'Freshly piped upon ordering for maximum biscuit crispness'
-      ]
-    }
-  ];
 
   useEffect(() => {
     const loadHomeData = async () => {
@@ -164,23 +162,20 @@ export default function HomePage() {
     loadHomeData();
   }, []);
 
-  // Hero Carousel Autoplay (Pauses on Hover)
+  // Hero Carousel Autoplay (Continuous, Smooth Movement every 3.8s)
   useEffect(() => {
-    if (isCarouselPaused) return;
     const timer = setInterval(() => {
       setSelectedOccasionIndex((prev) => (prev + 1) % celebrationOccasions.length);
-    }, 5500);
+    }, 3800);
     return () => clearInterval(timer);
-  }, [isCarouselPaused, celebrationOccasions.length]);
+  }, []);
 
   const handlePrevSlide = () => {
     setSelectedOccasionIndex((prev) => (prev - 1 + celebrationOccasions.length) % celebrationOccasions.length);
-    setSelectedWeight('0.5kg');
   };
 
   const handleNextSlide = () => {
     setSelectedOccasionIndex((prev) => (prev + 1) % celebrationOccasions.length);
-    setSelectedWeight('0.5kg');
   };
 
   // Touch swipe gesture controls for hero carousel on smaller devices
@@ -189,7 +184,6 @@ export default function HomePage() {
   const minHeroSwipeDistance = 45;
 
   const handleHeroTouchStart = (e: React.TouchEvent) => {
-    setIsCarouselPaused(true);
     setHeroTouchEndX(null);
     setHeroTouchStartX(e.targetTouches[0].clientX);
   };
@@ -199,7 +193,6 @@ export default function HomePage() {
   };
 
   const handleHeroTouchEnd = () => {
-    setIsCarouselPaused(false);
     if (!heroTouchStartX || !heroTouchEndX) return;
     const distance = heroTouchStartX - heroTouchEndX;
     const isLeftSwipe = distance > minHeroSwipeDistance;
@@ -697,26 +690,31 @@ export default function HomePage() {
 
   return (
     <div className="space-y-20 pb-20">
-      {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL WITH TOUCH SWIPE */}
+      {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL WITH CONTINUOUS AUTO-ROTATION & TOUCH SWIPE */}
       <section
         className="relative w-full h-[75vh] sm:h-[84vh] lg:h-[90vh] overflow-hidden bg-black select-none touch-pan-y"
-        onMouseEnter={() => setIsCarouselPaused(true)}
-        onMouseLeave={() => setIsCarouselPaused(false)}
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
       >
-        {(() => {
-          const activeCake = celebrationOccasions[selectedOccasionIndex];
+        {celebrationOccasions.map((activeCake, idx) => {
+          const isActive = idx === selectedOccasionIndex;
 
           return (
-            <div key={activeCake.id} className="relative w-full h-full animate-in fade-in duration-700">
+            <div
+              key={activeCake.id}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+            >
               {/* Full-Screen Background Image - Positioned to keep top of cake fully visible below navbar */}
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
                   src={activeCake.image}
                   alt={activeCake.cakeName}
-                  className="w-full h-full object-cover object-[center_top] sm:object-[center_12%] origin-top transition-transform duration-1000 ease-out"
+                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_12%] origin-top transition-transform duration-[4000ms] ease-out ${
+                    isActive ? 'scale-105' : 'scale-100'
+                  }`}
                 />
                 {/* Luxury Multi-layer Dark Gradients - Clear top with zero dark masking under navbar */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
@@ -767,7 +765,7 @@ export default function HomePage() {
               </div>
             </div>
           );
-        })()}
+        })}
       </section>
 
       {/* SECTION 2: EXPLORE OUR CAKES (ONE LINE TITLE & AUTOMATIC MOVEMENT CAROUSEL) */}
