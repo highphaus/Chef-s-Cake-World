@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Bagel_Fat_One, DM_Sans } from 'next/font/google';
+import { Playfair_Display, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
@@ -13,9 +13,9 @@ export const viewport: Viewport = {
   themeColor: '#420600',
 };
 
-const bagelFatOne = Bagel_Fat_One({
-  weight: '400',
+const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-heading',
   display: 'swap',
 });
@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${bagelFatOne.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${playfairDisplay.variable} ${dmSans.variable}`}>
       <body className="min-h-screen flex flex-col bg-brand-cream text-brand-chocolate antialiased selection:bg-brand-caramel selection:text-white">
         <AuthProvider>
           <CartProvider>

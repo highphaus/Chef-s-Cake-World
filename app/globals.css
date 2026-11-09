@@ -149,15 +149,15 @@ svg {
   object-fit: cover;
 }
 
-/* Heading Font Assignment */
+/* Heading Font Assignment: Playfair Display */
 h1, h2, h3, .font-heading {
-  font-family: var(--font-heading), cursive, sans-serif;
-  letter-spacing: -0.02em;
+  font-family: var(--font-heading), 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.01em;
 }
 
-/* Body / UI Font Assignment */
+/* Body / UI Font Assignment: DM Sans */
 body, p, button, input, select, textarea, table, nav, .font-body {
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-body), 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Touch-friendly interactive elements */

@@ -39,8 +39,8 @@ module.exports = {
         }
       },
       fontFamily: {
-        heading: ['var(--font-heading)', 'cursive', 'sans-serif'],
-        body: ['var(--font-body)', 'sans-serif'],
+        heading: ['var(--font-heading)', 'Playfair Display', 'Georgia', 'serif'],
+        body: ['var(--font-body)', 'DM Sans', 'sans-serif'],
       },
       boxShadow: {
         'cake-soft': '0 4px 20px -2px rgba(66, 6, 0, 0.08)',
