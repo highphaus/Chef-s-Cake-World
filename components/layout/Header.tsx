@@ -220,11 +220,11 @@ export default function Header() {
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
-          <div className="flex items-center justify-between h-14 sm:h-15 gap-2 xl:gap-4">
-            {/* 1. Brand Identity Logo (Anchored to Far Left Side - Logo Only, No Text) */}
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20 xl:h-22 gap-2 xl:gap-6">
+            {/* 1. Brand Identity Logo (Anchored to Far Left Side - Prominently Scaled on Bigger Screens) */}
             <div className="flex items-center shrink-0">
               <Link href="/" className="flex items-center group shrink-0" title="Chef's Cake World">
-                <div className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
                     alt="Chef's Cake World Logo"

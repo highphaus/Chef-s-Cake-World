@@ -352,20 +352,20 @@ export default function HomePage() {
 
           return (
             <div key={activeCake.id} className="relative w-full h-full animate-in fade-in duration-700">
-              {/* Full-Screen Background Image */}
+              {/* Full-Screen Background Image - Positioned to keep top of cake fully visible below navbar */}
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
                   src={activeCake.image}
                   alt={activeCake.cakeName}
-                  className="w-full h-full object-cover object-center transform scale-105 transition-transform duration-1000 ease-out"
+                  className="w-full h-full object-cover object-[center_top] sm:object-[center_12%] origin-top transition-transform duration-1000 ease-out"
                 />
-                {/* Luxury Multi-layer Dark Gradients for Text Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30" />
+                {/* Luxury Multi-layer Dark Gradients - Clear top with zero dark masking under navbar */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
               </div>
 
-              {/* Overlaid Content Container - Minimal & Clean */}
-              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-12 xs:pb-14 sm:pb-20 lg:pb-24">
+              {/* Overlaid Content Container - Minimal & Clean with Top Headroom */}
+              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pt-10 sm:pt-16 pb-12 xs:pb-14 sm:pb-20 lg:pb-24">
                 <div className="max-w-xl sm:max-w-2xl space-y-2.5 sm:space-y-4">
                   
                   {/* Subtle Badge */}
