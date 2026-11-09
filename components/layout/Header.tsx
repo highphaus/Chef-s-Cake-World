@@ -224,9 +224,9 @@ export default function Header() {
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20 xl:h-22 gap-2 xl:gap-6">
-            {/* 1. Brand Identity Logo (Anchored to Far Left Side - Prominently Scaled on Bigger Screens) */}
+            {/* 1. Brand Identity Logo & Name (Anchored to Far Left Side) */}
             <div className="flex items-center shrink-0">
-              <Link href="/" className="flex items-center group shrink-0" title="Chef's Cake World">
+              <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group shrink-0" title="Chef's Cake World">
                 <div className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
@@ -234,6 +234,9 @@ export default function Header() {
                     className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
+                <span className="font-heading text-sm sm:text-base md:text-lg lg:text-xl font-bold text-brand-chocolate tracking-tight whitespace-nowrap group-hover:text-brand-caramel transition-colors">
+                  Chef&apos;s Cake World
+                </span>
               </Link>
             </div>
 
@@ -586,18 +589,6 @@ export default function Header() {
                   </span>
                 )}
               </button>
-            </div>
-
-            {/* Mobile Top Header Action: Quick Helpline Pill */}
-            <div className="flex lg:hidden items-center gap-2">
-              <a
-                href="tel:9847960677"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-peach/60 text-brand-chocolate hover:bg-brand-peach border border-brand-chocolate/10 text-xs font-bold transition-all shadow-2xs"
-                title="Call Bakery Helpline"
-              >
-                <Phone className="w-3.5 h-3.5 text-brand-caramel" />
-                <span className="text-[11px] font-bold">Helpline</span>
-              </a>
             </div>
           </div>
         </div>
