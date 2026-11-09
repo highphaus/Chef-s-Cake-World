@@ -223,18 +223,18 @@ export default function Header() {
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
-          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20 xl:h-22 gap-2 xl:gap-6">
-            {/* 1. Brand Identity Logo & Name (Anchored to Far Left Side) */}
+          <div className="flex items-center justify-between h-16 sm:h-18 lg:h-22 xl:h-24 gap-2 xl:gap-6">
+            {/* 1. Brand Identity Logo & Name (Anchored to Far Left Side - Prominently Sized) */}
             <div className="flex items-center shrink-0">
-              <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group shrink-0" title="Chef's Cake World">
-                <div className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="Chef's Cake World">
+                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
                     alt="Chef's Cake World Logo"
                     className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
-                <span className="font-heading text-sm sm:text-base md:text-lg lg:text-xl font-bold text-brand-chocolate tracking-tight whitespace-nowrap group-hover:text-brand-caramel transition-colors">
+                <span className="font-heading text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-brand-chocolate tracking-tight whitespace-nowrap group-hover:text-brand-caramel transition-colors">
                   Chef&apos;s Cake World
                 </span>
               </Link>
