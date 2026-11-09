@@ -268,7 +268,7 @@ export default function HomePage() {
     <div className="space-y-20 pb-20">
       {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL */}
       <section
-        className="relative w-full h-[72vh] sm:h-[82vh] lg:h-[88vh] overflow-hidden bg-black -mt-4 sm:-mt-6"
+        className="relative w-full h-[75vh] sm:h-[84vh] lg:h-[90vh] overflow-hidden bg-black"
         onMouseEnter={() => setIsCarouselPaused(true)}
         onMouseLeave={() => setIsCarouselPaused(false)}
       >

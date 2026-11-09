@@ -183,33 +183,33 @@ export default function Header() {
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15 py-1'
-            : 'bg-brand-cream border-b border-brand-chocolate/10 py-2'
+            ? 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15'
+            : 'bg-brand-cream border-b border-brand-chocolate/10'
         }`}
       >
-        <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12">
-          <div className="flex items-center justify-between h-20 gap-3 xl:gap-6">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
+          <div className="flex items-center justify-between h-14 sm:h-15 gap-2 xl:gap-4">
             {/* 1. Brand Identity Logo (Anchored to Far Left Side) */}
             <div className="flex items-center shrink-0">
-              <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-                <div className="relative w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Link href="/" className="flex items-center gap-2 group shrink-0">
+                <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
                     alt="Chef's Cake World Logo"
                     className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
-                <span className="font-heading text-lg sm:text-xl md:text-2xl whitespace-nowrap text-brand-chocolate leading-none tracking-tight group-hover:text-brand-caramel transition-colors">
+                <span className="font-heading text-base sm:text-lg md:text-xl whitespace-nowrap text-brand-chocolate leading-none tracking-tight group-hover:text-brand-caramel transition-colors">
                   Chef&apos;s Cake World
                 </span>
               </Link>
             </div>
 
             {/* 2. Primary Navigation with Dropdowns (Spacious & Perfectly Fitted) */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2 shrink min-w-0">
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 shrink min-w-0">
               <Link
                 href="/"
-                className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all ${
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${
                   pathname === '/'
                     ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
                     : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
@@ -227,7 +227,7 @@ export default function Header() {
               >
                 <Link
                   href="/cakes"
-                  className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                  className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
                     pathname.startsWith('/cakes')
                       ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
                       : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
@@ -235,7 +235,7 @@ export default function Header() {
                 >
                   <span>Cakes</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    className={`w-3 h-3 transition-transform duration-200 ${
                       cakesDropdownOpen ? 'rotate-180 text-brand-caramel' : ''
                     }`}
                   />
@@ -329,13 +329,13 @@ export default function Header() {
               {/* Eggless Cakes Link */}
               <Link
                 href="/cakes?category=eggless-cakes"
-                className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
                   pathname === '/cakes' && typeof window !== 'undefined' && window.location.search.includes('eggless')
                     ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
                     : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
                 }`}
               >
-                <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block shrink-0" />
                 <span>Eggless Cakes</span>
               </Link>
 
@@ -348,7 +348,7 @@ export default function Header() {
               >
                 <Link
                   href="/branches"
-                  className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                  className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
                     pathname === '/branches'
                       ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
                       : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
@@ -356,7 +356,7 @@ export default function Header() {
                 >
                   <span>Branches</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    className={`w-3 h-3 transition-transform duration-200 ${
                       branchesDropdownOpen ? 'rotate-180 text-brand-caramel' : ''
                     }`}
                   />
@@ -418,7 +418,7 @@ export default function Header() {
 
               <Link
                 href="/about"
-                className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all ${
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${
                   pathname === '/about'
                     ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
                     : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
@@ -429,7 +429,7 @@ export default function Header() {
 
               <Link
                 href="/contact"
-                className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all ${
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${
                   pathname === '/contact'
                     ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
                     : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
@@ -440,16 +440,16 @@ export default function Header() {
             </nav>
 
             {/* 3. Action Controls: Search, Account, Cart, Mobile Toggle */}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
               {/* Search Trigger */}
               <button
                 type="button"
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2 sm:p-2.5 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors"
+                className="p-1.5 sm:p-2 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors"
                 title="Search celebratory cakes"
                 aria-label="Open Search"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-4.5 h-4.5" />
               </button>
 
               {/* User Account / Dropdown */}
@@ -457,11 +457,11 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="p-2 sm:p-2.5 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors flex items-center justify-center"
+                  className="p-1.5 sm:p-2 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors flex items-center justify-center"
                   aria-label="User account"
                   title={user ? user.name : 'Sign In / Account'}
                 >
-                  <User className="w-5 h-5" />
+                  <User className="w-4.5 h-4.5" />
                 </button>
 
                 {userDropdownOpen && (
@@ -543,13 +543,13 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 sm:p-2.5 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors group focus:outline-none shrink-0"
+                className="relative p-1.5 sm:p-2 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors group focus:outline-none shrink-0"
                 aria-label={`Cake box containing ${itemCount} items`}
                 title="View your celebration cake box"
               >
-                <CakeSlice className="w-5 h-5 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-200" />
+                <CakeSlice className="w-4.5 h-4.5 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-200" />
                 {itemCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-brand-caramel text-white font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+                  <span className="absolute -top-0.5 -right-0.5 bg-brand-caramel text-white font-bold text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-xs">
                     {itemCount}
                   </span>
                 )}
@@ -560,10 +560,10 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(true)}
-                  className="p-2 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors"
+                  className="p-1.5 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors"
                   aria-label="Open Navigation Menu"
                 >
-                  <Menu className="w-5 h-5" />
+                  <Menu className="w-4.5 h-4.5" />
                 </button>
               </div>
             </div>
