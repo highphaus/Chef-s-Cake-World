@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand Palette */
+  --color-chocolate: #420600; /* Dark Chocolate - Primary */
+  --color-caramel: #BA6300;   /* Caramel Orange - Secondary */
+  --color-gold: #D9C477;      /* Soft Gold - Decorative Accents */
+  --color-peach: #F5D9B5;     /* Warm Peach - Featured Highlights */
+  --color-cream: #E6E7D4;     /* Sage Cream - Background */
+
+  /* Neutral Surface Shades */
+  --color-bg-main: #E6E7D4;
+  --color-surface-card: #FAF8F5;
+  --color-surface-white: #FFFFFF;
+  --color-text-primary: #420600;
+  --color-text-secondary: #5C4033;
+  --color-text-muted: #7E7268;
+  --color-border-subtle: #D8D2C4;
+}
+
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Heading Font Assignment */
+h1, h2, h3, .font-heading {
+  font-family: var(--font-heading), cursive, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Body / UI Font Assignment */
+body, p, button, input, select, textarea, table, nav, .font-body {
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #E6E7D4;
+}
+::-webkit-scrollbar-thumb {
+  background: #BA6300;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #420600;
+}
+
+/* Responsive clamp typography */
+.hero-title {
+  font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
+  line-height: 1.1;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 3.5vw + 0.5rem, 3rem);
+  line-height: 1.2;
+}
+
+.card-title {
+  font-size: clamp(1.15rem, 1.5vw + 0.5rem, 1.5rem);
+}
+

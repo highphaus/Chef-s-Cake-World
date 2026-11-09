@@ -1,0 +1,794 @@
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+  CakeSlice,
+  User,
+  Search,
+  Menu,
+  X,
+  ShieldCheck,
+  ChevronDown,
+  Sparkles,
+  MapPin,
+  ArrowRight,
+  LogOut,
+  Package,
+  CheckCircle2
+} from 'lucide-react';
+import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
+import CartDrawer from '@/components/cart/CartDrawer';
+
+export default function Header() {
+  const pathname = usePathname();
+  const { cart, itemCount, setIsCartOpen } = useCart();
+  const { user, isAdmin, logout } = useAuth();
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [cakesDropdownOpen, setCakesDropdownOpen] = useState(false);
+  const [branchesDropdownOpen, setBranchesDropdownOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const cakesRef = useRef<HTMLDivElement>(null);
+  const branchesRef = useRef<HTMLDivElement>(null);
+  const userRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Scroll detection for sticky elevated shadow
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (cakesRef.current && !cakesRef.current.contains(e.target as Node)) {
+        setCakesDropdownOpen(false);
+      }
+      if (branchesRef.current && !branchesRef.current.contains(e.target as Node)) {
+        setBranchesDropdownOpen(false);
+      }
+      if (userRef.current && !userRef.current.contains(e.target as Node)) {
+        setUserDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Focus search input when opened
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [searchOpen]);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      setSearchOpen(false);
+      window.location.href = `/cakes?search=${encodeURIComponent(searchQuery.trim())}`;
+    }
+  };
+
+  const quickSearchTags = [
+    'Belgian Truffle',
+    'Red Velvet',
+    '100% Eggless',
+    'Lotus Biscoff',
+    'Wedding Cake',
+    'Fresh Fruit'
+  ];
+
+  const cakeHighlights = [
+    {
+      title: 'Birthday Cakes',
+      href: '/cakes?category=birthday-cakes',
+      desc: 'Celebration cakes with custom inscriptions',
+      image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=300&auto=format&fit=crop'
+    },
+    {
+      title: 'Belgian Couverture',
+      href: '/cakes?category=chocolate-cakes',
+      desc: 'Rich 70% Callebaut dark chocolate truffle',
+      image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=300&auto=format&fit=crop'
+    },
+    {
+      title: 'Grand Wedding Tiers',
+      href: '/cakes?category=wedding-cakes',
+      desc: 'Tiered floral & 24K gold masterworks',
+      image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=300&auto=format&fit=crop'
+    },
+    {
+      title: '🌱 100% Pure Eggless Cakes',
+      href: '/cakes?category=eggless-cakes',
+      desc: 'Certified vegetarian kitchen creations',
+      image: 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=300&auto=format&fit=crop'
+    }
+  ];
+
+  const branchLocations = [
+    {
+      name: 'Alamcode',
+      address: 'Alamcode, Attingal, Kerala 695102',
+      hours: '09:00 AM - 10:30 PM',
+      phone: '+91 98479 60677',
+      code: 'CCW-KL-01'
+    },
+    {
+      name: 'Ambalathinkara',
+      address: 'Ambalathinkara, Kazhakootam, Kerala 695582',
+      hours: '09:00 AM - 11:00 PM',
+      phone: '+91 70252 17777',
+      code: 'CCW-KL-02'
+    },
+    {
+      name: 'Kumarapuram',
+      address: 'Kumarapuram, Medical College PO, Trivandrum 695011',
+      hours: '09:00 AM - 10:30 PM',
+      phone: '+91 90722 22655',
+      code: 'CCW-KL-03'
+    },
+    {
+      name: 'Ulloor',
+      address: 'Ulloor Junction, Medical College, Trivandrum 695011',
+      hours: '09:00 AM - 10:30 PM',
+      phone: '+91 80866 66207',
+      code: 'CCW-KL-04'
+    },
+    {
+      name: 'Vattappara',
+      address: 'Main Road, Vattappara, Trivandrum 695028',
+      hours: '09:00 AM - 10:30 PM',
+      phone: '+91 97458 41777',
+      code: 'CCW-KL-05'
+    },
+    {
+      name: 'Vetturoad',
+      address: 'Vetturoad, Kazhakootam, Trivandrum 695582',
+      hours: '09:00 AM - 11:00 PM',
+      phone: '+91 89210 29932',
+      code: 'CCW-KL-06'
+    },
+    {
+      name: 'Attingal Flagship',
+      address: 'Near KSRTC Bus Stand, Attingal 695101',
+      hours: '09:00 AM - 10:30 PM',
+      phone: '+91 98479 60677',
+      code: 'CCW-KL-07'
+    },
+    {
+      name: 'Kazhakootam Tech Hub',
+      address: 'Near Technopark, Kazhakootam 695582',
+      hours: '09:00 AM - 11:00 PM',
+      phone: '+91 89210 29932',
+      code: 'CCW-KL-08'
+    }
+  ];
+
+  return (
+    <>
+      <header
+        className={`sticky top-0 z-40 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15 py-1'
+            : 'bg-brand-cream border-b border-brand-chocolate/10 py-2'
+        }`}
+      >
+        <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12">
+          <div className="flex items-center justify-between h-20 gap-3 xl:gap-6">
+            {/* 1. Brand Identity Logo (Anchored to Far Left Side) */}
+            <div className="flex items-center shrink-0">
+              <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                <div className="relative w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl bg-black p-1 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-xs">
+                  <img
+                    src="/logo/chefcake.png"
+                    alt="Chef's Cake World Logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <span className="font-heading text-lg sm:text-xl md:text-2xl whitespace-nowrap text-brand-chocolate leading-none tracking-tight group-hover:text-brand-caramel transition-colors">
+                  Chef&apos;s Cake World
+                </span>
+              </Link>
+            </div>
+
+            {/* 2. Primary Navigation with Dropdowns (Spacious & Perfectly Fitted) */}
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-2 shrink min-w-0">
+              <Link
+                href="/"
+                className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all ${
+                  pathname === '/'
+                    ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
+                    : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
+                }`}
+              >
+                Home
+              </Link>
+
+              {/* Cakes Mega-Dropdown */}
+              <div
+                ref={cakesRef}
+                className="relative"
+                onMouseEnter={() => setCakesDropdownOpen(true)}
+                onMouseLeave={() => setCakesDropdownOpen(false)}
+              >
+                <Link
+                  href="/cakes"
+                  className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    pathname.startsWith('/cakes')
+                      ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
+                      : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
+                  }`}
+                >
+                  <span>Cakes</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      cakesDropdownOpen ? 'rotate-180 text-brand-caramel' : ''
+                    }`}
+                  />
+                </Link>
+
+                {/* Cakes Mega Menu Box */}
+                {cakesDropdownOpen && (
+                  <div className="absolute top-full left-0 w-[540px] pt-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="bg-white rounded-3xl p-5 border border-brand-chocolate/15 shadow-2xl space-y-4">
+                      <div className="flex items-center justify-between pb-3 border-b border-brand-chocolate/10">
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-brand-caramel" />
+                          <span className="font-heading text-base text-brand-chocolate">
+                            Explore Artisan Cakes
+                          </span>
+                        </div>
+                        <Link
+                          href="/cakes"
+                          onClick={() => setCakesDropdownOpen(false)}
+                          className="text-xs font-bold text-brand-caramel hover:underline flex items-center gap-1"
+                        >
+                          <span>Full Cake Menu</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+
+                      {/* 2x2 Grid of Highlights */}
+                      <div className="grid grid-cols-2 gap-3">
+                        {cakeHighlights.map((cake, i) => (
+                          <Link
+                            key={i}
+                            href={cake.href}
+                            onClick={() => setCakesDropdownOpen(false)}
+                            className="flex items-center gap-3 p-2.5 rounded-2xl hover:bg-brand-cream/50 transition-colors border border-transparent hover:border-brand-chocolate/10 group"
+                          >
+                            <img
+                              src={cake.image}
+                              alt={cake.title}
+                              className="w-14 h-14 rounded-xl object-cover flex-shrink-0 group-hover:scale-105 transition-transform"
+                            />
+                            <div className="min-w-0">
+                              <h4 className="font-bold text-xs text-brand-chocolate group-hover:text-brand-caramel truncate">
+                                {cake.title}
+                              </h4>
+                              <p className="text-[11px] text-brand-chocolate/60 line-clamp-1 mt-0.5">
+                                {cake.desc}
+                              </p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+
+                      {/* Dedicated Pure Eggless Feature Row inside Cakes */}
+                      <Link
+                        href="/cakes?category=eggless-cakes"
+                        onClick={() => setCakesDropdownOpen(false)}
+                        className="flex items-center justify-between p-2.5 rounded-2xl bg-brand-cream/80 hover:bg-brand-peach/50 border border-brand-chocolate/15 transition-all group"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block shadow-xs" />
+                          <div>
+                            <span className="text-xs font-bold text-brand-chocolate block group-hover:text-brand-caramel">
+                              Looking for 100% Pure Eggless Cakes?
+                            </span>
+                            <span className="text-[10px] text-brand-chocolate/70">
+                              Segregated vegetarian ovens across all 8 Kerala hubs
+                            </span>
+                          </div>
+                        </div>
+                        <span className="px-2.5 py-1 rounded-xl bg-brand-chocolate text-brand-gold text-[10px] font-bold group-hover:bg-brand-caramel group-hover:text-white transition-colors">
+                          View Eggless &rarr;
+                        </span>
+                      </Link>
+
+                      <div className="p-3 rounded-2xl bg-brand-peach/40 border border-brand-chocolate/10 flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-xs">
+                          <CheckCircle2 className="w-4 h-4 text-brand-caramel" />
+                          <span className="text-brand-chocolate font-semibold">
+                            Same-Day Delivery &bull; 2-Hour Express
+                          </span>
+                        </div>
+                        <span className="text-xs font-bold text-brand-caramel">
+                          100% Fresh Daily
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Eggless Cakes Link */}
+              <Link
+                href="/cakes?category=eggless-cakes"
+                className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                  pathname === '/cakes' && typeof window !== 'undefined' && window.location.search.includes('eggless')
+                    ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
+                    : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block shrink-0" />
+                <span>Eggless Cakes</span>
+              </Link>
+
+              {/* Branches Dropdown */}
+              <div
+                ref={branchesRef}
+                className="relative"
+                onMouseEnter={() => setBranchesDropdownOpen(true)}
+                onMouseLeave={() => setBranchesDropdownOpen(false)}
+              >
+                <Link
+                  href="/branches"
+                  className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    pathname === '/branches'
+                      ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
+                      : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
+                  }`}
+                >
+                  <span>Branches</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      branchesDropdownOpen ? 'rotate-180 text-brand-caramel' : ''
+                    }`}
+                  />
+                </Link>
+
+                {branchesDropdownOpen && (
+                  <div className="absolute top-full left-0 w-80 pt-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="bg-white rounded-3xl p-4 border border-brand-chocolate/15 shadow-2xl space-y-3">
+                      <div className="flex items-center justify-between pb-2 border-b border-brand-chocolate/10">
+                        <span className="font-heading text-sm text-brand-chocolate">
+                          Kerala Flagship Hubs
+                        </span>
+                        <Link
+                          href="/branches"
+                          onClick={() => setBranchesDropdownOpen(false)}
+                          className="text-[11px] font-bold text-brand-caramel hover:underline"
+                        >
+                          View All
+                        </Link>
+                      </div>
+
+                      <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+                        {branchLocations.map((branch, i) => (
+                          <Link
+                            key={i}
+                            href="/branches"
+                            onClick={() => setBranchesDropdownOpen(false)}
+                            className="block p-2.5 rounded-xl hover:bg-brand-cream/50 transition-colors border border-brand-chocolate/5 group"
+                          >
+                            <div className="flex justify-between items-start">
+                              <h5 className="font-bold text-xs text-brand-chocolate group-hover:text-brand-caramel">
+                                {branch.name}
+                              </h5>
+                              <span className="text-[9px] px-1.5 py-0.5 rounded bg-brand-peach text-brand-chocolate font-bold">
+                                {branch.code}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-brand-chocolate/60 truncate mt-0.5">
+                              {branch.address}
+                            </p>
+                            <p className="text-[10px] text-brand-caramel font-semibold mt-1">
+                              {branch.hours}
+                            </p>
+                          </Link>
+                        ))}
+                      </div>
+
+                      <Link
+                        href="/branches"
+                        onClick={() => setBranchesDropdownOpen(false)}
+                        className="w-full py-2 rounded-xl bg-brand-chocolate text-brand-gold text-xs font-bold text-center block hover:bg-brand-caramel hover:text-white transition-colors"
+                      >
+                        Check PIN Code Availability
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <Link
+                href="/about"
+                className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all ${
+                  pathname === '/about'
+                    ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
+                    : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
+                }`}
+              >
+                About
+              </Link>
+
+              <Link
+                href="/contact"
+                className={`px-2.5 xl:px-3 py-1.5 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap transition-all ${
+                  pathname === '/contact'
+                    ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
+                    : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
+                }`}
+              >
+                Contact
+              </Link>
+            </nav>
+
+            {/* 3. Action Controls: Search, Account, Cart, Mobile Toggle */}
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+              {/* Search Trigger */}
+              <button
+                type="button"
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="p-2 sm:p-2.5 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors"
+                title="Search celebratory cakes"
+                aria-label="Open Search"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+
+              {/* User Account / Dropdown */}
+              <div ref={userRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="p-2 sm:p-2.5 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors flex items-center justify-center"
+                  aria-label="User account"
+                  title={user ? user.name : 'Sign In / Account'}
+                >
+                  <User className="w-5 h-5" />
+                </button>
+
+                {userDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl p-3 border border-brand-chocolate/15 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-150 space-y-2">
+                    {user ? (
+                      <>
+                        <div className="p-3 rounded-xl bg-brand-cream/40 border border-brand-chocolate/10">
+                          <p className="font-bold text-xs text-brand-chocolate truncate">
+                            {user.name}
+                          </p>
+                          <p className="text-[11px] text-brand-chocolate/60 truncate">
+                            {user.email}
+                          </p>
+                          {isAdmin && (
+                            <span className="inline-block mt-1 text-[9px] px-2 py-0.5 rounded bg-brand-chocolate text-brand-gold font-bold uppercase">
+                              {user.role}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="space-y-1 text-xs">
+                          <Link
+                            href="/account"
+                            onClick={() => setUserDropdownOpen(false)}
+                            className="flex items-center gap-2 px-3 py-2 rounded-lg text-brand-chocolate hover:bg-brand-peach/40 font-semibold"
+                          >
+                            <Package className="w-4 h-4 text-brand-caramel" />
+                            <span>My Orders &amp; Timeline</span>
+                          </Link>
+
+                          {isAdmin && (
+                            <Link
+                              href="/admin"
+                              onClick={() => setUserDropdownOpen(false)}
+                              className="flex items-center gap-2 px-3 py-2 rounded-lg text-brand-chocolate hover:bg-brand-peach/40 font-semibold"
+                            >
+                              <ShieldCheck className="w-4 h-4 text-brand-caramel" />
+                              <span>Admin Operations</span>
+                            </Link>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUserDropdownOpen(false);
+                              logout();
+                            }}
+                            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-brand-chocolate hover:bg-brand-peach/40 font-semibold text-left"
+                          >
+                            <LogOut className="w-4 h-4 text-brand-caramel" />
+                            <span>Sign Out</span>
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="p-3 text-center space-y-3">
+                        <div className="space-y-1">
+                          <h4 className="font-heading text-base text-brand-chocolate">Welcome!</h4>
+                          <p className="text-xs text-brand-chocolate/70">
+                            Sign in to track orders, save favorites, and enjoy express checkout.
+                          </p>
+                        </div>
+                        <div className="flex flex-col gap-2 pt-1">
+                          <Link
+                            href="/login"
+                            onClick={() => setUserDropdownOpen(false)}
+                            className="w-full py-2 rounded-xl bg-brand-chocolate text-brand-gold text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-xs"
+                          >
+                            Sign In / Register
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Bakery Cake Box / Cart Button */}
+              <button
+                type="button"
+                onClick={() => setIsCartOpen(true)}
+                className="relative p-2 sm:p-2.5 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors group focus:outline-none shrink-0"
+                aria-label={`Cake box containing ${itemCount} items`}
+                title="View your celebration cake box"
+              >
+                <CakeSlice className="w-5 h-5 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-200" />
+                {itemCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-brand-caramel text-white font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Mobile Menu Toggle */}
+              <div className="flex items-center lg:hidden ml-0.5">
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(true)}
+                  className="p-2 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors"
+                  aria-label="Open Navigation Menu"
+                >
+                  <Menu className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 5. Expanding Luxury Search Drawer */}
+        {searchOpen && (
+          <div className="border-t border-brand-chocolate/10 bg-white/95 backdrop-blur-md px-4 py-4 animate-in fade-in slide-in-from-top-1 duration-200">
+            <div className="max-w-4xl mx-auto space-y-3">
+              <form onSubmit={handleSearchSubmit} className="relative">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search celebratory cakes by flavor, occasion, weight..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-11 pr-24 py-3 rounded-2xl border border-brand-chocolate/20 text-sm font-semibold text-brand-chocolate bg-brand-cream/20 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-caramel"
+                />
+                <Search className="w-5 h-5 text-brand-chocolate/50 absolute left-4 top-1/2 -translate-y-1/2" />
+                <button
+                  type="submit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 rounded-xl bg-brand-chocolate text-brand-gold text-xs font-bold hover:bg-brand-caramel hover:text-white transition-colors"
+                >
+                  Search
+                </button>
+              </form>
+
+              {/* Quick Tags */}
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                <span className="text-brand-chocolate/60 font-semibold">Popular Searches:</span>
+                {quickSearchTags.map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() => {
+                      setSearchQuery(tag);
+                      window.location.href = `/cakes?search=${encodeURIComponent(tag)}`;
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-brand-cream text-brand-chocolate hover:bg-brand-peach font-medium transition-colors text-[11px]"
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 6. Mobile Side Drawer Navigation */}
+        {mobileMenuOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden flex">
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 bg-brand-chocolate/70 backdrop-blur-xs transition-opacity"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Slide-over panel */}
+            <div className="relative w-4/5 max-w-sm bg-brand-cream h-full shadow-2xl flex flex-col p-6 space-y-6 overflow-y-auto">
+              <div className="flex items-center justify-between pb-4 border-b border-brand-chocolate/10">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-black border border-brand-chocolate/20 p-1 flex items-center justify-center shadow">
+                    <img
+                      src="/logo/chefcake.png"
+                      alt="Chef's Cake World Logo"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <span className="font-heading text-lg sm:text-xl whitespace-nowrap text-brand-chocolate">
+                    Chef&apos;s Cake World
+                  </span>
+                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1.5 rounded-lg text-brand-chocolate hover:bg-brand-peach/50"
+                  aria-label="Close Navigation"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Mobile Quick Links */}
+              <nav className="flex flex-col space-y-1.5 text-sm font-semibold">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2.5 rounded-xl transition-colors ${
+                    pathname === '/' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
+                  }`}
+                >
+                  Home
+                </Link>
+
+                <Link
+                  href="/cakes"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2.5 rounded-xl transition-colors ${
+                    pathname === '/cakes' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
+                  }`}
+                >
+                  Explore All Cakes
+                </Link>
+
+                <Link
+                  href="/cakes?category=eggless-cakes"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2.5 rounded-xl transition-colors flex items-center justify-between text-brand-chocolate hover:bg-white/60"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block shrink-0" />
+                    <span>Eggless Cakes (100% Pure Veg)</span>
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
+                    Pure Veg
+                  </span>
+                </Link>
+
+                <Link
+                  href="/branches"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2.5 rounded-xl transition-colors flex items-center justify-between ${
+                    pathname === '/branches' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
+                  }`}
+                >
+                  <span>Branches (Attingal &amp; Kazhakootam)</span>
+                  <MapPin className="w-4 h-4 text-brand-caramel" />
+                </Link>
+
+                <Link
+                  href="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2.5 rounded-xl transition-colors ${
+                    pathname === '/about' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
+                  }`}
+                >
+                  About
+                </Link>
+
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2.5 rounded-xl transition-colors ${
+                    pathname === '/contact' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
+                  }`}
+                >
+                  Contact
+                </Link>
+
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-3 py-2.5 rounded-xl transition-colors ${
+                    pathname === '/contact' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
+                  }`}
+                >
+                  Contact &amp; Support
+                </Link>
+              </nav>
+
+              {/* Mobile Account Section */}
+              <div className="pt-4 border-t border-brand-chocolate/10 space-y-3">
+                {user ? (
+                  <div className="space-y-2">
+                    <div className="p-3 rounded-2xl bg-white border border-brand-chocolate/10 text-xs">
+                      <p className="font-bold text-brand-chocolate">{user.name}</p>
+                      <p className="text-[11px] text-brand-chocolate/60">{user.email}</p>
+                    </div>
+
+                    <Link
+                      href="/account"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full py-2.5 rounded-xl bg-brand-chocolate text-brand-gold text-xs font-bold text-center block shadow-xs"
+                    >
+                      My Orders &amp; Timeline
+                    </Link>
+
+                    {isAdmin && (
+                      <Link
+                        href="/admin"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="w-full py-2.5 rounded-xl bg-brand-caramel text-white text-xs font-bold text-center block shadow-xs"
+                      >
+                        Admin Portal
+                      </Link>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        logout();
+                      }}
+                      className="w-full py-2 text-xs font-bold text-brand-caramel hover:underline"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full py-3 rounded-xl bg-brand-chocolate text-brand-gold text-xs font-bold text-center block shadow-sm hover:bg-brand-caramel hover:text-white"
+                  >
+                    Sign In / Register
+                  </Link>
+                )}
+              </div>
+
+              {/* Quick Branch Helpline Call */}
+              <div className="mt-auto pt-4 border-t border-brand-chocolate/10 text-xs space-y-1.5 text-brand-chocolate/80">
+                <div className="flex items-center gap-2">
+                  <Phone className="w-3.5 h-3.5 text-brand-caramel" />
+                  <span className="font-bold">+91 98200 12345</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-3.5 h-3.5 text-brand-caramel" />
+                  <span>Open Daily &bull; 9 AM - 11:30 PM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Cart Drawer */}
+      <CartDrawer />
+    </>
+  );
+}
