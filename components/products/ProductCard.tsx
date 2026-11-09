@@ -121,7 +121,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               Weight:
             </span>
             <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-0.5 sm:mt-1">
-              {product.availableWeights?.map((w) => (
+              {product.availableWeights?.slice(0, 3).map((w) => (
                 <button
                   key={w}
                   type="button"

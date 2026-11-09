@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { api } from '@/lib/api';
 import ProductCard from '@/components/products/ProductCard';
+import ProductCarouselSection from '@/components/products/ProductCarouselSection';
 import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 
 export default function HomePage() {
@@ -234,28 +235,6 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [isCategoryPaused]);
 
-  // Best Sellers Product Carousel Automatic Movement
-  const productScrollRef = useRef<HTMLDivElement>(null);
-  const [isProductPaused, setIsProductPaused] = useState(false);
-
-  useEffect(() => {
-    if (isProductPaused) return;
-
-    const timer = setInterval(() => {
-      if (productScrollRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = productScrollRef.current;
-        const step = 260;
-        if (scrollLeft + clientWidth >= scrollWidth - 15) {
-          productScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          productScrollRef.current.scrollBy({ left: step, behavior: 'smooth' });
-        }
-      }
-    }, 3200);
-
-    return () => clearInterval(timer);
-  }, [isProductPaused]);
-
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail.trim() && newsletterEmail.includes('@')) {
@@ -332,6 +311,386 @@ export default function HomePage() {
       averageRating: 4.8,
       reviewCount: 64,
       isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'sample-5',
+      name: 'Classic Black Forest Cherry Jubilee',
+      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      description: 'European recipe with chocolate sponge soaked in dark cherry compote and French cherries.',
+      basePrice: 599,
+      images: ['https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Dark Cherry Truffle'],
+      averageRating: 4.84,
+      reviewCount: 52,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'sample-6',
+      name: 'Ferrero Rocher Hazelnut Praline Luxe',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Nutella mousse, crushed wafer crunch, whole Ferrero rochers, and dark ganache drip.',
+      basePrice: 899,
+      images: ['https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Ferrero Nutella'],
+      averageRating: 4.97,
+      reviewCount: 112,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+  ];
+
+  // Curated Section 1: Birthday Celebration Specials
+  const birthdayCakes = [
+    {
+      _id: 'bday-1',
+      name: 'Royal Belgian Chocolate Birthday Cake',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Moist chocolate sponge with 70% dark Belgian ganache, sparkle candles, and custom plaque.',
+      basePrice: 699,
+      images: ['https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Belgian Truffle'],
+      averageRating: 4.96,
+      reviewCount: 142,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'bday-2',
+      name: 'Exotic Fresh Seasonal Fruit Ambrosia',
+      slug: 'exotic-fresh-seasonal-fruit-ambrosia',
+      description: 'Light vanilla sponge crowned with fresh kiwi, strawberries, blueberries, and mangoes.',
+      basePrice: 699,
+      images: ['https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Fruit Mascarpone'],
+      averageRating: 4.88,
+      reviewCount: 94,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'bday-3',
+      name: 'Classic Black Forest Cherry Jubilee',
+      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      description: 'Dark chocolate sponge layered with sour German cherries and fresh whipped cream.',
+      basePrice: 599,
+      images: ['https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Classic Cherry'],
+      averageRating: 4.82,
+      reviewCount: 88,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'bday-4',
+      name: 'Magical Unicorn Rainbow Kids Fantasy Cake',
+      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      description: 'Multi-colored rainbow sponge with strawberry buttercream and golden fondant horn.',
+      basePrice: 899,
+      images: ['https://images.unsplash.com/photo-1562440499-64c9a111f713?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['1 kg', '1.5 kg', '2 kg'],
+      availableFlavours: ['Strawberry Buttercream'],
+      averageRating: 4.95,
+      reviewCount: 62,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'bday-5',
+      name: 'Golden Butterscotch Caramel Crunch',
+      slug: 'lotus-biscoff-speculoos-dream-cake',
+      description: 'Moist vanilla sponge with crunchy butterscotch praline and rich caramel drizzle.',
+      basePrice: 649,
+      images: ['https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Butterscotch Praline'],
+      averageRating: 4.85,
+      reviewCount: 79,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'bday-6',
+      name: 'Fresh Red Velvet Birthday Special',
+      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      description: 'Crimson cocoa sponge draped in whipped Philadelphia cream cheese with birthday message.',
+      basePrice: 749,
+      images: ['https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Cream Cheese'],
+      averageRating: 4.9,
+      reviewCount: 110,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+  ];
+
+  // Curated Section 2: Belgian Couverture & Truffle Luxe
+  const chocolateCakes = [
+    {
+      _id: 'choc-1',
+      name: 'Decadent Dark Truffle & Roasted Hazelnut',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Pure 70% single-origin Callebaut couverture with mirror drip and roasted hazelnuts.',
+      basePrice: 749,
+      images: ['https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Roasted Hazelnut Dark'],
+      averageRating: 4.94,
+      reviewCount: 310,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'choc-2',
+      name: 'Royal Belgian Chocolate Truffle Cake',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Three tiers of moist chocolate sponge smothered in silky Callebaut ganache and curls.',
+      basePrice: 699,
+      images: ['https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Belgian Truffle'],
+      averageRating: 4.96,
+      reviewCount: 142,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'choc-3',
+      name: 'Triple Chocolate Mousse Drip Cake',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Dark, milk, and white Belgian chocolate mousse layers over a crunchy cocoa base.',
+      basePrice: 799,
+      images: ['https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Triple Mousse'],
+      averageRating: 4.91,
+      reviewCount: 86,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'choc-4',
+      name: 'Ferrero Rocher Hazelnut Praline Luxe',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Nutella mousse, crushed wafer crunch, whole Ferrero rochers, and dark ganache drip.',
+      basePrice: 899,
+      images: ['https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Ferrero Nutella'],
+      averageRating: 4.98,
+      reviewCount: 124,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'choc-5',
+      name: 'Dark Callebaut Ganache Mirror Cake',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Glossy chocolate mirror glaze poured over intense bittersweet single-origin sponge.',
+      basePrice: 849,
+      images: ['https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Mirror Glaze Ganache'],
+      averageRating: 4.89,
+      reviewCount: 71,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'choc-6',
+      name: 'Lotus Biscoff Speculoos Dream Cake',
+      slug: 'lotus-biscoff-speculoos-dream-cake',
+      description: 'Caramelized cinnamon biscuit crumb, creamy Biscoff mousse, and spread drizzle.',
+      basePrice: 799,
+      images: ['https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Lotus Speculoos'],
+      averageRating: 4.95,
+      reviewCount: 76,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+  ];
+
+  // Curated Section 3: 100% Pure Eggless Delights
+  const egglessCakes = [
+    {
+      _id: 'eggless-1',
+      name: 'Pure Eggless Red Velvet & Cream Cheese Luxe',
+      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      description: 'Certified 100% vegetarian crimson sponge layered with whipped Philadelphia cream cheese.',
+      basePrice: 749,
+      images: ['https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Classic Cream Cheese'],
+      averageRating: 4.92,
+      reviewCount: 260,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'eggless-2',
+      name: 'Lotus Biscoff Speculoos Dream Cake (Pure Veg)',
+      slug: 'lotus-biscoff-speculoos-dream-cake',
+      description: 'Eggless cinnamon sponge with creamy Biscoff mousse and crunchy biscuit crumble.',
+      basePrice: 799,
+      images: ['https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Lotus Speculoos'],
+      averageRating: 4.98,
+      reviewCount: 195,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'eggless-3',
+      name: 'Classic Pure Eggless Black Forest Gateau',
+      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      description: 'Baked in our strictly segregated vegetarian kitchen with dark cherries and dairy cream.',
+      basePrice: 649,
+      images: ['https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Cherry Chocolate'],
+      averageRating: 4.88,
+      reviewCount: 88,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'eggless-4',
+      name: 'Pure Eggless Mango Mascarpone Ambrosia',
+      slug: 'exotic-fresh-seasonal-fruit-ambrosia',
+      description: 'Light vanilla sponge crowned with fresh mango slices, blueberries, and mascarpone.',
+      basePrice: 699,
+      images: ['https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Mango Mascarpone'],
+      averageRating: 4.86,
+      reviewCount: 73,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'eggless-5',
+      name: 'Eggless Pistachio Kulfi Saffron Bliss',
+      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      description: 'Aromatic Kashmiri saffron cream, crushed roasted pistachios, and rich cardamom sponge.',
+      basePrice: 799,
+      images: ['https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Pistachio Saffron'],
+      averageRating: 4.93,
+      reviewCount: 65,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'eggless-6',
+      name: 'Pure Vegetarian Dutch Truffle Gateau',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Moist eggless chocolate sponge smothered in silky Callebaut ganache and curls.',
+      basePrice: 749,
+      images: ['https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+      availableFlavours: ['Dutch Ganache'],
+      averageRating: 4.91,
+      reviewCount: 114,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+  ];
+
+  // Curated Section 4: Weddings & Grand Milestone Tiers
+  const weddingCakes = [
+    {
+      _id: 'wed-1',
+      name: 'Grand Tiered Golden Wedding Masterpiece',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Three-tiered royal wedding cake adorned with edible 24K gold leaf and sugar peonies.',
+      basePrice: 3499,
+      images: ['https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1200&auto=format&fit=crop'],
+      availableWeights: ['3 kg', '4 kg', '5 kg'],
+      availableFlavours: ['Belgian Truffle & Vanilla'],
+      averageRating: 5.0,
+      reviewCount: 31,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'wed-2',
+      name: '3-Tier Couverture & Floral Masterpiece',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'Architectural centerpiece layered with Belgian truffle and Madagascar bourbon vanilla.',
+      basePrice: 2899,
+      images: ['https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1200&auto=format&fit=crop'],
+      availableWeights: ['2 kg', '3 kg', '4 kg'],
+      availableFlavours: ['Bourbon Vanilla & Berry'],
+      averageRating: 4.99,
+      reviewCount: 180,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'wed-3',
+      name: 'Sculpted Ivory & 24K Edible Gold Tier',
+      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      description: 'Two-tier ivory fondant cake accented with 24K gold foil and delicate sugar pearls.',
+      basePrice: 2499,
+      images: ['https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=1200&auto=format&fit=crop'],
+      availableWeights: ['2 kg', '3 kg'],
+      availableFlavours: ['Red Velvet Truffle'],
+      averageRating: 4.95,
+      reviewCount: 48,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'wed-4',
+      name: 'Madagascar Bourbon Vanilla & Peony 3-Tier',
+      slug: 'exotic-fresh-seasonal-fruit-ambrosia',
+      description: 'Tender vanilla bean sponge with strawberry champagne compote and hand-piped peonies.',
+      basePrice: 3199,
+      images: ['https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=1200&auto=format&fit=crop'],
+      availableWeights: ['3 kg', '4 kg'],
+      availableFlavours: ['Champagne Berry'],
+      averageRating: 4.97,
+      reviewCount: 39,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'wed-5',
+      name: 'Regal Pearl & White Truffle Anniversary Tier',
+      slug: 'royal-belgian-chocolate-truffle-cake',
+      description: 'White Callebaut chocolate ganache with edible luster dust and quilted silver dragee.',
+      basePrice: 2699,
+      images: ['https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200&auto=format&fit=crop'],
+      availableWeights: ['2 kg', '3 kg'],
+      availableFlavours: ['White Truffle Hazelnut'],
+      averageRating: 4.92,
+      reviewCount: 55,
+      isBestSeller: false,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'wed-6',
+      name: 'Contemporary Semi-Naked Berry Banquet Tier',
+      slug: 'exotic-fresh-seasonal-fruit-ambrosia',
+      description: 'Rustic semi-naked vanilla sponge adorned with organic Kerala figs, berries, and rosemary.',
+      basePrice: 2299,
+      images: ['https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=1200&auto=format&fit=crop'],
+      availableWeights: ['2 kg', '3 kg'],
+      availableFlavours: ['Vanilla Berry Mascarpone'],
+      averageRating: 4.88,
+      reviewCount: 42,
+      isBestSeller: false,
       egglessAvailable: true,
     },
   ];
@@ -497,53 +856,50 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: BEST SELLERS (AUTOMATIC MOVEMENT CAROUSEL) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6 sm:mb-8 gap-4">
-          <div className="min-w-0">
-            <span className="text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
-              Customer Favourites
-            </span>
-            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate whitespace-nowrap tracking-tight">
-              Most Loved Best Sellers
-            </h2>
-          </div>
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <span className="hidden sm:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
-              <span>Auto-moving</span>
-              <span className="text-brand-caramel font-bold">&bull;</span>
-              <span>Swipe to explore</span>
-            </span>
-            <Link
-              href="/cakes"
-              className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group whitespace-nowrap pl-2 border-l border-brand-chocolate/15 sm:border-l-0 sm:pl-0"
-            >
-              <span>Full Menu</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-        </div>
+      {/* SECTION 3: BEST SELLERS (2 CARDS PER SCREEN ON MOBILE) */}
+      <ProductCarouselSection
+        badge="Customer Favourites"
+        title="Most Loved Best Sellers"
+        categorySlug="all"
+        products={displayBestSellers}
+        autoScrollInterval={3000}
+      />
 
-        {/* Product Carousel with Automatic Movement & Touch Swipe */}
-        <div
-          ref={productScrollRef}
-          onMouseEnter={() => setIsProductPaused(true)}
-          onMouseLeave={() => setIsProductPaused(false)}
-          onTouchStart={() => setIsProductPaused(true)}
-          onTouchEnd={() => setIsProductPaused(false)}
-          className="flex gap-3 xs:gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {displayBestSellers.map((product: any) => (
-            <div
-              key={product._id}
-              className="w-[185px] xs:w-[215px] sm:w-[260px] lg:w-[280px] shrink-0"
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* SECTION 3A: BIRTHDAY SPECIALS (2 CARDS PER SCREEN ON MOBILE) */}
+      <ProductCarouselSection
+        badge="Celebration Cakes"
+        title="Birthday Specials"
+        categorySlug="birthday-cakes"
+        products={birthdayCakes}
+        autoScrollInterval={3400}
+      />
+
+      {/* SECTION 3B: BELGIAN CHOCOLATE LUXE (2 CARDS PER SCREEN ON MOBILE) */}
+      <ProductCarouselSection
+        badge="Couverture Indulgence"
+        title="Belgian Chocolate Luxe"
+        categorySlug="chocolate-cakes"
+        products={chocolateCakes}
+        autoScrollInterval={3600}
+      />
+
+      {/* SECTION 3C: PURE EGGLESS DELIGHTS (2 CARDS PER SCREEN ON MOBILE) */}
+      <ProductCarouselSection
+        badge="100% Pure Veg"
+        title="Pure Eggless Delights"
+        categorySlug="eggless-cakes"
+        products={egglessCakes}
+        autoScrollInterval={3200}
+      />
+
+      {/* SECTION 3D: WEDDING & MILESTONE TIERS (2 CARDS PER SCREEN ON MOBILE) */}
+      <ProductCarouselSection
+        badge="Grand Centerpieces"
+        title="Wedding & Milestone Tiers"
+        categorySlug="wedding-cakes"
+        products={weddingCakes}
+        autoScrollInterval={3800}
+      />
 
       {/* SECTION 4: PINCODE DELIVERY CHECKER & BRANCH LOCATOR PROMOTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
