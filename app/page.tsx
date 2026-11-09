@@ -289,71 +289,44 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30" />
               </div>
 
-              {/* Overlaid Content Container */}
-              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-                <div className="max-w-2xl sm:max-w-3xl space-y-4 sm:space-y-6">
+              {/* Overlaid Content Container - Minimal & Clean */}
+              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-14 sm:pb-20 lg:pb-24">
+                <div className="max-w-xl sm:max-w-2xl space-y-3 sm:space-y-4">
                   
-                  {/* Occasion & Rating Badges */}
-                  <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-                    <span className="px-3.5 py-1.5 rounded-full bg-brand-chocolate/90 border border-brand-gold/40 text-brand-gold text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-lg flex items-center gap-1.5">
-                      <span>{activeCake.icon}</span>
-                      <span>{activeCake.badge}</span>
-                    </span>
-                    <span className="px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20">
-                      <Star className="w-3.5 h-3.5 text-brand-gold fill-current" />
-                      <span>{activeCake.rating} / 5 &bull; {activeCake.reviews}+ Reviews</span>
-                    </span>
-                  </div>
+                  {/* Subtle Badge */}
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-chocolate/85 border border-brand-gold/40 text-brand-gold text-[11px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-md">
+                    <span>{activeCake.icon}</span>
+                    <span>{activeCake.badge}</span>
+                  </span>
 
-                  {/* Grand Cake Title */}
+                  {/* Clean Title */}
                   <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-lg">
                     {activeCake.cakeName}
                   </h1>
 
-                  {/* Tagline */}
-                  <p className="text-base sm:text-xl font-medium text-brand-gold leading-snug drop-shadow-md">
-                    {activeCake.tagline}
+                  {/* Short Price & Dispatch Line */}
+                  <p className="text-sm sm:text-lg font-medium text-brand-gold drop-shadow-sm flex items-center gap-2">
+                    <span className="font-bold text-white text-lg sm:text-2xl">₹{activeCake.prices['0.5kg']}</span>
+                    <span className="text-white/60">&bull;</span>
+                    <span className="text-brand-cream/90">2-Hour Fresh Doorstep Dispatch</span>
                   </p>
-
-                  {/* Flavor Description */}
-                  <p className="text-xs sm:text-sm text-white/85 max-w-xl leading-relaxed drop-shadow-sm line-clamp-2 sm:line-clamp-3">
-                    {activeCake.flavorDesc}
-                  </p>
-
-                  {/* Starting Price & 2-Hour Delivery Bar */}
-                  <div className="flex items-center gap-4 text-white pt-1">
-                    <div>
-                      <span className="text-[10px] uppercase tracking-wider text-brand-peach/90 block font-semibold">
-                        Starting From
-                      </span>
-                      <span className="text-2xl sm:text-4xl font-heading text-brand-gold">
-                        ₹{activeCake.prices['0.5kg']}
-                      </span>
-                    </div>
-                    <div className="h-9 w-px bg-white/20" />
-                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-brand-cream font-medium">
-                      <Truck className="w-4 h-4 text-brand-gold shrink-0" />
-                      <span>2-Hour Doorstep Delivery across Kerala</span>
-                    </div>
-                  </div>
 
                   {/* Action CTA Buttons */}
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <div className="pt-1 flex items-center gap-3">
                     <Link
                       href={`/cakes/${activeCake.slug}`}
-                      className="py-3.5 px-7 rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-sm sm:text-base transition-all shadow-xl flex items-center gap-2 group"
+                      className="py-3 px-6 sm:px-8 rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-xl flex items-center gap-2 group"
                     >
-                      <span>Order Now &bull; 2-Hr Dispatch</span>
+                      <span>Order Now</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
 
-                    <a
-                      href="tel:+919847960677"
-                      className="py-3.5 px-6 rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-bold text-xs sm:text-sm transition-all border border-white/25 flex items-center gap-2"
+                    <Link
+                      href="/cakes"
+                      className="py-3 px-5 rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-semibold text-xs sm:text-sm transition-all border border-white/20"
                     >
-                      <Phone className="w-4 h-4 text-brand-gold" />
-                      <span>Call Branch (+91 98479 60677)</span>
-                    </a>
+                      View All Cakes
+                    </Link>
                   </div>
 
                 </div>
