@@ -5,7 +5,6 @@ import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import AnnouncementBar from '@/components/layout/AnnouncementBar';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -58,7 +57,6 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-brand-cream text-brand-chocolate antialiased selection:bg-brand-caramel selection:text-white">
         <AuthProvider>
           <CartProvider>
-            <AnnouncementBar />
             <Header />
             <main className="flex-grow">{children}</main>
             <Footer />
