@@ -765,28 +765,6 @@ export default function HomePage() {
 
                 </div>
               </div>
-
-              {/* Bottom Centered Pagination Dots & Slide Counter */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 px-4 py-2 rounded-full bg-black/55 backdrop-blur-md border border-white/15 text-white shadow-xl">
-                <span className="text-[11px] font-bold text-brand-gold uppercase tracking-wider">
-                  {selectedOccasionIndex + 1} / {celebrationOccasions.length}
-                </span>
-                <div className="flex items-center gap-1.5">
-                  {celebrationOccasions.map((_, dotIdx) => (
-                    <button
-                      key={dotIdx}
-                      type="button"
-                      onClick={() => setSelectedOccasionIndex(dotIdx)}
-                      className={`h-2 rounded-full transition-all ${
-                        selectedOccasionIndex === dotIdx
-                          ? 'w-7 bg-brand-gold'
-                          : 'w-2 bg-white/40 hover:bg-white/70'
-                      }`}
-                      aria-label={`Jump to slide ${dotIdx + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
             </div>
           );
         })()}
