@@ -436,7 +436,7 @@ export default function ProductDetailPage() {
               type="button"
               onClick={handleAddToCart}
               disabled={isAdding}
-              className="py-3.5 px-6 rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+              className="py-3.5 px-6 min-h-[48px] rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <ShoppingBag className="w-4 h-4" />
               <span>{isAdding ? 'Adding to Cart...' : 'Add to Cart'}</span>
@@ -445,7 +445,7 @@ export default function ProductDetailPage() {
             <button
               type="button"
               onClick={handleBuyNow}
-              className="py-3.5 px-6 rounded-xl bg-brand-caramel text-white font-bold text-sm hover:bg-brand-chocolate hover:text-brand-gold transition-all shadow-md flex items-center justify-center gap-2"
+              className="py-3.5 px-6 min-h-[48px] rounded-xl bg-brand-caramel text-white font-bold text-sm hover:bg-brand-chocolate hover:text-brand-gold transition-all shadow-md flex items-center justify-center gap-2"
             >
               <span>Instant Buy Now</span>
             </button>

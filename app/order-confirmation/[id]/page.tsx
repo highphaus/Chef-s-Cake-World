@@ -237,17 +237,17 @@ export default function OrderConfirmationPage() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-brand-chocolate/10 flex gap-2">
+          <div className="pt-4 border-t border-brand-chocolate/10 flex flex-col sm:flex-row gap-2.5">
             <button
               onClick={() => window.print()}
-              className="flex-1 py-2 rounded-xl border border-brand-chocolate/20 text-brand-chocolate font-bold text-xs hover:bg-brand-peach/40 flex items-center justify-center gap-1.5"
+              className="flex-1 py-2.5 min-h-[44px] rounded-xl border border-brand-chocolate/20 text-brand-chocolate font-bold text-xs hover:bg-brand-peach/40 flex items-center justify-center gap-1.5"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print Invoice</span>
             </button>
             <Link
               href="/"
-              className="flex-1 py-2 rounded-xl bg-brand-chocolate text-brand-gold font-bold text-xs hover:bg-brand-caramel hover:text-white text-center flex items-center justify-center"
+              className="flex-1 py-2.5 min-h-[44px] rounded-xl bg-brand-chocolate text-brand-gold font-bold text-xs hover:bg-brand-caramel hover:text-white text-center flex items-center justify-center"
             >
               Back to Store
             </Link>

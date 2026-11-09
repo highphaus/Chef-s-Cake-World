@@ -105,7 +105,7 @@ export default function AdminOrdersPage() {
             Order Fulfillment &amp; Workflow Manager
           </h1>
           <p className="text-xs sm:text-sm text-brand-chocolate/70">
-            Control order lifecycles across Bandra, Andheri, and Powai kitchens.
+            Control order lifecycles across all Kerala flagship kitchens.
           </p>
         </div>
         <Link
@@ -244,7 +244,7 @@ export default function AdminOrdersPage() {
       {/* Status Modal */}
       {selectedOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-chocolate/60 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-4 border border-brand-chocolate/10">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 border border-brand-chocolate/10">
             <h3 className="font-heading text-xl text-brand-chocolate">
               Update Order #{selectedOrder.orderNumber}
             </h3>

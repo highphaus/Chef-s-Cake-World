@@ -160,7 +160,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md disabled:opacity-50"
+              className="w-full py-3.5 min-h-[44px] rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md disabled:opacity-50 flex items-center justify-center"
             >
               {loading ? 'Authenticating...' : 'Sign In to Your Account'}
             </button>
@@ -249,7 +249,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md disabled:opacity-50"
+              className="w-full py-3.5 min-h-[44px] rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md disabled:opacity-50 flex items-center justify-center"
             >
               {loading ? 'Creating Account...' : 'Complete Registration'}
             </button>

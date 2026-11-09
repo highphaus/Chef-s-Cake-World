@@ -147,7 +147,7 @@ export default function BranchesPage() {
                 <div className="mt-6 pt-4 border-t border-brand-chocolate/10 flex items-center justify-between gap-2 text-xs">
                   <a
                     href={`tel:${branch.rawPhone}`}
-                    className="py-2 px-3 rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white font-bold transition-colors flex items-center gap-1.5"
+                    className="py-2.5 px-3.5 min-h-[44px] rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white font-bold transition-colors flex items-center justify-center gap-1.5"
                   >
                     <Phone className="w-3.5 h-3.5" />
                     <span>Call Shop</span>
@@ -157,7 +157,7 @@ export default function BranchesPage() {
                     href={`https://maps.google.com/?q=${encodeURIComponent(branch.address)}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-1 font-bold text-brand-chocolate hover:text-brand-caramel transition-colors py-2 px-2"
+                    className="min-h-[44px] flex items-center justify-center gap-1 font-bold text-brand-chocolate hover:text-brand-caramel transition-colors py-2 px-3 rounded-xl hover:bg-brand-peach/40"
                   >
                     <Navigation className="w-3.5 h-3.5 text-brand-caramel" />
                     <span>Directions</span>

@@ -50,22 +50,22 @@ export default function PincodeCheckerModal({ onBranchFound, className = '' }: P
       </p>
 
       <form onSubmit={handleCheck} className="flex flex-col sm:flex-row gap-2.5">
-        <div className="relative flex-1">
+        <div className="relative flex-1 min-w-0">
           <input
             type="text"
             maxLength={6}
-            placeholder="Enter PIN code (e.g. 695102, 695101, 695582, 695011)"
+            placeholder="Enter PIN code (e.g. 695102, 695101, 695582)"
             value={pincode}
             onChange={(e) => {
               setPincode(e.target.value.replace(/\D/g, ''));
               if (error) setError('');
             }}
-            className="w-full px-4 py-3 rounded-2xl border border-brand-chocolate/20 text-sm font-semibold text-brand-chocolate focus:ring-2 focus:ring-brand-caramel focus:outline-none placeholder:text-brand-chocolate/40"
+            className="w-full px-4 py-3 min-h-[44px] rounded-2xl border border-brand-chocolate/20 text-sm font-semibold text-brand-chocolate focus:ring-2 focus:ring-brand-caramel focus:outline-none placeholder:text-brand-chocolate/40"
           />
         </div>
         <button
           type="submit"
-          className="px-6 py-3 rounded-2xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md flex items-center justify-center gap-2"
+          className="px-6 py-3 min-h-[44px] rounded-2xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md flex items-center justify-center gap-2 shrink-0"
         >
           <Store className="w-4 h-4" />
           <span>Locate Nearest Shop</span>

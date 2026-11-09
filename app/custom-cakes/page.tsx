@@ -435,7 +435,7 @@ export default function CustomCakesPage() {
                   type="text"
                   required
                   maxLength={6}
-                  placeholder="e.g. 400050"
+                  placeholder="e.g. 695101"
                   value={formData.pincode}
                   onChange={(e) => setFormData({ ...formData, pincode: e.target.value.replace(/\D/g, '') })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-brand-chocolate/20 text-xs sm:text-sm text-brand-chocolate"
@@ -449,7 +449,7 @@ export default function CustomCakesPage() {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Taj Lands End, Bandra West"
+                  placeholder="e.g. Near KSRTC Stand, Attingal"
                   value={formData.deliveryLocation}
                   onChange={(e) => setFormData({ ...formData, deliveryLocation: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-brand-chocolate/20 text-xs sm:text-sm text-brand-chocolate"
@@ -465,7 +465,7 @@ export default function CustomCakesPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md disabled:opacity-50"
+              className="w-full sm:w-auto px-8 py-3.5 min-h-[48px] rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md disabled:opacity-50 flex items-center justify-center"
             >
               {loading ? 'Submitting Design Request...' : 'Submit Custom Cake Request'}
             </button>

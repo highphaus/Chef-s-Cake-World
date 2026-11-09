@@ -6,22 +6,22 @@ export default function Footer() {
   return (
     <footer className="bg-brand-chocolate text-brand-cream/90 pt-16 pb-10 border-t-4 border-brand-caramel">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-brand-cream/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-12 border-b border-brand-cream/10">
           {/* Col 1: Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-14 h-14 flex items-center justify-center shrink-0">
+          <div className="sm:col-span-2 space-y-4">
+            <Link href="/" className="flex items-center gap-2.5 sm:gap-3">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center shrink-0">
                 <img
                   src="/logo/chefcake.png"
                   alt="Chef's Cake World Logo"
                   className="w-full h-full object-contain drop-shadow-md"
                 />
               </div>
-              <span className="font-heading text-2xl text-brand-cream tracking-tight whitespace-nowrap">
+              <span className="font-heading text-xl sm:text-2xl text-brand-cream tracking-tight whitespace-nowrap">
                 Chef&apos;s Cake World
               </span>
             </Link>
-            <p className="text-sm text-brand-cream/70 max-w-sm leading-relaxed">
+            <p className="text-xs sm:text-sm text-brand-cream/70 max-w-sm leading-relaxed">
               Kerala&apos;s celebrated artisan patisserie and cake boutique. Crafting memorable celebratory centerpieces,
               sculpted custom designer cakes, and 100% pure eggless confections using premium Belgian couverture.
             </p>
@@ -30,7 +30,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-brand-cream/10 flex items-center justify-center text-brand-gold hover:bg-brand-caramel hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-brand-cream/10 flex items-center justify-center text-brand-gold hover:bg-brand-caramel hover:text-white transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
@@ -39,7 +39,7 @@ export default function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-brand-cream/10 flex items-center justify-center text-brand-gold hover:bg-brand-caramel hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-brand-cream/10 flex items-center justify-center text-brand-gold hover:bg-brand-caramel hover:text-white transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="w-4 h-4" />
@@ -48,7 +48,7 @@ export default function Footer() {
                 href="https://youtube.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-brand-cream/10 flex items-center justify-center text-brand-gold hover:bg-brand-caramel hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-brand-cream/10 flex items-center justify-center text-brand-gold hover:bg-brand-caramel hover:text-white transition-colors"
                 aria-label="YouTube"
               >
                 <Youtube className="w-4 h-4" />
@@ -151,8 +151,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright & Compliance */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brand-cream/60">
-          <div className="flex items-center gap-2">
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-brand-cream/60 text-center md:text-left">
+          <div className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2">
             <span>&copy; {new Date().getFullYear()} Chef&apos;s Cake World. All rights reserved.</span>
             <span className="hidden sm:inline">&bull;</span>
             <span className="flex items-center gap-1 text-brand-gold font-medium">
@@ -160,15 +160,15 @@ export default function Footer() {
             </span>
           </div>
 
-          <div className="flex items-center space-x-5">
-            <Link href="/about" className="hover:text-brand-cream transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 pt-1 md:pt-0">
+            <Link href="/about" className="hover:text-brand-cream transition-colors py-1">
               Terms of Service
             </Link>
-            <Link href="/about" className="hover:text-brand-cream transition-colors">
+            <Link href="/about" className="hover:text-brand-cream transition-colors py-1">
               Privacy Policy
             </Link>
-            <Link href="/about" className="hover:text-brand-cream transition-colors">
-              Refund & Cancellation Policy
+            <Link href="/about" className="hover:text-brand-cream transition-colors py-1">
+              Refund Policy
             </Link>
           </div>
         </div>

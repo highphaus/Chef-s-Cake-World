@@ -75,6 +75,38 @@ export default function Header() {
     }
   }, [searchOpen]);
 
+  // Lock body scroll and handle Escape key for mobile drawer and search
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        setSearchOpen(false);
+        setCakesDropdownOpen(false);
+        setBranchesDropdownOpen(false);
+        setUserDropdownOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
+  // Automatically close mobile menu and dropdowns when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setSearchOpen(false);
+    setCakesDropdownOpen(false);
+    setBranchesDropdownOpen(false);
+    setUserDropdownOpen(false);
+  }, [pathname]);
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -189,19 +221,16 @@ export default function Header() {
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
           <div className="flex items-center justify-between h-14 sm:h-15 gap-2 xl:gap-4">
-            {/* 1. Brand Identity Logo (Anchored to Far Left Side) */}
+            {/* 1. Brand Identity Logo (Anchored to Far Left Side - Logo Only, No Text) */}
             <div className="flex items-center shrink-0">
-              <Link href="/" className="flex items-center gap-2 group shrink-0">
-                <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Link href="/" className="flex items-center group shrink-0" title="Chef's Cake World">
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
                     alt="Chef's Cake World Logo"
                     className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
-                <span className="font-heading text-base sm:text-lg md:text-xl whitespace-nowrap text-brand-chocolate leading-none tracking-tight group-hover:text-brand-caramel transition-colors">
-                  Chef&apos;s Cake World
-                </span>
               </Link>
             </div>
 
@@ -559,11 +588,12 @@ export default function Header() {
               <div className="flex items-center lg:hidden ml-0.5">
                 <button
                   type="button"
-                  onClick={() => setMobileMenuOpen(true)}
-                  className="p-1.5 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors"
-                  aria-label="Open Navigation Menu"
+                  onClick={() => setMobileMenuOpen((prev) => !prev)}
+                  className="p-2 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors min-w-[42px] min-h-[42px] flex items-center justify-center active:scale-95"
+                  aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
+                  aria-expanded={mobileMenuOpen}
                 >
-                  <Menu className="w-4.5 h-4.5" />
+                  <Menu className="w-5 h-5" />
                 </button>
               </div>
             </div>
@@ -612,117 +642,115 @@ export default function Header() {
             </div>
           </div>
         )}
+      </header>
 
-        {/* 6. Mobile Side Drawer Navigation */}
-        {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden flex">
-            {/* Backdrop */}
-            <div
-              className="fixed inset-0 bg-brand-chocolate/70 backdrop-blur-xs transition-opacity"
-              onClick={() => setMobileMenuOpen(false)}
-            />
+      {/* 6. Mobile Side Drawer Navigation */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] lg:hidden flex">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-brand-chocolate/70 backdrop-blur-xs transition-opacity duration-300"
+            onClick={() => setMobileMenuOpen(false)}
+          />
 
-            {/* Slide-over panel */}
-            <div className="relative w-4/5 max-w-sm bg-brand-cream h-full shadow-2xl flex flex-col p-6 space-y-6 overflow-y-auto">
-              <div className="flex items-center justify-between pb-4 border-b border-brand-chocolate/10">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-11 h-11 flex items-center justify-center shrink-0">
-                    <img
-                      src="/logo/chefcake.png"
-                      alt="Chef's Cake World Logo"
-                      className="w-full h-full object-contain drop-shadow-sm"
-                    />
-                  </div>
-                  <span className="font-heading text-lg sm:text-xl whitespace-nowrap text-brand-chocolate">
-                    Chef&apos;s Cake World
-                  </span>
-                </div>
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg text-brand-chocolate hover:bg-brand-peach/50"
-                  aria-label="Close Navigation"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+          {/* Slide-over panel */}
+          <div className="relative w-[85%] max-w-sm bg-brand-cream h-full shadow-2xl flex flex-col p-5 sm:p-6 space-y-5 overflow-y-auto z-10 animate-in slide-in-from-left duration-200">
+            <div className="flex items-center justify-between pb-3 border-b border-brand-chocolate/10">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center shrink-0">
+                <img
+                  src="/logo/chefcake.png"
+                  alt="Chef's Cake World Logo"
+                  className="w-full h-full object-contain drop-shadow-sm"
+                />
               </div>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="min-w-[44px] min-h-[44px] rounded-xl text-brand-chocolate hover:bg-brand-peach/60 active:scale-95 transition-all flex items-center justify-center"
+                aria-label="Close Navigation"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-              {/* Mobile Quick Links */}
-              <nav className="flex flex-col space-y-1.5 text-sm font-semibold">
-                <Link
-                  href="/"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-xl transition-colors ${
-                    pathname === '/' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
-                  }`}
-                >
-                  Home
-                </Link>
+            {/* Mobile Quick Links */}
+            <nav className="flex flex-col space-y-1.5 text-sm font-semibold">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center ${
+                  pathname === '/' ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
+                }`}
+              >
+                Home
+              </Link>
 
-                <Link
-                  href="/cakes"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-xl transition-colors ${
-                    pathname === '/cakes' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
-                  }`}
-                >
-                  Explore All Cakes
-                </Link>
+              <Link
+                href="/cakes"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center ${
+                  pathname === '/cakes' ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
+                }`}
+              >
+                Explore All Cakes
+              </Link>
 
-                <Link
-                  href="/cakes?category=eggless-cakes"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2.5 rounded-xl transition-colors flex items-center justify-between text-brand-chocolate hover:bg-white/60"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block shrink-0" />
-                    <span>Eggless Cakes (100% Pure Veg)</span>
-                  </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
-                    Pure Veg
-                  </span>
-                </Link>
+              <Link
+                href="/cakes?category=eggless-cakes"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between text-brand-chocolate hover:bg-white/60"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block shrink-0" />
+                  <span>Eggless Cakes (100% Veg)</span>
+                </div>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
+                  Pure Veg
+                </span>
+              </Link>
 
-                <Link
-                  href="/branches"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-xl transition-colors flex items-center justify-between ${
-                    pathname === '/branches' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
-                  }`}
-                >
-                  <span>Branches (Attingal &amp; Kazhakootam)</span>
-                  <MapPin className="w-4 h-4 text-brand-caramel" />
-                </Link>
+              <Link
+                href="/custom-cakes"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between ${
+                  pathname === '/custom-cakes' ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
+                }`}
+              >
+                <span>Custom Cakes</span>
+                <Sparkles className="w-4 h-4 text-brand-caramel" />
+              </Link>
 
-                <Link
-                  href="/about"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-xl transition-colors ${
-                    pathname === '/about' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
-                  }`}
-                >
-                  About
-                </Link>
+              <Link
+                href="/branches"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between ${
+                  pathname === '/branches' ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
+                }`}
+              >
+                <span>Our Branches</span>
+                <MapPin className="w-4 h-4 text-brand-caramel" />
+              </Link>
 
-                <Link
-                  href="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-xl transition-colors ${
-                    pathname === '/contact' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
-                  }`}
-                >
-                  Contact
-                </Link>
+              <Link
+                href="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center ${
+                  pathname === '/about' ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
+                }`}
+              >
+                About Us
+              </Link>
 
-                <Link
-                  href="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-xl transition-colors ${
-                    pathname === '/contact' ? 'bg-brand-peach text-brand-chocolate font-bold' : 'text-brand-chocolate hover:bg-white/60'
-                  }`}
-                >
-                  Contact &amp; Support
-                </Link>
-              </nav>
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center ${
+                  pathname === '/contact' ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
+                }`}
+              >
+                Contact
+              </Link>
+            </nav>
 
               {/* Mobile Account Section */}
               <div className="pt-4 border-t border-brand-chocolate/10 space-y-3">
@@ -787,7 +815,6 @@ export default function Header() {
             </div>
           </div>
         )}
-      </header>
 
       {/* Cart Drawer */}
       <CartDrawer />

@@ -639,7 +639,7 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-4 rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md flex items-center justify-center gap-2 group disabled:opacity-50"
+              className="w-full py-4 min-h-[48px] rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md flex items-center justify-center gap-2 group disabled:opacity-50"
             >
               <span>{submitting ? 'Confirming Order...' : `Pay ₹${finalTotal} & Confirm Order`}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

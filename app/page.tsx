@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import {
   Sparkles,
@@ -16,9 +16,7 @@ import {
   Award,
   Phone,
   MapPin,
-  Truck,
-  ChevronLeft,
-  ChevronRight
+  Truck
 } from 'lucide-react';
 import { api } from '@/lib/api';
 import ProductCard from '@/components/products/ProductCard';
@@ -184,6 +182,58 @@ export default function HomePage() {
     setSelectedWeight('0.5kg');
   };
 
+  // Touch swipe gesture controls for hero carousel on smaller devices
+  const [heroTouchStartX, setHeroTouchStartX] = useState<number | null>(null);
+  const [heroTouchEndX, setHeroTouchEndX] = useState<number | null>(null);
+  const minHeroSwipeDistance = 45;
+
+  const handleHeroTouchStart = (e: React.TouchEvent) => {
+    setIsCarouselPaused(true);
+    setHeroTouchEndX(null);
+    setHeroTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleHeroTouchMove = (e: React.TouchEvent) => {
+    setHeroTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleHeroTouchEnd = () => {
+    setIsCarouselPaused(false);
+    if (!heroTouchStartX || !heroTouchEndX) return;
+    const distance = heroTouchStartX - heroTouchEndX;
+    const isLeftSwipe = distance > minHeroSwipeDistance;
+    const isRightSwipe = distance < -minHeroSwipeDistance;
+    if (isLeftSwipe) {
+      handleNextSlide();
+    } else if (isRightSwipe) {
+      handlePrevSlide();
+    }
+    setHeroTouchStartX(null);
+    setHeroTouchEndX(null);
+  };
+
+  // Category Carousel Automatic Movement
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const [isCategoryPaused, setIsCategoryPaused] = useState(false);
+
+  useEffect(() => {
+    if (isCategoryPaused) return;
+
+    const timer = setInterval(() => {
+      if (categoryScrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = categoryScrollRef.current;
+        const step = 290;
+        if (scrollLeft + clientWidth >= scrollWidth - 15) {
+          categoryScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          categoryScrollRef.current.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      }
+    }, 2800);
+
+    return () => clearInterval(timer);
+  }, [isCategoryPaused]);
+
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail.trim() && newsletterEmail.includes('@')) {
@@ -266,11 +316,14 @@ export default function HomePage() {
 
   return (
     <div className="space-y-20 pb-20">
-      {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL */}
+      {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL WITH TOUCH SWIPE */}
       <section
-        className="relative w-full h-[75vh] sm:h-[84vh] lg:h-[90vh] overflow-hidden bg-black"
+        className="relative w-full h-[75vh] sm:h-[84vh] lg:h-[90vh] overflow-hidden bg-black select-none touch-pan-y"
         onMouseEnter={() => setIsCarouselPaused(true)}
         onMouseLeave={() => setIsCarouselPaused(false)}
+        onTouchStart={handleHeroTouchStart}
+        onTouchMove={handleHeroTouchMove}
+        onTouchEnd={handleHeroTouchEnd}
       >
         {(() => {
           const activeCake = celebrationOccasions[selectedOccasionIndex];
@@ -290,32 +343,32 @@ export default function HomePage() {
               </div>
 
               {/* Overlaid Content Container - Minimal & Clean */}
-              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-14 sm:pb-20 lg:pb-24">
-                <div className="max-w-xl sm:max-w-2xl space-y-3 sm:space-y-4">
+              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-12 xs:pb-14 sm:pb-20 lg:pb-24">
+                <div className="max-w-xl sm:max-w-2xl space-y-2.5 sm:space-y-4">
                   
                   {/* Subtle Badge */}
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-chocolate/85 border border-brand-gold/40 text-brand-gold text-[11px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-md">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-brand-chocolate/85 border border-brand-gold/40 text-brand-gold text-[10px] xs:text-[11px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-md">
                     <span>{activeCake.icon}</span>
                     <span>{activeCake.badge}</span>
                   </span>
 
                   {/* Clean Title */}
-                  <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-lg">
+                  <h1 className="font-heading text-2xl xs:text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-lg">
                     {activeCake.cakeName}
                   </h1>
 
                   {/* Short Price & Dispatch Line */}
-                  <p className="text-sm sm:text-lg font-medium text-brand-gold drop-shadow-sm flex items-center gap-2">
-                    <span className="font-bold text-white text-lg sm:text-2xl">₹{activeCake.prices['0.5kg']}</span>
+                  <p className="text-xs xs:text-sm sm:text-lg font-medium text-brand-gold drop-shadow-sm flex items-center gap-2">
+                    <span className="font-bold text-white text-base xs:text-lg sm:text-2xl">₹{activeCake.prices['0.5kg']}</span>
                     <span className="text-white/60">&bull;</span>
-                    <span className="text-brand-cream/90">2-Hour Fresh Doorstep Dispatch</span>
+                    <span className="text-brand-cream/90 text-xs xs:text-sm sm:text-base">2-Hour Fresh Doorstep Dispatch</span>
                   </p>
 
                   {/* Action CTA Buttons */}
-                  <div className="pt-1 flex items-center gap-3">
+                  <div className="pt-1 flex flex-wrap sm:flex-nowrap items-center gap-2.5 sm:gap-3">
                     <Link
                       href={`/cakes/${activeCake.slug}`}
-                      className="py-3 px-6 sm:px-8 rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-xl flex items-center gap-2 group"
+                      className="py-2.5 sm:py-3 px-5 sm:px-8 rounded-xl sm:rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-xl flex items-center gap-2 group min-h-[44px]"
                     >
                       <span>Order Now</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -323,7 +376,7 @@ export default function HomePage() {
 
                     <Link
                       href="/cakes"
-                      className="py-3 px-5 rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-semibold text-xs sm:text-sm transition-all border border-white/20"
+                      className="py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-semibold text-xs sm:text-sm transition-all border border-white/20 min-h-[44px] flex items-center"
                     >
                       View All Cakes
                     </Link>
@@ -331,26 +384,6 @@ export default function HomePage() {
 
                 </div>
               </div>
-
-              {/* Floating Left Arrow */}
-              <button
-                type="button"
-                onClick={handlePrevSlide}
-                aria-label="Previous slide"
-                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/45 hover:bg-brand-chocolate text-brand-gold hover:text-white border border-white/25 backdrop-blur-md shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 active:scale-95 focus:outline-none"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-
-              {/* Floating Right Arrow */}
-              <button
-                type="button"
-                onClick={handleNextSlide}
-                aria-label="Next slide"
-                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/45 hover:bg-brand-chocolate text-brand-gold hover:text-white border border-white/25 backdrop-blur-md shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 active:scale-95 focus:outline-none"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
 
               {/* Bottom Centered Pagination Dots & Slide Counter */}
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 px-4 py-2 rounded-full bg-black/55 backdrop-blur-md border border-white/15 text-white shadow-xl">
@@ -378,32 +411,49 @@ export default function HomePage() {
         })()}
       </section>
 
-      {/* SECTION 2: SHOP BY CATEGORY */}
+      {/* SECTION 2: EXPLORE OUR CAKES (ONE LINE TITLE & AUTOMATIC MOVEMENT CAROUSEL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-          <div>
-            <span className="text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
+        <div className="flex items-center justify-between mb-6 sm:mb-8 gap-4">
+          <div className="min-w-0">
+            <span className="text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
               Curated Collections
             </span>
-            <h2 className="section-title font-heading text-brand-chocolate">
-              Explore Our Cake Categories
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate whitespace-nowrap tracking-tight">
+              Explore Our Cakes
             </h2>
           </div>
-          <Link
-            href="/categories"
-            className="text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group"
-          >
-            <span>View All Categories</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <span className="hidden sm:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
+              <span>Auto-moving</span>
+              <span className="text-brand-caramel font-bold">&bull;</span>
+              <span>Swipe to explore</span>
+            </span>
+            <Link
+              href="/categories"
+              className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group whitespace-nowrap pl-2 border-l border-brand-chocolate/15 sm:border-l-0 sm:pl-0"
+            >
+              <span>View All</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {/* Single-Line Automatic Movement Carousel Track */}
+        <div
+          ref={categoryScrollRef}
+          onMouseEnter={() => setIsCategoryPaused(true)}
+          onMouseLeave={() => setIsCategoryPaused(false)}
+          onTouchStart={() => setIsCategoryPaused(true)}
+          onTouchEnd={() => setIsCategoryPaused(false)}
+          className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {displayCategories.map((cat: any) => (
             <Link
               key={cat.slug}
               href={`/cakes?category=${cat.slug}`}
-              className="group relative rounded-2xl overflow-hidden aspect-square border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all"
+              className="group relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/5] sm:aspect-square w-[210px] xs:w-[240px] sm:w-[270px] lg:w-[290px] shrink-0 border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all duration-300 transform hover:-translate-y-1"
             >
               <img
                 src={cat.image}
@@ -412,12 +462,12 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate/90 via-brand-chocolate/30 to-transparent group-hover:from-brand-chocolate/95 transition-colors" />
               <div className="absolute bottom-4 left-4 right-4 text-white">
-                <h3 className="font-heading text-lg sm:text-xl text-brand-cream group-hover:text-brand-gold transition-colors">
+                <h3 className="font-heading text-lg sm:text-xl text-brand-cream group-hover:text-brand-gold transition-colors leading-tight">
                   {cat.name}
                 </h3>
                 <span className="text-[11px] font-semibold text-brand-cream/80 flex items-center gap-1 mt-1 opacity-90 group-hover:opacity-100">
                   <span>Browse Cakes</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
             </Link>
@@ -570,9 +620,9 @@ export default function HomePage() {
             <div className="w-12 h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
               <Store className="w-6 h-6 text-brand-caramel" />
             </div>
-            <h3 className="font-heading text-xl text-brand-chocolate">Multiple Branch Convenience</h3>
+            <h3 className="font-heading text-xl text-brand-chocolate">Multiple Kerala Kitchens</h3>
             <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed">
-              With 3 flagship branches in Bandra, Andheri, and Powai, your orders are routed to the nearest kitchen for fast, temperature-controlled delivery.
+              With 8 flagship branches across Kerala (Attingal, Kazhakootam, Alamcode, Kumarapuram, Ulloor, Vattappara, Vetturoad, Ambalathinkara), your orders are routed to the closest patisserie for rapid 2-hour doorstep delivery.
             </p>
           </div>
 

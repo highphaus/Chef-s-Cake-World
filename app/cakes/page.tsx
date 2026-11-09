@@ -237,12 +237,21 @@ function CakesCatalogueContent() {
               <Filter className="w-4 h-4 text-brand-caramel" />
               <span>Filter Cakes</span>
             </div>
-            <button
-              onClick={clearFilters}
-              className="text-[11px] text-brand-caramel hover:underline font-semibold"
-            >
-              Clear All
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={clearFilters}
+                className="text-[11px] text-brand-caramel hover:underline font-semibold"
+              >
+                Clear All
+              </button>
+              <button
+                onClick={() => setMobileFilterOpen(false)}
+                className="lg:hidden p-1 rounded-md text-brand-chocolate hover:bg-brand-peach/40"
+                aria-label="Close filters"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           {/* Eggless Toggle */}

@@ -140,10 +140,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Price & Action */}
-        <div className="mt-4 pt-3 border-t border-brand-chocolate/10 flex items-center justify-between">
-          <div>
+        <div className="mt-4 pt-3 border-t border-brand-chocolate/10 flex items-center justify-between gap-2">
+          <div className="min-w-0">
             <span className="text-[10px] uppercase text-brand-chocolate/60 font-semibold block">Price</span>
-            <span className="font-heading text-xl text-brand-caramel">
+            <span className="font-heading text-lg sm:text-xl text-brand-caramel">
               ₹{displayPrice}
             </span>
           </div>
@@ -152,9 +152,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             type="button"
             onClick={handleQuickAdd}
             disabled={isAdding}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-chocolate text-brand-gold text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-sm active:scale-95 disabled:opacity-50"
+            className="flex items-center justify-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl bg-brand-chocolate text-brand-gold text-[11px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-sm active:scale-95 disabled:opacity-50 whitespace-nowrap min-h-[38px] shrink-0"
           >
-            <ShoppingBag className="w-3.5 h-3.5" />
+            <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
             <span>{isAdding ? 'Adding...' : 'Add to Cart'}</span>
           </button>
         </div>

@@ -179,7 +179,7 @@ export default function AdminCustomCakesPage() {
       {/* Quotation Dialog */}
       {selectedRequest && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-chocolate/60 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-4 border border-brand-chocolate/10">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 border border-brand-chocolate/10">
             <h3 className="font-heading text-xl text-brand-chocolate">
               Provide Quotation for {selectedRequest.requestNumber}
             </h3>
