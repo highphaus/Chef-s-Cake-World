@@ -16,7 +16,9 @@ import {
   ArrowRight,
   LogOut,
   Package,
-  CheckCircle2
+  CheckCircle2,
+  Phone,
+  Clock
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -775,7 +777,7 @@ export default function Header() {
               <div className="mt-auto pt-4 border-t border-brand-chocolate/10 text-xs space-y-1.5 text-brand-chocolate/80">
                 <div className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-brand-caramel" />
-                  <span className="font-bold">+91 98200 12345</span>
+                  <a href="tel:9847960677" className="font-bold hover:text-brand-caramel">+91 98479 60677</a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-3.5 h-3.5 text-brand-caramel" />
