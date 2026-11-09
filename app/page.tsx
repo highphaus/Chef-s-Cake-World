@@ -234,6 +234,28 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [isCategoryPaused]);
 
+  // Best Sellers Product Carousel Automatic Movement
+  const productScrollRef = useRef<HTMLDivElement>(null);
+  const [isProductPaused, setIsProductPaused] = useState(false);
+
+  useEffect(() => {
+    if (isProductPaused) return;
+
+    const timer = setInterval(() => {
+      if (productScrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = productScrollRef.current;
+        const step = 260;
+        if (scrollLeft + clientWidth >= scrollWidth - 15) {
+          productScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          productScrollRef.current.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      }
+    }, 3200);
+
+    return () => clearInterval(timer);
+  }, [isProductPaused]);
+
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail.trim() && newsletterEmail.includes('@')) {
@@ -475,29 +497,50 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: BEST SELLERS */}
+      {/* SECTION 3: BEST SELLERS (AUTOMATIC MOVEMENT CAROUSEL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-          <div>
-            <span className="text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
+        <div className="flex items-center justify-between mb-6 sm:mb-8 gap-4">
+          <div className="min-w-0">
+            <span className="text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
               Customer Favourites
             </span>
-            <h2 className="section-title font-heading text-brand-chocolate">
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate whitespace-nowrap tracking-tight">
               Most Loved Best Sellers
             </h2>
           </div>
-          <Link
-            href="/cakes"
-            className="text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group"
-          >
-            <span>Browse Full Menu</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <span className="hidden sm:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
+              <span>Auto-moving</span>
+              <span className="text-brand-caramel font-bold">&bull;</span>
+              <span>Swipe to explore</span>
+            </span>
+            <Link
+              href="/cakes"
+              className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group whitespace-nowrap pl-2 border-l border-brand-chocolate/15 sm:border-l-0 sm:pl-0"
+            >
+              <span>Full Menu</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Product Carousel with Automatic Movement & Touch Swipe */}
+        <div
+          ref={productScrollRef}
+          onMouseEnter={() => setIsProductPaused(true)}
+          onMouseLeave={() => setIsProductPaused(false)}
+          onTouchStart={() => setIsProductPaused(true)}
+          onTouchEnd={() => setIsProductPaused(false)}
+          className="flex gap-3 xs:gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {displayBestSellers.map((product: any) => (
-            <ProductCard key={product._id} product={product} />
+            <div
+              key={product._id}
+              className="w-[185px] xs:w-[215px] sm:w-[260px] lg:w-[280px] shrink-0"
+            >
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
       </section>

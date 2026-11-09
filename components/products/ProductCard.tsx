@@ -54,7 +54,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const displayPrice = calculateDisplayPrice(selectedWeight);
 
   return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all duration-300 flex flex-col justify-between">
+    <div className="group relative bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all duration-300 flex flex-col justify-between h-full">
       {/* Product Image & Badges */}
       <div className="relative aspect-square w-full overflow-hidden bg-brand-cream/30">
         <Link href={`/cakes/${product.slug}`} className="block w-full h-full">
@@ -66,67 +66,67 @@ export default function ProductCard({ product }: ProductCardProps) {
         </Link>
 
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
+        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 z-10">
           {product.isBestSeller && (
-            <span className="px-2.5 py-1 rounded-full bg-brand-caramel text-white text-[11px] font-bold tracking-wide uppercase shadow-sm flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-brand-gold" /> Best Seller
+            <span className="px-1.5 xs:px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-brand-caramel text-white text-[9px] xs:text-[10px] sm:text-[11px] font-bold tracking-wide uppercase shadow-xs flex items-center gap-1">
+              <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-brand-gold" /> Best Seller
             </span>
           )}
           {product.egglessAvailable && (
-            <span className="px-2 py-0.5 rounded-full bg-brand-peach text-brand-chocolate text-[10px] font-bold tracking-wider uppercase shadow-xs border border-brand-chocolate/15">
-              100% Eggless Option
+            <span className="px-1.5 xs:px-2 py-0.5 rounded-full bg-brand-peach text-brand-chocolate text-[8.5px] xs:text-[9.5px] sm:text-[10px] font-bold tracking-wider uppercase shadow-2xs border border-brand-chocolate/15">
+              100% Eggless
             </span>
           )}
         </div>
 
         {/* Quick View Button */}
-        <div className="absolute bottom-3 right-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+        <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
           <Link
             href={`/cakes/${product.slug}`}
-            className="p-2 rounded-full bg-white/90 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md backdrop-blur-sm transition-colors"
+            className="p-1.5 sm:p-2 rounded-full bg-white/90 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md backdrop-blur-sm transition-colors"
             title="View Details"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </Link>
         </div>
       </div>
 
       {/* Product Information */}
-      <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between">
+      <div className="p-2.5 xs:p-3 sm:p-4 lg:p-5 flex flex-col flex-1 justify-between">
         <div>
           {/* Rating */}
-          <div className="flex items-center gap-1.5 mb-1.5">
+          <div className="flex items-center gap-1 sm:gap-1.5 mb-1 sm:mb-1.5">
             <div className="flex text-brand-caramel">
-              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" />
             </div>
-            <span className="text-xs font-bold text-brand-chocolate">{product.averageRating.toFixed(1)}</span>
-            <span className="text-xs text-brand-chocolate/50">({product.reviewCount})</span>
+            <span className="text-[10px] xs:text-[11px] sm:text-xs font-bold text-brand-chocolate">{product.averageRating.toFixed(1)}</span>
+            <span className="text-[10px] xs:text-[11px] sm:text-xs text-brand-chocolate/50">({product.reviewCount})</span>
           </div>
 
           {/* Title */}
           <Link href={`/cakes/${product.slug}`}>
-            <h3 className="font-heading text-lg text-brand-chocolate hover:text-brand-caramel transition-colors line-clamp-1">
+            <h3 className="font-heading text-xs xs:text-sm sm:text-base lg:text-lg text-brand-chocolate hover:text-brand-caramel transition-colors line-clamp-1 leading-snug">
               {product.name}
             </h3>
           </Link>
 
           {/* Description snippet */}
-          <p className="text-xs text-brand-chocolate/70 line-clamp-2 mt-1 leading-relaxed">
+          <p className="text-[10px] xs:text-[11px] sm:text-xs text-brand-chocolate/70 line-clamp-1 xs:line-clamp-2 mt-0.5 sm:mt-1 leading-relaxed">
             {product.description}
           </p>
 
           {/* Weight selector pills */}
-          <div className="mt-3">
-            <span className="text-[10px] uppercase font-bold text-brand-chocolate/60 tracking-wider">
-              Weight Options:
+          <div className="mt-2 sm:mt-3">
+            <span className="text-[9px] xs:text-[10px] uppercase font-bold text-brand-chocolate/60 tracking-wider">
+              Weight:
             </span>
-            <div className="flex flex-wrap gap-1.5 mt-1">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-0.5 sm:mt-1">
               {product.availableWeights?.map((w) => (
                 <button
                   key={w}
                   type="button"
                   onClick={() => setSelectedWeight(w)}
-                  className={`text-[11px] px-2 py-0.5 rounded-md font-medium transition-all ${
+                  className={`text-[9.5px] xs:text-[10px] sm:text-[11px] px-1.5 xs:px-2 py-0.5 rounded-md font-medium transition-all ${
                     selectedWeight === w
                       ? 'bg-brand-chocolate text-brand-gold font-bold shadow-xs'
                       : 'bg-brand-cream/60 text-brand-chocolate/80 hover:bg-brand-peach'
@@ -140,10 +140,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Price & Action */}
-        <div className="mt-4 pt-3 border-t border-brand-chocolate/10 flex items-center justify-between gap-2">
+        <div className="mt-2.5 sm:mt-4 pt-2 sm:pt-3 border-t border-brand-chocolate/10 flex items-center justify-between gap-1.5 sm:gap-2">
           <div className="min-w-0">
-            <span className="text-[10px] uppercase text-brand-chocolate/60 font-semibold block">Price</span>
-            <span className="font-heading text-lg sm:text-xl text-brand-caramel">
+            <span className="text-[9px] xs:text-[10px] uppercase text-brand-chocolate/60 font-semibold block leading-tight">Price</span>
+            <span className="font-heading text-sm xs:text-base sm:text-lg lg:text-xl text-brand-caramel leading-tight">
               ₹{displayPrice}
             </span>
           </div>
@@ -152,10 +152,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             type="button"
             onClick={handleQuickAdd}
             disabled={isAdding}
-            className="flex items-center justify-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl bg-brand-chocolate text-brand-gold text-[11px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-sm active:scale-95 disabled:opacity-50 whitespace-nowrap min-h-[38px] shrink-0"
+            className="flex items-center justify-center gap-1 sm:gap-1.5 px-2 xs:px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-brand-chocolate text-brand-gold text-[10px] xs:text-[11px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-xs active:scale-95 disabled:opacity-50 whitespace-nowrap min-h-[32px] sm:min-h-[38px] shrink-0"
           >
-            <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
-            <span>{isAdding ? 'Adding...' : 'Add to Cart'}</span>
+            <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+            <span>{isAdding ? 'Adding...' : 'Add'}</span>
           </button>
         </div>
       </div>
