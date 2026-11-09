@@ -192,11 +192,11 @@ export default function Header() {
             {/* 1. Brand Identity Logo (Anchored to Far Left Side) */}
             <div className="flex items-center shrink-0">
               <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-                <div className="relative w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl bg-black p-1 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-xs">
+                <div className="relative w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
                     alt="Chef's Cake World Logo"
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
                 <span className="font-heading text-lg sm:text-xl md:text-2xl whitespace-nowrap text-brand-chocolate leading-none tracking-tight group-hover:text-brand-caramel transition-colors">
@@ -626,11 +626,11 @@ export default function Header() {
             <div className="relative w-4/5 max-w-sm bg-brand-cream h-full shadow-2xl flex flex-col p-6 space-y-6 overflow-y-auto">
               <div className="flex items-center justify-between pb-4 border-b border-brand-chocolate/10">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-black border border-brand-chocolate/20 p-1 flex items-center justify-center shadow">
+                  <div className="w-11 h-11 flex items-center justify-center shrink-0">
                     <img
                       src="/logo/chefcake.png"
                       alt="Chef's Cake World Logo"
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-contain drop-shadow-sm"
                     />
                   </div>
                   <span className="font-heading text-lg sm:text-xl whitespace-nowrap text-brand-chocolate">

@@ -10,11 +10,11 @@ export default function Footer() {
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl overflow-hidden bg-black p-1 flex items-center justify-center shadow border border-brand-cream/20">
+              <div className="w-14 h-14 flex items-center justify-center shrink-0">
                 <img
                   src="/logo/chefcake.png"
                   alt="Chef's Cake World Logo"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain drop-shadow-md"
                 />
               </div>
               <span className="font-heading text-2xl text-brand-cream tracking-tight whitespace-nowrap">

@@ -69,11 +69,11 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto px-4 py-16 space-y-6">
       {/* Brand Header */}
       <div className="text-center space-y-2">
-        <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white border border-brand-chocolate/10 p-1 flex items-center justify-center mx-auto shadow-md">
+        <div className="w-20 h-20 flex items-center justify-center mx-auto">
           <img
             src="/logo/chefcake.png"
             alt="Chef's Cake World Logo"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain drop-shadow-md"
           />
         </div>
         <h1 className="font-heading text-2xl sm:text-3xl text-brand-chocolate">
