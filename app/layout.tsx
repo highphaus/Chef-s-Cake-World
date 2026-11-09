@@ -58,7 +58,7 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             <Header />
-            <main className="flex-grow">{children}</main>
+            <main className="flex-grow pb-16 lg:pb-0">{children}</main>
             <Footer />
           </CartProvider>
         </AuthProvider>

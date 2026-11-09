@@ -18,7 +18,10 @@ import {
   Package,
   CheckCircle2,
   Phone,
-  Clock
+  Clock,
+  Home,
+  ShoppingBag,
+  Cake
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -468,8 +471,8 @@ export default function Header() {
               </Link>
             </nav>
 
-            {/* 3. Action Controls: Search, Account, Cart, Mobile Toggle */}
-            <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+            {/* 3. Action Controls: Search, Account, Cart (Desktop) */}
+            <div className="hidden lg:flex items-center gap-1 sm:gap-1.5 shrink-0">
               {/* Search Trigger */}
               <button
                 type="button"
@@ -583,19 +586,18 @@ export default function Header() {
                   </span>
                 )}
               </button>
+            </div>
 
-              {/* Mobile Menu Toggle */}
-              <div className="flex items-center lg:hidden ml-0.5">
-                <button
-                  type="button"
-                  onClick={() => setMobileMenuOpen((prev) => !prev)}
-                  className="p-2 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors min-w-[42px] min-h-[42px] flex items-center justify-center active:scale-95"
-                  aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
-                  aria-expanded={mobileMenuOpen}
-                >
-                  <Menu className="w-5 h-5" />
-                </button>
-              </div>
+            {/* Mobile Top Header Action: Quick Helpline Pill */}
+            <div className="flex lg:hidden items-center gap-2">
+              <a
+                href="tel:9847960677"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-peach/60 text-brand-chocolate hover:bg-brand-peach border border-brand-chocolate/10 text-xs font-bold transition-all shadow-2xs"
+                title="Call Bakery Helpline"
+              >
+                <Phone className="w-3.5 h-3.5 text-brand-caramel" />
+                <span className="text-[11px] font-bold">Helpline</span>
+              </a>
             </div>
           </div>
         </div>
@@ -815,6 +817,97 @@ export default function Header() {
             </div>
           </div>
         )}
+
+      {/* 7. Fixed Mobile Bottom Navigation Bar (Menu, Cart, Search, Cakes, Home) */}
+      <nav
+        aria-label="Mobile Navigation"
+        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-brand-cream/98 backdrop-blur-md border-t border-brand-chocolate/15 shadow-[0_-4px_20px_rgba(66,6,0,0.08)] pb-[env(safe-area-inset-bottom)]"
+      >
+        <div className="grid grid-cols-5 h-15 items-center px-2">
+          {/* 1. Home */}
+          <Link
+            href="/"
+            className={`flex flex-col items-center justify-center py-1.5 transition-all ${
+              pathname === '/'
+                ? 'text-brand-caramel font-bold'
+                : 'text-brand-chocolate/75 hover:text-brand-caramel'
+            }`}
+          >
+            <Home className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px] leading-tight">Home</span>
+          </Link>
+
+          {/* 2. Cakes */}
+          <Link
+            href="/cakes"
+            className={`flex flex-col items-center justify-center py-1.5 transition-all ${
+              pathname.startsWith('/cakes')
+                ? 'text-brand-caramel font-bold'
+                : 'text-brand-chocolate/75 hover:text-brand-caramel'
+            }`}
+          >
+            <Cake className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px] leading-tight">Cakes</span>
+          </Link>
+
+          {/* 3. Search */}
+          <button
+            type="button"
+            onClick={() => {
+              setSearchOpen((prev) => !prev);
+              if (!searchOpen) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            className={`flex flex-col items-center justify-center py-1.5 transition-all ${
+              searchOpen
+                ? 'text-brand-caramel font-bold'
+                : 'text-brand-chocolate/75 hover:text-brand-caramel'
+            }`}
+            aria-label="Search celebration cakes"
+          >
+            <Search className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px] leading-tight">Search</span>
+          </button>
+
+          {/* 4. Cart */}
+          <button
+            type="button"
+            onClick={() => setIsCartOpen(true)}
+            className="flex flex-col items-center justify-center py-1.5 transition-all text-brand-chocolate/75 hover:text-brand-caramel relative"
+            aria-label={`View Cart with ${itemCount} items`}
+          >
+            <div className="relative">
+              <CakeSlice className="w-5 h-5 mb-0.5" />
+              {itemCount > 0 && (
+                <span className="absolute -top-1 -right-2 bg-brand-caramel text-white font-bold text-[9px] min-w-4 h-4 px-1 rounded-full flex items-center justify-center shadow-xs">
+                  {itemCount}
+                </span>
+              )}
+            </div>
+            <span className="text-[10px] leading-tight">Cart</span>
+          </button>
+
+          {/* 5. Menu */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className={`flex flex-col items-center justify-center py-1.5 transition-all ${
+              mobileMenuOpen
+                ? 'text-brand-caramel font-bold'
+                : 'text-brand-chocolate/75 hover:text-brand-caramel'
+            }`}
+            aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+          >
+            {mobileMenuOpen ? (
+              <X className="w-5 h-5 mb-0.5" />
+            ) : (
+              <Menu className="w-5 h-5 mb-0.5" />
+            )}
+            <span className="text-[10px] leading-tight">Menu</span>
+          </button>
+        </div>
+      </nav>
 
       {/* Cart Drawer */}
       <CartDrawer />
