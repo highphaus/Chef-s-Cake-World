@@ -33,48 +33,48 @@ import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 const celebrationOccasions = [
   {
     id: 'chocolate',
-    label: 'Couverture',
     cakeName: 'Royal Belgian Truffle',
-    tagline: '70% Callebaut Ganache & Hazelnut Praline',
+    shortName: 'Belgian Truffle',
+    tagline: 'Pure 70% Couverture',
+    price: '₹699',
     image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1600&auto=format&fit=crop',
     slug: 'royal-belgian-chocolate-truffle-cake',
-    badge: 'Artisan Couverture',
   },
   {
     id: 'wedding',
-    label: 'Centerpiece',
     cakeName: 'Grand Floral Celebration',
-    tagline: 'Sculpted Multi-Tier with 24K Edible Gold',
+    shortName: 'Floral Wedding',
+    tagline: 'Multi-Tier 24K Gold',
+    price: '₹1,499',
     image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1600&auto=format&fit=crop',
     slug: 'royal-belgian-chocolate-truffle-cake',
-    badge: 'Grand Centerpiece',
   },
   {
     id: 'truffle',
-    label: 'Dark Truffle',
     cakeName: 'Dark Truffle Hazelnut',
-    tagline: 'Single-Origin Cocoa & Roasted Praline',
+    shortName: 'Dark Truffle',
+    tagline: 'Single Origin Cocoa',
+    price: '₹749',
     image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=1600&auto=format&fit=crop',
     slug: 'royal-belgian-chocolate-truffle-cake',
-    badge: 'Single Origin',
   },
   {
     id: 'eggless',
-    label: 'Pure Vegetarian',
     cakeName: 'Pure Eggless Red Velvet',
-    tagline: 'Whipped Philadelphia Cream Cheese',
+    shortName: 'Eggless Velvet',
+    tagline: '100% Pure Vegetarian',
+    price: '₹749',
     image: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=1600&auto=format&fit=crop',
     slug: 'fresh-red-velvet-cream-cheese-luxe',
-    badge: '100% Pure Vegetarian',
   },
   {
     id: 'biscoff',
-    label: 'Speculoos',
     cakeName: 'Lotus Biscoff Dream',
-    tagline: 'Caramelized Speculoos Mousse & Crunch',
+    shortName: 'Lotus Biscoff',
+    tagline: 'Speculoos Mousse',
+    price: '₹799',
     image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1600&auto=format&fit=crop',
     slug: 'lotus-biscoff-speculoos-dream-cake',
-    badge: 'Trending Sensation',
   }
 ];
 
@@ -859,16 +859,13 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
-      {/* SECTION 1: HERO SHOWCASE (IMMERSIVE WONDER TRANSFORMATION) */}
+      {/* SECTION 1: SIGNATURE SPOTLIGHT HERO */}
       <section
-        className="relative w-full h-[78vh] xs:h-[84vh] sm:h-[90vh] lg:h-[96vh] min-h-[540px] sm:min-h-[620px] max-h-[940px] overflow-hidden bg-brand-chocolate select-none touch-pan-y group"
+        className="relative w-full h-[80vh] xs:h-[84vh] sm:h-[88vh] lg:h-[92vh] min-h-[560px] sm:min-h-[620px] max-h-[920px] overflow-hidden bg-[#240300] select-none touch-pan-y group"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
       >
-        {/* Ambient Wonder Radial Beam */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.16),transparent_70%)] pointer-events-none mix-blend-screen z-2" />
-
         {celebrationOccasions.map((activeCake, idx) => {
           const isActive = idx === selectedOccasionIndex;
 
@@ -879,7 +876,7 @@ export default function HomePage() {
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Background Image with Parallax & Ken Burns Wonder Zoom */}
+              {/* Background Photography with Parallax Transform */}
               <div
                 className="absolute inset-0 w-full h-full overflow-hidden will-change-transform"
                 style={{
@@ -893,52 +890,44 @@ export default function HomePage() {
                     isActive ? 'scale-108' : 'scale-100'
                   }`}
                 />
-                {/* Edge-to-Edge High-Contrast Dual Vignette for Razor-Sharp Legibility */}
-                <div className="absolute inset-x-0 top-0 h-44 sm:h-56 bg-gradient-to-b from-black/85 via-black/45 to-transparent pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
-                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent pointer-events-none" />
+                {/* Edge-to-Edge High-Contrast Dual Vignettes */}
+                <div className="absolute inset-x-0 top-0 h-40 sm:h-52 bg-gradient-to-b from-black/85 via-black/45 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent pointer-events-none" />
+                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/80 via-black/25 to-transparent pointer-events-none" />
               </div>
 
-              {/* Overlaid Reduced Writings with Staggered Wonder Reveal */}
+              {/* Overlaid Minimal Content (Strictly Reduced Writings: Name & CTA) */}
               <div
-                className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-8 lg:px-12 flex flex-col justify-end pt-24 sm:pt-32 lg:pt-40 pb-16 xs:pb-18 sm:pb-22 lg:pb-28 will-change-transform"
+                className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-8 lg:px-12 flex flex-col justify-end pt-24 sm:pt-32 pb-24 xs:pb-26 sm:pb-28 lg:pb-32 will-change-transform"
                 style={{
                   transform: `translate3d(0, -${Math.min(scrollY * 0.22, 90)}px, 0)`,
                   opacity: Math.max(0, 1 - scrollY / 550),
                 }}
               >
-                <div className="max-w-xl sm:max-w-2xl space-y-2.5 sm:space-y-3.5">
-                  {/* Reduced Luxury Badge */}
+                <div className="max-w-2xl space-y-3 sm:space-y-4">
+                  {/* Price & Quality Pill */}
                   <div
-                    className={`inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 rounded-full bg-black/45 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans shadow-lg transition-all duration-700 ease-out delay-100 ${
+                    className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans transition-all duration-700 ease-out delay-100 ${
                       isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
                     }`}
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                    <span>{activeCake.badge || 'Handcrafted in Kerala'}</span>
+                    <span>{activeCake.price}</span>
+                    <span className="text-white/40">&bull;</span>
+                    <span>{activeCake.tagline}</span>
                   </div>
 
-                  {/* Bold Punchy Cake Headline */}
+                  {/* Clean, Massive Sans-Serif Cake Name */}
                   <h1
-                    className={`font-heading font-extrabold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.08] tracking-tight drop-shadow-xl transition-all duration-700 ease-out delay-200 ${
+                    className={`font-heading font-extrabold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.08] tracking-tight drop-shadow-2xl transition-all duration-700 ease-out delay-200 ${
                       isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                     }`}
                   >
                     {activeCake.cakeName}
                   </h1>
 
-                  {/* Minimal 1-Line Flavor Tagline */}
-                  <p
-                    className={`text-sm xs:text-base sm:text-lg text-white/95 font-medium font-body leading-relaxed drop-shadow-md max-w-xl transition-all duration-700 ease-out delay-300 ${
-                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                    }`}
-                  >
-                    {activeCake.tagline}
-                  </p>
-
-                  {/* Dual Action CTA Buttons */}
+                  {/* Dual CTA Buttons */}
                   <div
-                    className={`pt-2 flex flex-wrap items-center gap-3 transition-all duration-700 ease-out delay-400 ${
+                    className={`pt-1 sm:pt-2 flex flex-wrap items-center gap-3 transition-all duration-700 ease-out delay-300 ${
                       isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                     }`}
                   >
@@ -967,7 +956,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={handlePrevSlide}
-          aria-label="Previous Slide"
+          aria-label="Previous Cake"
           className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-white text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-md transition-all border border-white/25 active:scale-95 shadow-2xl group cursor-pointer"
         >
           <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
@@ -976,48 +965,40 @@ export default function HomePage() {
         <button
           type="button"
           onClick={handleNextSlide}
-          aria-label="Next Slide"
+          aria-label="Next Cake"
           className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-white text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-md transition-all border border-white/25 active:scale-95 shadow-2xl group cursor-pointer"
         >
           <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
         </button>
 
-        {/* Wonder Scroll Indicator (Fades as user scrolls) */}
-        <div
-          className="hidden sm:flex absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-1.5 text-white/75 pointer-events-none transition-opacity duration-300"
-          style={{ opacity: Math.max(0, 1 - scrollY / 180) }}
-        >
-          <span className="text-[9px] uppercase tracking-widest font-sans font-semibold text-white/80">
-            Scroll To Explore
-          </span>
-          <div className="w-4 h-7 rounded-full border border-white/40 flex items-start justify-center p-1">
-            <div className="w-1 h-2 rounded-full bg-brand-gold animate-bounce" />
-          </div>
-        </div>
-
-        {/* Hero Slide Counter & Pill Indicator (Floating on Bottom Right) */}
-        <div className="absolute bottom-5 sm:bottom-6 right-4 sm:right-8 lg:right-12 z-20 flex items-center gap-2.5 bg-black/40 backdrop-blur-md px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 shadow-xl pointer-events-auto">
-          <span className="text-[11px] sm:text-xs font-mono font-bold text-brand-gold">
-            0{selectedOccasionIndex + 1}
-          </span>
-          <span className="text-white/30 text-xs">/</span>
-          <span className="text-[11px] sm:text-xs font-mono text-white/60">
-            0{celebrationOccasions.length}
-          </span>
-          <div className="flex items-center gap-1.5 ml-1">
-            {celebrationOccasions.map((_, dotIdx) => (
-              <button
-                key={dotIdx}
-                type="button"
-                onClick={() => setSelectedOccasionIndex(dotIdx)}
-                aria-label={`Go to slide ${dotIdx + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  dotIdx === selectedOccasionIndex
-                    ? 'w-6 sm:w-8 bg-brand-gold shadow-[0_0_10px_rgba(238,197,143,0.9)]'
-                    : 'w-1.5 bg-white/40 hover:bg-white/70'
-                }`}
-              />
-            ))}
+        {/* Interactive Floating Flavour Switcher Bar across all devices */}
+        <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 px-4 sm:px-8 flex justify-center pointer-events-auto">
+          <div
+            className="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 shadow-2xl max-w-full overflow-x-auto scrollbar-none no-scrollbar"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {celebrationOccasions.map((cake, dotIdx) => {
+              const isCurrent = dotIdx === selectedOccasionIndex;
+              return (
+                <button
+                  key={cake.id}
+                  type="button"
+                  onClick={() => setSelectedOccasionIndex(dotIdx)}
+                  className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 whitespace-nowrap text-xs font-semibold shrink-0 cursor-pointer ${
+                    isCurrent
+                      ? 'bg-brand-caramel text-white font-bold shadow-md scale-102 border border-brand-gold/40'
+                      : 'text-white/75 hover:text-white hover:bg-white/15'
+                  }`}
+                >
+                  <span
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      isCurrent ? 'bg-brand-gold animate-pulse' : 'bg-white/40'
+                    }`}
+                  />
+                  <span>{cake.shortName}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
