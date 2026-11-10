@@ -809,12 +809,12 @@ export default function Header() {
           </div>
         )}
 
-      {/* 7. Fixed Mobile Bottom Navigation Bar (Menu, Cart, Search, Cakes, Home) */}
+      {/* 7. Fixed Mobile Bottom Navigation Bar (Solid Opaque Background - No Transparency) */}
       <nav
         aria-label="Mobile Navigation"
-        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-brand-cream/98 backdrop-blur-md border-t border-brand-chocolate/15 shadow-[0_-4px_20px_rgba(66,6,0,0.08)] pb-[env(safe-area-inset-bottom)]"
+        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-brand-cream border-t-2 border-brand-chocolate/20 shadow-[0_-6px_25px_rgba(66,6,0,0.14)] pb-[env(safe-area-inset-bottom)]"
       >
-        <div className="grid grid-cols-5 h-15 items-center px-2">
+        <div className="grid grid-cols-5 h-15 items-center px-2 bg-brand-cream">
           {/* 1. Home */}
           <Link
             href="/"
