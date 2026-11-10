@@ -21,6 +21,7 @@ import {
 import { api } from '@/lib/api';
 import { useCart } from '@/context/CartContext';
 import ProductCard from '@/components/products/ProductCard';
+import { MASTER_PRODUCTS } from '@/lib/productsData';
 
 export default function ProductDetailPage() {
   const { slug } = useParams();
@@ -66,9 +67,29 @@ export default function ProductDetailPage() {
           setSelectedFlavour(res.product.availableFlavours?.[0] || 'Belgian Chocolate Truffle');
           setIsEggless(res.product.egglessAvailable ?? true);
           setRelatedProducts(res.relatedProducts || []);
+        } else {
+          // Fallback to master product data
+          const found = MASTER_PRODUCTS.find((p) => p.slug === String(slug));
+          if (found) {
+            setProduct(found);
+            setSelectedImage(found.images?.[0] || '');
+            setSelectedWeight(found.availableWeights?.[0] || '0.5 kg');
+            setSelectedFlavour(found.availableFlavours?.[0] || 'Original');
+            setIsEggless(found.egglessAvailable ?? true);
+            setRelatedProducts(MASTER_PRODUCTS.filter((p) => p.slug !== found.slug).slice(0, 4));
+          }
         }
       } catch (err) {
-        console.error(err);
+        // Fallback to master product data
+        const found = MASTER_PRODUCTS.find((p) => p.slug === String(slug));
+        if (found) {
+          setProduct(found);
+          setSelectedImage(found.images?.[0] || '');
+          setSelectedWeight(found.availableWeights?.[0] || '0.5 kg');
+          setSelectedFlavour(found.availableFlavours?.[0] || 'Original');
+          setIsEggless(found.egglessAvailable ?? true);
+          setRelatedProducts(MASTER_PRODUCTS.filter((p) => p.slug !== found.slug).slice(0, 4));
+        }
       } finally {
         setLoading(false);
       }
@@ -84,16 +105,34 @@ export default function ProductDetailPage() {
   const getPriceForWeight = (w: string) => {
     if (!product) return 0;
     const base = product.basePrice;
-    if (w.includes('0.5')) return base;
-    if (w.includes('1.5')) return Math.round(base * 2.8);
-    if (w.includes('1')) return Math.round(base * 1.9);
-    if (w.includes('2')) return Math.round(base * 3.6);
-    if (w.includes('3')) return Math.round(base * 5.2);
-    if (w.includes('4')) return Math.round(base * 6.8);
+    const lower = w.toLowerCase();
+    
+    // Pastry and Sweet portion pricing
+    if (lower.includes('1 slice') || lower.includes('1 piece') || lower.includes('1 cup') || lower.includes('1 jar')) return base;
+    if (lower.includes('box of 2') || lower.includes('pack of 2')) return Math.round(base * 1.95);
+    if (lower.includes('box of 4') || lower.includes('pack of 4')) return Math.round(base * 3.8);
+    if (lower.includes('box of 6')) return Math.round(base * 5.5);
+    if (lower.includes('box of 12')) return Math.round(base * 10.5);
+
+    // Cake weight pricing
+    if (lower.includes('0.5')) return base;
+    if (lower.includes('1.5')) return Math.round(base * 2.8);
+    if (lower.includes('1')) return Math.round(base * 1.9);
+    if (lower.includes('2')) return Math.round(base * 3.6);
+    if (lower.includes('3')) return Math.round(base * 5.2);
+    if (lower.includes('4')) return Math.round(base * 6.8);
+    if (lower.includes('5')) return Math.round(base * 8.4);
     return base;
   };
 
   const getServingForWeight = (w: string) => {
+    const lower = w.toLowerCase();
+    if (lower.includes('1 slice') || lower.includes('1 piece') || lower.includes('1 cup') || lower.includes('1 jar')) return 'Individual Treat (Serves 1)';
+    if (lower.includes('box of 2') || lower.includes('pack of 2')) return 'Pair Indulgence (Serves 2)';
+    if (lower.includes('box of 4') || lower.includes('pack of 4')) return 'Dessert Sharing Box (Serves 3 - 4)';
+    if (lower.includes('box of 6')) return 'Celebration Box (Serves 4 - 6)';
+    if (lower.includes('box of 12')) return 'Party Sharing Box (Serves 8 - 12)';
+
     if (w.includes('0.5')) return 'Serves 4 - 6';
     if (w.includes('1.5')) return 'Serves 12 - 16';
     if (w.includes('1')) return 'Serves 8 - 12';

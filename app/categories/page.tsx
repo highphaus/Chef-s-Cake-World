@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { api } from '@/lib/api';
+import { MASTER_CATEGORIES } from '@/lib/productsData';
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -13,8 +14,13 @@ export default function CategoriesPage() {
     const fetchCats = async () => {
       try {
         const res = await api.getCategories();
-        if (res.success && res.categories) setCategories(res.categories);
+        if (res.success && res.categories && res.categories.length > 0) {
+          setCategories(res.categories);
+        } else {
+          setCategories(MASTER_CATEGORIES);
+        }
       } catch (err) {
+        setCategories(MASTER_CATEGORIES);
       } finally {
         setLoading(false);
       }
@@ -22,58 +28,7 @@ export default function CategoriesPage() {
     fetchCats();
   }, []);
 
-  const defaultCategories = [
-    {
-      name: 'Birthday Cakes',
-      slug: 'birthday-cakes',
-      description: 'Vibrant celebratory cakes handcrafted with joy to turn birthdays into cherished memories.',
-      image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      name: 'Wedding Cakes',
-      slug: 'wedding-cakes',
-      description: 'Multi-tiered royal masterworks designed with artistic elegance for your grandest day.',
-      image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      name: 'Anniversary Cakes',
-      slug: 'anniversary-cakes',
-      description: 'Romantic decadent creations to celebrate enduring love and cherished milestones.',
-      image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      name: 'Chocolate Cakes',
-      slug: 'chocolate-cakes',
-      description: 'Rich, velvety pure Belgian and Dutch couverture chocolate indulgences.',
-      image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      name: 'Photo Cakes',
-      slug: 'photo-cakes',
-      description: 'High-definition edible sugar-sheet printed cakes bringing your favourite memories to life.',
-      image: 'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      name: 'Designer Cakes',
-      slug: 'designer-cakes',
-      description: 'Sculpted fondant, bespoke floral themes, and custom artisan concepts.',
-      image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      name: "Kids' Cakes",
-      slug: 'kids-cakes',
-      description: 'Playful cartoon, superhero, fairytale, and magical fantasy cakes for little dreamers.',
-      image: 'https://images.unsplash.com/photo-1562440499-64c9a111f713?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      name: 'Eggless Delights',
-      slug: 'eggless-cakes',
-      description: '100% vegetarian, ultra-moist sponge cakes made without any egg compromise on taste.',
-      image: 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop',
-    },
-  ];
-
-  const catList = categories.length > 0 ? categories : defaultCategories;
+  const catList = categories.length > 0 ? categories : MASTER_CATEGORIES;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">

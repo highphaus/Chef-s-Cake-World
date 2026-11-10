@@ -238,6 +238,8 @@ export default function HomePage() {
 
   // Fallback categories if server not yet populated
   const displayCategories = categories.length > 0 ? categories : [
+    { name: 'Artisan Pastries', slug: 'pastries', image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600&auto=format&fit=crop' },
+    { name: 'Sweets & Desserts', slug: 'sweets-desserts', image: 'https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=600&auto=format&fit=crop' },
     { name: 'Birthday Cakes', slug: 'birthday-cakes', image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=600&auto=format&fit=crop' },
     { name: 'Wedding Cakes', slug: 'wedding-cakes', image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=600&auto=format&fit=crop' },
     { name: 'Anniversary Cakes', slug: 'anniversary-cakes', image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600&auto=format&fit=crop' },
@@ -688,6 +690,94 @@ export default function HomePage() {
     },
   ];
 
+  // Curated Section 5: Artisan Pastries & Gourmet Sweets
+  const pastriesAndSweets = [
+    {
+      _id: 'pastry-1',
+      name: 'Signature Belgian Chocolate Truffle Pastry',
+      slug: 'signature-belgian-chocolate-truffle-pastry',
+      description: 'Moist cocoa sponge layered with 70% Callebaut Belgian dark ganache and cocoa pearls.',
+      basePrice: 129,
+      images: ['https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['1 Slice', 'Box of 2', 'Box of 4'],
+      availableFlavours: ['Belgian Dark Truffle'],
+      averageRating: 4.95,
+      reviewCount: 182,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'pastry-2',
+      name: 'Red Velvet Cream Cheese Pastry',
+      slug: 'red-velvet-cream-cheese-pastry',
+      description: 'Crimson cocoa sponge with whipped Philadelphia cream cheese and velvet crumble.',
+      basePrice: 139,
+      images: ['https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['1 Slice', 'Box of 2', 'Box of 4'],
+      availableFlavours: ['Cream Cheese'],
+      averageRating: 4.89,
+      reviewCount: 145,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'sweet-1',
+      name: 'Royal Gulab Jamun Fusion Dessert Cup',
+      slug: 'royal-gulab-jamun-fusion-dessert-cup',
+      description: 'Warm cardamom saffron sponge with rabdi mousse and mini Gulab Jamuns & pistachios.',
+      basePrice: 139,
+      images: ['https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['1 Cup', 'Pack of 2', 'Pack of 4'],
+      availableFlavours: ['Saffron Rabdi'],
+      averageRating: 4.97,
+      reviewCount: 138,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'pastry-3',
+      name: 'Blueberry Mascarpone Cheesecake Pastry',
+      slug: 'blueberry-mascarpone-cheesecake-pastry',
+      description: 'Baked New York style cheesecake slice topped with French wild blueberry coulis.',
+      basePrice: 159,
+      images: ['https://images.unsplash.com/photo-1533134242443-d4fd215305ad?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['1 Slice', 'Box of 2', 'Box of 4'],
+      availableFlavours: ['Wild Blueberry'],
+      averageRating: 4.92,
+      reviewCount: 96,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'sweet-2',
+      name: 'Artisan French Macarons Gift Box',
+      slug: 'artisan-french-macarons-gift-box',
+      description: 'Handcrafted Parisian macarons: Pistachio, Truffle, Salted Caramel, Raspberry, Vanilla.',
+      basePrice: 349,
+      images: ['https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['Box of 6', 'Box of 12'],
+      availableFlavours: ['Assorted Parisian Flavors'],
+      averageRating: 4.94,
+      reviewCount: 160,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+    {
+      _id: 'sweet-3',
+      name: 'Classic Italian Espresso Tiramisu Cup',
+      slug: 'classic-italian-espresso-tiramisu-cup',
+      description: 'Savoiardi ladyfingers in Arabica espresso with whipped mascarpone and Valrhona cocoa.',
+      basePrice: 169,
+      images: ['https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=800&auto=format&fit=crop'],
+      availableWeights: ['1 Cup', 'Pack of 2', 'Pack of 4'],
+      availableFlavours: ['Espresso Mascarpone'],
+      averageRating: 4.91,
+      reviewCount: 124,
+      isBestSeller: true,
+      egglessAvailable: true,
+    },
+  ];
+
   return (
     <div className="space-y-20 pb-20">
       {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL WITH CONTINUOUS AUTO-ROTATION & TOUCH SWIPE */}
@@ -875,6 +965,15 @@ export default function HomePage() {
         categorySlug="wedding-cakes"
         products={weddingCakes}
         autoScrollInterval={3800}
+      />
+
+      {/* SECTION 3E: BEST SELLING PASTRIES & SWEETS (2 CARDS PER SCREEN ON MOBILE) */}
+      <ProductCarouselSection
+        badge="Patisserie Slices & Gourmet Confections"
+        title="Best Selling Pastries & Sweets"
+        categorySlug="pastries"
+        products={pastriesAndSweets}
+        autoScrollInterval={3100}
       />
 
       {/* SECTION 4: PINCODE DELIVERY CHECKER & BRANCH LOCATOR PROMOTION */}

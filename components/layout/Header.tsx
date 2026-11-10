@@ -119,6 +119,8 @@ export default function Header() {
   };
 
   const quickSearchTags = [
+    'Pastries',
+    'Sweets & Desserts',
     'Belgian Truffle',
     'Red Velvet',
     '100% Eggless',
@@ -128,6 +130,18 @@ export default function Header() {
   ];
 
   const cakeHighlights = [
+    {
+      title: 'Artisan Pastries',
+      href: '/cakes?category=pastries',
+      desc: 'Individual truffle, red velvet & cheesecake slices',
+      image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=300&auto=format&fit=crop'
+    },
+    {
+      title: 'Sweets & Desserts',
+      href: '/cakes?category=sweets-desserts',
+      desc: 'Gulab jamun cups, macarons & tiramisu',
+      image: 'https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=300&auto=format&fit=crop'
+    },
     {
       title: 'Birthday Cakes',
       href: '/cakes?category=birthday-cakes',
@@ -141,16 +155,16 @@ export default function Header() {
       image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=300&auto=format&fit=crop'
     },
     {
-      title: 'Grand Wedding Tiers',
-      href: '/cakes?category=wedding-cakes',
-      desc: 'Tiered floral & 24K gold masterworks',
-      image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=300&auto=format&fit=crop'
-    },
-    {
       title: '🌱 100% Pure Eggless Cakes',
       href: '/cakes?category=eggless-cakes',
       desc: 'Certified vegetarian kitchen creations',
       image: 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=300&auto=format&fit=crop'
+    },
+    {
+      title: 'Grand Wedding Tiers',
+      href: '/cakes?category=wedding-cakes',
+      desc: 'Tiered floral & 24K gold masterworks',
+      image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=300&auto=format&fit=crop'
     }
   ];
 
@@ -682,10 +696,32 @@ export default function Header() {
                 href="/cakes"
                 onClick={() => setMobileMenuOpen(false)}
                 className={`px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center ${
-                  pathname === '/cakes' ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
+                  pathname === '/cakes' && (!searchQuery || !searchQuery.includes('pastries')) ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
                 }`}
               >
                 Explore All Cakes
+              </Link>
+
+              <Link
+                href="/cakes?category=pastries"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between text-brand-chocolate hover:bg-white/60"
+              >
+                <span>🍰 Artisan Pastries</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-peach text-brand-chocolate font-bold">
+                  Slices & Packs
+                </span>
+              </Link>
+
+              <Link
+                href="/cakes?category=sweets-desserts"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between text-brand-chocolate hover:bg-white/60"
+              >
+                <span>🍮 Sweets & Desserts</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-peach text-brand-chocolate font-bold">
+                  Gourmet
+                </span>
               </Link>
 
               <Link
