@@ -258,17 +258,36 @@ export default function Header() {
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
           <div className="flex items-center justify-between h-16 sm:h-20 lg:h-[88px] xl:h-24 gap-2 xl:gap-6">
-            {/* 1. Brand Identity Logo & Name (Anchored to Far Left Side - Prominently Sized) */}
-            <div className="flex items-center shrink-0">
-              <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="Chef's Cake World">
-                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            {/* 1. Left Section: Mobile Menu Toggle (lg:hidden) + Brand Identity Logo & Name */}
+            <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+              {/* Mobile Hamburger Menu Toggle (On the Left Side of Top Navbar) */}
+              <button
+                type="button"
+                onClick={() => {
+                  const willOpen = !mobileMenuOpen;
+                  setMobileMenuOpen(willOpen);
+                  if (willOpen) setSearchOpen(false);
+                }}
+                className={`p-2 -ml-1 rounded-xl transition-all shrink-0 lg:hidden ${
+                  mobileMenuOpen
+                    ? 'bg-brand-peach text-brand-caramel'
+                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                }`}
+                aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
+                title="Menu"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+
+              <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0" title="Chef's Cake World">
+                <div className="relative w-10 h-10 xs:w-11 xs:h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
                     alt="Chef's Cake World Logo"
                     className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
-                <span className="font-heading text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-brand-chocolate tracking-tight whitespace-nowrap group-hover:text-brand-caramel transition-colors">
+                <span className="font-heading text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-brand-chocolate tracking-tight whitespace-nowrap group-hover:text-brand-caramel transition-colors">
                   Chef&apos;s Cake World
                 </span>
               </Link>
@@ -625,7 +644,7 @@ export default function Header() {
               </button>
             </div>
 
-            {/* 4. Action Controls for Smaller Devices (Search & Cart on Top Right Navbar + Menu) */}
+            {/* 4. Action Controls for Smaller Devices (Search & Cart on Top Right Navbar) */}
             <div className="flex lg:hidden items-center gap-1 xs:gap-1.5 shrink-0">
               {/* Mobile Search Button */}
               <button
@@ -665,25 +684,6 @@ export default function Header() {
                     {itemCount > 99 ? '99+' : itemCount}
                   </span>
                 )}
-              </button>
-
-              {/* Mobile Hamburger Menu Toggle */}
-              <button
-                type="button"
-                onClick={() => {
-                  const willOpen = !mobileMenuOpen;
-                  setMobileMenuOpen(willOpen);
-                  if (willOpen) setSearchOpen(false);
-                }}
-                className={`p-2 rounded-xl transition-all shrink-0 ${
-                  mobileMenuOpen
-                    ? 'bg-brand-peach text-brand-caramel'
-                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
-                }`}
-                aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
-                title="Menu"
-              >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
