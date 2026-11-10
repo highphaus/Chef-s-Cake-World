@@ -16,7 +16,11 @@ import {
   Phone,
   MapPin,
   Truck,
-  Navigation
+  Navigation,
+  ChefHat,
+  Gift,
+  Layers,
+  UtensilsCrossed
 } from 'lucide-react';
 import { api } from '@/lib/api';
 import { OFFICIAL_BRANCHES } from '@/lib/branchesData';
@@ -771,9 +775,9 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
-      {/* SECTION 1: HERO CAROUSEL (CAKE NAME & ORDER NOW CTA) */}
+      {/* SECTION 1: HERO ATELIER SHOWCASE */}
       <section
-        className="relative w-full h-[58vh] xs:h-[64vh] sm:h-[74vh] lg:h-[84vh] min-h-[400px] max-h-[740px] overflow-hidden bg-black select-none touch-pan-y"
+        className="relative w-full h-[60vh] xs:h-[66vh] sm:h-[76vh] lg:h-[86vh] min-h-[420px] max-h-[760px] overflow-hidden bg-brand-chocolate select-none touch-pan-y"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
@@ -788,34 +792,41 @@ export default function HomePage() {
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Background Image */}
+              {/* Background Image with Slow Subtle Ken Burns Zoom */}
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
                   src={activeCake.image}
                   alt={activeCake.cakeName}
-                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_20%] origin-top transition-transform duration-[4000ms] ease-out ${
-                    isActive ? 'scale-105' : 'scale-100'
+                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_20%] origin-top transition-transform duration-[5000ms] ease-out ${
+                    isActive ? 'scale-108' : 'scale-100'
                   }`}
                 />
-                {/* Gentle bottom shadow gradient for crisp title & CTA contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
+                {/* Multi-layer Editorial Vignette & High-Contrast Shadow */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate/95 via-brand-chocolate/40 to-black/30 pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_transparent_50%,_rgba(66,6,0,0.6)_100%)] pointer-events-none" />
               </div>
 
               {/* Overlaid Title & CTA Container */}
-              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-12 xs:pb-14 sm:pb-16 lg:pb-20">
-                <div className="max-w-xl space-y-2.5 sm:space-y-3.5">
-                  {/* Name of the Cake */}
-                  <h1 className="font-heading text-xl xs:text-2xl sm:text-4xl lg:text-5xl text-white leading-[1.15] tracking-tight drop-shadow-md">
+              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-14 xs:pb-16 sm:pb-20 lg:pb-24">
+                <div className="max-w-2xl space-y-3 sm:space-y-4">
+                  {/* Subtle Luxury Atelier Badge */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-brand-gold/30 text-brand-gold text-[10px] sm:text-xs font-semibold tracking-widest uppercase">
+                    <Sparkles className="w-3 h-3 text-brand-gold" />
+                    <span>Artisan Patisserie Collection</span>
+                  </div>
+
+                  {/* Name of the Cake - Clean, Rich Playfair Serif Typography */}
+                  <h1 className="font-heading text-2xl xs:text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-lg">
                     {activeCake.cakeName}
                   </h1>
 
-                  {/* Primary CTA */}
-                  <div>
+                  {/* Primary CTA Button */}
+                  <div className="pt-1">
                     <Link
                       href={`/cakes/${activeCake.slug}`}
-                      className="inline-flex items-center gap-2 py-2.5 sm:py-3 px-5 sm:px-7 rounded-xl sm:rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-xl active:scale-95 group min-h-[44px]"
+                      className="inline-flex items-center gap-2.5 py-3 sm:py-3.5 px-6 sm:px-8 rounded-full bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-[0_8px_24px_rgba(186,99,0,0.35)] active:scale-95 group min-h-[46px] border border-brand-gold/20"
                     >
-                      <span>Order Now</span>
+                      <span className="tracking-wide uppercase text-[11px] sm:text-xs font-bold">Order Now</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
@@ -825,8 +836,36 @@ export default function HomePage() {
           );
         })}
 
+        {/* Top Atelier Quick Occasion Pills (Editorial Interactive Navigation) */}
+        <div className="absolute top-4 sm:top-6 left-0 right-0 z-20 px-4 sm:px-6 pointer-events-auto">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scrollbar-none py-1 max-w-full">
+              {celebrationOccasions.map((occ, occIdx) => (
+                <button
+                  key={occ.id}
+                  type="button"
+                  onClick={() => setSelectedOccasionIndex(occIdx)}
+                  className={`px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold whitespace-nowrap transition-all duration-300 ${
+                    occIdx === selectedOccasionIndex
+                      ? 'bg-brand-gold text-brand-chocolate font-bold shadow-lg shadow-black/30 scale-105'
+                      : 'bg-black/35 backdrop-blur-md text-white/85 hover:bg-black/55 hover:text-white border border-white/10'
+                  }`}
+                >
+                  {occ.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Atelier Crest Watermark (Desktop only) */}
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[11px] font-semibold text-brand-gold/90 shrink-0">
+              <Award className="w-3.5 h-3.5 text-brand-gold" />
+              <span>Kerala&apos;s 8 Artisan Boutiques</span>
+            </div>
+          </div>
+        </div>
+
         {/* Hero Slide Indicator Dots */}
-        <div className="absolute bottom-3 sm:bottom-4 left-0 right-0 z-20 flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-auto">
+        <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-2 pointer-events-auto">
           {celebrationOccasions.map((_, dotIdx) => (
             <button
               key={dotIdx}
@@ -835,29 +874,62 @@ export default function HomePage() {
               aria-label={`Go to slide ${dotIdx + 1}`}
               className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                 dotIdx === selectedOccasionIndex
-                  ? 'w-7 sm:w-8 bg-brand-gold shadow-md'
-                  : 'w-2 bg-white/50 hover:bg-white/80'
+                  ? 'w-8 sm:w-10 bg-brand-gold shadow-md'
+                  : 'w-2 bg-white/40 hover:bg-white/70'
               }`}
             />
           ))}
         </div>
       </section>
 
-      {/* SECTION 2: EXPLORE OUR CAKES (ONE LINE TITLE & AUTOMATIC MOVEMENT CAROUSEL) */}
+      {/* LUXURY ATELIER QUALITY RIBBON */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+        <div className="bg-[#FAF8F5] rounded-2xl border border-brand-chocolate/12 shadow-[0_10px_30px_rgba(66,6,0,0.08)] py-3 sm:py-4 px-4 sm:px-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-brand-chocolate/10">
+          <div className="flex items-center gap-3 pt-1 sm:pt-0">
+            <div className="w-9 h-9 rounded-full bg-brand-chocolate/8 flex items-center justify-center text-brand-caramel shrink-0">
+              <Award className="w-4 h-4 text-brand-caramel" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-brand-chocolate tracking-tight">100% Callebaut Couverture</p>
+              <p className="text-[10px] text-brand-chocolate/65">Pure Belgian cocoa, zero compound fats</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 pt-2.5 sm:pt-0 sm:pl-6">
+            <div className="w-9 h-9 rounded-full bg-emerald-900/10 flex items-center justify-center text-emerald-700 shrink-0">
+              <ShieldCheck className="w-4 h-4 text-emerald-700" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-brand-chocolate tracking-tight">Segregated Pure Veg Ovens</p>
+              <p className="text-[10px] text-brand-chocolate/65">Independent sanctum for 100% eggless cakes</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 pt-2.5 sm:pt-0 sm:pl-6">
+            <div className="w-9 h-9 rounded-full bg-brand-caramel/10 flex items-center justify-center text-brand-caramel shrink-0">
+              <Truck className="w-4 h-4 text-brand-caramel" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-brand-chocolate tracking-tight">2-Hour Doorstep Dispatch</p>
+              <p className="text-[10px] text-brand-chocolate/65">Direct from your closest of 8 Kerala hubs</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 2: CURATED COLLECTIONS (PARISIAN ARCH PORTALS) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="flex items-center justify-between mb-3 xs:mb-4 sm:mb-6 gap-2 sm:gap-4">
+        <div className="flex items-center justify-between mb-4 sm:mb-6 gap-2 sm:gap-4">
           <div className="min-w-0 flex-1">
             <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1 truncate">
-              Curated Collections
+              Artisan Portals
             </span>
             <h2 className="font-heading text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl text-brand-chocolate tracking-tight leading-tight">
-              Explore Our Cakes
+              Explore Our Collections
             </h2>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <span className="hidden sm:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
-              <span>Auto-moving</span>
+              <span>Auto-gliding</span>
               <span className="text-brand-caramel font-bold">&bull;</span>
               <span>Swipe</span>
             </span>
@@ -871,39 +943,54 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Single-Line Automatic Movement Carousel Track (Zero scrollbar, no page overflow) */}
+        {/* Arch-topped Parisian boutique portals */}
         <div
           ref={categoryScrollRef}
           onMouseEnter={() => setIsCategoryPaused(true)}
           onMouseLeave={() => setIsCategoryPaused(false)}
           onTouchStart={() => setIsCategoryPaused(true)}
           onTouchEnd={() => setIsCategoryPaused(false)}
-          className="flex gap-3 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
+          className="flex gap-3 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {displayCategories.map((cat: any) => (
-            <Link
-              key={cat.slug}
-              href={`/cakes?category=${cat.slug}`}
-              className="group relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/5] sm:aspect-square w-[190px] xs:w-[220px] sm:w-[260px] lg:w-[285px] shrink-0 border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all duration-300 transform hover:-translate-y-1"
-            >
-              <img
-                src={cat.image}
-                alt={cat.name}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate/90 via-brand-chocolate/30 to-transparent group-hover:from-brand-chocolate/95 transition-colors" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <h3 className="font-heading text-lg sm:text-xl text-brand-cream group-hover:text-brand-gold transition-colors leading-tight">
-                  {cat.name}
-                </h3>
-                <span className="text-[11px] font-semibold text-brand-cream/80 flex items-center gap-1 mt-1 opacity-90 group-hover:opacity-100">
-                  <span>Browse Cakes</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
-            </Link>
-          ))}
+          {displayCategories.map((cat: any, idx: number) => {
+            const padIndex = String(idx + 1).padStart(2, '0');
+            return (
+              <Link
+                key={cat.slug}
+                href={`/cakes?category=${cat.slug}`}
+                className="group relative rounded-t-[3.25rem] sm:rounded-t-[4.5rem] rounded-b-2xl overflow-hidden aspect-[3/4] w-[180px] xs:w-[210px] sm:w-[250px] lg:w-[275px] shrink-0 border border-brand-chocolate/15 shadow-[0_6px_20px_rgba(66,6,0,0.08)] hover:shadow-[0_16px_36px_rgba(66,6,0,0.18)] hover:border-brand-gold/60 transition-all duration-500 transform hover:-translate-y-1.5 bg-brand-chocolate flex flex-col justify-between"
+              >
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out absolute inset-0"
+                />
+                {/* Dark Vignette Overlay with Gold Accent Glow */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate via-brand-chocolate/40 to-black/25 group-hover:from-brand-chocolate/95 transition-colors" />
+
+                {/* Top Numbered Collection Mark */}
+                <div className="relative z-10 p-3 sm:p-4 flex justify-between items-center">
+                  <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-brand-gold/90 bg-black/45 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-brand-gold/30">
+                    {padIndex}
+                  </span>
+                  <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-xs flex items-center justify-center text-white/80 group-hover:bg-brand-gold group-hover:text-brand-chocolate transition-colors">
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </div>
+
+                {/* Bottom Title & Action */}
+                <div className="relative z-10 p-3.5 sm:p-4 text-white">
+                  <h3 className="font-heading text-base sm:text-xl text-brand-cream group-hover:text-brand-gold transition-colors leading-tight drop-shadow-sm">
+                    {cat.name}
+                  </h3>
+                  <span className="text-[10px] sm:text-[11px] font-semibold text-brand-cream/80 flex items-center gap-1 mt-1 opacity-90 group-hover:opacity-100 font-body">
+                    <span>Explore Portal</span>
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -961,9 +1048,134 @@ export default function HomePage() {
         autoScrollInterval={3100}
       />
 
-      {/* SECTION 4: PINCODE DELIVERY CHECKER & BRANCH LOCATOR PROMOTION */}
+      {/* SECTION 4: THE CHEF'S TASTING ATELIER (SENSORY CONFECTIONERY SECRETS) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center bg-brand-peach/50 rounded-2xl sm:rounded-3xl p-4 xs:p-6 sm:p-10 border border-brand-chocolate/10">
+        <div className="rounded-3xl bg-[#FAF8F5] border border-brand-chocolate/12 p-6 sm:p-10 lg:p-14 shadow-[0_8px_30px_rgba(66,6,0,0.06)]">
+          <div className="max-w-2xl mx-auto text-center space-y-2 mb-8 sm:mb-12">
+            <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block">
+              The Artisan Craft
+            </span>
+            <h2 className="font-heading text-2xl xs:text-3xl sm:text-4xl text-brand-chocolate tracking-tight">
+              The Chef&apos;s Tasting Atelier
+            </h2>
+            <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed font-body">
+              Behind every cake is a relentless pursuit of culinary perfection: authentic single-origin couverture,
+              segregated ovens, and genuine artisan techniques that elevate celebratory desserts into unforgettable memories.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="p-5 rounded-2xl bg-white border border-brand-chocolate/10 shadow-xs hover:shadow-md transition-all space-y-3 group">
+              <div className="w-12 h-12 rounded-xl bg-brand-peach/60 flex items-center justify-center text-brand-chocolate group-hover:bg-brand-chocolate group-hover:text-brand-gold transition-colors">
+                <Award className="w-6 h-6 text-brand-caramel group-hover:text-brand-gold" />
+              </div>
+              <h3 className="font-heading text-lg text-brand-chocolate">70% Callebaut Couverture</h3>
+              <p className="text-xs text-brand-chocolate/70 leading-relaxed font-body">
+                Imported pure Belgian cocoa butter and solids with zero artificial fats or compound chocolate for an intensely silky melt.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white border border-brand-chocolate/10 shadow-xs hover:shadow-md transition-all space-y-3 group">
+              <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 group-hover:bg-emerald-900 group-hover:text-emerald-200 transition-colors">
+                <ShieldCheck className="w-6 h-6 text-emerald-700 group-hover:text-emerald-200" />
+              </div>
+              <h3 className="font-heading text-lg text-brand-chocolate">Segregated 100% Veg Ovens</h3>
+              <p className="text-xs text-brand-chocolate/70 leading-relaxed font-body">
+                Dedicated baking ovens, independent preparation stations, and strict vegetarian certification so you celebrate with peace of mind.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white border border-brand-chocolate/10 shadow-xs hover:shadow-md transition-all space-y-3 group">
+              <div className="w-12 h-12 rounded-xl bg-brand-peach/60 flex items-center justify-center text-brand-chocolate group-hover:bg-brand-chocolate group-hover:text-brand-gold transition-colors">
+                <Sparkles className="w-6 h-6 text-brand-caramel group-hover:text-brand-gold" />
+              </div>
+              <h3 className="font-heading text-lg text-brand-chocolate">Bourbon Vanilla &amp; Cheese</h3>
+              <p className="text-xs text-brand-chocolate/70 leading-relaxed font-body">
+                Real Madagascar bourbon vanilla bean caviar paired with authentic whipped Philadelphia cream cheese for balanced sweetness.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white border border-brand-chocolate/10 shadow-xs hover:shadow-md transition-all space-y-3 group">
+              <div className="w-12 h-12 rounded-xl bg-brand-peach/60 flex items-center justify-center text-brand-chocolate group-hover:bg-brand-chocolate group-hover:text-brand-gold transition-colors">
+                <Truck className="w-6 h-6 text-brand-caramel group-hover:text-brand-gold" />
+              </div>
+              <h3 className="font-heading text-lg text-brand-chocolate">Refrigerated 2-Hr Dispatch</h3>
+              <p className="text-xs text-brand-chocolate/70 leading-relaxed font-body">
+                Dispatched in temperature-controlled carriers from your nearest Kerala branch to ensure flawless structural perfection on arrival.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5: THE 3-STEP FRESHNESS JOURNEY */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+          <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
+            From Oven to Table
+          </span>
+          <h2 className="font-heading text-2xl xs:text-3xl sm:text-4xl text-brand-chocolate tracking-tight">
+            The 3-Step Freshness Journey
+          </h2>
+          <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed font-body mt-2">
+            We never store pre-baked inventory. Every single celebration cake embarks on this dedicated journey the very day you order.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 relative">
+          {/* Step 1 */}
+          <div className="relative bg-[#FAF8F5] rounded-2xl p-6 sm:p-7 border border-brand-chocolate/12 shadow-[0_4px_16px_rgba(66,6,0,0.06)] flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-3xl font-heading font-bold text-brand-caramel/40">01</span>
+                <span className="px-2.5 py-1 rounded-full bg-brand-peach text-brand-chocolate text-[10px] font-bold tracking-wider uppercase">
+                  Oven Dawn
+                </span>
+              </div>
+              <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">Fresh Sponge Bake</h3>
+              <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed font-body">
+                Whipped pure butter, farm-fresh ingredients, and unbleached flour baked at dawn in our local patisserie kitchen.
+              </p>
+            </div>
+          </div>
+
+          {/* Step 2 */}
+          <div className="relative bg-[#FAF8F5] rounded-2xl p-6 sm:p-7 border border-brand-chocolate/12 shadow-[0_4px_16px_rgba(66,6,0,0.06)] flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-3xl font-heading font-bold text-brand-caramel/40">02</span>
+                <span className="px-2.5 py-1 rounded-full bg-brand-chocolate text-brand-gold text-[10px] font-bold tracking-wider uppercase">
+                  Master Styling
+                </span>
+              </div>
+              <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">Hand-Tempered Artistry</h3>
+              <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed font-body">
+                Silky Belgian ganache piping, fresh fruit toppings, 24K gold foil accents, and your personalized chocolate plaque.
+              </p>
+            </div>
+          </div>
+
+          {/* Step 3 */}
+          <div className="relative bg-[#FAF8F5] rounded-2xl p-6 sm:p-7 border border-brand-chocolate/12 shadow-[0_4px_16px_rgba(66,6,0,0.06)] flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-3xl font-heading font-bold text-brand-caramel/40">03</span>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-300 text-[10px] font-bold tracking-wider uppercase">
+                  2-Hour Dispatch
+                </span>
+              </div>
+              <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">Refrigerated Hand-Off</h3>
+              <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed font-body">
+                Secured in heavy-duty presentation packaging and hand-delivered directly to your door at your requested celebration slot.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 6: PINCODE DELIVERY CHECKER & BRANCH LOCATOR PROMOTION */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center bg-gradient-to-br from-[#FAF8F5] to-brand-peach/40 rounded-2xl sm:rounded-3xl p-4 xs:p-6 sm:p-10 border border-brand-chocolate/10 shadow-sm">
           <div className="lg:col-span-6 space-y-4">
             <span className="text-xs uppercase font-bold text-brand-caramel tracking-widest block">
               Multi-Branch Network
@@ -998,7 +1210,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 5: CUSTOM CAKE EXPERIENCE */}
+      {/* SECTION 7: BESPOKE CUSTOM CAKE STUDIO */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-brand-chocolate text-white p-6 sm:p-10 lg:p-16 shadow-2xl">
           <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
@@ -1043,7 +1255,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 6: WHY CHOOSE US */}
+      {/* SECTION 8: QUALITY PLEDGE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
           <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
@@ -1117,7 +1329,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 7: OUR BRANCHES */}
+      {/* SECTION 9: OUR BRANCHES (KERALA ATELIER BOUTIQUES) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3">
           <div>
@@ -1141,23 +1353,29 @@ export default function HomePage() {
           {OFFICIAL_BRANCHES.map((b) => (
             <div
               key={b.branchCode}
-              className="bg-white rounded-2xl p-4 sm:p-5 border border-brand-chocolate/10 shadow-cake-soft flex flex-col justify-between hover:shadow-cake-hover transition-all group"
+              className="bg-[#FAF8F5] rounded-2xl p-4 sm:p-5 border border-brand-chocolate/12 shadow-[0_4px_16px_rgba(66,6,0,0.06)] hover:shadow-[0_12px_28px_rgba(66,6,0,0.12)] hover:border-brand-caramel/40 flex flex-col justify-between transition-all group"
             >
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-heading text-base sm:text-lg text-brand-chocolate group-hover:text-brand-caramel transition-colors">
-                    {b.shortName}
-                  </h3>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-peach text-brand-chocolate shrink-0">
+                  <div className="space-y-0.5">
+                    <h3 className="font-heading text-base sm:text-lg text-brand-chocolate group-hover:text-brand-caramel transition-colors font-bold">
+                      {b.shortName}
+                    </h3>
+                    <div className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Patisserie &amp; Kitchen Open</span>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-chocolate/10 text-brand-chocolate shrink-0 border border-brand-chocolate/15">
                     {b.branchCode.replace('CCW-', '')}
                   </span>
                 </div>
-                <p className="text-xs text-brand-chocolate/70 leading-relaxed line-clamp-2">
+                <p className="text-xs text-brand-chocolate/70 leading-relaxed line-clamp-2 font-body">
                   {b.address}
                 </p>
-                <div className="text-[11px] text-brand-chocolate/80 space-y-0.5 pt-1 border-t border-brand-chocolate/5">
-                  <p className="flex items-center gap-1 text-brand-chocolate/60">
-                    <Clock className="w-3 h-3 text-brand-caramel shrink-0" />
+                <div className="text-[11px] text-brand-chocolate/80 space-y-0.5 pt-1.5 border-t border-brand-chocolate/8">
+                  <p className="flex items-center gap-1.5 text-brand-chocolate/65">
+                    <Clock className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
                     <span>{b.openingHours}</span>
                   </p>
                 </div>
@@ -1166,7 +1384,7 @@ export default function HomePage() {
               <div className="pt-3 mt-3 border-t border-brand-chocolate/10 flex items-center gap-2">
                 <a
                   href={`tel:${b.rawPhone}`}
-                  className="flex-1 py-1.5 px-2 rounded-xl bg-brand-cream/80 hover:bg-brand-caramel hover:text-white text-brand-chocolate text-[11px] font-bold transition-all flex items-center justify-center gap-1"
+                  className="flex-1 py-2 px-2 rounded-xl bg-white hover:bg-brand-caramel hover:text-white text-brand-chocolate text-[11px] font-bold transition-all flex items-center justify-center gap-1 shadow-2xs border border-brand-chocolate/10"
                 >
                   <Phone className="w-3 h-3 text-brand-caramel group-hover:text-white" />
                   <span>Call Shop</span>
@@ -1175,7 +1393,7 @@ export default function HomePage() {
                   href={b.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(b.address)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="py-1.5 px-2.5 rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white text-[11px] font-bold transition-all flex items-center justify-center gap-1"
+                  className="py-2 px-3 rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white text-[11px] font-bold transition-all flex items-center justify-center gap-1 shadow-2xs"
                   title="Open location in Google Maps"
                 >
                   <Navigation className="w-3 h-3" />
@@ -1187,7 +1405,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 8: CUSTOMER TESTIMONIALS */}
+      {/* SECTION 10: CUSTOMER TESTIMONIALS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
           <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
@@ -1199,13 +1417,13 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3 sm:space-y-4">
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-brand-chocolate/10 shadow-[0_4px_16px_rgba(66,6,0,0.06)] space-y-3 sm:space-y-4">
             <div className="flex text-brand-caramel">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-current" />
               ))}
             </div>
-            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed">
+            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed font-body">
               &ldquo;Ordered the Royal Belgian Chocolate Truffle for my mother&apos;s 60th birthday. The ganache was rich,
               velvety, and not overly sweet. Delivered right at midnight in Attingal with perfect packaging!&rdquo;
             </p>
@@ -1215,13 +1433,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3 sm:space-y-4">
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-brand-chocolate/10 shadow-[0_4px_16px_rgba(66,6,0,0.06)] space-y-3 sm:space-y-4">
             <div className="flex text-brand-caramel">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-current" />
               ))}
             </div>
-            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed">
+            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed font-body">
               &ldquo;Their custom cake consultation was flawless. I shared a Pinterest moodboard for our engagement cake and
               Chef&apos;s Cake World executed the exact floral fondant tiers. Guests couldn&apos;t stop raving.&rdquo;
             </p>
@@ -1231,13 +1449,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3 sm:space-y-4">
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-brand-chocolate/10 shadow-[0_4px_16px_rgba(66,6,0,0.06)] space-y-3 sm:space-y-4">
             <div className="flex text-brand-caramel">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-current" />
               ))}
             </div>
-            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed">
+            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed font-body">
               &ldquo;As a strict vegetarian family, finding high-end eggless cakes that don&apos;t feel dense is tough.
               Their Red Velvet Eggless cake is so moist and authentic. Hands down best in Kerala.&rdquo;
             </p>
@@ -1249,9 +1467,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 9: BRAND STORY */}
+      {/* SECTION 11: BRAND STORY */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl sm:rounded-3xl bg-brand-peach/40 border border-brand-chocolate/10 p-6 sm:p-10 lg:p-16">
+        <div className="rounded-2xl sm:rounded-3xl bg-[#FAF8F5] border border-brand-chocolate/12 p-6 sm:p-10 lg:p-16 shadow-[0_8px_30px_rgba(66,6,0,0.06)]">
           <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-5">
             <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
               The Chef&apos;s Cake World Philosophy
@@ -1267,7 +1485,7 @@ export default function HomePage() {
             <div className="pt-2 sm:pt-3">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate transition-colors"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate transition-colors font-body"
               >
                 <span>Read Our Full Story</span>
                 <ArrowRight className="w-4 h-4" />
