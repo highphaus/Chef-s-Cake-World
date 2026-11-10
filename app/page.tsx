@@ -775,9 +775,9 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
-      {/* SECTION 1: HERO ATELIER SHOWCASE */}
+      {/* SECTION 1: HERO SHOWCASE (THE MUFFIN HOUSE D2C STYLE) */}
       <section
-        className="relative w-full h-[60vh] xs:h-[66vh] sm:h-[76vh] lg:h-[86vh] min-h-[420px] max-h-[760px] overflow-hidden bg-brand-chocolate select-none touch-pan-y"
+        className="relative w-full h-[60vh] xs:h-[66vh] sm:h-[76vh] lg:h-[84vh] min-h-[420px] max-h-[760px] overflow-hidden bg-brand-chocolate select-none touch-pan-y"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
@@ -792,7 +792,7 @@ export default function HomePage() {
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Background Image with Slow Subtle Ken Burns Zoom */}
+              {/* Background Image with Smooth Subtle Zoom */}
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
                   src={activeCake.image}
@@ -801,33 +801,40 @@ export default function HomePage() {
                     isActive ? 'scale-108' : 'scale-100'
                   }`}
                 />
-                {/* Multi-layer Editorial Vignette & High-Contrast Shadow */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate/95 via-brand-chocolate/40 to-black/30 pointer-events-none" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_transparent_50%,_rgba(66,6,0,0.6)_100%)] pointer-events-none" />
+                {/* High-Contrast Dual Gradient for Crisp Text Legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate/95 via-brand-chocolate/45 to-black/30 pointer-events-none" />
+                <div className="absolute inset-0 bg-radial-[ellipse_at_top] from-transparent via-transparent to-brand-chocolate/40 pointer-events-none" />
               </div>
 
               {/* Overlaid Title & CTA Container */}
               <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-14 xs:pb-16 sm:pb-20 lg:pb-24">
                 <div className="max-w-2xl space-y-3 sm:space-y-4">
-                  {/* Subtle Luxury Atelier Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-brand-gold/30 text-brand-gold text-[10px] sm:text-xs font-semibold tracking-widest uppercase">
-                    <Sparkles className="w-3 h-3 text-brand-gold" />
-                    <span>Artisan Patisserie Collection</span>
+                  {/* The Muffin House Style Brand Pill */}
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-chocolate/80 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans">
+                    <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
+                    <span>Baking You Happy &bull; Kerala Patisserie</span>
                   </div>
 
-                  {/* Name of the Cake - Clean, Rich Playfair Serif Typography */}
-                  <h1 className="font-heading text-2xl xs:text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-lg">
+                  {/* Cake Title in Modern Bold Sans-Serif Font */}
+                  <h1 className="font-heading font-extrabold text-2xl xs:text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-md">
                     {activeCake.cakeName}
                   </h1>
 
-                  {/* Primary CTA Button */}
-                  <div className="pt-1">
+                  {/* Dual Action CTA Buttons (The Muffin House Style) */}
+                  <div className="pt-1 flex flex-wrap items-center gap-3">
                     <Link
                       href={`/cakes/${activeCake.slug}`}
-                      className="inline-flex items-center gap-2.5 py-3 sm:py-3.5 px-6 sm:px-8 rounded-full bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-[0_8px_24px_rgba(186,99,0,0.35)] active:scale-95 group min-h-[46px] border border-brand-gold/20"
+                      className="inline-flex items-center gap-2.5 py-3 sm:py-3.5 px-6 sm:px-8 rounded-full bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm font-sans transition-all shadow-[0_8px_24px_rgba(186,99,0,0.35)] active:scale-95 group min-h-[46px] border border-brand-gold/20"
                     >
                       <span className="tracking-wide uppercase text-[11px] sm:text-xs font-bold">Order Now</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+
+                    <Link
+                      href="/cakes"
+                      className="inline-flex items-center gap-2 py-3 sm:py-3.5 px-5 sm:px-7 rounded-full bg-white/15 hover:bg-white text-white hover:text-brand-chocolate font-bold text-xs sm:text-sm font-sans backdrop-blur-xs transition-all border border-white/30 active:scale-95 min-h-[46px]"
+                    >
+                      <span>Explore Menu</span>
                     </Link>
                   </div>
                 </div>
@@ -836,7 +843,7 @@ export default function HomePage() {
           );
         })}
 
-        {/* Top Atelier Quick Occasion Pills (Editorial Interactive Navigation) */}
+        {/* Top Occasion Navigation Pills (The Muffin House Style) */}
         <div className="absolute top-4 sm:top-6 left-0 right-0 z-20 px-4 sm:px-6 pointer-events-auto">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
             <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scrollbar-none py-1 max-w-full">
@@ -845,10 +852,10 @@ export default function HomePage() {
                   key={occ.id}
                   type="button"
                   onClick={() => setSelectedOccasionIndex(occIdx)}
-                  className={`px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold whitespace-nowrap transition-all duration-300 ${
+                  className={`px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold font-sans whitespace-nowrap transition-all duration-300 ${
                     occIdx === selectedOccasionIndex
                       ? 'bg-brand-gold text-brand-chocolate font-bold shadow-lg shadow-black/30 scale-105'
-                      : 'bg-black/35 backdrop-blur-md text-white/85 hover:bg-black/55 hover:text-white border border-white/10'
+                      : 'bg-black/40 backdrop-blur-md text-white/90 hover:bg-black/60 hover:text-white border border-white/15'
                   }`}
                 >
                   {occ.label}
@@ -856,10 +863,10 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* Atelier Crest Watermark (Desktop only) */}
-            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[11px] font-semibold text-brand-gold/90 shrink-0">
+            {/* Hubs Watermark */}
+            <div className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[11px] font-bold text-brand-gold/90 shrink-0 font-sans">
               <Award className="w-3.5 h-3.5 text-brand-gold" />
-              <span>Kerala&apos;s 8 Artisan Boutiques</span>
+              <span>8 Kerala Patisseries</span>
             </div>
           </div>
         </div>
@@ -882,60 +889,69 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* LUXURY ATELIER QUALITY RIBBON */}
+      {/* 4-PILLAR VALUE STRIP (THE MUFFIN HOUSE SIGNATURE FRESHNESS PROMISE) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
-        <div className="bg-[#FAF8F5] rounded-2xl border border-brand-chocolate/12 shadow-[0_10px_30px_rgba(66,6,0,0.08)] py-3 sm:py-4 px-4 sm:px-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-brand-chocolate/10">
-          <div className="flex items-center gap-3 pt-1 sm:pt-0">
-            <div className="w-9 h-9 rounded-full bg-brand-chocolate/8 flex items-center justify-center text-brand-caramel shrink-0">
+        <div className="bg-[#FAF8F5] rounded-2xl border border-brand-chocolate/12 shadow-[0_10px_30px_rgba(66,6,0,0.08)] py-3 sm:py-4 px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 divide-y-0 sm:divide-x divide-brand-chocolate/10">
+          <div className="flex items-center gap-2.5 sm:gap-3 p-1">
+            <div className="w-9 h-9 rounded-xl bg-brand-peach/70 flex items-center justify-center text-brand-chocolate shrink-0">
+              <Cake className="w-4 h-4 text-brand-caramel" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-brand-chocolate tracking-tight font-heading">Baked Fresh Daily</p>
+              <p className="text-[10px] text-brand-chocolate/65 font-body">Never frozen, baked on order</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2.5 sm:gap-3 p-1 sm:pl-4">
+            <div className="w-9 h-9 rounded-xl bg-brand-chocolate/10 flex items-center justify-center text-brand-caramel shrink-0">
               <Award className="w-4 h-4 text-brand-caramel" />
             </div>
             <div>
-              <p className="text-xs font-bold text-brand-chocolate tracking-tight">100% Callebaut Couverture</p>
-              <p className="text-[10px] text-brand-chocolate/65">Pure Belgian cocoa, zero compound fats</p>
+              <p className="text-xs font-bold text-brand-chocolate tracking-tight font-heading">Pure Couverture</p>
+              <p className="text-[10px] text-brand-chocolate/65 font-body">70% Callebaut Belgian cocoa</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 pt-2.5 sm:pt-0 sm:pl-6">
-            <div className="w-9 h-9 rounded-full bg-emerald-900/10 flex items-center justify-center text-emerald-700 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 p-1 sm:pl-4">
+            <div className="w-9 h-9 rounded-xl bg-emerald-900/10 flex items-center justify-center text-emerald-700 shrink-0">
               <ShieldCheck className="w-4 h-4 text-emerald-700" />
             </div>
             <div>
-              <p className="text-xs font-bold text-brand-chocolate tracking-tight">Segregated Pure Veg Ovens</p>
-              <p className="text-[10px] text-brand-chocolate/65">Independent sanctum for 100% eggless cakes</p>
+              <p className="text-xs font-bold text-brand-chocolate tracking-tight font-heading">100% Pure Eggless</p>
+              <p className="text-[10px] text-brand-chocolate/65 font-body">Segregated vegetarian line</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 pt-2.5 sm:pt-0 sm:pl-6">
-            <div className="w-9 h-9 rounded-full bg-brand-caramel/10 flex items-center justify-center text-brand-caramel shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 p-1 sm:pl-4">
+            <div className="w-9 h-9 rounded-xl bg-brand-caramel/10 flex items-center justify-center text-brand-caramel shrink-0">
               <Truck className="w-4 h-4 text-brand-caramel" />
             </div>
             <div>
-              <p className="text-xs font-bold text-brand-chocolate tracking-tight">2-Hour Doorstep Dispatch</p>
-              <p className="text-[10px] text-brand-chocolate/65">Direct from your closest of 8 Kerala hubs</p>
+              <p className="text-xs font-bold text-brand-chocolate tracking-tight font-heading">2-Hour Delivery</p>
+              <p className="text-[10px] text-brand-chocolate/65 font-body">From closest of 8 Kerala hubs</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 2: CURATED COLLECTIONS (PARISIAN ARCH PORTALS) */}
+      {/* SECTION 2: SHOP BY CATEGORY (THE MUFFIN HOUSE D2C VISUAL GRID) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="flex items-center justify-between mb-4 sm:mb-6 gap-2 sm:gap-4">
           <div className="min-w-0 flex-1">
-            <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1 truncate">
-              Artisan Portals
+            <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1 truncate font-sans">
+              Handcrafted Collections
             </span>
-            <h2 className="font-heading text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl text-brand-chocolate tracking-tight leading-tight">
-              Explore Our Collections
+            <h2 className="font-heading font-extrabold text-xl xs:text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate tracking-tight leading-tight">
+              Shop By Category
             </h2>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <span className="hidden sm:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
+            <span className="hidden sm:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1 font-sans">
               <span>Auto-gliding</span>
               <span className="text-brand-caramel font-bold">&bull;</span>
               <span>Swipe</span>
             </span>
             <Link
               href="/categories"
-              className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group whitespace-nowrap pl-2 border-l border-brand-chocolate/15 sm:border-l-0 sm:pl-0"
+              className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group whitespace-nowrap pl-2 border-l border-brand-chocolate/15 sm:border-l-0 sm:pl-0 font-sans"
             >
               <span>View All</span>
               <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
@@ -943,7 +959,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Arch-topped Parisian boutique portals */}
+        {/* Visual Category Showcase Cards (Clean, modern squircle / circular D2C bakery style) */}
         <div
           ref={categoryScrollRef}
           onMouseEnter={() => setIsCategoryPaused(true)}
@@ -953,44 +969,32 @@ export default function HomePage() {
           className="flex gap-3 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {displayCategories.map((cat: any, idx: number) => {
-            const padIndex = String(idx + 1).padStart(2, '0');
-            return (
-              <Link
-                key={cat.slug}
-                href={`/cakes?category=${cat.slug}`}
-                className="group relative rounded-t-[3.25rem] sm:rounded-t-[4.5rem] rounded-b-2xl overflow-hidden aspect-[3/4] w-[180px] xs:w-[210px] sm:w-[250px] lg:w-[275px] shrink-0 border border-brand-chocolate/15 shadow-[0_6px_20px_rgba(66,6,0,0.08)] hover:shadow-[0_16px_36px_rgba(66,6,0,0.18)] hover:border-brand-gold/60 transition-all duration-500 transform hover:-translate-y-1.5 bg-brand-chocolate flex flex-col justify-between"
-              >
+          {displayCategories.map((cat: any) => (
+            <Link
+              key={cat.slug}
+              href={`/cakes?category=${cat.slug}`}
+              className="group flex flex-col items-center shrink-0 w-[130px] xs:w-[150px] sm:w-[175px] lg:w-[195px] text-center"
+            >
+              {/* Category Image Card */}
+              <div className="relative aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-brand-chocolate/10 group-hover:border-brand-caramel shadow-sm group-hover:shadow-lg transition-all duration-300 bg-brand-cream/40">
                 <img
                   src={cat.image}
                   alt={cat.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out absolute inset-0"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
                 />
-                {/* Dark Vignette Overlay with Gold Accent Glow */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate via-brand-chocolate/40 to-black/25 group-hover:from-brand-chocolate/95 transition-colors" />
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+              </div>
 
-                {/* Top Numbered Collection Mark */}
-                <div className="relative z-10 p-3 sm:p-4 flex justify-between items-center">
-                  <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-brand-gold/90 bg-black/45 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-brand-gold/30">
-                    {padIndex}
-                  </span>
-                  <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-xs flex items-center justify-center text-white/80 group-hover:bg-brand-gold group-hover:text-brand-chocolate transition-colors">
-                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                </div>
-
-                {/* Bottom Title & Action */}
-                <div className="relative z-10 p-3.5 sm:p-4 text-white">
-                  <h3 className="font-heading text-base sm:text-xl text-brand-cream group-hover:text-brand-gold transition-colors leading-tight drop-shadow-sm">
-                    {cat.name}
-                  </h3>
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-brand-cream/80 flex items-center gap-1 mt-1 opacity-90 group-hover:opacity-100 font-body">
-                    <span>Explore Portal</span>
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
+              {/* Category Title in Modern Sans-Serif */}
+              <h3 className="font-heading font-bold text-xs xs:text-sm sm:text-base text-brand-chocolate group-hover:text-brand-caramel transition-colors mt-2.5 leading-tight tracking-tight">
+                {cat.name}
+              </h3>
+              <span className="text-[10px] sm:text-[11px] text-brand-caramel font-semibold mt-0.5 font-body flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
+                <span>Explore</span>
+                <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
 

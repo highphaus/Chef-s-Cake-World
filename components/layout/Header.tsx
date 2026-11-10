@@ -229,6 +229,26 @@ export default function Header() {
 
   return (
     <>
+      {/* Top Announcement Bar (The Muffin House style) */}
+      <div className="bg-brand-chocolate text-white text-[10px] xs:text-[11px] sm:text-xs py-1.5 px-3 sm:px-6 font-sans font-medium border-b border-white/10 select-none">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 truncate">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse shrink-0" />
+            <span className="truncate text-white/95">
+              Baking You Happy &bull; Handcrafted Fresh Bakes Delivered in 2 Hours Across Kerala
+            </span>
+          </div>
+          <div className="hidden sm:flex items-center gap-4 shrink-0 text-brand-gold/90 text-[11px]">
+            <a href="tel:+919847960677" className="hover:text-white flex items-center gap-1 transition-colors">
+              <Phone className="w-3 h-3 text-brand-gold" />
+              <span>+91 98479 60677</span>
+            </a>
+            <span className="text-white/30">&bull;</span>
+            <span className="text-white/85">8 Kerala Hubs Open</span>
+          </div>
+        </div>
+      </div>
+
       <header
         className={`sticky top-0 z-40 w-full max-w-full overflow-x-clip transition-all duration-300 ${
           isScrolled

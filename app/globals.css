@@ -153,10 +153,11 @@ svg {
   object-fit: cover;
 }
 
-/* Heading Font Assignment: Playfair Display */
-h1, h2, h3, .font-heading {
-  font-family: var(--font-heading), 'Playfair Display', Georgia, serif;
-  letter-spacing: -0.01em;
+/* Heading Font Assignment: Modern Bold Sans-Serif (The Muffin House style) */
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 /* Body / UI Font Assignment: DM Sans */
