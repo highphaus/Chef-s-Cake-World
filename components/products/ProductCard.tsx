@@ -76,7 +76,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Title / Name */}
           <Link href={`/cakes/${product.slug}`} className="block">
-            <h3 className="font-heading text-xs xs:text-sm sm:text-base font-bold text-brand-chocolate group-hover:text-brand-caramel transition-colors line-clamp-1 sm:line-clamp-2 leading-snug tracking-tight">
+            <h3 className="font-heading text-[11px] xs:text-xs sm:text-sm md:text-base font-bold text-brand-chocolate group-hover:text-brand-caramel transition-colors line-clamp-2 leading-tight tracking-tight min-h-[28px] xs:min-h-[32px] sm:min-h-0" title={product.name}>
               {product.name}
             </h3>
           </Link>
