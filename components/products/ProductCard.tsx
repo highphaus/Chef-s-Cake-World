@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Star, ShoppingBag, Eye, Sparkles } from 'lucide-react';
+import { Star, ShoppingBag, Eye } from 'lucide-react';
 
 interface ProductCardProps {
   product: {
@@ -35,21 +35,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
         </Link>
 
-        {/* Luxury Micro-Badges */}
-        <div className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 flex flex-col gap-1 z-10 pointer-events-none">
-          {product.isBestSeller && (
-            <span className="px-2 sm:px-2.5 py-0.5 rounded-full bg-brand-chocolate/95 text-brand-gold text-[8.5px] xs:text-[9.5px] sm:text-[10px] font-bold tracking-wider uppercase shadow-md border border-brand-gold/30 flex items-center gap-1 backdrop-blur-xs">
-              <Sparkles className="w-2.5 h-2.5 text-brand-gold" />
-              <span>Signature</span>
-            </span>
-          )}
-          {product.egglessAvailable && (
-            <span className="px-2 py-0.5 rounded-full bg-emerald-950/90 text-emerald-300 text-[8px] xs:text-[9px] sm:text-[9.5px] font-bold tracking-wider uppercase shadow-xs border border-emerald-500/30 backdrop-blur-xs">
-              100% Eggless
-            </span>
-          )}
-        </div>
-
         {/* Quick View Button */}
         <div className="absolute bottom-2 right-2 sm:bottom-2.5 sm:right-2.5 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
           <Link
@@ -74,9 +59,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             <span className="text-xs text-brand-chocolate/50">({product.reviewCount})</span>
           </div>
 
-          {/* Title / Name */}
+          {/* Title / Name (Strictly one single line) */}
           <Link href={`/cakes/${product.slug}`} className="block">
-            <h3 className="font-heading text-[11px] xs:text-xs sm:text-sm md:text-base font-bold text-brand-chocolate group-hover:text-brand-caramel transition-colors line-clamp-2 leading-tight tracking-tight min-h-[28px] xs:min-h-[32px] sm:min-h-0" title={product.name}>
+            <h3 className="font-heading text-xs xs:text-sm sm:text-base font-bold text-brand-chocolate group-hover:text-brand-caramel transition-colors truncate block leading-snug tracking-tight" title={product.name}>
               {product.name}
             </h3>
           </Link>
