@@ -70,20 +70,20 @@ export default function ProductCarouselSection({
         </div>
       </div>
 
-      {/* Product Track: Exactly 2 cards on mobile screen side-by-side (Zero scrollbar, no page overflow) */}
+      {/* Product Track: Minimal & Compact (2 cards on mobile, sleek cards on desktop) */}
       <div
         ref={scrollRef}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={() => setIsPaused(true)}
         onTouchEnd={() => setIsPaused(false)}
-        className="flex gap-3 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
+        className="flex gap-2.5 sm:gap-4 lg:gap-5 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {products.map((product: any) => (
           <div
             key={product._id}
-            className="w-[calc(50%-6px)] sm:w-[calc(33.333%-11px)] md:w-[250px] lg:w-[275px] shrink-0"
+            className="w-[calc(50%-5px)] sm:w-[calc(33.333%-10px)] md:w-[215px] lg:w-[235px] shrink-0"
           >
             <ProductCard product={product} />
           </div>

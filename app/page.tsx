@@ -1031,40 +1031,37 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Visual Category Showcase Cards (Clean, modern squircle / circular D2C bakery style) */}
+        {/* Minimal & Unique Category Circle Cards */}
         <div
           ref={categoryScrollRef}
           onMouseEnter={() => setIsCategoryPaused(true)}
           onMouseLeave={() => setIsCategoryPaused(false)}
           onTouchStart={() => setIsCategoryPaused(true)}
           onTouchEnd={() => setIsCategoryPaused(false)}
-          className="flex gap-3 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
+          className="flex gap-3 xs:gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {displayCategories.map((cat: any) => (
             <Link
               key={cat.slug}
               href={`/cakes?category=${cat.slug}`}
-              className="group flex flex-col items-center shrink-0 w-[130px] xs:w-[150px] sm:w-[175px] lg:w-[195px] text-center"
+              className="group flex flex-col items-center shrink-0 w-[76px] xs:w-[86px] sm:w-[102px] lg:w-[114px] text-center"
             >
-              {/* Category Image Card */}
-              <div className="relative aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-brand-chocolate/10 group-hover:border-brand-caramel shadow-sm group-hover:shadow-lg transition-all duration-300 bg-brand-cream/40">
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
-                />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+              {/* Category Circle Plate */}
+              <div className="relative w-16 h-16 xs:w-18 xs:h-18 sm:w-22 sm:h-22 lg:w-24 lg:h-24 rounded-full p-1 border-2 border-brand-chocolate/12 group-hover:border-brand-caramel transition-all duration-300 shadow-2xs group-hover:shadow-md bg-white">
+                <div className="w-full h-full rounded-full overflow-hidden bg-brand-cream/40">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                  />
+                </div>
               </div>
 
-              {/* Category Title in Modern Sans-Serif */}
-              <h3 className="font-heading font-bold text-xs xs:text-sm sm:text-base text-brand-chocolate group-hover:text-brand-caramel transition-colors mt-2.5 leading-tight tracking-tight">
+              {/* Minimal Category Title */}
+              <h3 className="font-heading font-semibold text-[11px] xs:text-xs sm:text-[13px] text-brand-chocolate group-hover:text-brand-caramel transition-colors mt-2 leading-tight tracking-tight truncate w-full px-1">
                 {cat.name}
               </h3>
-              <span className="text-[10px] sm:text-[11px] text-brand-caramel font-semibold mt-0.5 font-body flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
-                <span>Explore</span>
-                <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-              </span>
             </Link>
           ))}
         </div>

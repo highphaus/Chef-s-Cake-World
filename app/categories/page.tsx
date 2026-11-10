@@ -44,35 +44,29 @@ export default function CategoriesPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
         {catList.map((cat) => (
           <Link
             key={cat.slug}
             href={`/cakes?category=${cat.slug}`}
-            className="group bg-white rounded-3xl overflow-hidden border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all flex flex-col justify-between"
+            className="group flex flex-col items-center bg-white rounded-2xl p-3 sm:p-4 border border-brand-chocolate/8 hover:border-brand-caramel/40 shadow-2xs hover:shadow-md transition-all text-center"
           >
-            <div className="aspect-[4/3] w-full overflow-hidden bg-brand-cream/30 relative">
-              <img
-                src={cat.image}
-                alt={cat.name}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              />
-            </div>
-            <div className="p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="font-heading text-xl text-brand-chocolate group-hover:text-brand-caramel transition-colors">
-                  {cat.name}
-                </h3>
-                <p className="text-xs text-brand-chocolate/70 mt-1 line-clamp-2 leading-relaxed">
-                  {cat.description}
-                </p>
-              </div>
-
-              <div className="pt-4 mt-3 border-t border-brand-chocolate/10 flex items-center justify-between text-xs font-bold text-brand-caramel">
-                <span>Explore Designs</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <div className="relative w-20 h-20 sm:w-26 sm:h-26 rounded-full p-1 border-2 border-brand-chocolate/10 group-hover:border-brand-caramel transition-all duration-300 shadow-2xs bg-white">
+              <div className="w-full h-full rounded-full overflow-hidden bg-brand-cream/30">
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                />
               </div>
             </div>
+            <h3 className="font-heading font-bold text-xs sm:text-sm text-brand-chocolate group-hover:text-brand-caramel transition-colors mt-3 leading-tight truncate w-full px-1">
+              {cat.name}
+            </h3>
+            <span className="text-[10px] sm:text-[11px] text-brand-caramel font-semibold mt-1 flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
+              <span>View Bakes</span>
+              <ArrowRight className="w-2.5 h-2.5" />
+            </span>
           </Link>
         ))}
       </div>
