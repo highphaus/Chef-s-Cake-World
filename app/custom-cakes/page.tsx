@@ -460,7 +460,7 @@ export default function CustomCakesPage() {
 
           <div className="pt-4 border-t border-brand-chocolate/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-brand-chocolate/70">
-              ⚡ Custom quotations are reviewed by our executive pastry chef and sent to your email &amp; WhatsApp within 3 hours.
+              Custom quotations are reviewed by our executive pastry chef and sent to your email &amp; WhatsApp within 3 hours.
             </p>
             <button
               type="submit"

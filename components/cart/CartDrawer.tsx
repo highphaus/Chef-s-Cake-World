@@ -107,7 +107,7 @@ export default function CartDrawer() {
                     </p>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-cream text-brand-chocolate font-bold uppercase">
-                        {item.isEggless ? '🌱 Eggless' : '🥚 With Egg'}
+                        {item.isEggless ? 'Eggless' : 'With Egg'}
                       </span>
                       {item.customMessage && (
                         <span className="text-[10px] text-brand-chocolate/70 truncate max-w-[120px]">

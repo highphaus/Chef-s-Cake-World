@@ -399,7 +399,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                       : 'bg-white border border-brand-chocolate/20 text-brand-chocolate'
                   }`}
                 >
-                  <span>🌱 100% Pure Eggless</span>
+                  <span>100% Pure Eggless</span>
                 </button>
 
                 {product.eggOptionAvailable && (
@@ -412,7 +412,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                         : 'bg-white border border-brand-chocolate/20 text-brand-chocolate'
                     }`}
                   >
-                    <span>🥚 Contains Egg</span>
+                    <span>Contains Egg</span>
                   </button>
                 )}
               </div>
@@ -426,7 +426,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               <input
                 type="text"
                 maxLength={35}
-                placeholder="e.g. Happy 30th Birthday Rahul! 🎉"
+                placeholder="e.g. Happy 30th Birthday Rahul!"
                 value={customMessage}
                 onChange={(e) => setCustomMessage(e.target.value)}
                 className="w-full px-4 py-2.5 rounded-xl border border-brand-chocolate/20 text-xs sm:text-sm text-brand-chocolate focus:ring-1 focus:ring-brand-caramel bg-white"

@@ -237,10 +237,10 @@ function CakesCatalogueContent() {
         </span>
         <div className="grid grid-cols-2 gap-1.5">
           {[
-            { id: 'all', label: 'All Confections', icon: '✨' },
-            { id: 'cake', label: 'Celebration Cakes', icon: '🎂' },
-            { id: 'pastry', label: 'Artisan Pastries', icon: '🍰' },
-            { id: 'sweet', label: 'Sweets & Desserts', icon: '🍮' },
+            { id: 'all', label: 'All Confections' },
+            { id: 'cake', label: 'Celebration Cakes' },
+            { id: 'pastry', label: 'Artisan Pastries' },
+            { id: 'sweet', label: 'Sweets & Desserts' },
           ].map((type) => (
             <button
               key={type.id}
@@ -251,13 +251,12 @@ function CakesCatalogueContent() {
                 else if (type.id === 'sweet') setSelectedCategory('sweets-desserts');
                 else if (type.id === 'cake' && ['pastries', 'sweets-desserts'].includes(selectedCategory)) setSelectedCategory('');
               }}
-              className={`px-3 py-2 rounded-xl text-xs font-bold text-left transition-all border flex items-center gap-1.5 ${
+              className={`px-3 py-2 rounded-xl text-xs font-bold text-left transition-all border flex items-center justify-center text-center ${
                 itemType === type.id
                   ? 'bg-brand-chocolate text-brand-gold border-brand-chocolate shadow-sm'
                   : 'bg-brand-cream/50 text-brand-chocolate/80 border-brand-chocolate/10 hover:bg-brand-peach/40'
               }`}
             >
-              <span>{type.icon}</span>
               <span className="truncate">{type.label}</span>
             </button>
           ))}
@@ -337,7 +336,6 @@ function CakesCatalogueContent() {
                 }`}
               >
                 <div className="flex items-center gap-2 truncate">
-                  <span>{c.icon || '🎂'}</span>
                   <span className="truncate">{c.name}</span>
                 </div>
                 {count > 0 && (
@@ -430,8 +428,8 @@ function CakesCatalogueContent() {
         <div className="grid grid-cols-3 gap-1.5 text-xs">
           {[
             { val: 0, label: 'All' },
-            { val: 4.5, label: '4.5★ +' },
-            { val: 4.8, label: '4.8★ +' },
+            { val: 4.5, label: '4.5+ Stars' },
+            { val: 4.8, label: '4.8+ Stars' },
           ].map((r) => (
             <button
               key={r.val}
@@ -576,7 +574,7 @@ function CakesCatalogueContent() {
                 : 'bg-brand-cream/40 text-brand-chocolate border-brand-chocolate/15 hover:bg-brand-peach/40'
             }`}
           >
-            ✨ All Confections
+            All Confections
           </button>
 
           <button
@@ -591,7 +589,7 @@ function CakesCatalogueContent() {
                 : 'bg-brand-cream/40 text-brand-chocolate border-brand-chocolate/15 hover:bg-brand-peach/40'
             }`}
           >
-            🍰 Artisan Pastries
+            Artisan Pastries
           </button>
 
           <button
@@ -606,7 +604,7 @@ function CakesCatalogueContent() {
                 : 'bg-brand-cream/40 text-brand-chocolate border-brand-chocolate/15 hover:bg-brand-peach/40'
             }`}
           >
-            🍮 Sweets & Desserts
+            Sweets & Desserts
           </button>
 
           <button
@@ -621,7 +619,7 @@ function CakesCatalogueContent() {
                 : 'bg-brand-cream/40 text-brand-chocolate border-brand-chocolate/15 hover:bg-brand-peach/40'
             }`}
           >
-            🎂 Birthday Cakes
+            Birthday Cakes
           </button>
 
           <button
@@ -636,7 +634,7 @@ function CakesCatalogueContent() {
                 : 'bg-brand-cream/40 text-brand-chocolate border-brand-chocolate/15 hover:bg-brand-peach/40'
             }`}
           >
-            🍫 Belgian Truffle
+            Belgian Truffle
           </button>
 
           <button
@@ -661,7 +659,7 @@ function CakesCatalogueContent() {
                 : 'bg-brand-cream/40 text-brand-chocolate border-brand-chocolate/15 hover:bg-brand-peach/40'
             }`}
           >
-            ⚡ Under ₹200
+            Under ₹200
           </button>
 
           <button
@@ -707,7 +705,7 @@ function CakesCatalogueContent() {
 
           {egglessOnly && (
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-700 text-white font-bold">
-              <span>🌱 100% Eggless</span>
+              <span>100% Eggless</span>
               <button type="button" onClick={() => setEgglessOnly(false)} className="hover:text-emerald-200">
                 <X className="w-3 h-3" />
               </button>
@@ -749,7 +747,7 @@ function CakesCatalogueContent() {
 
           {minRating > 0 && (
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand-chocolate text-brand-gold font-bold">
-              <span>{minRating}★+ Rated</span>
+              <span>{minRating}+ Stars Rated</span>
               <button type="button" onClick={() => setMinRating(0)} className="hover:text-white">
                 <X className="w-3 h-3" />
               </button>
@@ -819,8 +817,8 @@ function CakesCatalogueContent() {
             </div>
           ) : filteredProducts.length === 0 ? (
             <div className="py-20 text-center bg-white rounded-3xl border border-brand-chocolate/10 p-8 space-y-4 shadow-cake-soft">
-              <div className="w-14 h-14 rounded-2xl bg-brand-cream/80 text-brand-caramel flex items-center justify-center mx-auto text-2xl">
-                🍰
+              <div className="w-14 h-14 rounded-2xl bg-brand-peach/60 text-brand-caramel flex items-center justify-center mx-auto">
+                <Cake className="w-7 h-7" />
               </div>
               <h3 className="font-heading text-xl sm:text-2xl text-brand-chocolate">No confections match your selection</h3>
               <p className="text-xs sm:text-sm text-brand-chocolate/70 max-w-md mx-auto leading-relaxed">

@@ -15,7 +15,8 @@ import {
   Printer,
   ShoppingBag,
   Store,
-  ChevronRight
+  ChevronRight,
+  Check
 } from 'lucide-react';
 import { api } from '@/lib/api';
 
@@ -128,7 +129,7 @@ export default function OrderConfirmationPage() {
                       : 'bg-brand-cream text-brand-chocolate/40 border border-brand-chocolate/20'
                   }`}
                 >
-                  {isCompleted ? '✓' : idx + 1}
+                  {isCompleted ? <Check className="w-3.5 h-3.5" /> : idx + 1}
                 </div>
                 <div>
                   <h4 className={`text-sm font-bold ${isCurrent ? 'text-brand-caramel font-heading text-base' : 'text-brand-chocolate'}`}>

@@ -155,7 +155,7 @@ export default function Header() {
       image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=300&auto=format&fit=crop'
     },
     {
-      title: '🌱 100% Pure Eggless Cakes',
+      title: '100% Pure Eggless Cakes',
       href: '/cakes?category=eggless-cakes',
       desc: 'Certified vegetarian kitchen creations',
       image: 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=300&auto=format&fit=crop'
@@ -707,7 +707,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between text-brand-chocolate hover:bg-white/60"
               >
-                <span>🍰 Artisan Pastries</span>
+                <span>Artisan Pastries</span>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-peach text-brand-chocolate font-bold">
                   Slices & Packs
                 </span>
@@ -718,7 +718,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between text-brand-chocolate hover:bg-white/60"
               >
-                <span>🍮 Sweets & Desserts</span>
+                <span>Sweets & Desserts</span>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-peach text-brand-chocolate font-bold">
                   Gourmet
                 </span>

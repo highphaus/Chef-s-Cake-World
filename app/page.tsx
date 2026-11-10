@@ -28,7 +28,7 @@ const celebrationOccasions = [
   {
     id: 'birthday',
     label: 'Birthday Bash',
-    icon: '🎂',
+    icon: '',
     subtitle: 'Free custom plaque & candles',
     cakeName: 'Royal Belgian Birthday Cake',
     tagline: '70% Dark Callebaut Ganache & Hazelnut Praline',
@@ -48,7 +48,7 @@ const celebrationOccasions = [
   {
     id: 'wedding',
     label: 'Weddings & Anniversaries',
-    icon: '💍',
+    icon: '',
     subtitle: 'Grand multi-tier florals & gold',
     cakeName: 'Grand Floral Celebration Cake',
     tagline: 'Sculpted Tiering with 24K Edible Gold Accents',
@@ -68,7 +68,7 @@ const celebrationOccasions = [
   {
     id: 'chocolate',
     label: 'Belgian Truffle Lovers',
-    icon: '🍫',
+    icon: '',
     subtitle: 'Intense 70% Callebaut ganache',
     cakeName: 'Dark Truffle Hazelnut Cake',
     tagline: 'Intense Single-Origin Cocoa with Silky Mirror Drip',
@@ -88,7 +88,7 @@ const celebrationOccasions = [
   {
     id: 'eggless',
     label: '100% Pure Eggless',
-    icon: '🌿',
+    icon: '',
     subtitle: 'Certified pure vegetarian line',
     cakeName: 'Red Velvet Cream Cheese',
     tagline: 'Whipped Philadelphia Frosting & Crimson Crumb',
@@ -108,7 +108,7 @@ const celebrationOccasions = [
   {
     id: 'biscoff',
     label: 'Lotus Biscoff Gourmet',
-    icon: '✨',
+    icon: '',
     subtitle: 'Speculoos mousse & crunchy biscuit',
     cakeName: 'Lotus Biscoff Dream Cake',
     tagline: 'Caramel Cinnamon Biscuit Layering & Spread Drizzle',
@@ -771,9 +771,9 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
-      {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL WITH CONTINUOUS AUTO-ROTATION & TOUCH SWIPE */}
+      {/* SECTION 1: VISUAL HERO CAROUSEL (CLEAN, NO OVERLAID WRITINGS) */}
       <section
-        className="relative w-full h-[58vh] xs:h-[65vh] sm:h-[75vh] lg:h-[85vh] min-h-[420px] max-h-[760px] overflow-hidden bg-black select-none touch-pan-y"
+        className="relative w-full h-[55vh] xs:h-[62vh] sm:h-[72vh] lg:h-[82vh] min-h-[380px] max-h-[720px] overflow-hidden bg-black select-none touch-pan-y"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
@@ -788,82 +788,42 @@ export default function HomePage() {
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Full-Screen Background Image - Positioned to keep top of cake fully visible below navbar */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
+              {/* Full-Screen Background Image - Clickable Link to Product Details */}
+              <Link
+                href={`/cakes/${activeCake.slug}`}
+                className="block w-full h-full overflow-hidden relative cursor-pointer"
+                title={activeCake.cakeName}
+              >
                 <img
                   src={activeCake.image}
                   alt={activeCake.cakeName}
-                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_12%] origin-top transition-transform duration-[4000ms] ease-out ${
+                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_20%] origin-top transition-transform duration-[4000ms] ease-out ${
                     isActive ? 'scale-105' : 'scale-100'
                   }`}
                 />
-                {/* Luxury Multi-layer Dark Gradients - Clear top with zero dark masking under navbar */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
-              </div>
-
-              {/* Overlaid Content Container - Minimal & Clean with Top Headroom */}
-              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pt-10 sm:pt-16 pb-12 xs:pb-14 sm:pb-20 lg:pb-24">
-                <div className="max-w-xl sm:max-w-2xl space-y-2.5 sm:space-y-4">
-                  
-                  {/* Subtle Badge */}
-                  <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-brand-chocolate/85 border border-brand-gold/40 text-brand-gold text-[10px] xs:text-[11px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-md">
-                    <span>{activeCake.icon}</span>
-                    <span>{activeCake.badge}</span>
-                  </span>
-
-                  {/* Clean Title */}
-                  <h1 className="font-heading text-xl xs:text-2xl sm:text-4xl lg:text-5xl text-white leading-[1.15] tracking-tight drop-shadow-lg">
-                    {activeCake.cakeName}
-                  </h1>
-
-                  {/* Short Price & Dispatch Line */}
-                  <p className="text-xs xs:text-sm sm:text-lg font-medium text-brand-gold drop-shadow-sm flex items-center gap-2">
-                    <span className="font-bold text-white text-base xs:text-lg sm:text-2xl">₹{activeCake.prices['0.5kg']}</span>
-                    <span className="text-white/60">&bull;</span>
-                    <span className="text-brand-cream/90 text-xs xs:text-sm sm:text-base">2-Hour Fresh Doorstep Dispatch</span>
-                  </p>
-
-                  {/* Action CTA Buttons */}
-                  <div className="pt-1 flex flex-row items-center gap-2.5 sm:gap-3">
-                    <Link
-                      href={`/cakes/${activeCake.slug}`}
-                      className="py-2.5 sm:py-3 px-4 xs:px-6 sm:px-8 rounded-xl sm:rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-xl flex items-center justify-center gap-2 group min-h-[44px]"
-                    >
-                      <span>Order Now</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-
-                    <Link
-                      href="/cakes"
-                      className="py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-semibold text-xs sm:text-sm transition-all border border-white/20 min-h-[44px] flex items-center justify-center"
-                    >
-                      View All
-                    </Link>
-                  </div>
-
-                  {/* Hero Slide Indicator Dots */}
-                  <div className="pt-2 flex items-center gap-1.5 sm:gap-2">
-                    {celebrationOccasions.map((_, dotIdx) => (
-                      <button
-                        key={dotIdx}
-                        type="button"
-                        onClick={() => setSelectedOccasionIndex(dotIdx)}
-                        aria-label={`Go to occasion cake slide ${dotIdx + 1}`}
-                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
-                          dotIdx === selectedOccasionIndex
-                            ? 'w-6 sm:w-8 bg-brand-gold shadow-md'
-                            : 'w-1.5 sm:w-2 bg-white/40 hover:bg-white/70'
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                </div>
-              </div>
+                {/* Subtle soft vignette for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+              </Link>
             </div>
           );
         })}
+
+        {/* Hero Slide Indicator Dots */}
+        <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-auto">
+          {celebrationOccasions.map((_, dotIdx) => (
+            <button
+              key={dotIdx}
+              type="button"
+              onClick={() => setSelectedOccasionIndex(dotIdx)}
+              aria-label={`Go to occasion cake slide ${dotIdx + 1}`}
+              className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+                dotIdx === selectedOccasionIndex
+                  ? 'w-7 sm:w-8 bg-brand-gold shadow-md'
+                  : 'w-2 bg-white/50 hover:bg-white/80'
+              }`}
+            />
+          ))}
+        </div>
       </section>
 
       {/* SECTION 2: EXPLORE OUR CAKES (ONE LINE TITLE & AUTOMATIC MOVEMENT CAROUSEL) */}
