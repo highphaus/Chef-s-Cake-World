@@ -227,13 +227,27 @@ export default function Header() {
     }
   ];
 
+  const isHomePage = pathname === '/';
+  const isTransparent = isHomePage && !isScrolled;
+
+  const getNavLinkClass = (active: boolean) => {
+    if (active) {
+      return isTransparent
+        ? 'text-white bg-white/20 font-bold backdrop-blur-xs shadow-2xs'
+        : 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs';
+    }
+    return isTransparent
+      ? 'text-white/90 hover:text-white hover:bg-white/15'
+      : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80';
+  };
+
   return (
     <>
       <header
-        className={`sticky top-0 z-40 w-full max-w-full overflow-x-clip transition-all duration-300 ${
-          isScrolled
-            ? 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15'
-            : 'bg-brand-cream border-b border-brand-chocolate/10'
+        className={`fixed top-0 left-0 right-0 z-40 w-full max-w-full transition-all duration-300 ${
+          isTransparent
+            ? 'bg-gradient-to-b from-black/80 via-black/40 to-transparent border-transparent'
+            : 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15'
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
@@ -251,6 +265,8 @@ export default function Header() {
                 className={`p-2 -ml-1 rounded-xl transition-all shrink-0 lg:hidden ${
                   mobileMenuOpen
                     ? 'bg-brand-peach text-brand-caramel'
+                    : isTransparent
+                    ? 'text-white hover:bg-white/20'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
                 aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
@@ -267,7 +283,9 @@ export default function Header() {
                     className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
-                <span className="font-heading text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-brand-chocolate tracking-tight whitespace-nowrap group-hover:text-brand-caramel transition-colors">
+                <span className={`font-heading text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight whitespace-nowrap transition-colors ${
+                  isTransparent ? 'text-white drop-shadow-md' : 'text-brand-chocolate group-hover:text-brand-caramel'
+                }`}>
                   Chef&apos;s Cake World
                 </span>
               </Link>
@@ -277,11 +295,9 @@ export default function Header() {
             <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 shrink min-w-0">
               <Link
                 href="/"
-                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${getNavLinkClass(
                   pathname === '/'
-                    ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
-                    : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
-                }`}
+                )}`}
               >
                 Home
               </Link>
@@ -295,11 +311,9 @@ export default function Header() {
               >
                 <Link
                   href="/cakes"
-                  className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                  className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${getNavLinkClass(
                     pathname.startsWith('/cakes')
-                      ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
-                      : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
-                  }`}
+                  )}`}
                 >
                   <span>Cakes</span>
                   <ChevronDown
@@ -397,11 +411,9 @@ export default function Header() {
               {/* Eggless Cakes Link */}
               <Link
                 href="/cakes?category=eggless-cakes"
-                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${getNavLinkClass(
                   pathname === '/cakes' && typeof window !== 'undefined' && window.location.search.includes('eggless')
-                    ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
-                    : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
-                }`}
+                )}`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block shrink-0" />
                 <span>Eggless Cakes</span>
@@ -416,11 +428,9 @@ export default function Header() {
               >
                 <Link
                   href="/branches"
-                  className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                  className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${getNavLinkClass(
                     pathname === '/branches'
-                      ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
-                      : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
-                  }`}
+                  )}`}
                 >
                   <span>Branches</span>
                   <ChevronDown
@@ -486,22 +496,18 @@ export default function Header() {
 
               <Link
                 href="/about"
-                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${getNavLinkClass(
                   pathname === '/about'
-                    ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
-                    : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
-                }`}
+                )}`}
               >
                 About
               </Link>
 
               <Link
                 href="/contact"
-                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all ${getNavLinkClass(
                   pathname === '/contact'
-                    ? 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs'
-                    : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80'
-                }`}
+                )}`}
               >
                 Contact
               </Link>
@@ -513,7 +519,11 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-1.5 sm:p-2 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors"
+                className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
+                  isTransparent
+                    ? 'text-white hover:bg-white/20'
+                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                }`}
                 title="Search celebratory cakes"
                 aria-label="Open Search"
               >
@@ -525,7 +535,11 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="p-1.5 sm:p-2 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors flex items-center justify-center"
+                  className={`p-1.5 sm:p-2 rounded-lg transition-colors flex items-center justify-center ${
+                    isTransparent
+                      ? 'text-white hover:bg-white/20'
+                      : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                  }`}
                   aria-label="User account"
                   title={user ? user.name : 'Sign In / Account'}
                 >
@@ -611,7 +625,11 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-1.5 sm:p-2 rounded-lg text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors group focus:outline-none shrink-0"
+                className={`relative p-1.5 sm:p-2 rounded-lg transition-colors group focus:outline-none shrink-0 ${
+                  isTransparent
+                    ? 'text-white hover:bg-white/20'
+                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                }`}
                 aria-label={`Cake box containing ${itemCount} items`}
                 title="View your celebration cake box"
               >
@@ -642,6 +660,8 @@ export default function Header() {
                 className={`p-2 rounded-xl transition-all ${
                   searchOpen
                     ? 'bg-brand-peach text-brand-caramel'
+                    : isTransparent
+                    ? 'text-white hover:bg-white/20'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
                 aria-label="Search celebration cakes"
@@ -654,7 +674,11 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors shrink-0"
+                className={`relative p-2 rounded-xl transition-colors shrink-0 ${
+                  isTransparent
+                    ? 'text-white hover:bg-white/20'
+                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                }`}
                 aria-label={`View cart with ${itemCount} items`}
                 title="View cart"
               >
@@ -712,6 +736,11 @@ export default function Header() {
           </div>
         )}
       </header>
+
+      {/* Spacer for non-homepage routes so content is not obscured by the fixed header */}
+      {!isHomePage && (
+        <div className="h-16 sm:h-20 lg:h-[88px] xl:h-24 w-full" aria-hidden="true" />
+      )}
 
       {/* 6. Mobile Side Drawer Navigation */}
       {mobileMenuOpen && (

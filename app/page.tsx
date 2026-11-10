@@ -906,7 +906,7 @@ export default function HomePage() {
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
       {/* SECTION 1: HERO SHOWCASE (THE MUFFIN HOUSE D2C STYLE) */}
       <section
-        className="relative w-full h-[54vh] xs:h-[58vh] sm:h-[68vh] lg:h-[76vh] min-h-[400px] max-h-[720px] overflow-hidden bg-brand-chocolate select-none touch-pan-y group"
+        className="relative w-full h-[76vh] xs:h-[82vh] sm:h-[88vh] lg:h-[94vh] min-h-[520px] sm:min-h-[600px] max-h-[900px] overflow-hidden bg-brand-chocolate select-none touch-pan-y group"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
@@ -931,34 +931,37 @@ export default function HomePage() {
                   }`}
                 />
                 {/* Edge-to-Edge High-Contrast Dual Gradient for Crisp Text Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate/95 via-brand-chocolate/40 to-transparent pointer-events-none" />
-                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-brand-chocolate/90 via-brand-chocolate/30 to-transparent pointer-events-none" />
+                {/* Top Vignette for Transparent Navbar Clarity */}
+                <div className="absolute inset-x-0 top-0 h-40 sm:h-52 bg-gradient-to-b from-black/85 via-black/45 to-transparent pointer-events-none" />
+                {/* Bottom & Side Vignette for Headline & CTA Contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent pointer-events-none" />
+                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/80 via-black/25 to-transparent pointer-events-none" />
               </div>
 
               {/* Overlaid Title & CTA Container (The Muffin House Style) */}
-              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-8 lg:px-12 flex flex-col justify-end pb-12 xs:pb-14 sm:pb-16 lg:pb-20">
-                <div className="max-w-xl sm:max-w-2xl space-y-2.5 sm:space-y-3.5">
+              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-8 lg:px-12 flex flex-col justify-end pt-24 sm:pt-28 lg:pt-36 pb-14 xs:pb-16 sm:pb-20 lg:pb-24">
+                <div className="max-w-xl sm:max-w-2xl space-y-3 sm:space-y-4">
                   {/* Brand Tagline Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-chocolate/85 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans">
+                  <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans shadow-lg">
                     <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
-                    <span>Baking You Happy &bull; Kerala Patisserie</span>
+                    <span>Baking You Happy &bull; Handcrafted In Kerala</span>
                   </div>
 
                   {/* Clean, Bold Sans-Serif Cake Headline */}
-                  <h1 className="font-heading font-extrabold text-2xl xs:text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-md">
+                  <h1 className="font-heading font-extrabold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.08] tracking-tight drop-shadow-xl">
                     {activeCake.cakeName}
                   </h1>
 
                   {/* Flavor Tagline */}
-                  <p className="text-xs sm:text-sm lg:text-base text-white/90 font-medium font-body leading-relaxed drop-shadow-sm max-w-lg">
+                  <p className="text-sm xs:text-base sm:text-lg text-white/95 font-medium font-body leading-relaxed drop-shadow-md max-w-xl">
                     {activeCake.tagline}
                   </p>
 
                   {/* Dual Action CTA Buttons */}
-                  <div className="pt-1.5 flex flex-wrap items-center gap-2.5 sm:gap-3">
+                  <div className="pt-2 flex flex-wrap items-center gap-3">
                     <Link
                       href={`/cakes/${activeCake.slug}`}
-                      className="inline-flex items-center gap-2 py-2.5 sm:py-3.5 px-6 sm:px-8 rounded-full bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm font-sans transition-all shadow-[0_8px_24px_rgba(186,99,0,0.35)] active:scale-95 group/btn min-h-[44px] sm:min-h-[48px] border border-brand-gold/20"
+                      className="inline-flex items-center justify-center gap-2 py-3 sm:py-3.5 px-7 sm:px-9 rounded-full bg-gradient-to-r from-brand-caramel to-[#e58a2b] hover:from-white hover:to-white text-white hover:text-brand-chocolate font-bold text-xs sm:text-sm font-sans transition-all duration-300 shadow-[0_8px_24px_rgba(186,99,0,0.5)] active:scale-95 group/btn min-h-[44px] sm:min-h-[48px] border border-brand-gold/30"
                     >
                       <span className="tracking-wide uppercase text-[11px] sm:text-xs font-bold">Order Now</span>
                       <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
@@ -966,7 +969,7 @@ export default function HomePage() {
 
                     <Link
                       href="/cakes"
-                      className="inline-flex items-center gap-2 py-2.5 sm:py-3.5 px-5 sm:px-7 rounded-full bg-white/20 hover:bg-white text-white hover:text-brand-chocolate font-bold text-xs sm:text-sm font-sans backdrop-blur-xs transition-all border border-white/35 active:scale-95 min-h-[44px] sm:min-h-[48px]"
+                      className="inline-flex items-center justify-center gap-2 py-3 sm:py-3.5 px-6 sm:px-8 rounded-full bg-white/20 hover:bg-white text-white hover:text-brand-chocolate font-bold text-xs sm:text-sm font-sans backdrop-blur-md transition-all duration-300 border border-white/40 active:scale-95 min-h-[44px] sm:min-h-[48px]"
                     >
                       <span>Explore Menu</span>
                     </Link>
@@ -982,7 +985,7 @@ export default function HomePage() {
           type="button"
           onClick={handlePrevSlide}
           aria-label="Previous Slide"
-          className="absolute left-2.5 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-brand-chocolate/90 text-white flex items-center justify-center backdrop-blur-xs transition-all border border-white/25 active:scale-95 shadow-lg group"
+          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-white text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-md transition-all border border-white/25 active:scale-95 shadow-2xl group cursor-pointer"
         >
           <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
         </button>
@@ -991,13 +994,13 @@ export default function HomePage() {
           type="button"
           onClick={handleNextSlide}
           aria-label="Next Slide"
-          className="absolute right-2.5 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-brand-chocolate/90 text-white flex items-center justify-center backdrop-blur-xs transition-all border border-white/25 active:scale-95 shadow-lg group"
+          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-white text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-md transition-all border border-white/25 active:scale-95 shadow-2xl group cursor-pointer"
         >
           <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
         </button>
 
         {/* Hero Slide Indicator Dots (Centered at Bottom) */}
-        <div className="absolute bottom-3.5 sm:bottom-5 left-0 right-0 z-20 flex items-center justify-center gap-2 pointer-events-auto">
+        <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-2.5 pointer-events-auto">
           {celebrationOccasions.map((_, dotIdx) => (
             <button
               key={dotIdx}
@@ -1006,8 +1009,8 @@ export default function HomePage() {
               aria-label={`Go to slide ${dotIdx + 1}`}
               className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                 dotIdx === selectedOccasionIndex
-                  ? 'w-7 sm:w-9 bg-brand-gold shadow-md'
-                  : 'w-2 bg-white/45 hover:bg-white/80'
+                  ? 'w-8 sm:w-11 bg-brand-gold shadow-[0_0_12px_rgba(238,197,143,0.9)]'
+                  : 'w-2 sm:w-2.5 bg-white/45 hover:bg-white/85'
               }`}
             />
           ))}
