@@ -451,7 +451,7 @@ export default function CheckoutPage() {
             ) : (
               <div className="space-y-3 pt-2">
                 <label className="text-xs font-bold text-brand-chocolate block">
-                  Select Flagship Branch for Pickup:
+                  Select Branch for Pickup:
                 </label>
                 <select
                   value={selectedBranchId}

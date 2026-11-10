@@ -107,7 +107,7 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
   },
   {
     branchCode: 'CCW-KL-07',
-    name: "Chef's Cake World - Attingal Flagship",
+    name: "Chef's Cake World - Attingal",
     shortName: 'Attingal',
     address: 'Near KSRTC Bus Stand, Main Road, Attingal, Kerala 695101',
     phone: '+91 98479 60677',
@@ -122,7 +122,7 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
   },
   {
     branchCode: 'CCW-KL-08',
-    name: "Chef's Cake World - Kazhakootam Tech Hub",
+    name: "Chef's Cake World - Kazhakootam",
     shortName: 'Kazhakootam',
     address: 'Near Technopark Campus, Kazhakootam, Thiruvananthapuram, Kerala 695582',
     phone: '+91 89210 29932',
@@ -130,7 +130,7 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     email: 'kazhakootam@chefscakeworld.com',
     openingHours: '09:00 AM - 11:00 PM',
     serviceablePincodes: ['695582', '695581', '695583', '695584', '695585', '695586'],
-    city: 'Kazhakootam IT Corridor',
+    city: 'Kazhakootam',
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Kazhakootam Technopark",
     landmark: 'Opposite Technopark Main Entrance'
@@ -230,7 +230,7 @@ export function findNearestBranchByPincode(rawPin: string): NearestBranchResult 
     distanceEstimate: 'Extended Kerala Zone',
     estimatedDeliveryHours: 4,
     deliveryFee: 99,
-    message: `Nearest hub is our Attingal Flagship. For special out-of-district deliveries, please call our hotline directly at ${defaultHub.phone}.`
+    message: `Nearest hub is our Attingal branch. For special out-of-district deliveries, please call our hotline directly at ${defaultHub.phone}.`
   };
 }
 

@@ -198,14 +198,14 @@ export default function Header() {
       code: 'CCW-KL-06'
     },
     {
-      name: 'Attingal Flagship',
+      name: 'Attingal',
       address: 'Near KSRTC Bus Stand, Attingal 695101',
       hours: '09:00 AM - 10:30 PM',
       phone: '+91 98479 60677',
       code: 'CCW-KL-07'
     },
     {
-      name: 'Kazhakootam Tech Hub',
+      name: 'Kazhakootam',
       address: 'Near Technopark, Kazhakootam 695582',
       hours: '09:00 AM - 11:00 PM',
       phone: '+91 89210 29932',
@@ -402,7 +402,7 @@ export default function Header() {
                     <div className="bg-white rounded-3xl p-4 border border-brand-chocolate/15 shadow-2xl space-y-3">
                       <div className="flex items-center justify-between pb-2 border-b border-brand-chocolate/10">
                         <span className="font-heading text-sm text-brand-chocolate">
-                          Kerala Flagship Hubs
+                          Kerala Branches
                         </span>
                         <Link
                           href="/branches"

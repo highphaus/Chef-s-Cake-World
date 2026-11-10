@@ -12,7 +12,7 @@ export default function ContactPage() {
     name: '',
     phone: '',
     email: '',
-    branch: 'Attingal Flagship',
+    branch: 'Attingal',
     message: '',
   });
 
@@ -95,7 +95,7 @@ export default function ContactPage() {
             <div className="flex items-start gap-3">
               <MapPin className="w-5 h-5 text-brand-caramel shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold text-brand-chocolate block">Central Flagship:</span>
+                <span className="font-bold text-brand-chocolate block">Central Location:</span>
                 <p className="font-medium text-brand-chocolate">Near KSRTC Bus Stand, Main Road, Attingal, Kerala 695101</p>
               </div>
             </div>

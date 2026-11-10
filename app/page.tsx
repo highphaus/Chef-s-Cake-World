@@ -895,11 +895,11 @@ export default function HomePage() {
             <div className="flex flex-wrap gap-4 text-xs font-semibold text-brand-chocolate pt-2">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-brand-caramel" />
-                <span>Attingal Flagship (695101)</span>
+                <span>Attingal (695101)</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-brand-caramel" />
-                <span>Kazhakootam Tech Hub (695582)</span>
+                <span>Kazhakootam (695582)</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-brand-caramel" />
@@ -997,7 +997,7 @@ export default function HomePage() {
             </div>
             <h3 className="font-heading text-xl text-brand-chocolate">Multiple Kerala Kitchens</h3>
             <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed">
-              With 8 flagship branches across Kerala (Attingal, Kazhakootam, Alamcode, Kumarapuram, Ulloor, Vattappara, Vetturoad, Ambalathinkara), your orders are routed to the closest patisserie for rapid 2-hour doorstep delivery.
+              With 8 artisan branches across Kerala (Attingal, Kazhakootam, Alamcode, Kumarapuram, Ulloor, Vattappara, Vetturoad, Ambalathinkara), your orders are routed to the closest patisserie for rapid 2-hour doorstep delivery.
             </p>
           </div>
 
@@ -1041,7 +1041,7 @@ export default function HomePage() {
               Physical Stores
             </span>
             <h2 className="section-title font-heading text-brand-chocolate">
-              Visit Our Flagship Patisseries
+              Visit Our Kerala Branches
             </h2>
           </div>
           <Link
@@ -1056,37 +1056,37 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white rounded-2xl p-6 border border-brand-chocolate/10 shadow-cake-soft space-y-3">
             <div className="flex justify-between items-start">
-              <h3 className="font-heading text-lg text-brand-chocolate">Attingal Flagship</h3>
+              <h3 className="font-heading text-lg text-brand-chocolate">Attingal</h3>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-peach text-brand-chocolate">KL-01</span>
             </div>
             <p className="text-xs text-brand-chocolate/70">Near KSRTC Bus Stand, Main Road, Attingal, Kerala 695101</p>
             <div className="pt-2 border-t border-brand-chocolate/10 text-xs space-y-1 text-brand-chocolate/80">
               <p><strong>Hours:</strong> 09:00 AM - 10:30 PM</p>
-              <p><strong>Phone:</strong> +91 98470 12345</p>
+              <p><strong>Phone:</strong> +91 98479 60677</p>
             </div>
           </div>
 
           <div className="bg-white rounded-2xl p-6 border border-brand-chocolate/10 shadow-cake-soft space-y-3">
             <div className="flex justify-between items-start">
-              <h3 className="font-heading text-lg text-brand-chocolate">Kazhakootam Tech Hub</h3>
+              <h3 className="font-heading text-lg text-brand-chocolate">Kazhakootam</h3>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-peach text-brand-chocolate">KL-02</span>
             </div>
             <p className="text-xs text-brand-chocolate/70">Near Technopark Campus, Kazhakootam, Thiruvananthapuram 695582</p>
             <div className="pt-2 border-t border-brand-chocolate/10 text-xs space-y-1 text-brand-chocolate/80">
               <p><strong>Hours:</strong> 09:00 AM - 11:00 PM</p>
-              <p><strong>Phone:</strong> +91 98470 54321</p>
+              <p><strong>Phone:</strong> +91 89210 29932</p>
             </div>
           </div>
 
           <div className="bg-white rounded-2xl p-6 border border-brand-chocolate/10 shadow-cake-soft space-y-3">
             <div className="flex justify-between items-start">
-              <h3 className="font-heading text-lg text-brand-chocolate">Upcoming Kerala Hubs</h3>
+              <h3 className="font-heading text-lg text-brand-chocolate">Upcoming Locations</h3>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-peach text-brand-chocolate">KL-EXP</span>
             </div>
             <p className="text-xs text-brand-chocolate/70">Expanding to more branches across Kerala soon</p>
             <div className="pt-2 border-t border-brand-chocolate/10 text-xs space-y-1 text-brand-chocolate/80">
               <p><strong>Status:</strong> New locations opening</p>
-              <p><strong>Support:</strong> +91 98470 99999</p>
+              <p><strong>Support:</strong> +91 98479 60677</p>
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { MapPin, Mail, Instagram, Facebook, Youtube, ShieldCheck, Phone } from '
 
 export default function Footer() {
   const branches = [
-    { name: 'Attingal Flagship', phone: '+91 98479 60677' },
+    { name: 'Attingal', phone: '+91 98479 60677' },
     { name: 'Alamcode', phone: '+91 98479 60677' },
     { name: 'Ambalathinkara', phone: '+91 70252 17777' },
     { name: 'Kumarapuram', phone: '+91 90722 22655' },

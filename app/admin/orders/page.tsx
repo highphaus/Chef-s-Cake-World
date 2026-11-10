@@ -105,7 +105,7 @@ export default function AdminOrdersPage() {
             Order Fulfillment &amp; Workflow Manager
           </h1>
           <p className="text-xs sm:text-sm text-brand-chocolate/70">
-            Control order lifecycles across all Kerala flagship kitchens.
+            Control order lifecycles across all Kerala kitchens.
           </p>
         </div>
         <Link
