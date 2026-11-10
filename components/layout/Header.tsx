@@ -230,7 +230,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 z-40 w-full max-w-full overflow-x-clip transition-all duration-300 ${
           isScrolled
             ? 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15'
             : 'bg-brand-cream border-b border-brand-chocolate/10'
@@ -848,7 +848,7 @@ export default function Header() {
       {/* 7. Fixed Mobile Bottom Navigation Bar (Solid Opaque Background - No Transparency) */}
       <nav
         aria-label="Mobile Navigation"
-        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-brand-cream border-t-2 border-brand-chocolate/20 shadow-[0_-6px_25px_rgba(66,6,0,0.14)] pb-[env(safe-area-inset-bottom)]"
+        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-brand-cream border-t-2 border-brand-chocolate/20 shadow-[0_-6px_25px_rgba(66,6,0,0.14)] pb-[env(safe-area-inset-bottom)] max-w-full overflow-x-hidden"
       >
         <div className="grid grid-cols-5 h-15 items-center px-2 bg-brand-cream">
           {/* 1. Home */}

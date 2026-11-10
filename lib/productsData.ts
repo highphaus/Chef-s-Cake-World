@@ -600,3 +600,4 @@ export const MASTER_PRODUCTS: ProductItem[] = [
     itemType: 'cake',
   },
 ];
+

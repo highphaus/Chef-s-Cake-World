@@ -53,12 +53,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfairDisplay.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen flex flex-col bg-brand-cream text-brand-chocolate antialiased selection:bg-brand-caramel selection:text-white">
+    <html lang="en" className={`${playfairDisplay.variable} ${dmSans.variable} overflow-x-hidden max-w-full`}>
+      <body className="min-h-screen flex flex-col bg-brand-cream text-brand-chocolate antialiased selection:bg-brand-caramel selection:text-white overflow-x-hidden max-w-full relative">
         <AuthProvider>
           <CartProvider>
             <Header />
-            <main className="flex-grow pb-16 lg:pb-0">{children}</main>
+            <main className="flex-grow pb-16 lg:pb-0 overflow-x-hidden max-w-full">{children}</main>
             <Footer />
           </CartProvider>
         </AuthProvider>

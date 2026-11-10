@@ -779,7 +779,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="space-y-20 pb-20">
+    <div className="space-y-20 pb-20 overflow-x-hidden max-w-full">
       {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL WITH CONTINUOUS AUTO-ROTATION & TOUCH SWIPE */}
       <section
         className="relative w-full h-[75vh] sm:h-[84vh] lg:h-[90vh] overflow-hidden bg-black select-none touch-pan-y"
@@ -859,7 +859,7 @@ export default function HomePage() {
       </section>
 
       {/* SECTION 2: EXPLORE OUR CAKES (ONE LINE TITLE & AUTOMATIC MOVEMENT CAROUSEL) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="flex items-center justify-between mb-6 sm:mb-8 gap-4">
           <div className="min-w-0">
             <span className="text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
@@ -886,14 +886,14 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Single-Line Automatic Movement Carousel Track */}
+        {/* Single-Line Automatic Movement Carousel Track (Zero scrollbar, no page overflow) */}
         <div
           ref={categoryScrollRef}
           onMouseEnter={() => setIsCategoryPaused(true)}
           onMouseLeave={() => setIsCategoryPaused(false)}
           onTouchStart={() => setIsCategoryPaused(true)}
           onTouchEnd={() => setIsCategoryPaused(false)}
-          className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0"
+          className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {displayCategories.map((cat: any) => (

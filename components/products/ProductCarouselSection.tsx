@@ -43,7 +43,7 @@ export default function ProductCarouselSection({
   }, [isPaused, products.length, autoScrollInterval]);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between mb-4 sm:mb-6 gap-3">
         <div className="min-w-0">
@@ -70,14 +70,14 @@ export default function ProductCarouselSection({
         </div>
       </div>
 
-      {/* Product Track: Exactly 2 cards on mobile screen side-by-side */}
+      {/* Product Track: Exactly 2 cards on mobile screen side-by-side (Zero scrollbar, no page overflow) */}
       <div
         ref={scrollRef}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={() => setIsPaused(true)}
         onTouchEnd={() => setIsPaused(false)}
-        className="flex gap-3 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0"
+        className="flex gap-3 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {products.map((product: any) => (

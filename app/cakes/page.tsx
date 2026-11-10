@@ -481,7 +481,7 @@ function CakesCatalogueContent() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 overflow-x-hidden max-w-full">
       {/* Header Banner */}
       <div className="mb-6 sm:mb-8">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-peach text-brand-chocolate text-xs font-bold tracking-wide uppercase mb-2 border border-brand-chocolate/15">
@@ -556,8 +556,11 @@ function CakesCatalogueContent() {
           </div>
         </div>
 
-        {/* Horizontal Quick Filter Pills (Responsive on All Devices) */}
-        <div className="pt-2 border-t border-brand-chocolate/10 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+        {/* Horizontal Quick Filter Pills (Responsive on All Devices, Zero Scrollbar) */}
+        <div
+          className="pt-2 border-t border-brand-chocolate/10 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none no-scrollbar"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           <button
             type="button"
             onClick={() => {
