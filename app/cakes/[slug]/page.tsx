@@ -224,7 +224,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const totalPrice = unitPrice * quantity;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10 sm:space-y-16">
       {/* Breadcrumbs */}
       <nav className="text-xs text-brand-chocolate/60 flex items-center gap-2">
         <Link href="/" className="hover:text-brand-caramel">Home</Link>
@@ -535,18 +535,18 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
         </div>
       </div>
 
-      {/* Related Products */}
+      {/* Related Products - Reduced Card Size on Smaller Devices (2 Cards Per Row) */}
       {relatedProducts.length > 0 && (
-        <div className="pt-12 border-t border-brand-chocolate/10">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-heading text-2xl text-brand-chocolate">
+        <div className="pt-8 sm:pt-12 border-t border-brand-chocolate/10">
+          <div className="flex items-center justify-between mb-4 sm:mb-8">
+            <h2 className="font-heading text-lg sm:text-2xl text-brand-chocolate">
               You May Also Savor
             </h2>
             <Link href="/cakes" className="text-xs font-bold text-brand-caramel hover:underline">
               View All
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
             {relatedProducts.map((p) => (
               <ProductCard key={p._id} product={p} />
             ))}

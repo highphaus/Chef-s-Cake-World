@@ -30,7 +30,7 @@ const celebrationOccasions = [
     label: 'Birthday Bash',
     icon: '🎂',
     subtitle: 'Free custom plaque & candles',
-    cakeName: 'Royal Belgian Couverture Birthday Cake',
+    cakeName: 'Royal Belgian Birthday Cake',
     tagline: '70% Dark Callebaut Ganache & Hazelnut Praline',
     prices: { '0.5kg': 699, '1kg': 1299, '2kg': 2499 },
     rating: 4.96,
@@ -50,7 +50,7 @@ const celebrationOccasions = [
     label: 'Weddings & Anniversaries',
     icon: '💍',
     subtitle: 'Grand multi-tier florals & gold',
-    cakeName: 'Grand 3-Tier Couverture & Floral Masterpiece',
+    cakeName: 'Grand Floral Celebration Cake',
     tagline: 'Sculpted Tiering with 24K Edible Gold Accents',
     prices: { '0.5kg': 1499, '1kg': 2899, '2kg': 5499 },
     rating: 4.99,
@@ -70,7 +70,7 @@ const celebrationOccasions = [
     label: 'Belgian Truffle Lovers',
     icon: '🍫',
     subtitle: 'Intense 70% Callebaut ganache',
-    cakeName: 'Decadent Dark Truffle & Roasted Hazelnut',
+    cakeName: 'Dark Truffle Hazelnut Cake',
     tagline: 'Intense Single-Origin Cocoa with Silky Mirror Drip',
     prices: { '0.5kg': 749, '1kg': 1399, '2kg': 2699 },
     rating: 4.94,
@@ -90,7 +90,7 @@ const celebrationOccasions = [
     label: '100% Pure Eggless',
     icon: '🌿',
     subtitle: 'Certified pure vegetarian line',
-    cakeName: 'Pure Eggless Red Velvet & Cream Cheese Luxe',
+    cakeName: 'Red Velvet Cream Cheese',
     tagline: 'Whipped Philadelphia Frosting & Crimson Crumb',
     prices: { '0.5kg': 749, '1kg': 1399, '2kg': 2699 },
     rating: 4.92,
@@ -110,7 +110,7 @@ const celebrationOccasions = [
     label: 'Lotus Biscoff Gourmet',
     icon: '✨',
     subtitle: 'Speculoos mousse & crunchy biscuit',
-    cakeName: 'Lotus Biscoff Speculoos Dream Cake',
+    cakeName: 'Lotus Biscoff Dream Cake',
     tagline: 'Caramel Cinnamon Biscuit Layering & Spread Drizzle',
     prices: { '0.5kg': 799, '1kg': 1499, '2kg': 2899 },
     rating: 4.98,
@@ -773,7 +773,7 @@ export default function HomePage() {
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
       {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL WITH CONTINUOUS AUTO-ROTATION & TOUCH SWIPE */}
       <section
-        className="relative w-full h-[74vh] xs:h-[80vh] sm:h-[84vh] lg:h-[90vh] min-h-[500px] max-h-[820px] overflow-hidden bg-black select-none touch-pan-y"
+        className="relative w-full h-[58vh] xs:h-[65vh] sm:h-[75vh] lg:h-[85vh] min-h-[420px] max-h-[760px] overflow-hidden bg-black select-none touch-pan-y"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
@@ -813,7 +813,7 @@ export default function HomePage() {
                   </span>
 
                   {/* Clean Title */}
-                  <h1 className="font-heading text-2xl xs:text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-lg">
+                  <h1 className="font-heading text-xl xs:text-2xl sm:text-4xl lg:text-5xl text-white leading-[1.15] tracking-tight drop-shadow-lg">
                     {activeCake.cakeName}
                   </h1>
 
