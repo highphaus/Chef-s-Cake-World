@@ -133,6 +133,69 @@ const celebrationOccasions = [
   }
 ];
 
+const customerReviews = [
+  {
+    id: 1,
+    name: 'Pooja Nair',
+    location: 'Attingal, Kerala',
+    occasion: '60th Birthday Celebration',
+    cake: 'Royal Belgian Chocolate Truffle',
+    rating: 5,
+    comment:
+      'Ordered the Royal Belgian Chocolate Truffle for my mother’s 60th birthday. The ganache was rich, velvety, and not overly sweet. Delivered right at midnight in Attingal with perfect packaging!',
+  },
+  {
+    id: 2,
+    name: 'Rohan & Arya',
+    location: 'Kazhakootam, Kerala',
+    occasion: 'Engagement Ceremony',
+    cake: 'Bespoke 3-Tier Fondant Atelier',
+    rating: 5,
+    comment:
+      'Their custom cake consultation was flawless. I shared a Pinterest moodboard for our engagement cake and Chef’s Cake World executed the exact floral fondant tiers. Guests could not stop raving.',
+  },
+  {
+    id: 3,
+    name: 'Anjali Menon',
+    location: 'Ulloor, Trivandrum',
+    occasion: 'Anniversary Celebration',
+    cake: 'Signature Red Velvet Eggless',
+    rating: 5,
+    comment:
+      'As a strict vegetarian family, finding high-end eggless cakes that do not feel dense is tough. Their Red Velvet Eggless cake is so moist and authentic. Hands down best in Kerala.',
+  },
+  {
+    id: 4,
+    name: 'Dr. Vishnu Prasad',
+    location: 'Kumarapuram, Trivandrum',
+    occasion: 'Daughter’s 1st Birthday',
+    cake: 'Fresh Berry Vanilla Mascarpone',
+    rating: 5,
+    comment:
+      'Flawless taste and presentation. The sponge was cloud-light, with fresh strawberry coulis and zero artificial food coloring. The delivery team coordinated smoothly.',
+  },
+  {
+    id: 5,
+    name: 'Fathima & Sameer',
+    location: 'Alamcode, Kerala',
+    occasion: 'Family Celebration',
+    cake: 'Hazelnut Praline Crunch',
+    rating: 5,
+    comment:
+      'Chef’s Cake World Alamcode branch made our weekend party unforgettable. The roasted Piedmont hazelnut crunch with milk chocolate ganache is world class.',
+  },
+  {
+    id: 6,
+    name: 'Siddharth Rajan',
+    location: 'Technopark / Kazhakootam',
+    occasion: 'Office Milestone Party',
+    cake: 'Lotus Biscoff Salted Caramel',
+    rating: 5,
+    comment:
+      'Ordered 3 kg Lotus Biscoff cake for our tech team milestone. Perfectly caramelized layers and arrived chilled within 45 minutes of dispatch. Highly recommended!',
+  },
+];
+
 export default function HomePage() {
   const [categories, setCategories] = useState<any[]>([]);
   const [bestSellers, setBestSellers] = useState<any[]>([]);
@@ -232,6 +295,70 @@ export default function HomePage() {
 
     return () => clearInterval(timer);
   }, [isCategoryPaused]);
+
+  // Branches Carousel Movement & Navigation
+  const branchesScrollRef = useRef<HTMLDivElement>(null);
+  const [isBranchesPaused, setIsBranchesPaused] = useState(false);
+
+  const scrollBranches = (direction: 'left' | 'right') => {
+    if (!branchesScrollRef.current) return;
+    const clientWidth = branchesScrollRef.current.clientWidth;
+    const scrollAmount = clientWidth < 640 ? clientWidth * 0.85 : 340;
+    branchesScrollRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    if (isBranchesPaused) return;
+
+    const timer = setInterval(() => {
+      if (branchesScrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = branchesScrollRef.current;
+        const step = clientWidth < 640 ? clientWidth * 0.85 : 340;
+        if (scrollLeft + clientWidth >= scrollWidth - 15) {
+          branchesScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          branchesScrollRef.current.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      }
+    }, 3600);
+
+    return () => clearInterval(timer);
+  }, [isBranchesPaused]);
+
+  // Reviews Carousel Movement & Navigation
+  const reviewsScrollRef = useRef<HTMLDivElement>(null);
+  const [isReviewsPaused, setIsReviewsPaused] = useState(false);
+
+  const scrollReviews = (direction: 'left' | 'right') => {
+    if (!reviewsScrollRef.current) return;
+    const clientWidth = reviewsScrollRef.current.clientWidth;
+    const scrollAmount = clientWidth < 640 ? clientWidth * 0.85 : 360;
+    reviewsScrollRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    if (isReviewsPaused) return;
+
+    const timer = setInterval(() => {
+      if (reviewsScrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = reviewsScrollRef.current;
+        const step = clientWidth < 640 ? clientWidth * 0.85 : 360;
+        if (scrollLeft + clientWidth >= scrollWidth - 15) {
+          reviewsScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          reviewsScrollRef.current.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      }
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [isReviewsPaused]);
 
   // Fallback categories if server not yet populated
   const displayCategories = categories.length > 0 ? categories : [
@@ -1090,9 +1217,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 6: OUR BRANCHES (KERALA ATELIER BOUTIQUES) */}
+      {/* SECTION 6: OUR BRANCHES (KERALA ATELIER BOUTIQUES) CAROUSEL */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 sm:mb-6 gap-3">
           <div>
             <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
               Store Network
@@ -1101,129 +1228,189 @@ export default function HomePage() {
               Visit Our 8 Kerala Patisseries
             </h2>
           </div>
-          <Link
-            href="/branches"
-            className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group shrink-0"
-          >
-            <span>View All Details &amp; Maps</span>
-            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex items-center gap-3">
+            <span className="hidden md:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
+              <span>Auto-moving</span>
+              <span className="text-brand-caramel font-bold">&bull;</span>
+              <span>Swipe</span>
+            </span>
+            <Link
+              href="/branches"
+              className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group shrink-0"
+            >
+              <span>View All Details &amp; Maps</span>
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {OFFICIAL_BRANCHES.map((b) => (
-            <div
-              key={b.branchCode}
-              className="bg-[#FAF8F5] rounded-2xl p-4 sm:p-5 border border-brand-chocolate/12 shadow-[0_4px_16px_rgba(66,6,0,0.06)] hover:shadow-[0_12px_28px_rgba(66,6,0,0.12)] hover:border-brand-caramel/40 flex flex-col justify-between transition-all group"
-            >
-              <div className="space-y-2">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="space-y-0.5">
-                    <h3 className="font-heading text-base sm:text-lg text-brand-chocolate group-hover:text-brand-caramel transition-colors font-bold">
-                      {b.shortName}
-                    </h3>
-                    <div className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-700">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>Patisserie &amp; Kitchen Open</span>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-chocolate/10 text-brand-chocolate shrink-0 border border-brand-chocolate/15">
-                    {b.branchCode.replace('CCW-', '')}
-                  </span>
-                </div>
-                <p className="text-xs text-brand-chocolate/70 leading-relaxed line-clamp-2 font-body">
-                  {b.address}
-                </p>
-                <div className="text-[11px] text-brand-chocolate/80 space-y-0.5 pt-1.5 border-t border-brand-chocolate/8">
-                  <p className="flex items-center gap-1.5 text-brand-chocolate/65">
-                    <Clock className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
-                    <span>{b.openingHours}</span>
-                  </p>
-                </div>
-              </div>
+        {/* Branches Carousel with Left & Right Navigation Buttons */}
+        <div className="relative group/btrack">
+          {/* Left Arrow Button */}
+          <button
+            type="button"
+            onClick={() => scrollBranches('left')}
+            className="absolute -left-2 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
+            aria-label="Previous branch"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
 
-              <div className="pt-3 mt-3 border-t border-brand-chocolate/10 flex items-center gap-2">
-                <a
-                  href={`tel:${b.rawPhone}`}
-                  className="flex-1 py-2 px-2 rounded-xl bg-white hover:bg-brand-caramel hover:text-white text-brand-chocolate text-[11px] font-bold transition-all flex items-center justify-center gap-1 shadow-2xs border border-brand-chocolate/10"
-                >
-                  <Phone className="w-3 h-3 text-brand-caramel group-hover:text-white" />
-                  <span>Call Shop</span>
-                </a>
-                <a
-                  href={b.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(b.address)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="py-2 px-3 rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white text-[11px] font-bold transition-all flex items-center justify-center gap-1 shadow-2xs"
-                  title="Open location in Google Maps"
-                >
-                  <Navigation className="w-3 h-3" />
-                  <span>Map</span>
-                </a>
+          {/* Right Arrow Button */}
+          <button
+            type="button"
+            onClick={() => scrollBranches('right')}
+            className="absolute -right-2 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
+            aria-label="Next branch"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+
+          {/* Horizontal Scrolling Track */}
+          <div
+            ref={branchesScrollRef}
+            onMouseEnter={() => setIsBranchesPaused(true)}
+            onMouseLeave={() => setIsBranchesPaused(false)}
+            onTouchStart={() => setIsBranchesPaused(true)}
+            onTouchEnd={() => setIsBranchesPaused(false)}
+            className="flex gap-4 sm:gap-5 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {OFFICIAL_BRANCHES.map((b) => (
+              <div
+                key={b.branchCode}
+                className="w-[280px] xs:w-[300px] sm:w-[320px] md:w-[340px] shrink-0 bg-[#FAF8F5] rounded-2xl p-4 sm:p-5 border border-brand-chocolate/12 shadow-[0_4px_16px_rgba(66,6,0,0.06)] hover:shadow-[0_12px_28px_rgba(66,6,0,0.12)] hover:border-brand-caramel/40 flex flex-col justify-between transition-all group"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="space-y-0.5 min-w-0">
+                      <h3 className="font-heading text-base sm:text-lg text-brand-chocolate group-hover:text-brand-caramel transition-colors font-bold truncate">
+                        {b.shortName}
+                      </h3>
+                      <div className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-700">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>Patisserie &amp; Kitchen Open</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-chocolate/10 text-brand-chocolate shrink-0 border border-brand-chocolate/15">
+                      {b.branchCode.replace('CCW-', '')}
+                    </span>
+                  </div>
+                  <p className="text-xs text-brand-chocolate/70 leading-relaxed line-clamp-2 font-body">
+                    {b.address}
+                  </p>
+                  <div className="text-[11px] text-brand-chocolate/80 space-y-0.5 pt-1.5 border-t border-brand-chocolate/8">
+                    <p className="flex items-center gap-1.5 text-brand-chocolate/65">
+                      <Clock className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
+                      <span>{b.openingHours}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-3 mt-3 border-t border-brand-chocolate/10 flex items-center gap-2">
+                  <a
+                    href={`tel:${b.rawPhone}`}
+                    className="flex-1 py-2 px-2 rounded-xl bg-white hover:bg-brand-caramel hover:text-white text-brand-chocolate text-[11px] font-bold transition-all flex items-center justify-center gap-1 shadow-2xs border border-brand-chocolate/10"
+                  >
+                    <Phone className="w-3 h-3 text-brand-caramel group-hover:text-white" />
+                    <span>Call Shop</span>
+                  </a>
+                  <a
+                    href={b.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(b.address)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="py-2 px-3 rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white text-[11px] font-bold transition-all flex items-center justify-center gap-1 shadow-2xs"
+                    title="Open location in Google Maps"
+                  >
+                    <Navigation className="w-3 h-3" />
+                    <span>Map</span>
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* SECTION 10: CUSTOMER TESTIMONIALS */}
+      {/* SECTION 10: CUSTOMER TESTIMONIALS (AUTO-SCROLL CAROUSEL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
-          <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
-            Real Reviews
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 sm:mb-6 gap-3">
+          <div>
+            <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
+              Real Reviews
+            </span>
+            <h2 className="section-title font-heading text-brand-chocolate text-xl xs:text-2xl sm:text-3xl lg:text-4xl">
+              Loved Across Every Celebration
+            </h2>
+          </div>
+          <span className="hidden md:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
+            <span>Auto-moving</span>
+            <span className="text-brand-caramel font-bold">&bull;</span>
+            <span>Swipe</span>
           </span>
-          <h2 className="section-title font-heading text-brand-chocolate text-xl xs:text-2xl sm:text-3xl lg:text-4xl">
-            Loved Across Every Celebration
-          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-brand-chocolate/10 shadow-[0_4px_16px_rgba(66,6,0,0.06)] space-y-3 sm:space-y-4">
-            <div className="flex text-brand-caramel">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-current" />
-              ))}
-            </div>
-            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed font-body">
-              &ldquo;Ordered the Royal Belgian Chocolate Truffle for my mother&apos;s 60th birthday. The ganache was rich,
-              velvety, and not overly sweet. Delivered right at midnight in Attingal with perfect packaging!&rdquo;
-            </p>
-            <div className="pt-2 border-t border-brand-chocolate/10 flex items-center justify-between text-xs">
-              <span className="font-bold text-brand-chocolate">Pooja Nair</span>
-              <span className="text-brand-chocolate/60">Attingal, Kerala</span>
-            </div>
-          </div>
+        {/* Reviews Carousel with Left & Right Navigation Buttons */}
+        <div className="relative group/rtrack">
+          {/* Left Arrow Button */}
+          <button
+            type="button"
+            onClick={() => scrollReviews('left')}
+            className="absolute -left-2 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
+            aria-label="Previous review"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
 
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-brand-chocolate/10 shadow-[0_4px_16px_rgba(66,6,0,0.06)] space-y-3 sm:space-y-4">
-            <div className="flex text-brand-caramel">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-current" />
-              ))}
-            </div>
-            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed font-body">
-              &ldquo;Their custom cake consultation was flawless. I shared a Pinterest moodboard for our engagement cake and
-              Chef&apos;s Cake World executed the exact floral fondant tiers. Guests couldn&apos;t stop raving.&rdquo;
-            </p>
-            <div className="pt-2 border-t border-brand-chocolate/10 flex items-center justify-between text-xs">
-              <span className="font-bold text-brand-chocolate">Rohan &amp; Arya</span>
-              <span className="text-brand-chocolate/60">Kazhakootam, Kerala</span>
-            </div>
-          </div>
+          {/* Right Arrow Button */}
+          <button
+            type="button"
+            onClick={() => scrollReviews('right')}
+            className="absolute -right-2 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
+            aria-label="Next review"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
 
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-brand-chocolate/10 shadow-[0_4px_16px_rgba(66,6,0,0.06)] space-y-3 sm:space-y-4">
-            <div className="flex text-brand-caramel">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-current" />
-              ))}
-            </div>
-            <p className="text-xs sm:text-sm text-brand-chocolate/80 italic leading-relaxed font-body">
-              &ldquo;As a strict vegetarian family, finding high-end eggless cakes that don&apos;t feel dense is tough.
-              Their Red Velvet Eggless cake is so moist and authentic. Hands down best in Kerala.&rdquo;
-            </p>
-            <div className="pt-2 border-t border-brand-chocolate/10 flex items-center justify-between text-xs">
-              <span className="font-bold text-brand-chocolate">Anjali Menon</span>
-              <span className="text-brand-chocolate/60">Kazhakootam, Kerala</span>
-            </div>
+          {/* Horizontal Scrolling Track */}
+          <div
+            ref={reviewsScrollRef}
+            onMouseEnter={() => setIsReviewsPaused(true)}
+            onMouseLeave={() => setIsReviewsPaused(false)}
+            onTouchStart={() => setIsReviewsPaused(true)}
+            onTouchEnd={() => setIsReviewsPaused(false)}
+            className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {customerReviews.map((rev) => (
+              <div
+                key={rev.id}
+                className="w-[280px] xs:w-[310px] sm:w-[350px] md:w-[380px] shrink-0 p-5 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-brand-chocolate/10 shadow-[0_4px_16px_rgba(66,6,0,0.06)] hover:shadow-[0_12px_28px_rgba(66,6,0,0.12)] flex flex-col justify-between transition-all"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex text-brand-caramel">
+                      {[...Array(rev.rating)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
+                      ))}
+                    </div>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-caramel/10 text-brand-caramel">
+                      {rev.occasion}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-brand-chocolate/85 italic leading-relaxed font-body">
+                    &ldquo;{rev.comment}&rdquo;
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-brand-chocolate/10 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-brand-chocolate block">{rev.name}</span>
+                    <span className="text-[10.5px] text-brand-caramel font-semibold block">{rev.cake}</span>
+                  </div>
+                  <span className="text-[10.5px] text-brand-chocolate/60 shrink-0">{rev.location}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
