@@ -63,42 +63,42 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Product Information */}
-      <div className="p-2.5 xs:p-3 sm:p-4 flex flex-col flex-1 justify-between bg-gradient-to-b from-[#FAF8F5] to-white">
+      <div className="p-2 xs:p-2.5 sm:p-4 flex flex-col flex-1 justify-between bg-gradient-to-b from-[#FAF8F5] to-white">
         <div>
-          {/* Rating */}
-          <div className="flex items-center gap-1 sm:gap-1.5 mb-1">
+          {/* Rating (Hidden on smaller devices to keep card minimal with name & price only) */}
+          <div className="hidden sm:flex items-center gap-1.5 mb-1">
             <div className="flex text-brand-caramel">
-              <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
             </div>
-            <span className="text-[10px] xs:text-[11px] sm:text-xs font-bold text-brand-chocolate">{product.averageRating.toFixed(1)}</span>
-            <span className="text-[10px] xs:text-[11px] sm:text-xs text-brand-chocolate/50">({product.reviewCount})</span>
+            <span className="text-xs font-bold text-brand-chocolate">{product.averageRating.toFixed(1)}</span>
+            <span className="text-xs text-brand-chocolate/50">({product.reviewCount})</span>
           </div>
 
-          {/* Title */}
-          <Link href={`/cakes/${product.slug}`}>
-            <h3 className="font-heading text-xs xs:text-sm sm:text-base font-bold text-brand-chocolate group-hover:text-brand-caramel transition-colors line-clamp-1 leading-snug tracking-tight">
+          {/* Title / Name */}
+          <Link href={`/cakes/${product.slug}`} className="block">
+            <h3 className="font-heading text-xs xs:text-sm sm:text-base font-bold text-brand-chocolate group-hover:text-brand-caramel transition-colors line-clamp-1 sm:line-clamp-2 leading-snug tracking-tight">
               {product.name}
             </h3>
           </Link>
 
-          {/* Description snippet */}
-          <p className="text-[10px] xs:text-[11px] sm:text-xs text-brand-chocolate/65 line-clamp-1 xs:line-clamp-2 mt-0.5 leading-relaxed font-body">
+          {/* Description snippet (Hidden on smaller devices, visible only on sm+ screens) */}
+          <p className="hidden sm:block text-xs text-brand-chocolate/65 line-clamp-2 mt-1 leading-relaxed font-body">
             {product.description}
           </p>
         </div>
 
-        {/* Price & Action Button */}
-        <div className="mt-2.5 sm:mt-3 pt-2 border-t border-brand-chocolate/10 flex items-center justify-between gap-1">
+        {/* Price / Amount & Action Button */}
+        <div className="mt-2 sm:mt-3 pt-1.5 sm:pt-2 border-t border-brand-chocolate/10 flex items-center justify-between gap-1.5">
           <div className="min-w-0 flex-1">
-            <span className="text-[8px] xs:text-[9px] uppercase tracking-wider text-brand-chocolate/55 font-bold block leading-tight">Price</span>
-            <span className="font-heading text-xs xs:text-sm sm:text-base lg:text-lg font-bold text-brand-caramel leading-tight block truncate">
+            <span className="hidden sm:block text-[9px] uppercase tracking-wider text-brand-chocolate/55 font-bold leading-tight">Price</span>
+            <span className="font-heading text-xs xs:text-sm sm:text-base lg:text-lg font-extrabold text-brand-caramel leading-tight block truncate">
               ₹{product.basePrice}
             </span>
           </div>
 
           <Link
             href={`/cakes/${product.slug}`}
-            className="flex items-center justify-center gap-1 px-2.5 xs:px-3 py-1 xs:py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-brand-chocolate text-brand-gold text-[9px] xs:text-[10px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-xs active:scale-95 whitespace-nowrap min-h-[30px] sm:min-h-[36px] shrink-0"
+            className="flex items-center justify-center gap-1 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-brand-chocolate text-brand-gold text-[9.5px] xs:text-[10px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-xs active:scale-95 whitespace-nowrap min-h-[26px] xs:min-h-[28px] sm:min-h-[36px] shrink-0"
             title={`Customize weight and order ${product.name}`}
           >
             <ShoppingBag className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
