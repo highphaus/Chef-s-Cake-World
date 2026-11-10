@@ -12,7 +12,6 @@ import {
   Star,
   CheckCircle2,
   Cake,
-  Mail,
   Award,
   Phone,
   MapPin,
@@ -131,8 +130,6 @@ export default function HomePage() {
   const [bestSellers, setBestSellers] = useState<any[]>([]);
   const [featuredCakes, setFeaturedCakes] = useState<any[]>([]);
   const [branches, setBranches] = useState<any[]>([]);
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
   const [selectedOccasionIndex, setSelectedOccasionIndex] = useState(0);
 
   useEffect(() => {
@@ -227,14 +224,6 @@ export default function HomePage() {
 
     return () => clearInterval(timer);
   }, [isCategoryPaused]);
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail.trim() && newsletterEmail.includes('@')) {
-      setNewsletterSubmitted(true);
-      setNewsletterEmail('');
-    }
-  };
 
   // Fallback categories if server not yet populated
   const displayCategories = categories.length > 0 ? categories : [
@@ -1278,44 +1267,6 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* SECTION 10: NEWSLETTER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-brand-chocolate text-white p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-xl space-y-4">
-          <div className="w-12 h-12 rounded-full bg-brand-caramel/40 mx-auto flex items-center justify-center text-brand-gold">
-            <Mail className="w-6 h-6" />
-          </div>
-          <h2 className="font-heading text-2xl sm:text-3xl text-brand-cream">
-            Join the Chef&apos;s Cake Circle
-          </h2>
-          <p className="text-xs sm:text-sm text-brand-cream/80 max-w-md mx-auto">
-            Subscribe to receive seasonal collection previews, private festival offers, and an exclusive ₹100 discount voucher on your first order.
-          </p>
-
-          {newsletterSubmitted ? (
-            <div className="p-4 rounded-xl bg-white/10 text-brand-gold text-sm font-semibold inline-block">
-              🎉 Thank you for subscribing! Check your inbox for your welcome voucher.
-            </div>
-          ) : (
-            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2">
-              <input
-                type="email"
-                required
-                placeholder="Enter your email address"
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="px-4 py-3 rounded-xl bg-white text-brand-chocolate placeholder:text-brand-chocolate/50 text-sm flex-1 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 rounded-xl bg-brand-caramel text-white font-bold text-sm hover:bg-white hover:text-brand-chocolate transition-all"
-              >
-                Subscribe
-              </button>
-            </form>
-          )}
         </div>
       </section>
     </div>
