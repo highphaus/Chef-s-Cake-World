@@ -599,5 +599,255 @@ export const MASTER_PRODUCTS: ProductItem[] = [
     reviewCount: 88,
     itemType: 'cake',
   },
+  {
+    _id: 'cake-09',
+    name: 'Ferrero Rocher Hazelnut Praline Luxe',
+    slug: 'ferrero-rocher-hazelnut-praline-luxe',
+    description: 'Silky Nutella mousse, crispy wafer crunch, whole roasted Ferrero Rochers, and rich Belgian dark chocolate ganache drip.',
+    category: { slug: 'chocolate-cakes', name: 'Chocolate Cakes' },
+    basePrice: 899,
+    images: [
+      'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop',
+    ],
+    availableWeights: ['0.5 kg', '1 kg', '1.5 kg', '2 kg'],
+    availableFlavours: ['Ferrero Hazelnut Praline', 'Belgian Dark Ganache'],
+    egglessAvailable: true,
+    eggOptionAvailable: true,
+    ingredients: ['Ferrero Rocher', 'Nutella Hazelnut Spread', '70% Belgian Dark Chocolate', 'Wafer Crunch'],
+    allergens: ['Dairy', 'Nuts', 'Gluten'],
+    preparationTimeHours: 3,
+    isBestSeller: true,
+    isFeatured: true,
+    averageRating: 4.97,
+    reviewCount: 124,
+    itemType: 'cake',
+  },
+  {
+    _id: 'cake-10',
+    name: 'Decadent Dark Truffle & Roasted Hazelnut',
+    slug: 'decadent-dark-truffle-roasted-hazelnut',
+    description: 'Pure 70% single-origin Callebaut couverture ganache with mirror chocolate drip and roasted Piedmont hazelnuts.',
+    category: { slug: 'chocolate-cakes', name: 'Chocolate Cakes' },
+    basePrice: 749,
+    images: [
+      'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop',
+    ],
+    availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+    availableFlavours: ['Roasted Hazelnut Dark', 'Callebaut Truffle'],
+    egglessAvailable: true,
+    eggOptionAvailable: true,
+    ingredients: ['Single Origin Cocoa', 'Roasted Hazelnuts', 'Dairy Cream', 'Brown Sugar'],
+    allergens: ['Dairy', 'Nuts', 'Gluten'],
+    preparationTimeHours: 3,
+    isBestSeller: true,
+    isFeatured: true,
+    averageRating: 4.94,
+    reviewCount: 310,
+    itemType: 'cake',
+  },
+  {
+    _id: 'cake-11',
+    name: 'Triple Chocolate Mousse Drip Cake',
+    slug: 'triple-chocolate-mousse-drip-cake',
+    description: 'Dark, milk, and white Belgian chocolate mousse layers over a crunchy cocoa biscuit base with glossy drip.',
+    category: { slug: 'chocolate-cakes', name: 'Chocolate Cakes' },
+    basePrice: 799,
+    images: [
+      'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800&auto=format&fit=crop',
+    ],
+    availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+    availableFlavours: ['Triple Mousse Fusion'],
+    egglessAvailable: true,
+    eggOptionAvailable: true,
+    ingredients: ['Dark Couverture', 'Milk Chocolate', 'White Velvet Chocolate', 'Fresh Cream'],
+    allergens: ['Dairy', 'Gluten'],
+    preparationTimeHours: 4,
+    isBestSeller: false,
+    isFeatured: false,
+    averageRating: 4.91,
+    reviewCount: 86,
+    itemType: 'cake',
+  },
+  {
+    _id: 'cake-12',
+    name: 'Dark Callebaut Ganache Mirror Cake',
+    slug: 'dark-callebaut-ganache-mirror-cake',
+    description: 'Glossy chocolate mirror glaze poured over intense bittersweet single-origin sponge and chocolate curls.',
+    category: { slug: 'chocolate-cakes', name: 'Chocolate Cakes' },
+    basePrice: 849,
+    images: [
+      'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop',
+    ],
+    availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+    availableFlavours: ['Mirror Glaze Ganache'],
+    egglessAvailable: true,
+    eggOptionAvailable: true,
+    ingredients: ['70% Callebaut Dark', 'Cocoa Mirror Glaze', 'Heavy Cream'],
+    allergens: ['Dairy', 'Gluten'],
+    preparationTimeHours: 4,
+    isBestSeller: false,
+    isFeatured: false,
+    averageRating: 4.89,
+    reviewCount: 71,
+    itemType: 'cake',
+  },
+  {
+    _id: 'cake-13',
+    name: 'Golden Butterscotch Caramel Crunch',
+    slug: 'golden-butterscotch-caramel-crunch',
+    description: 'Moist vanilla sponge with crunchy butterscotch praline nuggets, caramel swirl cream, and toffee drizzle.',
+    category: { slug: 'birthday-cakes', name: 'Birthday Cakes' },
+    basePrice: 649,
+    images: [
+      'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop',
+    ],
+    availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+    availableFlavours: ['Butterscotch Praline', 'Salted Caramel Crunch'],
+    egglessAvailable: true,
+    eggOptionAvailable: true,
+    ingredients: ['Butterscotch Crunch', 'Caramel Syrup', 'Bourbon Vanilla', 'Dairy Cream'],
+    allergens: ['Dairy', 'Gluten'],
+    preparationTimeHours: 3,
+    isBestSeller: false,
+    isFeatured: true,
+    averageRating: 4.85,
+    reviewCount: 79,
+    itemType: 'cake',
+  },
+  {
+    _id: 'cake-14',
+    name: 'Eggless Pistachio Kulfi Saffron Bliss',
+    slug: 'eggless-pistachio-kulfi-saffron-bliss',
+    description: 'Aromatic Kashmiri saffron cream, crushed roasted Iranian pistachios, and rich cardamom sponge in pure vegetarian formulation.',
+    category: { slug: 'eggless-cakes', name: 'Eggless Delights' },
+    basePrice: 799,
+    images: [
+      'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop',
+    ],
+    availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+    availableFlavours: ['Pistachio Saffron Kulfi'],
+    egglessAvailable: true,
+    eggOptionAvailable: false,
+    ingredients: ['Kashmiri Saffron', 'Roasted Pistachios', 'Cardamom', 'Fresh Malai Cream'],
+    allergens: ['Dairy', 'Nuts', 'Gluten'],
+    preparationTimeHours: 4,
+    isBestSeller: false,
+    isFeatured: true,
+    averageRating: 4.93,
+    reviewCount: 65,
+    itemType: 'cake',
+  },
+  {
+    _id: 'cake-15',
+    name: 'Pure Vegetarian Dutch Truffle Gateau',
+    slug: 'pure-vegetarian-dutch-truffle-gateau',
+    description: 'Moist eggless chocolate sponge smothered in silky Callebaut ganache, chocolate flakes, and dark truffle roses.',
+    category: { slug: 'eggless-cakes', name: 'Eggless Delights' },
+    basePrice: 749,
+    images: [
+      'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop',
+    ],
+    availableWeights: ['0.5 kg', '1 kg', '2 kg'],
+    availableFlavours: ['Dutch Ganache Truffle'],
+    egglessAvailable: true,
+    eggOptionAvailable: false,
+    ingredients: ['Dutch Cocoa', 'Callebaut Couverture', 'Pure Dairy Cream'],
+    allergens: ['Dairy', 'Gluten'],
+    preparationTimeHours: 3,
+    isBestSeller: true,
+    isFeatured: true,
+    averageRating: 4.91,
+    reviewCount: 114,
+    itemType: 'cake',
+  },
+  {
+    _id: 'cake-16',
+    name: 'Regal Pearl & White Truffle Anniversary Tier',
+    slug: 'regal-pearl-white-truffle-anniversary-tier',
+    description: 'White Callebaut chocolate ganache with edible luster dust, quilted silver dragees, and raspberry compote filling.',
+    category: { slug: 'anniversary-cakes', name: 'Anniversary Cakes' },
+    basePrice: 2699,
+    images: [
+      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200&auto=format&fit=crop',
+    ],
+    availableWeights: ['2 kg', '3 kg', '4 kg'],
+    availableFlavours: ['White Truffle Hazelnut', 'Raspberry White Chocolate'],
+    egglessAvailable: true,
+    eggOptionAvailable: true,
+    ingredients: ['White Callebaut Couverture', 'Edible Silver Dragees', 'Raspberry Compote'],
+    allergens: ['Dairy', 'Gluten'],
+    preparationTimeHours: 12,
+    isBestSeller: false,
+    isFeatured: true,
+    averageRating: 4.92,
+    reviewCount: 55,
+    itemType: 'cake',
+  },
+  {
+    _id: 'cake-17',
+    name: 'Contemporary Semi-Naked Berry Banquet Tier',
+    slug: 'contemporary-semi-naked-berry-banquet-tier',
+    description: 'Rustic semi-naked vanilla sponge adorned with organic figs, blackberries, strawberries, and fresh rosemary sprigs.',
+    category: { slug: 'wedding-cakes', name: 'Wedding Masterpieces' },
+    basePrice: 2299,
+    images: [
+      'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=1200&auto=format&fit=crop',
+    ],
+    availableWeights: ['2 kg', '3 kg', '4 kg'],
+    availableFlavours: ['Vanilla Berry Mascarpone'],
+    egglessAvailable: true,
+    eggOptionAvailable: true,
+    ingredients: ['Handpicked Berries', 'Mascarpone Cream', 'Madagascar Vanilla'],
+    allergens: ['Dairy', 'Gluten'],
+    preparationTimeHours: 12,
+    isBestSeller: false,
+    isFeatured: false,
+    averageRating: 4.88,
+    reviewCount: 42,
+    itemType: 'cake',
+  },
 ];
+
+/**
+ * Resilient Product Lookup Helper
+ * Guarantees that any product slug, ID, or variant name resolves instantly with ZERO blank screen or 404.
+ */
+export function findMasterProduct(rawSlug: string): ProductItem {
+  if (!rawSlug) return MASTER_PRODUCTS[0];
+  const clean = decodeURIComponent(String(rawSlug)).toLowerCase().trim().replace(/^\/+|\/+$/g, '');
+
+  // 1. Exact slug match
+  let match = MASTER_PRODUCTS.find((p) => p.slug.toLowerCase() === clean);
+  if (match) return match;
+
+  // 2. Exact _id match
+  match = MASTER_PRODUCTS.find((p) => p._id.toLowerCase() === clean);
+  if (match) return match;
+
+  // 3. Name slugified match (e.g. "Royal Belgian Chocolate Truffle Cake" -> "royal-belgian-chocolate-truffle-cake")
+  match = MASTER_PRODUCTS.find((p) => {
+    const slugified = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    return slugified === clean;
+  });
+  if (match) return match;
+
+  // 4. Partial substring match
+  match = MASTER_PRODUCTS.find((p) => clean.includes(p.slug) || p.slug.includes(clean));
+  if (match) return match;
+
+  // 5. Significant keyword match
+  const keywords = clean.split('-').filter((w) => w.length >= 4);
+  if (keywords.length > 0) {
+    match = MASTER_PRODUCTS.find((p) => {
+      const pSlug = p.slug.toLowerCase();
+      const pName = p.name.toLowerCase();
+      return keywords.some((k) => pSlug.includes(k) || pName.includes(k));
+    });
+    if (match) return match;
+  }
+
+  // 6. Graceful fallback
+  return MASTER_PRODUCTS[0];
+}
 

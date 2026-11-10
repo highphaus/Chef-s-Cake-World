@@ -21,22 +21,41 @@ import {
 import { api } from '@/lib/api';
 import { useCart } from '@/context/CartContext';
 import ProductCard from '@/components/products/ProductCard';
-import { MASTER_PRODUCTS } from '@/lib/productsData';
+import { MASTER_PRODUCTS, findMasterProduct } from '@/lib/productsData';
 
-export default function ProductDetailPage() {
-  const { slug } = useParams();
+interface ProductDetailPageProps {
+  params?: {
+    slug?: string;
+  };
+}
+
+export default function ProductDetailPage({ params }: ProductDetailPageProps) {
+  const routeParams = useParams();
+  const rawParamSlug = params?.slug || routeParams?.slug;
+  const slugStr = Array.isArray(rawParamSlug) ? rawParamSlug[0] : (rawParamSlug ? String(rawParamSlug) : '');
+  const cleanSlug = slugStr ? decodeURIComponent(slugStr).trim() : '';
+
   const router = useRouter();
   const { addToCart } = useCart();
 
-  const [product, setProduct] = useState<any>(null);
-  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
-  const [selectedImage, setSelectedImage] = useState<string>('');
-  const [loading, setLoading] = useState(true);
+  // Instantly resolve initial product from local master repository with zero network delay
+  const initialResolved = cleanSlug ? findMasterProduct(cleanSlug) : MASTER_PRODUCTS[0];
 
-  // Customization State
-  const [selectedWeight, setSelectedWeight] = useState('0.5 kg');
-  const [selectedFlavour, setSelectedFlavour] = useState('');
-  const [isEggless, setIsEggless] = useState(true);
+  const [product, setProduct] = useState<any>(initialResolved);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>(() =>
+    MASTER_PRODUCTS.filter((p) => p.slug !== initialResolved.slug).slice(0, 4)
+  );
+  const [selectedImage, setSelectedImage] = useState<string>(initialResolved.images?.[0] || '');
+  const [loading, setLoading] = useState(false);
+
+  // Customization State initialized with the product defaults
+  const [selectedWeight, setSelectedWeight] = useState<string>(
+    initialResolved.availableWeights?.[0] || '0.5 kg'
+  );
+  const [selectedFlavour, setSelectedFlavour] = useState<string>(
+    initialResolved.availableFlavours?.[0] || 'Original'
+  );
+  const [isEggless, setIsEggless] = useState<boolean>(initialResolved.egglessAvailable ?? true);
   const [customMessage, setCustomMessage] = useState('');
   const [candlesCount, setCandlesCount] = useState(1);
   const [quantity, setQuantity] = useState(1);
@@ -55,47 +74,40 @@ export default function ProductDetailPage() {
   const [selectedSlot, setSelectedSlot] = useState('02:00 PM - 05:00 PM (Afternoon)');
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      if (!slug) return;
+    if (!cleanSlug) return;
+    
+    // 1. Immediately ensure local match is in place
+    const matched = findMasterProduct(cleanSlug);
+    if (matched) {
+      setProduct(matched);
+      setSelectedImage(matched.images?.[0] || '');
+      setSelectedWeight(matched.availableWeights?.[0] || '0.5 kg');
+      setSelectedFlavour(matched.availableFlavours?.[0] || 'Original');
+      setIsEggless(matched.egglessAvailable ?? true);
+      setRelatedProducts(MASTER_PRODUCTS.filter((p) => p.slug !== matched.slug).slice(0, 4));
+    }
+
+    // 2. Query live API in background if online, gracefully handling offline/timeout
+    const fetchLiveProduct = async () => {
       try {
-        setLoading(true);
-        const res = await api.getProductBySlug(String(slug));
-        if (res.success && res.product) {
+        const res = await api.getProductBySlug(cleanSlug);
+        if (res && res.success && res.product) {
           setProduct(res.product);
-          setSelectedImage(res.product.images?.[0] || '');
-          setSelectedWeight(res.product.availableWeights?.[0] || '0.5 kg');
-          setSelectedFlavour(res.product.availableFlavours?.[0] || 'Belgian Chocolate Truffle');
-          setIsEggless(res.product.egglessAvailable ?? true);
-          setRelatedProducts(res.relatedProducts || []);
-        } else {
-          // Fallback to master product data
-          const found = MASTER_PRODUCTS.find((p) => p.slug === String(slug));
-          if (found) {
-            setProduct(found);
-            setSelectedImage(found.images?.[0] || '');
-            setSelectedWeight(found.availableWeights?.[0] || '0.5 kg');
-            setSelectedFlavour(found.availableFlavours?.[0] || 'Original');
-            setIsEggless(found.egglessAvailable ?? true);
-            setRelatedProducts(MASTER_PRODUCTS.filter((p) => p.slug !== found.slug).slice(0, 4));
+          if (res.product.images?.[0]) setSelectedImage(res.product.images[0]);
+          if (res.product.availableWeights?.[0]) setSelectedWeight(res.product.availableWeights[0]);
+          if (res.product.availableFlavours?.[0]) setSelectedFlavour(res.product.availableFlavours[0]);
+          if (res.product.egglessAvailable !== undefined) setIsEggless(res.product.egglessAvailable);
+          if (res.relatedProducts && res.relatedProducts.length > 0) {
+            setRelatedProducts(res.relatedProducts);
           }
         }
       } catch (err) {
-        // Fallback to master product data
-        const found = MASTER_PRODUCTS.find((p) => p.slug === String(slug));
-        if (found) {
-          setProduct(found);
-          setSelectedImage(found.images?.[0] || '');
-          setSelectedWeight(found.availableWeights?.[0] || '0.5 kg');
-          setSelectedFlavour(found.availableFlavours?.[0] || 'Original');
-          setIsEggless(found.egglessAvailable ?? true);
-          setRelatedProducts(MASTER_PRODUCTS.filter((p) => p.slug !== found.slug).slice(0, 4));
-        }
-      } finally {
-        setLoading(false);
+        // Backend offline or timeout: local master fallback remains active
       }
     };
-    fetchProduct();
-  }, [slug]);
+
+    fetchLiveProduct();
+  }, [cleanSlug]);
 
   // Dynamic price calculation based on chosen weight
   const calculateCurrentPrice = () => {

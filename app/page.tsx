@@ -371,7 +371,7 @@ export default function HomePage() {
     {
       _id: 'bday-3',
       name: 'Classic Black Forest Cherry Jubilee',
-      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      slug: 'classic-black-forest-cherry-jubilee',
       description: 'Dark chocolate sponge layered with sour German cherries and fresh whipped cream.',
       basePrice: 599,
       images: ['https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop'],
@@ -385,7 +385,7 @@ export default function HomePage() {
     {
       _id: 'bday-4',
       name: 'Magical Unicorn Rainbow Kids Fantasy Cake',
-      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      slug: 'magical-unicorn-rainbow-kids-fantasy-cake',
       description: 'Multi-colored rainbow sponge with strawberry buttercream and golden fondant horn.',
       basePrice: 899,
       images: ['https://images.unsplash.com/photo-1562440499-64c9a111f713?q=80&w=800&auto=format&fit=crop'],
@@ -399,7 +399,7 @@ export default function HomePage() {
     {
       _id: 'bday-5',
       name: 'Golden Butterscotch Caramel Crunch',
-      slug: 'lotus-biscoff-speculoos-dream-cake',
+      slug: 'golden-butterscotch-caramel-crunch',
       description: 'Moist vanilla sponge with crunchy butterscotch praline and rich caramel drizzle.',
       basePrice: 649,
       images: ['https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop'],
@@ -431,7 +431,7 @@ export default function HomePage() {
     {
       _id: 'choc-1',
       name: 'Decadent Dark Truffle & Roasted Hazelnut',
-      slug: 'royal-belgian-chocolate-truffle-cake',
+      slug: 'decadent-dark-truffle-roasted-hazelnut',
       description: 'Pure 70% single-origin Callebaut couverture with mirror drip and roasted hazelnuts.',
       basePrice: 749,
       images: ['https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop'],
@@ -459,7 +459,7 @@ export default function HomePage() {
     {
       _id: 'choc-3',
       name: 'Triple Chocolate Mousse Drip Cake',
-      slug: 'royal-belgian-chocolate-truffle-cake',
+      slug: 'triple-chocolate-mousse-drip-cake',
       description: 'Dark, milk, and white Belgian chocolate mousse layers over a crunchy cocoa base.',
       basePrice: 799,
       images: ['https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800&auto=format&fit=crop'],
@@ -473,7 +473,7 @@ export default function HomePage() {
     {
       _id: 'choc-4',
       name: 'Ferrero Rocher Hazelnut Praline Luxe',
-      slug: 'royal-belgian-chocolate-truffle-cake',
+      slug: 'ferrero-rocher-hazelnut-praline-luxe',
       description: 'Nutella mousse, crushed wafer crunch, whole Ferrero rochers, and dark ganache drip.',
       basePrice: 899,
       images: ['https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop'],
@@ -487,7 +487,7 @@ export default function HomePage() {
     {
       _id: 'choc-5',
       name: 'Dark Callebaut Ganache Mirror Cake',
-      slug: 'royal-belgian-chocolate-truffle-cake',
+      slug: 'dark-callebaut-ganache-mirror-cake',
       description: 'Glossy chocolate mirror glaze poured over intense bittersweet single-origin sponge.',
       basePrice: 849,
       images: ['https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop'],
@@ -547,7 +547,7 @@ export default function HomePage() {
     {
       _id: 'eggless-3',
       name: 'Classic Pure Eggless Black Forest Gateau',
-      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      slug: 'classic-black-forest-cherry-jubilee',
       description: 'Baked in our strictly segregated vegetarian kitchen with dark cherries and dairy cream.',
       basePrice: 649,
       images: ['https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop'],
@@ -575,7 +575,7 @@ export default function HomePage() {
     {
       _id: 'eggless-5',
       name: 'Eggless Pistachio Kulfi Saffron Bliss',
-      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      slug: 'eggless-pistachio-kulfi-saffron-bliss',
       description: 'Aromatic Kashmiri saffron cream, crushed roasted pistachios, and rich cardamom sponge.',
       basePrice: 799,
       images: ['https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop'],
@@ -589,7 +589,7 @@ export default function HomePage() {
     {
       _id: 'eggless-6',
       name: 'Pure Vegetarian Dutch Truffle Gateau',
-      slug: 'royal-belgian-chocolate-truffle-cake',
+      slug: 'pure-vegetarian-dutch-truffle-gateau',
       description: 'Moist eggless chocolate sponge smothered in silky Callebaut ganache and curls.',
       basePrice: 749,
       images: ['https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=800&auto=format&fit=crop'],
@@ -607,7 +607,7 @@ export default function HomePage() {
     {
       _id: 'wed-1',
       name: 'Grand Tiered Golden Wedding Masterpiece',
-      slug: 'royal-belgian-chocolate-truffle-cake',
+      slug: 'grand-tiered-golden-wedding-masterpiece',
       description: 'Three-tiered royal wedding cake adorned with edible 24K gold leaf and sugar peonies.',
       basePrice: 3499,
       images: ['https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1200&auto=format&fit=crop'],
@@ -621,7 +621,7 @@ export default function HomePage() {
     {
       _id: 'wed-2',
       name: '3-Tier Couverture & Floral Masterpiece',
-      slug: 'royal-belgian-chocolate-truffle-cake',
+      slug: 'grand-tiered-golden-wedding-masterpiece',
       description: 'Architectural centerpiece layered with Belgian truffle and Madagascar bourbon vanilla.',
       basePrice: 2899,
       images: ['https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1200&auto=format&fit=crop'],
@@ -635,7 +635,7 @@ export default function HomePage() {
     {
       _id: 'wed-3',
       name: 'Sculpted Ivory & 24K Edible Gold Tier',
-      slug: 'fresh-red-velvet-cream-cheese-luxe',
+      slug: 'grand-tiered-golden-wedding-masterpiece',
       description: 'Two-tier ivory fondant cake accented with 24K gold foil and delicate sugar pearls.',
       basePrice: 2499,
       images: ['https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=1200&auto=format&fit=crop'],
@@ -649,7 +649,7 @@ export default function HomePage() {
     {
       _id: 'wed-4',
       name: 'Madagascar Bourbon Vanilla & Peony 3-Tier',
-      slug: 'exotic-fresh-seasonal-fruit-ambrosia',
+      slug: 'grand-tiered-golden-wedding-masterpiece',
       description: 'Tender vanilla bean sponge with strawberry champagne compote and hand-piped peonies.',
       basePrice: 3199,
       images: ['https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=1200&auto=format&fit=crop'],
@@ -663,7 +663,7 @@ export default function HomePage() {
     {
       _id: 'wed-5',
       name: 'Regal Pearl & White Truffle Anniversary Tier',
-      slug: 'royal-belgian-chocolate-truffle-cake',
+      slug: 'regal-pearl-white-truffle-anniversary-tier',
       description: 'White Callebaut chocolate ganache with edible luster dust and quilted silver dragee.',
       basePrice: 2699,
       images: ['https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200&auto=format&fit=crop'],
@@ -677,7 +677,7 @@ export default function HomePage() {
     {
       _id: 'wed-6',
       name: 'Contemporary Semi-Naked Berry Banquet Tier',
-      slug: 'exotic-fresh-seasonal-fruit-ambrosia',
+      slug: 'contemporary-semi-naked-berry-banquet-tier',
       description: 'Rustic semi-naked vanilla sponge adorned with organic Kerala figs, berries, and rosemary.',
       basePrice: 2299,
       images: ['https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=1200&auto=format&fit=crop'],
