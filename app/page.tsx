@@ -32,104 +32,49 @@ import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 
 const celebrationOccasions = [
   {
-    id: 'birthday',
-    label: 'Birthday Bash',
-    icon: '',
-    subtitle: 'Free custom plaque & candles',
-    cakeName: 'Royal Belgian Birthday Cake',
-    tagline: '70% Dark Callebaut Ganache & Hazelnut Praline',
-    prices: { '0.5kg': 699, '1kg': 1299, '2kg': 2499 },
-    rating: 4.96,
-    reviews: 420,
-    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200&auto=format&fit=crop',
+    id: 'chocolate',
+    label: 'Couverture',
+    cakeName: 'Royal Belgian Truffle',
+    tagline: '70% Callebaut Ganache & Hazelnut Praline',
+    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1600&auto=format&fit=crop',
     slug: 'royal-belgian-chocolate-truffle-cake',
-    badge: 'Bestselling Celebration Cake',
-    flavorDesc: 'Three tiers of moist chocolate sponge smothered in silky Callebaut ganache. Includes free custom chocolate message plaque and sparkle candles.',
-    perks: [
-      'Complimentary customized message plaque & celebration candles',
-      'Pure 70% Belgian chocolate (zero compound chocolate)',
-      'Guaranteed 2-hour doorstep delivery from nearest Kerala hub'
-    ]
+    badge: 'Artisan Couverture',
   },
   {
     id: 'wedding',
-    label: 'Weddings & Anniversaries',
-    icon: '',
-    subtitle: 'Grand multi-tier florals & gold',
-    cakeName: 'Grand Floral Celebration Cake',
-    tagline: 'Sculpted Tiering with 24K Edible Gold Accents',
-    prices: { '0.5kg': 1499, '1kg': 2899, '2kg': 5499 },
-    rating: 4.99,
-    reviews: 180,
-    image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1200&auto=format&fit=crop',
+    label: 'Centerpiece',
+    cakeName: 'Grand Floral Celebration',
+    tagline: 'Sculpted Multi-Tier with 24K Edible Gold',
+    image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1600&auto=format&fit=crop',
     slug: 'royal-belgian-chocolate-truffle-cake',
-    badge: 'Grand Celebration Tier',
-    flavorDesc: 'Architectural centerpiece layered with Belgian truffle and Madagascar bourbon vanilla, crowned with hand-crafted sugar florals.',
-    perks: [
-      'Dedicated senior pastry chef consultation for custom tiering',
-      'Reinforced internal food-grade structure for flawless stability',
-      'White-glove climate-controlled delivery to your event banquet'
-    ]
+    badge: 'Grand Centerpiece',
   },
   {
-    id: 'chocolate',
-    label: 'Belgian Truffle Lovers',
-    icon: '',
-    subtitle: 'Intense 70% Callebaut ganache',
-    cakeName: 'Dark Truffle Hazelnut Cake',
-    tagline: 'Intense Single-Origin Cocoa with Silky Mirror Drip',
-    prices: { '0.5kg': 749, '1kg': 1399, '2kg': 2699 },
-    rating: 4.94,
-    reviews: 310,
-    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=1200&auto=format&fit=crop',
+    id: 'truffle',
+    label: 'Dark Truffle',
+    cakeName: 'Dark Truffle Hazelnut',
+    tagline: 'Single-Origin Cocoa & Roasted Praline',
+    image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=1600&auto=format&fit=crop',
     slug: 'royal-belgian-chocolate-truffle-cake',
-    badge: 'Chocoholic Favorite',
-    flavorDesc: 'For true chocolate connoisseurs. Baked with pure single-origin cocoa, dressed in mirror ganache glaze and roasted hazelnut crunch.',
-    perks: [
-      '100% Callebaut Belgian couverture (no artificial fats)',
-      'Rich bittersweet notes with luxurious velvety mouthfeel',
-      'Dispatched fresh from local oven within 120 minutes'
-    ]
+    badge: 'Single Origin',
   },
   {
     id: 'eggless',
-    label: '100% Pure Eggless',
-    icon: '',
-    subtitle: 'Certified pure vegetarian line',
-    cakeName: 'Red Velvet Cream Cheese',
-    tagline: 'Whipped Philadelphia Frosting & Crimson Crumb',
-    prices: { '0.5kg': 749, '1kg': 1399, '2kg': 2699 },
-    rating: 4.92,
-    reviews: 260,
-    image: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=1200&auto=format&fit=crop',
+    label: 'Pure Vegetarian',
+    cakeName: 'Pure Eggless Red Velvet',
+    tagline: 'Whipped Philadelphia Cream Cheese',
+    image: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?q=80&w=1600&auto=format&fit=crop',
     slug: 'fresh-red-velvet-cream-cheese-luxe',
     badge: '100% Pure Vegetarian',
-    flavorDesc: 'Baked in our strictly segregated pure vegetarian kitchen. Tender crimson crumb paired with tangy whipped Philadelphia cream cheese.',
-    perks: [
-      'Strictly certified vegetarian kitchen and ingredients',
-      'Feather-light moist texture with zero compromise on fluffiness',
-      'Prepared with fresh dairy cream and organic vanilla'
-    ]
   },
   {
     id: 'biscoff',
-    label: 'Lotus Biscoff Gourmet',
-    icon: '',
-    subtitle: 'Speculoos mousse & crunchy biscuit',
-    cakeName: 'Lotus Biscoff Dream Cake',
-    tagline: 'Caramel Cinnamon Biscuit Layering & Spread Drizzle',
-    prices: { '0.5kg': 799, '1kg': 1499, '2kg': 2899 },
-    rating: 4.98,
-    reviews: 195,
-    image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1200&auto=format&fit=crop',
+    label: 'Speculoos',
+    cakeName: 'Lotus Biscoff Dream',
+    tagline: 'Caramelized Speculoos Mousse & Crunch',
+    image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=1600&auto=format&fit=crop',
     slug: 'lotus-biscoff-speculoos-dream-cake',
     badge: 'Trending Sensation',
-    flavorDesc: 'The modern artisan dessert sensation. Golden spiced speculoos mousse layered with crunchy biscuit crust and generous Biscoff spread drizzle.',
-    perks: [
-      'Original imported Lotus Biscoff speculoos cookies and spread',
-      'Addictive crunch balanced with light caramelized mousse',
-      'Freshly piped upon ordering for maximum biscuit crispness'
-    ]
   }
 ];
 
@@ -202,6 +147,16 @@ export default function HomePage() {
   const [featuredCakes, setFeaturedCakes] = useState<any[]>([]);
   const [branches, setBranches] = useState<any[]>([]);
   const [selectedOccasionIndex, setSelectedOccasionIndex] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+
+  // Parallax & Scroll Wonder Tracking
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const loadHomeData = async () => {
@@ -904,13 +859,16 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
-      {/* SECTION 1: HERO SHOWCASE (THE MUFFIN HOUSE D2C STYLE) */}
+      {/* SECTION 1: HERO SHOWCASE (IMMERSIVE WONDER TRANSFORMATION) */}
       <section
-        className="relative w-full h-[76vh] xs:h-[82vh] sm:h-[88vh] lg:h-[94vh] min-h-[520px] sm:min-h-[600px] max-h-[900px] overflow-hidden bg-brand-chocolate select-none touch-pan-y group"
+        className="relative w-full h-[78vh] xs:h-[84vh] sm:h-[90vh] lg:h-[96vh] min-h-[540px] sm:min-h-[620px] max-h-[940px] overflow-hidden bg-brand-chocolate select-none touch-pan-y group"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
       >
+        {/* Ambient Wonder Radial Beam */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.16),transparent_70%)] pointer-events-none mix-blend-screen z-2" />
+
         {celebrationOccasions.map((activeCake, idx) => {
           const isActive = idx === selectedOccasionIndex;
 
@@ -921,44 +879,69 @@ export default function HomePage() {
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Background Image with Smooth Subtle Ken Burns Zoom */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
+              {/* Background Image with Parallax & Ken Burns Wonder Zoom */}
+              <div
+                className="absolute inset-0 w-full h-full overflow-hidden will-change-transform"
+                style={{
+                  transform: `translate3d(0, ${Math.min(scrollY * 0.35, 160)}px, 0)`,
+                }}
+              >
                 <img
                   src={activeCake.image}
                   alt={activeCake.cakeName}
-                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_25%] origin-top transition-transform duration-[6000ms] ease-out ${
-                    isActive ? 'scale-105' : 'scale-100'
+                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_30%] origin-top transition-transform duration-[7000ms] ease-out ${
+                    isActive ? 'scale-108' : 'scale-100'
                   }`}
                 />
-                {/* Edge-to-Edge High-Contrast Dual Gradient for Crisp Text Legibility */}
-                {/* Top Vignette for Transparent Navbar Clarity */}
-                <div className="absolute inset-x-0 top-0 h-40 sm:h-52 bg-gradient-to-b from-black/85 via-black/45 to-transparent pointer-events-none" />
-                {/* Bottom & Side Vignette for Headline & CTA Contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent pointer-events-none" />
-                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/80 via-black/25 to-transparent pointer-events-none" />
+                {/* Edge-to-Edge High-Contrast Dual Vignette for Razor-Sharp Legibility */}
+                <div className="absolute inset-x-0 top-0 h-44 sm:h-56 bg-gradient-to-b from-black/85 via-black/45 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent pointer-events-none" />
+                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent pointer-events-none" />
               </div>
 
-              {/* Overlaid Title & CTA Container (The Muffin House Style) */}
-              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-8 lg:px-12 flex flex-col justify-end pt-24 sm:pt-28 lg:pt-36 pb-14 xs:pb-16 sm:pb-20 lg:pb-24">
-                <div className="max-w-xl sm:max-w-2xl space-y-3 sm:space-y-4">
-                  {/* Brand Tagline Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans shadow-lg">
-                    <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
-                    <span>Baking You Happy &bull; Handcrafted In Kerala</span>
+              {/* Overlaid Reduced Writings with Staggered Wonder Reveal */}
+              <div
+                className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-8 lg:px-12 flex flex-col justify-end pt-24 sm:pt-32 lg:pt-40 pb-16 xs:pb-18 sm:pb-22 lg:pb-28 will-change-transform"
+                style={{
+                  transform: `translate3d(0, -${Math.min(scrollY * 0.22, 90)}px, 0)`,
+                  opacity: Math.max(0, 1 - scrollY / 550),
+                }}
+              >
+                <div className="max-w-xl sm:max-w-2xl space-y-2.5 sm:space-y-3.5">
+                  {/* Reduced Luxury Badge */}
+                  <div
+                    className={`inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 rounded-full bg-black/45 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans shadow-lg transition-all duration-700 ease-out delay-100 ${
+                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+                    }`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                    <span>{activeCake.badge || 'Handcrafted in Kerala'}</span>
                   </div>
 
-                  {/* Clean, Bold Sans-Serif Cake Headline */}
-                  <h1 className="font-heading font-extrabold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.08] tracking-tight drop-shadow-xl">
+                  {/* Bold Punchy Cake Headline */}
+                  <h1
+                    className={`font-heading font-extrabold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.08] tracking-tight drop-shadow-xl transition-all duration-700 ease-out delay-200 ${
+                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                    }`}
+                  >
                     {activeCake.cakeName}
                   </h1>
 
-                  {/* Flavor Tagline */}
-                  <p className="text-sm xs:text-base sm:text-lg text-white/95 font-medium font-body leading-relaxed drop-shadow-md max-w-xl">
+                  {/* Minimal 1-Line Flavor Tagline */}
+                  <p
+                    className={`text-sm xs:text-base sm:text-lg text-white/95 font-medium font-body leading-relaxed drop-shadow-md max-w-xl transition-all duration-700 ease-out delay-300 ${
+                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    }`}
+                  >
                     {activeCake.tagline}
                   </p>
 
                   {/* Dual Action CTA Buttons */}
-                  <div className="pt-2 flex flex-wrap items-center gap-3">
+                  <div
+                    className={`pt-2 flex flex-wrap items-center gap-3 transition-all duration-700 ease-out delay-400 ${
+                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    }`}
+                  >
                     <Link
                       href={`/cakes/${activeCake.slug}`}
                       className="inline-flex items-center justify-center gap-2 py-3 sm:py-3.5 px-7 sm:px-9 rounded-full bg-gradient-to-r from-brand-caramel to-[#e58a2b] hover:from-white hover:to-white text-white hover:text-brand-chocolate font-bold text-xs sm:text-sm font-sans transition-all duration-300 shadow-[0_8px_24px_rgba(186,99,0,0.5)] active:scale-95 group/btn min-h-[44px] sm:min-h-[48px] border border-brand-gold/30"
@@ -980,7 +963,7 @@ export default function HomePage() {
           );
         })}
 
-        {/* Side Carousel Navigation Arrows (The Muffin House Style) */}
+        {/* Side Frosted Glass Carousel Navigation Arrows */}
         <button
           type="button"
           onClick={handlePrevSlide}
@@ -999,21 +982,43 @@ export default function HomePage() {
           <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
         </button>
 
-        {/* Hero Slide Indicator Dots (Centered at Bottom) */}
-        <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-2.5 pointer-events-auto">
-          {celebrationOccasions.map((_, dotIdx) => (
-            <button
-              key={dotIdx}
-              type="button"
-              onClick={() => setSelectedOccasionIndex(dotIdx)}
-              aria-label={`Go to slide ${dotIdx + 1}`}
-              className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
-                dotIdx === selectedOccasionIndex
-                  ? 'w-8 sm:w-11 bg-brand-gold shadow-[0_0_12px_rgba(238,197,143,0.9)]'
-                  : 'w-2 sm:w-2.5 bg-white/45 hover:bg-white/85'
-              }`}
-            />
-          ))}
+        {/* Wonder Scroll Indicator (Fades as user scrolls) */}
+        <div
+          className="hidden sm:flex absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-1.5 text-white/75 pointer-events-none transition-opacity duration-300"
+          style={{ opacity: Math.max(0, 1 - scrollY / 180) }}
+        >
+          <span className="text-[9px] uppercase tracking-widest font-sans font-semibold text-white/80">
+            Scroll To Explore
+          </span>
+          <div className="w-4 h-7 rounded-full border border-white/40 flex items-start justify-center p-1">
+            <div className="w-1 h-2 rounded-full bg-brand-gold animate-bounce" />
+          </div>
+        </div>
+
+        {/* Hero Slide Counter & Pill Indicator (Floating on Bottom Right) */}
+        <div className="absolute bottom-5 sm:bottom-6 right-4 sm:right-8 lg:right-12 z-20 flex items-center gap-2.5 bg-black/40 backdrop-blur-md px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 shadow-xl pointer-events-auto">
+          <span className="text-[11px] sm:text-xs font-mono font-bold text-brand-gold">
+            0{selectedOccasionIndex + 1}
+          </span>
+          <span className="text-white/30 text-xs">/</span>
+          <span className="text-[11px] sm:text-xs font-mono text-white/60">
+            0{celebrationOccasions.length}
+          </span>
+          <div className="flex items-center gap-1.5 ml-1">
+            {celebrationOccasions.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                type="button"
+                onClick={() => setSelectedOccasionIndex(dotIdx)}
+                aria-label={`Go to slide ${dotIdx + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  dotIdx === selectedOccasionIndex
+                    ? 'w-6 sm:w-8 bg-brand-gold shadow-[0_0_10px_rgba(238,197,143,0.9)]'
+                    : 'w-1.5 bg-white/40 hover:bg-white/70'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
