@@ -771,9 +771,9 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
-      {/* SECTION 1: VISUAL HERO CAROUSEL (CLEAN, NO OVERLAID WRITINGS) */}
+      {/* SECTION 1: HERO CAROUSEL (CAKE NAME & ORDER NOW CTA) */}
       <section
-        className="relative w-full h-[55vh] xs:h-[62vh] sm:h-[72vh] lg:h-[82vh] min-h-[380px] max-h-[720px] overflow-hidden bg-black select-none touch-pan-y"
+        className="relative w-full h-[58vh] xs:h-[64vh] sm:h-[74vh] lg:h-[84vh] min-h-[400px] max-h-[740px] overflow-hidden bg-black select-none touch-pan-y"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
@@ -788,12 +788,8 @@ export default function HomePage() {
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Full-Screen Background Image - Clickable Link to Product Details */}
-              <Link
-                href={`/cakes/${activeCake.slug}`}
-                className="block w-full h-full overflow-hidden relative cursor-pointer"
-                title={activeCake.cakeName}
-              >
+              {/* Background Image */}
+              <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
                   src={activeCake.image}
                   alt={activeCake.cakeName}
@@ -801,21 +797,42 @@ export default function HomePage() {
                     isActive ? 'scale-105' : 'scale-100'
                   }`}
                 />
-                {/* Subtle soft vignette for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-              </Link>
+                {/* Gentle bottom shadow gradient for crisp title & CTA contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
+              </div>
+
+              {/* Overlaid Title & CTA Container */}
+              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-12 xs:pb-14 sm:pb-16 lg:pb-20">
+                <div className="max-w-xl space-y-2.5 sm:space-y-3.5">
+                  {/* Name of the Cake */}
+                  <h1 className="font-heading text-xl xs:text-2xl sm:text-4xl lg:text-5xl text-white leading-[1.15] tracking-tight drop-shadow-md">
+                    {activeCake.cakeName}
+                  </h1>
+
+                  {/* Primary CTA */}
+                  <div>
+                    <Link
+                      href={`/cakes/${activeCake.slug}`}
+                      className="inline-flex items-center gap-2 py-2.5 sm:py-3 px-5 sm:px-7 rounded-xl sm:rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-xl active:scale-95 group min-h-[44px]"
+                    >
+                      <span>Order Now</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           );
         })}
 
         {/* Hero Slide Indicator Dots */}
-        <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-auto">
+        <div className="absolute bottom-3 sm:bottom-4 left-0 right-0 z-20 flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-auto">
           {celebrationOccasions.map((_, dotIdx) => (
             <button
               key={dotIdx}
               type="button"
               onClick={() => setSelectedOccasionIndex(dotIdx)}
-              aria-label={`Go to occasion cake slide ${dotIdx + 1}`}
+              aria-label={`Go to slide ${dotIdx + 1}`}
               className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                 dotIdx === selectedOccasionIndex
                   ? 'w-7 sm:w-8 bg-brand-gold shadow-md'
