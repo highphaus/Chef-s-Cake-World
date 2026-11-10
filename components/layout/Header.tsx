@@ -237,11 +237,11 @@ export default function Header() {
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
-          <div className="flex items-center justify-between h-16 sm:h-18 lg:h-22 xl:h-24 gap-2 xl:gap-6">
+          <div className="flex items-center justify-between h-16 sm:h-20 lg:h-[88px] xl:h-24 gap-2 xl:gap-6">
             {/* 1. Brand Identity Logo & Name (Anchored to Far Left Side - Prominently Sized) */}
             <div className="flex items-center shrink-0">
               <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="Chef's Cake World">
-                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
                     alt="Chef's Cake World Logo"
@@ -845,93 +845,171 @@ export default function Header() {
           </div>
         )}
 
-      {/* 7. Fixed Mobile Bottom Navigation Bar (Solid Opaque Background - No Transparency) */}
+      {/* 7. Fixed Mobile Bottom Navigation Bar (Solid Opaque, Ultra-Responsive Across All Mobile & Tablet Screens) */}
       <nav
         aria-label="Mobile Navigation"
-        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-brand-cream border-t-2 border-brand-chocolate/20 shadow-[0_-6px_25px_rgba(66,6,0,0.14)] pb-[env(safe-area-inset-bottom)] max-w-full overflow-x-hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-[#FAF8F5] border-t border-brand-chocolate/15 shadow-[0_-4px_25px_rgba(66,6,0,0.12)] pb-[max(env(safe-area-inset-bottom),0.35rem)] max-w-full overflow-x-hidden select-none"
       >
-        <div className="grid grid-cols-5 h-15 items-center px-2 bg-brand-cream">
+        <div className="max-w-md mx-auto grid grid-cols-5 h-16 items-center px-1 sm:px-2">
           {/* 1. Home */}
           <Link
             href="/"
-            className={`flex flex-col items-center justify-center py-1.5 transition-all ${
-              pathname === '/'
-                ? 'text-brand-caramel font-bold'
-                : 'text-brand-chocolate/75 hover:text-brand-caramel'
-            }`}
+            onClick={() => {
+              setSearchOpen(false);
+              setMobileMenuOpen(false);
+            }}
+            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group"
           >
-            <Home className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] leading-tight">Home</span>
+            <div
+              className={`relative px-3 py-1 rounded-full transition-all duration-200 flex items-center justify-center ${
+                pathname === '/' && !searchOpen && !mobileMenuOpen
+                  ? 'bg-brand-caramel/15 text-brand-caramel'
+                  : 'text-brand-chocolate/70 group-hover:text-brand-caramel'
+              }`}
+            >
+              <Home className="w-5 h-5" />
+            </div>
+            <span
+              className={`text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 ${
+                pathname === '/' && !searchOpen && !mobileMenuOpen
+                  ? 'font-bold text-brand-caramel'
+                  : 'font-medium text-brand-chocolate/70 group-hover:text-brand-caramel'
+              }`}
+            >
+              Home
+            </span>
+            {pathname === '/' && !searchOpen && !mobileMenuOpen && (
+              <span className="w-1 h-1 rounded-full bg-brand-caramel mt-0.5" />
+            )}
           </Link>
 
           {/* 2. Cakes */}
           <Link
             href="/cakes"
-            className={`flex flex-col items-center justify-center py-1.5 transition-all ${
-              pathname.startsWith('/cakes')
-                ? 'text-brand-caramel font-bold'
-                : 'text-brand-chocolate/75 hover:text-brand-caramel'
-            }`}
+            onClick={() => {
+              setSearchOpen(false);
+              setMobileMenuOpen(false);
+            }}
+            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group"
           >
-            <Cake className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] leading-tight">Cakes</span>
+            <div
+              className={`relative px-3 py-1 rounded-full transition-all duration-200 flex items-center justify-center ${
+                (pathname.startsWith('/cakes') || pathname === '/categories') && !searchOpen && !mobileMenuOpen
+                  ? 'bg-brand-caramel/15 text-brand-caramel'
+                  : 'text-brand-chocolate/70 group-hover:text-brand-caramel'
+              }`}
+            >
+              <Cake className="w-5 h-5" />
+            </div>
+            <span
+              className={`text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 ${
+                (pathname.startsWith('/cakes') || pathname === '/categories') && !searchOpen && !mobileMenuOpen
+                  ? 'font-bold text-brand-caramel'
+                  : 'font-medium text-brand-chocolate/70 group-hover:text-brand-caramel'
+              }`}
+            >
+              Cakes
+            </span>
+            {(pathname.startsWith('/cakes') || pathname === '/categories') && !searchOpen && !mobileMenuOpen && (
+              <span className="w-1 h-1 rounded-full bg-brand-caramel mt-0.5" />
+            )}
           </Link>
 
           {/* 3. Search */}
           <button
             type="button"
             onClick={() => {
-              setSearchOpen((prev) => !prev);
-              if (!searchOpen) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+              const willOpen = !searchOpen;
+              setSearchOpen(willOpen);
+              if (willOpen) {
+                setMobileMenuOpen(false);
+                setTimeout(() => {
+                  searchInputRef.current?.focus();
+                }, 100);
               }
             }}
-            className={`flex flex-col items-center justify-center py-1.5 transition-all ${
-              searchOpen
-                ? 'text-brand-caramel font-bold'
-                : 'text-brand-chocolate/75 hover:text-brand-caramel'
-            }`}
+            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group"
             aria-label="Search celebration cakes"
           >
-            <Search className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] leading-tight">Search</span>
+            <div
+              className={`relative px-3 py-1 rounded-full transition-all duration-200 flex items-center justify-center ${
+                searchOpen
+                  ? 'bg-brand-caramel/15 text-brand-caramel'
+                  : 'text-brand-chocolate/70 group-hover:text-brand-caramel'
+              }`}
+            >
+              <Search className="w-5 h-5" />
+            </div>
+            <span
+              className={`text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 ${
+                searchOpen
+                  ? 'font-bold text-brand-caramel'
+                  : 'font-medium text-brand-chocolate/70 group-hover:text-brand-caramel'
+              }`}
+            >
+              Search
+            </span>
+            {searchOpen && (
+              <span className="w-1 h-1 rounded-full bg-brand-caramel mt-0.5" />
+            )}
           </button>
 
           {/* 4. Cart */}
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
-            className="flex flex-col items-center justify-center py-1.5 transition-all text-brand-chocolate/75 hover:text-brand-caramel relative"
+            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group relative"
             aria-label={`View Cart with ${itemCount} items`}
           >
-            <div className="relative">
-              <CakeSlice className="w-5 h-5 mb-0.5" />
+            <div className="relative px-3 py-1 rounded-full flex items-center justify-center text-brand-chocolate/70 group-hover:text-brand-caramel transition-all">
+              <ShoppingBag className="w-5 h-5" />
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-2 bg-brand-caramel text-white font-bold text-[9px] min-w-4 h-4 px-1 rounded-full flex items-center justify-center shadow-xs">
-                  {itemCount}
+                <span className="absolute -top-0.5 -right-0.5 bg-brand-caramel text-white font-bold text-[9px] min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs border border-white">
+                  {itemCount > 99 ? '99+' : itemCount}
                 </span>
               )}
             </div>
-            <span className="text-[10px] leading-tight">Cart</span>
+            <span className="text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 font-medium text-brand-chocolate/70 group-hover:text-brand-caramel">
+              Cart
+            </span>
           </button>
 
           {/* 5. Menu */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className={`flex flex-col items-center justify-center py-1.5 transition-all ${
-              mobileMenuOpen
-                ? 'text-brand-caramel font-bold'
-                : 'text-brand-chocolate/75 hover:text-brand-caramel'
-            }`}
-            aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+            onClick={() => {
+              const willOpen = !mobileMenuOpen;
+              setMobileMenuOpen(willOpen);
+              if (willOpen) setSearchOpen(false);
+            }}
+            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group"
+            aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
           >
-            {mobileMenuOpen ? (
-              <X className="w-5 h-5 mb-0.5" />
-            ) : (
-              <Menu className="w-5 h-5 mb-0.5" />
+            <div
+              className={`relative px-3 py-1 rounded-full transition-all duration-200 flex items-center justify-center ${
+                mobileMenuOpen
+                  ? 'bg-brand-caramel/15 text-brand-caramel'
+                  : 'text-brand-chocolate/70 group-hover:text-brand-caramel'
+              }`}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </div>
+            <span
+              className={`text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 ${
+                mobileMenuOpen
+                  ? 'font-bold text-brand-caramel'
+                  : 'font-medium text-brand-chocolate/70 group-hover:text-brand-caramel'
+              }`}
+            >
+              Menu
+            </span>
+            {mobileMenuOpen && (
+              <span className="w-1 h-1 rounded-full bg-brand-caramel mt-0.5" />
             )}
-            <span className="text-[10px] leading-tight">Menu</span>
           </button>
         </div>
       </nav>

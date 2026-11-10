@@ -45,27 +45,27 @@ export default function ProductCarouselSection({
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4 sm:mb-6 gap-3">
-        <div className="min-w-0">
-          <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
+      <div className="flex items-center justify-between mb-3 xs:mb-4 sm:mb-6 gap-2 sm:gap-3">
+        <div className="min-w-0 flex-1">
+          <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1 truncate">
             {badge}
           </span>
-          <h2 className="font-heading text-xl xs:text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate whitespace-nowrap tracking-tight">
+          <h2 className="font-heading text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl text-brand-chocolate tracking-tight leading-tight break-words">
             {title}
           </h2>
         </div>
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <span className="hidden sm:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
+          <span className="hidden md:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
             <span>Auto-moving</span>
             <span className="text-brand-caramel font-bold">&bull;</span>
-            <span>Swipe to explore</span>
+            <span>Swipe</span>
           </span>
           <Link
             href={`/cakes?category=${categorySlug}`}
             className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group whitespace-nowrap pl-2 border-l border-brand-chocolate/15 sm:border-l-0 sm:pl-0"
           >
             <span>View All</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>

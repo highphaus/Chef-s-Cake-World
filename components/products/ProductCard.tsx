@@ -87,20 +87,20 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Price & Action Button */}
-        <div className="mt-2.5 sm:mt-4 pt-2 sm:pt-3 border-t border-brand-chocolate/10 flex items-center justify-between gap-1.5 sm:gap-2">
-          <div className="min-w-0">
-            <span className="text-[9px] xs:text-[10px] uppercase text-brand-chocolate/60 font-semibold block leading-tight">Price</span>
-            <span className="font-heading text-sm xs:text-base sm:text-lg lg:text-xl text-brand-caramel leading-tight">
+        <div className="mt-2 sm:mt-3 pt-2 border-t border-brand-chocolate/10 flex items-center justify-between gap-1">
+          <div className="min-w-0 flex-1">
+            <span className="text-[8px] xs:text-[9px] uppercase text-brand-chocolate/60 font-semibold block leading-tight">Price</span>
+            <span className="font-heading text-xs xs:text-sm sm:text-base lg:text-lg font-bold text-brand-caramel leading-tight block truncate">
               ₹{product.basePrice}
             </span>
           </div>
 
           <Link
             href={`/cakes/${product.slug}`}
-            className="flex items-center justify-center gap-1 sm:gap-1.5 px-2 xs:px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-brand-chocolate text-brand-gold text-[10px] xs:text-[11px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-xs active:scale-95 whitespace-nowrap min-h-[32px] sm:min-h-[38px] shrink-0"
+            className="flex items-center justify-center gap-1 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-brand-chocolate text-brand-gold text-[9px] xs:text-[10px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-xs active:scale-95 whitespace-nowrap min-h-[30px] sm:min-h-[36px] shrink-0"
             title={`Customize weight and order ${product.name}`}
           >
-            <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+            <ShoppingBag className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
             <span>Order</span>
           </Link>
         </div>

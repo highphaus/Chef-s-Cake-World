@@ -58,7 +58,7 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             <Header />
-            <main className="flex-grow pb-16 lg:pb-0 overflow-x-hidden max-w-full">{children}</main>
+            <main className="flex-grow pb-24 sm:pb-28 lg:pb-0 overflow-x-hidden max-w-full">{children}</main>
             <Footer />
           </CartProvider>
         </AuthProvider>

@@ -15,9 +15,11 @@ import {
   Award,
   Phone,
   MapPin,
-  Truck
+  Truck,
+  Navigation
 } from 'lucide-react';
 import { api } from '@/lib/api';
+import { OFFICIAL_BRANCHES } from '@/lib/branchesData';
 import ProductCard from '@/components/products/ProductCard';
 import ProductCarouselSection from '@/components/products/ProductCarouselSection';
 import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
@@ -213,7 +215,7 @@ export default function HomePage() {
     const timer = setInterval(() => {
       if (categoryScrollRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = categoryScrollRef.current;
-        const step = 290;
+        const step = clientWidth < 640 ? 210 : 290;
         if (scrollLeft + clientWidth >= scrollWidth - 15) {
           categoryScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
@@ -768,10 +770,10 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="space-y-20 pb-20 overflow-x-hidden max-w-full">
+    <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
       {/* SECTION 1: FULL-SCREEN IMAGE HERO CAROUSEL WITH CONTINUOUS AUTO-ROTATION & TOUCH SWIPE */}
       <section
-        className="relative w-full h-[75vh] sm:h-[84vh] lg:h-[90vh] overflow-hidden bg-black select-none touch-pan-y"
+        className="relative w-full h-[74vh] xs:h-[80vh] sm:h-[84vh] lg:h-[90vh] min-h-[500px] max-h-[820px] overflow-hidden bg-black select-none touch-pan-y"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
@@ -823,10 +825,10 @@ export default function HomePage() {
                   </p>
 
                   {/* Action CTA Buttons */}
-                  <div className="pt-1 flex flex-wrap sm:flex-nowrap items-center gap-2.5 sm:gap-3">
+                  <div className="pt-1 flex flex-row items-center gap-2.5 sm:gap-3">
                     <Link
                       href={`/cakes/${activeCake.slug}`}
-                      className="py-2.5 sm:py-3 px-5 sm:px-8 rounded-xl sm:rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-xl flex items-center gap-2 group min-h-[44px]"
+                      className="py-2.5 sm:py-3 px-4 xs:px-6 sm:px-8 rounded-xl sm:rounded-2xl bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm transition-all shadow-xl flex items-center justify-center gap-2 group min-h-[44px]"
                     >
                       <span>Order Now</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -834,10 +836,27 @@ export default function HomePage() {
 
                     <Link
                       href="/cakes"
-                      className="py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-semibold text-xs sm:text-sm transition-all border border-white/20 min-h-[44px] flex items-center"
+                      className="py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-semibold text-xs sm:text-sm transition-all border border-white/20 min-h-[44px] flex items-center justify-center"
                     >
-                      View All Cakes
+                      View All
                     </Link>
+                  </div>
+
+                  {/* Hero Slide Indicator Dots */}
+                  <div className="pt-2 flex items-center gap-1.5 sm:gap-2">
+                    {celebrationOccasions.map((_, dotIdx) => (
+                      <button
+                        key={dotIdx}
+                        type="button"
+                        onClick={() => setSelectedOccasionIndex(dotIdx)}
+                        aria-label={`Go to occasion cake slide ${dotIdx + 1}`}
+                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+                          dotIdx === selectedOccasionIndex
+                            ? 'w-6 sm:w-8 bg-brand-gold shadow-md'
+                            : 'w-1.5 sm:w-2 bg-white/40 hover:bg-white/70'
+                        }`}
+                      />
+                    ))}
                   </div>
 
                 </div>
@@ -849,12 +868,12 @@ export default function HomePage() {
 
       {/* SECTION 2: EXPLORE OUR CAKES (ONE LINE TITLE & AUTOMATIC MOVEMENT CAROUSEL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="flex items-center justify-between mb-6 sm:mb-8 gap-4">
-          <div className="min-w-0">
-            <span className="text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
+        <div className="flex items-center justify-between mb-3 xs:mb-4 sm:mb-6 gap-2 sm:gap-4">
+          <div className="min-w-0 flex-1">
+            <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1 truncate">
               Curated Collections
             </span>
-            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate whitespace-nowrap tracking-tight">
+            <h2 className="font-heading text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl text-brand-chocolate tracking-tight leading-tight">
               Explore Our Cakes
             </h2>
           </div>
@@ -863,14 +882,14 @@ export default function HomePage() {
             <span className="hidden sm:inline-flex text-[11px] font-semibold text-brand-chocolate/50 items-center gap-1">
               <span>Auto-moving</span>
               <span className="text-brand-caramel font-bold">&bull;</span>
-              <span>Swipe to explore</span>
+              <span>Swipe</span>
             </span>
             <Link
               href="/categories"
               className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group whitespace-nowrap pl-2 border-l border-brand-chocolate/15 sm:border-l-0 sm:pl-0"
             >
               <span>View All</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
@@ -882,14 +901,14 @@ export default function HomePage() {
           onMouseLeave={() => setIsCategoryPaused(false)}
           onTouchStart={() => setIsCategoryPaused(true)}
           onTouchEnd={() => setIsCategoryPaused(false)}
-          className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
+          className="flex gap-3 sm:gap-5 lg:gap-6 overflow-x-auto scroll-smooth pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {displayCategories.map((cat: any) => (
             <Link
               key={cat.slug}
               href={`/cakes?category=${cat.slug}`}
-              className="group relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/5] sm:aspect-square w-[210px] xs:w-[240px] sm:w-[270px] lg:w-[290px] shrink-0 border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all duration-300 transform hover:-translate-y-1"
+              className="group relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/5] sm:aspect-square w-[190px] xs:w-[220px] sm:w-[260px] lg:w-[285px] shrink-0 border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all duration-300 transform hover:-translate-y-1"
             >
               <img
                 src={cat.image}
@@ -967,7 +986,7 @@ export default function HomePage() {
 
       {/* SECTION 4: PINCODE DELIVERY CHECKER & BRANCH LOCATOR PROMOTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-brand-peach/50 rounded-3xl p-6 sm:p-10 border border-brand-chocolate/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center bg-brand-peach/50 rounded-2xl sm:rounded-3xl p-4 xs:p-6 sm:p-10 border border-brand-chocolate/10">
           <div className="lg:col-span-6 space-y-4">
             <span className="text-xs uppercase font-bold text-brand-caramel tracking-widest block">
               Multi-Branch Network
@@ -1004,7 +1023,7 @@ export default function HomePage() {
 
       {/* SECTION 5: CUSTOM CAKE EXPERIENCE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-brand-chocolate text-white p-8 sm:p-12 lg:p-16 shadow-2xl">
+        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-brand-chocolate text-white p-6 sm:p-10 lg:p-16 shadow-2xl">
           <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
             <img
               src="https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1200&auto=format&fit=crop"
@@ -1013,32 +1032,32 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="relative z-10 max-w-2xl space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-caramel/40 text-brand-gold text-xs font-bold uppercase tracking-wider border border-brand-gold/30">
+          <div className="relative z-10 max-w-2xl space-y-4 sm:space-y-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-caramel/40 text-brand-gold text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-brand-gold/30">
               <Cake className="w-3.5 h-3.5" />
               <span>Bespoke Confectionery Studio</span>
             </div>
 
-            <h2 className="hero-title font-heading text-brand-cream">
+            <h2 className="font-heading text-2xl xs:text-3xl sm:text-4xl lg:text-5xl text-brand-cream tracking-tight leading-tight">
               Have a Dream Cake Design in Mind?
             </h2>
 
-            <p className="text-sm sm:text-base text-brand-cream/80 leading-relaxed font-body">
+            <p className="text-xs sm:text-sm lg:text-base text-brand-cream/80 leading-relaxed font-body">
               Whether it is a 4-tier sculpted floral wedding cake, a fairytale theme for your child&apos;s milestone, or a
               corporate launch masterpiece, our master decorators will bring your creative vision to life with complete flavor customization.
             </p>
 
-            <div className="pt-2 flex flex-col sm:flex-row gap-4">
+            <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link
                 href="/custom-cakes"
-                className="px-8 py-4 rounded-xl bg-brand-caramel text-white font-bold text-base hover:bg-white hover:text-brand-chocolate transition-all shadow-md text-center flex items-center justify-center gap-2 group"
+                className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-brand-caramel text-white font-bold text-sm sm:text-base hover:bg-white hover:text-brand-chocolate transition-all shadow-md text-center flex items-center justify-center gap-2 group min-h-[44px]"
               >
                 <span>Design Your Custom Cake</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/branches"
-                className="px-6 py-4 rounded-xl bg-brand-cream/10 text-brand-cream border border-brand-cream/20 font-semibold text-base hover:bg-brand-cream/20 transition-all text-center"
+                className="px-5 sm:px-6 py-3.5 sm:py-4 rounded-xl bg-brand-cream/10 text-brand-cream border border-brand-cream/20 font-semibold text-sm sm:text-base hover:bg-brand-cream/20 transition-all text-center min-h-[44px] flex items-center justify-center"
               >
                 Consult in Person at Branch
               </Link>
@@ -1049,71 +1068,71 @@ export default function HomePage() {
 
       {/* SECTION 6: WHY CHOOSE US */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
+          <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
             Our Quality Pledge
           </span>
-          <h2 className="section-title font-heading text-brand-chocolate">
+          <h2 className="section-title font-heading text-brand-chocolate text-xl xs:text-2xl sm:text-3xl lg:text-4xl">
             Why Celebrate With Chef&apos;s Cake World?
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
-              <Cake className="w-6 h-6 text-brand-caramel" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-2.5 sm:space-y-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
+              <Cake className="w-5 h-5 sm:w-6 sm:h-6 text-brand-caramel" />
             </div>
-            <h3 className="font-heading text-xl text-brand-chocolate">Freshly Prepared on Order</h3>
+            <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">Freshly Prepared on Order</h3>
             <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed">
               We never freeze cakes or serve days-old inventory. Every cake sponge is baked and decorated fresh on the day of delivery.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
-              <Award className="w-6 h-6 text-brand-caramel" />
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-2.5 sm:space-y-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
+              <Award className="w-5 h-5 sm:w-6 sm:h-6 text-brand-caramel" />
             </div>
-            <h3 className="font-heading text-xl text-brand-chocolate">Pure Couverture Chocolate</h3>
+            <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">Pure Couverture Chocolate</h3>
             <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed">
               We use authentic 70% Callebaut Belgian and Dutch cocoa. No compound chocolate or vegetable oil shortcuts.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
-              <Store className="w-6 h-6 text-brand-caramel" />
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-2.5 sm:space-y-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
+              <Store className="w-5 h-5 sm:w-6 sm:h-6 text-brand-caramel" />
             </div>
-            <h3 className="font-heading text-xl text-brand-chocolate">Multiple Kerala Kitchens</h3>
+            <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">Multiple Kerala Kitchens</h3>
             <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed">
               With 8 artisan branches across Kerala (Attingal, Kazhakootam, Alamcode, Kumarapuram, Ulloor, Vattappara, Vetturoad, Ambalathinkara), your orders are routed to the closest patisserie for rapid 2-hour doorstep delivery.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
-              <Clock className="w-6 h-6 text-brand-caramel" />
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-2.5 sm:space-y-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
+              <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-brand-caramel" />
             </div>
-            <h3 className="font-heading text-xl text-brand-chocolate">Midnight &amp; Slot Delivery</h3>
+            <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">Midnight &amp; Slot Delivery</h3>
             <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed">
               Make birthday midnight surprises truly unforgettable with our dedicated 11:00 PM - 12:00 AM delivery slot.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
-              <HeartHandshake className="w-6 h-6 text-brand-caramel" />
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-2.5 sm:space-y-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
+              <HeartHandshake className="w-5 h-5 sm:w-6 sm:h-6 text-brand-caramel" />
             </div>
-            <h3 className="font-heading text-xl text-brand-chocolate">Celebration-Focused Service</h3>
+            <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">Celebration-Focused Service</h3>
             <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed">
               Complementary customized celebration plaque message, sparkler candles, and secure presentation boxes with every cake.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
-              <ShieldCheck className="w-6 h-6 text-brand-caramel" />
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-2.5 sm:space-y-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-peach flex items-center justify-center text-brand-chocolate">
+              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-caramel" />
             </div>
-            <h3 className="font-heading text-xl text-brand-chocolate">FSSAI Certified Hygiene</h3>
+            <h3 className="font-heading text-lg sm:text-xl text-brand-chocolate">FSSAI Certified Hygiene</h3>
             <p className="text-xs sm:text-sm text-brand-chocolate/70 leading-relaxed">
               Operating under strict food safety guidelines, sanitized artisan kitchens, and temperature-monitored refrigerated transport.
             </p>
@@ -1123,76 +1142,87 @@ export default function HomePage() {
 
       {/* SECTION 7: OUR BRANCHES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3">
           <div>
-            <span className="text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
-              Physical Stores
+            <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
+              Store Network
             </span>
-            <h2 className="section-title font-heading text-brand-chocolate">
-              Visit Our Kerala Branches
+            <h2 className="font-heading text-xl xs:text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate tracking-tight">
+              Visit Our 8 Kerala Patisseries
             </h2>
           </div>
           <Link
             href="/branches"
-            className="text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group"
+            className="text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group shrink-0"
           >
-            <span>See Branch Details &amp; Maps</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <span>View All Details &amp; Maps</span>
+            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-2xl p-6 border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="font-heading text-lg text-brand-chocolate">Attingal</h3>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-peach text-brand-chocolate">KL-01</span>
-            </div>
-            <p className="text-xs text-brand-chocolate/70">Near KSRTC Bus Stand, Main Road, Attingal, Kerala 695101</p>
-            <div className="pt-2 border-t border-brand-chocolate/10 text-xs space-y-1 text-brand-chocolate/80">
-              <p><strong>Hours:</strong> 09:00 AM - 10:30 PM</p>
-              <p><strong>Phone:</strong> +91 98479 60677</p>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {OFFICIAL_BRANCHES.map((b) => (
+            <div
+              key={b.branchCode}
+              className="bg-white rounded-2xl p-4 sm:p-5 border border-brand-chocolate/10 shadow-cake-soft flex flex-col justify-between hover:shadow-cake-hover transition-all group"
+            >
+              <div className="space-y-2">
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-heading text-base sm:text-lg text-brand-chocolate group-hover:text-brand-caramel transition-colors">
+                    {b.shortName}
+                  </h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-peach text-brand-chocolate shrink-0">
+                    {b.branchCode.replace('CCW-', '')}
+                  </span>
+                </div>
+                <p className="text-xs text-brand-chocolate/70 leading-relaxed line-clamp-2">
+                  {b.address}
+                </p>
+                <div className="text-[11px] text-brand-chocolate/80 space-y-0.5 pt-1 border-t border-brand-chocolate/5">
+                  <p className="flex items-center gap-1 text-brand-chocolate/60">
+                    <Clock className="w-3 h-3 text-brand-caramel shrink-0" />
+                    <span>{b.openingHours}</span>
+                  </p>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="font-heading text-lg text-brand-chocolate">Kazhakootam</h3>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-peach text-brand-chocolate">KL-02</span>
+              <div className="pt-3 mt-3 border-t border-brand-chocolate/10 flex items-center gap-2">
+                <a
+                  href={`tel:${b.rawPhone}`}
+                  className="flex-1 py-1.5 px-2 rounded-xl bg-brand-cream/80 hover:bg-brand-caramel hover:text-white text-brand-chocolate text-[11px] font-bold transition-all flex items-center justify-center gap-1"
+                >
+                  <Phone className="w-3 h-3 text-brand-caramel group-hover:text-white" />
+                  <span>Call Shop</span>
+                </a>
+                <a
+                  href={b.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(b.address)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="py-1.5 px-2.5 rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white text-[11px] font-bold transition-all flex items-center justify-center gap-1"
+                  title="Open location in Google Maps"
+                >
+                  <Navigation className="w-3 h-3" />
+                  <span>Map</span>
+                </a>
+              </div>
             </div>
-            <p className="text-xs text-brand-chocolate/70">Near Technopark Campus, Kazhakootam, Thiruvananthapuram 695582</p>
-            <div className="pt-2 border-t border-brand-chocolate/10 text-xs space-y-1 text-brand-chocolate/80">
-              <p><strong>Hours:</strong> 09:00 AM - 11:00 PM</p>
-              <p><strong>Phone:</strong> +91 89210 29932</p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 border border-brand-chocolate/10 shadow-cake-soft space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="font-heading text-lg text-brand-chocolate">Upcoming Locations</h3>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-peach text-brand-chocolate">KL-EXP</span>
-            </div>
-            <p className="text-xs text-brand-chocolate/70">Expanding to more branches across Kerala soon</p>
-            <div className="pt-2 border-t border-brand-chocolate/10 text-xs space-y-1 text-brand-chocolate/80">
-              <p><strong>Status:</strong> New locations opening</p>
-              <p><strong>Support:</strong> +91 98479 60677</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* SECTION 8: CUSTOMER TESTIMONIALS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-1">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
+          <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
             Real Reviews
           </span>
-          <h2 className="section-title font-heading text-brand-chocolate">
+          <h2 className="section-title font-heading text-brand-chocolate text-xl xs:text-2xl sm:text-3xl lg:text-4xl">
             Loved Across Every Celebration
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3 sm:space-y-4">
             <div className="flex text-brand-caramel">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-current" />
@@ -1208,7 +1238,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-4">
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3 sm:space-y-4">
             <div className="flex text-brand-caramel">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-current" />
@@ -1224,7 +1254,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-4">
+          <div className="p-4 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-cake-soft space-y-3 sm:space-y-4">
             <div className="flex text-brand-caramel">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-current" />
@@ -1244,23 +1274,23 @@ export default function HomePage() {
 
       {/* SECTION 9: BRAND STORY */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-brand-peach/40 border border-brand-chocolate/10 p-8 sm:p-12 lg:p-16">
-          <div className="max-w-3xl mx-auto text-center space-y-5">
-            <span className="text-xs uppercase font-bold text-brand-caramel tracking-widest block">
+        <div className="rounded-2xl sm:rounded-3xl bg-brand-peach/40 border border-brand-chocolate/10 p-6 sm:p-10 lg:p-16">
+          <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-5">
+            <span className="text-[10px] xs:text-[11px] sm:text-xs uppercase font-bold text-brand-caramel tracking-widest block mb-0.5 sm:mb-1">
               The Chef&apos;s Cake World Philosophy
             </span>
-            <h2 className="section-title font-heading text-brand-chocolate">
+            <h2 className="section-title font-heading text-brand-chocolate text-xl xs:text-2xl sm:text-3xl lg:text-4xl">
               Artisan Craftsmanship in Every Crumb
             </h2>
-            <p className="text-sm sm:text-base text-brand-chocolate/80 leading-relaxed font-body">
+            <p className="text-xs sm:text-sm lg:text-base text-brand-chocolate/80 leading-relaxed font-body">
               Chef&apos;s Cake World was born out of a culinary conviction: celebrations deserve more than mass-produced cakes
               stored in cold storage for days. By combining European pastry techniques with the celebratory traditions of India,
               we design centerpieces that look breathtaking and taste extraordinary.
             </p>
-            <div className="pt-3">
+            <div className="pt-2 sm:pt-3">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 text-sm font-bold text-brand-caramel hover:text-brand-chocolate transition-colors"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-brand-caramel hover:text-brand-chocolate transition-colors"
               >
                 <span>Read Our Full Story</span>
                 <ArrowRight className="w-4 h-4" />
