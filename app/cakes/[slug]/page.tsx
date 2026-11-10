@@ -267,20 +267,6 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               ))}
             </div>
           )}
-
-          {/* Ingredients & Allergens Accordion */}
-          <div className="p-4 rounded-2xl bg-white border border-brand-chocolate/10 text-xs space-y-2">
-            <h4 className="font-bold text-brand-chocolate flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-brand-caramel" />
-              <span>Artisan Ingredients &amp; Allergens</span>
-            </h4>
-            <p className="text-brand-chocolate/70 leading-relaxed">
-              <strong>Crafted with:</strong> {product.ingredients?.join(', ') || 'Belgian couverture chocolate, heavy fresh dairy cream, Madagascar vanilla bean, organic cane sugar.'}
-            </p>
-            <p className="text-brand-chocolate/70">
-              <strong>Allergen Notice:</strong> Contains {product.allergens?.join(', ') || 'Dairy, Wheat/Gluten'}. Handcrafted in an artisan kitchen that handles tree nuts.
-            </p>
-          </div>
         </div>
 
         {/* Right: Customization & Actions (7 cols) */}
@@ -304,12 +290,31 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               {product.description}
             </p>
 
-            {/* Price display */}
+            {/* Product Ingredients (Positioned before the amount) */}
+            <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-brand-chocolate/10 text-xs space-y-1.5 shadow-2xs">
+              <h4 className="font-bold text-brand-chocolate flex items-center gap-1.5">
+                <Info className="w-4 h-4 text-brand-caramel shrink-0" />
+                <span className="font-heading text-xs uppercase tracking-wider text-brand-chocolate">
+                  Artisan Ingredients &amp; Allergens
+                </span>
+              </h4>
+              <p className="text-brand-chocolate/75 leading-relaxed font-body">
+                <strong className="text-brand-chocolate">Crafted with:</strong>{' '}
+                {product.ingredients?.join(', ') ||
+                  'Belgian couverture chocolate, heavy fresh dairy cream, Madagascar vanilla bean, organic cane sugar.'}
+              </p>
+              <p className="text-brand-chocolate/65 text-[11px] font-body">
+                <strong className="text-brand-chocolate/85">Allergen Notice:</strong> Contains{' '}
+                {product.allergens?.join(', ') || 'Dairy, Wheat/Gluten'}. Handcrafted in an artisan kitchen that handles tree nuts.
+              </p>
+            </div>
+
+            {/* Price display / Amount */}
             <div className="mt-4 flex items-baseline gap-3">
-              <span className="font-heading text-3xl text-brand-caramel">
+              <span className="font-heading text-3xl font-bold text-brand-caramel">
                 ₹{unitPrice}
               </span>
-              <span className="text-xs text-brand-chocolate/60">
+              <span className="text-xs text-brand-chocolate/60 font-body">
                 (Inclusive of 5% bakery GST &bull; Excludes delivery)
               </span>
             </div>
