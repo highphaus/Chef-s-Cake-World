@@ -11,6 +11,7 @@ export interface BranchItem {
   city: string;
   pickupAvailable: boolean;
   mapQuery: string;
+  mapUrl?: string;
   landmark: string;
 }
 
@@ -94,16 +95,17 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     branchCode: 'CCW-KL-06',
     name: "Chef's Cake World - Vetturoad",
     shortName: 'Vetturoad',
-    address: 'Vetturoad, Near Kazhakootam, Thiruvananthapuram, Kerala 695582',
+    address: 'Vetturoad Junction, Kaniyapuram, Kazhakootam, Thiruvananthapuram, Kerala 695301',
     phone: '+91 89210 29932',
     rawPhone: '8921029932',
     email: 'vetturoad@chefscakeworld.com',
     openingHours: '09:00 AM - 11:00 PM',
-    serviceablePincodes: ['695582', '695317', '695316', '695301', '695584', '695589', '695302'],
+    serviceablePincodes: ['695301', '695582', '695317', '695316', '695584', '695589', '695302'],
     city: 'Vetturoad, Kazhakootam',
     pickupAvailable: true,
-    mapQuery: "Chef's Cake World Vetturoad Kazhakootam",
-    landmark: 'Near Vetturoad Junction & NH Bypass'
+    mapQuery: "Chef's Cake World Vetturoad Kazhakoottm",
+    mapUrl: 'https://maps.app.goo.gl/kZZ4BkUdYE1kBwKn6',
+    landmark: 'Vetturoad Junction, NH Bypass (near Kaniyapuram)'
   },
   {
     branchCode: 'CCW-KL-07',

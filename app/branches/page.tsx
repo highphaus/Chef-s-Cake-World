@@ -154,7 +154,7 @@ export default function BranchesPage() {
                   </a>
 
                   <a
-                    href={`https://maps.google.com/?q=${encodeURIComponent(branch.address)}`}
+                    href={branch.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(branch.address)}`}
                     target="_blank"
                     rel="noreferrer"
                     className="min-h-[44px] flex items-center justify-center gap-1 font-bold text-brand-chocolate hover:text-brand-caramel transition-colors py-2 px-3 rounded-xl hover:bg-brand-peach/40"

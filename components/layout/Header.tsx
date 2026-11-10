@@ -192,7 +192,7 @@ export default function Header() {
     },
     {
       name: 'Vetturoad',
-      address: 'Vetturoad, Kazhakootam, Trivandrum 695582',
+      address: 'Vetturoad Junction, Kaniyapuram, Kazhakootam 695301',
       hours: '09:00 AM - 11:00 PM',
       phone: '+91 89210 29932',
       code: 'CCW-KL-06'
