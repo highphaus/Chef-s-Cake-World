@@ -78,15 +78,29 @@ export default function ProductDetailPage() {
 
   // Dynamic price calculation based on chosen weight
   const calculateCurrentPrice = () => {
+    return getPriceForWeight(selectedWeight);
+  };
+
+  const getPriceForWeight = (w: string) => {
     if (!product) return 0;
     const base = product.basePrice;
-    if (selectedWeight.includes('0.5')) return base;
-    if (selectedWeight.includes('1.5')) return Math.round(base * 2.8);
-    if (selectedWeight.includes('1')) return Math.round(base * 1.9);
-    if (selectedWeight.includes('2')) return Math.round(base * 3.6);
-    if (selectedWeight.includes('3')) return Math.round(base * 5.2);
-    if (selectedWeight.includes('4')) return Math.round(base * 6.8);
+    if (w.includes('0.5')) return base;
+    if (w.includes('1.5')) return Math.round(base * 2.8);
+    if (w.includes('1')) return Math.round(base * 1.9);
+    if (w.includes('2')) return Math.round(base * 3.6);
+    if (w.includes('3')) return Math.round(base * 5.2);
+    if (w.includes('4')) return Math.round(base * 6.8);
     return base;
+  };
+
+  const getServingForWeight = (w: string) => {
+    if (w.includes('0.5')) return 'Serves 4 - 6';
+    if (w.includes('1.5')) return 'Serves 12 - 16';
+    if (w.includes('1')) return 'Serves 8 - 12';
+    if (w.includes('2')) return 'Serves 16 - 22';
+    if (w.includes('3')) return 'Serves 25 - 35';
+    if (w.includes('4')) return 'Serves 35 - 50';
+    return 'Celebration size';
   };
 
   const handlePincodeCheck = async (e: React.FormEvent) => {
@@ -256,24 +270,41 @@ export default function ProductDetailPage() {
           <div className="space-y-5">
             {/* 1. Weight Selection */}
             <div>
-              <label className="text-xs uppercase font-bold text-brand-chocolate/70 tracking-wider block mb-2">
-                1. Select Cake Weight:
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {product.availableWeights?.map((w: string) => (
-                  <button
-                    key={w}
-                    type="button"
-                    onClick={() => setSelectedWeight(w)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                      selectedWeight === w
-                        ? 'bg-brand-chocolate text-brand-gold border-2 border-brand-chocolate shadow-sm scale-105'
-                        : 'bg-white border border-brand-chocolate/20 text-brand-chocolate hover:bg-brand-peach/40'
-                    }`}
-                  >
-                    {w}
-                  </button>
-                ))}
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-xs uppercase font-bold text-brand-chocolate/70 tracking-wider block">
+                  1. Select Cake Weight:
+                </label>
+                <span className="text-[11px] font-semibold text-brand-caramel">
+                  {getServingForWeight(selectedWeight)}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5">
+                {product.availableWeights?.map((w: string) => {
+                  const isSelected = selectedWeight === w;
+                  const price = getPriceForWeight(w);
+                  return (
+                    <button
+                      key={w}
+                      type="button"
+                      onClick={() => setSelectedWeight(w)}
+                      className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl text-left transition-all border ${
+                        isSelected
+                          ? 'bg-brand-chocolate text-brand-gold border-brand-chocolate shadow-md scale-[1.02]'
+                          : 'bg-white border-brand-chocolate/20 text-brand-chocolate hover:bg-brand-peach/30'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-xs sm:text-sm">{w}</span>
+                        <span className={`text-[11px] font-bold ${isSelected ? 'text-brand-gold' : 'text-brand-caramel'}`}>
+                          ₹{price}
+                        </span>
+                      </div>
+                      <span className={`text-[10px] block mt-0.5 ${isSelected ? 'text-brand-cream/80' : 'text-brand-chocolate/60'}`}>
+                        {getServingForWeight(w)}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 

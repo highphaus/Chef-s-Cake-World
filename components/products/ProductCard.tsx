@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { Star, ShoppingBag, Eye, Heart, Sparkles } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
+import { Star, ShoppingBag, Eye, Sparkles } from 'lucide-react';
 
 interface ProductCardProps {
   product: {
@@ -24,35 +23,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart();
-  const [selectedWeight, setSelectedWeight] = useState(product.availableWeights?.[0] || '0.5 kg');
-  const [isAdding, setIsAdding] = useState(false);
-
-  const calculateDisplayPrice = (weight: string) => {
-    const base = product.basePrice;
-    if (weight.includes('0.5')) return base;
-    if (weight.includes('1.5')) return Math.round(base * 2.8);
-    if (weight.includes('1')) return Math.round(base * 1.9);
-    if (weight.includes('2')) return Math.round(base * 3.6);
-    if (weight.includes('3')) return Math.round(base * 5.2);
-    return base;
-  };
-
-  const handleQuickAdd = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsAdding(true);
-    await addToCart({
-      productId: product._id,
-      selectedWeight,
-      selectedFlavour: product.availableFlavours?.[0] || 'Belgian Truffle',
-      isEggless: true,
-      quantity: 1,
-    });
-    setIsAdding(false);
-  };
-
-  const displayPrice = calculateDisplayPrice(selectedWeight);
-
   return (
     <div className="group relative bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-brand-chocolate/10 shadow-cake-soft hover:shadow-cake-hover transition-all duration-300 flex flex-col justify-between h-full">
       {/* Product Image & Badges */}
@@ -114,49 +84,25 @@ export default function ProductCard({ product }: ProductCardProps) {
           <p className="text-[10px] xs:text-[11px] sm:text-xs text-brand-chocolate/70 line-clamp-1 xs:line-clamp-2 mt-0.5 sm:mt-1 leading-relaxed">
             {product.description}
           </p>
-
-          {/* Weight selector pills */}
-          <div className="mt-2 sm:mt-3">
-            <span className="text-[9px] xs:text-[10px] uppercase font-bold text-brand-chocolate/60 tracking-wider">
-              Weight:
-            </span>
-            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-0.5 sm:mt-1">
-              {product.availableWeights?.slice(0, 3).map((w) => (
-                <button
-                  key={w}
-                  type="button"
-                  onClick={() => setSelectedWeight(w)}
-                  className={`text-[9.5px] xs:text-[10px] sm:text-[11px] px-1.5 xs:px-2 py-0.5 rounded-md font-medium transition-all ${
-                    selectedWeight === w
-                      ? 'bg-brand-chocolate text-brand-gold font-bold shadow-xs'
-                      : 'bg-brand-cream/60 text-brand-chocolate/80 hover:bg-brand-peach'
-                  }`}
-                >
-                  {w}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
 
-        {/* Price & Action */}
+        {/* Price & Action Button */}
         <div className="mt-2.5 sm:mt-4 pt-2 sm:pt-3 border-t border-brand-chocolate/10 flex items-center justify-between gap-1.5 sm:gap-2">
           <div className="min-w-0">
             <span className="text-[9px] xs:text-[10px] uppercase text-brand-chocolate/60 font-semibold block leading-tight">Price</span>
             <span className="font-heading text-sm xs:text-base sm:text-lg lg:text-xl text-brand-caramel leading-tight">
-              ₹{displayPrice}
+              ₹{product.basePrice}
             </span>
           </div>
 
-          <button
-            type="button"
-            onClick={handleQuickAdd}
-            disabled={isAdding}
-            className="flex items-center justify-center gap-1 sm:gap-1.5 px-2 xs:px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-brand-chocolate text-brand-gold text-[10px] xs:text-[11px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-xs active:scale-95 disabled:opacity-50 whitespace-nowrap min-h-[32px] sm:min-h-[38px] shrink-0"
+          <Link
+            href={`/cakes/${product.slug}`}
+            className="flex items-center justify-center gap-1 sm:gap-1.5 px-2 xs:px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-brand-chocolate text-brand-gold text-[10px] xs:text-[11px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-xs active:scale-95 whitespace-nowrap min-h-[32px] sm:min-h-[38px] shrink-0"
+            title={`Customize weight and order ${product.name}`}
           >
             <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
-            <span>{isAdding ? 'Adding...' : 'Add'}</span>
-          </button>
+            <span>Order</span>
+          </Link>
         </div>
       </div>
     </div>
