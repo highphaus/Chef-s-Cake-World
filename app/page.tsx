@@ -20,7 +20,9 @@ import {
   ChefHat,
   Gift,
   Layers,
-  UtensilsCrossed
+  UtensilsCrossed,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { api } from '@/lib/api';
 import { OFFICIAL_BRANCHES } from '@/lib/branchesData';
@@ -777,7 +779,7 @@ export default function HomePage() {
     <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 overflow-x-hidden max-w-full">
       {/* SECTION 1: HERO SHOWCASE (THE MUFFIN HOUSE D2C STYLE) */}
       <section
-        className="relative w-full h-[60vh] xs:h-[66vh] sm:h-[76vh] lg:h-[84vh] min-h-[420px] max-h-[760px] overflow-hidden bg-brand-chocolate select-none touch-pan-y"
+        className="relative w-full h-[54vh] xs:h-[58vh] sm:h-[68vh] lg:h-[76vh] min-h-[400px] max-h-[720px] overflow-hidden bg-brand-chocolate select-none touch-pan-y group"
         onTouchStart={handleHeroTouchStart}
         onTouchMove={handleHeroTouchMove}
         onTouchEnd={handleHeroTouchEnd}
@@ -792,47 +794,52 @@ export default function HomePage() {
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* Background Image with Smooth Subtle Zoom */}
+              {/* Background Image with Smooth Subtle Ken Burns Zoom */}
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
                   src={activeCake.image}
                   alt={activeCake.cakeName}
-                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_20%] origin-top transition-transform duration-[5000ms] ease-out ${
-                    isActive ? 'scale-108' : 'scale-100'
+                  className={`w-full h-full object-cover object-[center_top] sm:object-[center_25%] origin-top transition-transform duration-[6000ms] ease-out ${
+                    isActive ? 'scale-105' : 'scale-100'
                   }`}
                 />
-                {/* High-Contrast Dual Gradient for Crisp Text Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate/95 via-brand-chocolate/45 to-black/30 pointer-events-none" />
-                <div className="absolute inset-0 bg-radial-[ellipse_at_top] from-transparent via-transparent to-brand-chocolate/40 pointer-events-none" />
+                {/* Edge-to-Edge High-Contrast Dual Gradient for Crisp Text Legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-chocolate/95 via-brand-chocolate/40 to-transparent pointer-events-none" />
+                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-brand-chocolate/90 via-brand-chocolate/30 to-transparent pointer-events-none" />
               </div>
 
-              {/* Overlaid Title & CTA Container */}
-              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-14 xs:pb-16 sm:pb-20 lg:pb-24">
-                <div className="max-w-2xl space-y-3 sm:space-y-4">
-                  {/* The Muffin House Style Brand Pill */}
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-chocolate/80 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans">
+              {/* Overlaid Title & CTA Container (The Muffin House Style) */}
+              <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-8 lg:px-12 flex flex-col justify-end pb-12 xs:pb-14 sm:pb-16 lg:pb-20">
+                <div className="max-w-xl sm:max-w-2xl space-y-2.5 sm:space-y-3.5">
+                  {/* Brand Tagline Badge */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-chocolate/85 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] sm:text-xs font-bold tracking-wider uppercase font-sans">
                     <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
                     <span>Baking You Happy &bull; Kerala Patisserie</span>
                   </div>
 
-                  {/* Cake Title in Modern Bold Sans-Serif Font */}
+                  {/* Clean, Bold Sans-Serif Cake Headline */}
                   <h1 className="font-heading font-extrabold text-2xl xs:text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight drop-shadow-md">
                     {activeCake.cakeName}
                   </h1>
 
-                  {/* Dual Action CTA Buttons (The Muffin House Style) */}
-                  <div className="pt-1 flex flex-wrap items-center gap-3">
+                  {/* Flavor Tagline */}
+                  <p className="text-xs sm:text-sm lg:text-base text-white/90 font-medium font-body leading-relaxed drop-shadow-sm max-w-lg">
+                    {activeCake.tagline}
+                  </p>
+
+                  {/* Dual Action CTA Buttons */}
+                  <div className="pt-1.5 flex flex-wrap items-center gap-2.5 sm:gap-3">
                     <Link
                       href={`/cakes/${activeCake.slug}`}
-                      className="inline-flex items-center gap-2.5 py-3 sm:py-3.5 px-6 sm:px-8 rounded-full bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm font-sans transition-all shadow-[0_8px_24px_rgba(186,99,0,0.35)] active:scale-95 group min-h-[46px] border border-brand-gold/20"
+                      className="inline-flex items-center gap-2 py-2.5 sm:py-3.5 px-6 sm:px-8 rounded-full bg-brand-caramel hover:bg-brand-gold hover:text-brand-chocolate text-white font-bold text-xs sm:text-sm font-sans transition-all shadow-[0_8px_24px_rgba(186,99,0,0.35)] active:scale-95 group/btn min-h-[44px] sm:min-h-[48px] border border-brand-gold/20"
                     >
                       <span className="tracking-wide uppercase text-[11px] sm:text-xs font-bold">Order Now</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                     </Link>
 
                     <Link
                       href="/cakes"
-                      className="inline-flex items-center gap-2 py-3 sm:py-3.5 px-5 sm:px-7 rounded-full bg-white/15 hover:bg-white text-white hover:text-brand-chocolate font-bold text-xs sm:text-sm font-sans backdrop-blur-xs transition-all border border-white/30 active:scale-95 min-h-[46px]"
+                      className="inline-flex items-center gap-2 py-2.5 sm:py-3.5 px-5 sm:px-7 rounded-full bg-white/20 hover:bg-white text-white hover:text-brand-chocolate font-bold text-xs sm:text-sm font-sans backdrop-blur-xs transition-all border border-white/35 active:scale-95 min-h-[44px] sm:min-h-[48px]"
                     >
                       <span>Explore Menu</span>
                     </Link>
@@ -843,36 +850,27 @@ export default function HomePage() {
           );
         })}
 
-        {/* Top Occasion Navigation Pills (The Muffin House Style) */}
-        <div className="absolute top-4 sm:top-6 left-0 right-0 z-20 px-4 sm:px-6 pointer-events-auto">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scrollbar-none py-1 max-w-full">
-              {celebrationOccasions.map((occ, occIdx) => (
-                <button
-                  key={occ.id}
-                  type="button"
-                  onClick={() => setSelectedOccasionIndex(occIdx)}
-                  className={`px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold font-sans whitespace-nowrap transition-all duration-300 ${
-                    occIdx === selectedOccasionIndex
-                      ? 'bg-brand-gold text-brand-chocolate font-bold shadow-lg shadow-black/30 scale-105'
-                      : 'bg-black/40 backdrop-blur-md text-white/90 hover:bg-black/60 hover:text-white border border-white/15'
-                  }`}
-                >
-                  {occ.label}
-                </button>
-              ))}
-            </div>
+        {/* Side Carousel Navigation Arrows (The Muffin House Style) */}
+        <button
+          type="button"
+          onClick={handlePrevSlide}
+          aria-label="Previous Slide"
+          className="absolute left-2.5 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-brand-chocolate/90 text-white flex items-center justify-center backdrop-blur-xs transition-all border border-white/25 active:scale-95 shadow-lg group"
+        >
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
+        </button>
 
-            {/* Hubs Watermark */}
-            <div className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[11px] font-bold text-brand-gold/90 shrink-0 font-sans">
-              <Award className="w-3.5 h-3.5 text-brand-gold" />
-              <span>8 Kerala Patisseries</span>
-            </div>
-          </div>
-        </div>
+        <button
+          type="button"
+          onClick={handleNextSlide}
+          aria-label="Next Slide"
+          className="absolute right-2.5 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-brand-chocolate/90 text-white flex items-center justify-center backdrop-blur-xs transition-all border border-white/25 active:scale-95 shadow-lg group"
+        >
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
+        </button>
 
-        {/* Hero Slide Indicator Dots */}
-        <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-2 pointer-events-auto">
+        {/* Hero Slide Indicator Dots (Centered at Bottom) */}
+        <div className="absolute bottom-3.5 sm:bottom-5 left-0 right-0 z-20 flex items-center justify-center gap-2 pointer-events-auto">
           {celebrationOccasions.map((_, dotIdx) => (
             <button
               key={dotIdx}
@@ -881,8 +879,8 @@ export default function HomePage() {
               aria-label={`Go to slide ${dotIdx + 1}`}
               className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                 dotIdx === selectedOccasionIndex
-                  ? 'w-8 sm:w-10 bg-brand-gold shadow-md'
-                  : 'w-2 bg-white/40 hover:bg-white/70'
+                  ? 'w-7 sm:w-9 bg-brand-gold shadow-md'
+                  : 'w-2 bg-white/45 hover:bg-white/80'
               }`}
             />
           ))}

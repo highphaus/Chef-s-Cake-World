@@ -624,6 +624,68 @@ export default function Header() {
                 )}
               </button>
             </div>
+
+            {/* 4. Action Controls for Smaller Devices (Search & Cart on Top Right Navbar + Menu) */}
+            <div className="flex lg:hidden items-center gap-1 xs:gap-1.5 shrink-0">
+              {/* Mobile Search Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  const willOpen = !searchOpen;
+                  setSearchOpen(willOpen);
+                  if (willOpen) {
+                    setMobileMenuOpen(false);
+                    setTimeout(() => {
+                      searchInputRef.current?.focus();
+                    }, 100);
+                  }
+                }}
+                className={`p-2 rounded-xl transition-all ${
+                  searchOpen
+                    ? 'bg-brand-peach text-brand-caramel'
+                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                }`}
+                aria-label="Search celebration cakes"
+                title="Search cakes"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+
+              {/* Mobile Cart Button */}
+              <button
+                type="button"
+                onClick={() => setIsCartOpen(true)}
+                className="relative p-2 rounded-xl text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40 transition-colors shrink-0"
+                aria-label={`View cart with ${itemCount} items`}
+                title="View cart"
+              >
+                <ShoppingBag className="w-5 h-5" />
+                {itemCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-brand-caramel text-white font-bold text-[9.5px] min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs border border-white leading-none">
+                    {itemCount > 99 ? '99+' : itemCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Mobile Hamburger Menu Toggle */}
+              <button
+                type="button"
+                onClick={() => {
+                  const willOpen = !mobileMenuOpen;
+                  setMobileMenuOpen(willOpen);
+                  if (willOpen) setSearchOpen(false);
+                }}
+                className={`p-2 rounded-xl transition-all shrink-0 ${
+                  mobileMenuOpen
+                    ? 'bg-brand-peach text-brand-caramel'
+                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                }`}
+                aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
+                title="Menu"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -864,175 +926,6 @@ export default function Header() {
             </div>
           </div>
         )}
-
-      {/* 7. Fixed Mobile Bottom Navigation Bar (Solid Opaque, Ultra-Responsive Across All Mobile & Tablet Screens) */}
-      <nav
-        aria-label="Mobile Navigation"
-        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-[#FAF8F5] border-t border-brand-chocolate/15 shadow-[0_-4px_25px_rgba(66,6,0,0.12)] pb-[max(env(safe-area-inset-bottom),0.35rem)] max-w-full overflow-x-hidden select-none"
-      >
-        <div className="max-w-md mx-auto grid grid-cols-5 h-16 items-center px-1 sm:px-2">
-          {/* 1. Home */}
-          <Link
-            href="/"
-            onClick={() => {
-              setSearchOpen(false);
-              setMobileMenuOpen(false);
-            }}
-            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group"
-          >
-            <div
-              className={`relative px-3 py-1 rounded-full transition-all duration-200 flex items-center justify-center ${
-                pathname === '/' && !searchOpen && !mobileMenuOpen
-                  ? 'bg-brand-caramel/15 text-brand-caramel'
-                  : 'text-brand-chocolate/70 group-hover:text-brand-caramel'
-              }`}
-            >
-              <Home className="w-5 h-5" />
-            </div>
-            <span
-              className={`text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 ${
-                pathname === '/' && !searchOpen && !mobileMenuOpen
-                  ? 'font-bold text-brand-caramel'
-                  : 'font-medium text-brand-chocolate/70 group-hover:text-brand-caramel'
-              }`}
-            >
-              Home
-            </span>
-            {pathname === '/' && !searchOpen && !mobileMenuOpen && (
-              <span className="w-1 h-1 rounded-full bg-brand-caramel mt-0.5" />
-            )}
-          </Link>
-
-          {/* 2. Cakes */}
-          <Link
-            href="/cakes"
-            onClick={() => {
-              setSearchOpen(false);
-              setMobileMenuOpen(false);
-            }}
-            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group"
-          >
-            <div
-              className={`relative px-3 py-1 rounded-full transition-all duration-200 flex items-center justify-center ${
-                (pathname.startsWith('/cakes') || pathname === '/categories') && !searchOpen && !mobileMenuOpen
-                  ? 'bg-brand-caramel/15 text-brand-caramel'
-                  : 'text-brand-chocolate/70 group-hover:text-brand-caramel'
-              }`}
-            >
-              <Cake className="w-5 h-5" />
-            </div>
-            <span
-              className={`text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 ${
-                (pathname.startsWith('/cakes') || pathname === '/categories') && !searchOpen && !mobileMenuOpen
-                  ? 'font-bold text-brand-caramel'
-                  : 'font-medium text-brand-chocolate/70 group-hover:text-brand-caramel'
-              }`}
-            >
-              Cakes
-            </span>
-            {(pathname.startsWith('/cakes') || pathname === '/categories') && !searchOpen && !mobileMenuOpen && (
-              <span className="w-1 h-1 rounded-full bg-brand-caramel mt-0.5" />
-            )}
-          </Link>
-
-          {/* 3. Search */}
-          <button
-            type="button"
-            onClick={() => {
-              const willOpen = !searchOpen;
-              setSearchOpen(willOpen);
-              if (willOpen) {
-                setMobileMenuOpen(false);
-                setTimeout(() => {
-                  searchInputRef.current?.focus();
-                }, 100);
-              }
-            }}
-            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group"
-            aria-label="Search celebration cakes"
-          >
-            <div
-              className={`relative px-3 py-1 rounded-full transition-all duration-200 flex items-center justify-center ${
-                searchOpen
-                  ? 'bg-brand-caramel/15 text-brand-caramel'
-                  : 'text-brand-chocolate/70 group-hover:text-brand-caramel'
-              }`}
-            >
-              <Search className="w-5 h-5" />
-            </div>
-            <span
-              className={`text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 ${
-                searchOpen
-                  ? 'font-bold text-brand-caramel'
-                  : 'font-medium text-brand-chocolate/70 group-hover:text-brand-caramel'
-              }`}
-            >
-              Search
-            </span>
-            {searchOpen && (
-              <span className="w-1 h-1 rounded-full bg-brand-caramel mt-0.5" />
-            )}
-          </button>
-
-          {/* 4. Cart */}
-          <button
-            type="button"
-            onClick={() => setIsCartOpen(true)}
-            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group relative"
-            aria-label={`View Cart with ${itemCount} items`}
-          >
-            <div className="relative px-3 py-1 rounded-full flex items-center justify-center text-brand-chocolate/70 group-hover:text-brand-caramel transition-all">
-              <ShoppingBag className="w-5 h-5" />
-              {itemCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-brand-caramel text-white font-bold text-[9px] min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs border border-white">
-                  {itemCount > 99 ? '99+' : itemCount}
-                </span>
-              )}
-            </div>
-            <span className="text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 font-medium text-brand-chocolate/70 group-hover:text-brand-caramel">
-              Cart
-            </span>
-          </button>
-
-          {/* 5. Menu */}
-          <button
-            type="button"
-            onClick={() => {
-              const willOpen = !mobileMenuOpen;
-              setMobileMenuOpen(willOpen);
-              if (willOpen) setSearchOpen(false);
-            }}
-            className="flex flex-col items-center justify-center h-full min-h-[48px] py-1 transition-all active:scale-95 group"
-            aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
-          >
-            <div
-              className={`relative px-3 py-1 rounded-full transition-all duration-200 flex items-center justify-center ${
-                mobileMenuOpen
-                  ? 'bg-brand-caramel/15 text-brand-caramel'
-                  : 'text-brand-chocolate/70 group-hover:text-brand-caramel'
-              }`}
-            >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </div>
-            <span
-              className={`text-[10px] sm:text-[11px] leading-tight tracking-tight mt-0.5 ${
-                mobileMenuOpen
-                  ? 'font-bold text-brand-caramel'
-                  : 'font-medium text-brand-chocolate/70 group-hover:text-brand-caramel'
-              }`}
-            >
-              Menu
-            </span>
-            {mobileMenuOpen && (
-              <span className="w-1 h-1 rounded-full bg-brand-caramel mt-0.5" />
-            )}
-          </button>
-        </div>
-      </nav>
 
       {/* Cart Drawer */}
       <CartDrawer />
