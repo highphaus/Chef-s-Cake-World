@@ -40,13 +40,14 @@ const celebrationOccasions = [
     index: '01',
     cakeName: 'Royal Belgian Couverture Truffle',
     shortName: 'Belgian Truffle',
-    badge: 'Maison Masterpiece',
+    badge: 'The Ultimate Chocolate Cake.',
     tagline: 'Pure 70% Callebaut Single-Origin',
     basePriceNum: 699,
     price: '₹699',
-    image: '/hero%20section/e5e122fe5668e9ba3346dbb50a7a7f58.jpg',
+    image: '/hero-cake-slice-transparent-hd.png',
     slug: 'royal-belgian-chocolate-truffle-cake',
-    description: 'Triple-layered dark cocoa sponge smothered in silky Callebaut ganache and hand-rolled dark truffles.',
+    description:
+      'Baked with love, so every bite feels like home. We believe the best memories are made around the table, and our cakes are crafted to be at the center of those moments—rich, moist, and a little piece of comfort in every delicious forkful.',
     flavorNotes: ['70% Callebaut Cocoa', 'Single-Origin Ganache', '24K Edible Gold Dust', 'Moist Dutch Sponge'],
     anatomy: {
       layers: 'Triple Sponge & Silky Ganache',
@@ -841,172 +842,247 @@ export default function HomePage() {
   return (
     <div className="space-y-16 sm:space-y-24 lg:space-y-28 pb-20 overflow-x-hidden max-w-full bg-brand-cream text-brand-chocolate selection:bg-brand-caramel selection:text-white">
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 1: THE MINIMAL LUXURY HAUTE PÂTISSERIE HERO
-          (Pure Minimal MNC Aesthetic, Architectural Precision & Serene Space)
+          SECTION 1: THE CHOCOLATE DRIP HAUTE PÂTISSERIE HERO
+          (A Slice of Pure Happiness — Exact Mockup Design)
       ────────────────────────────────────────────────────────────── */}
       <section
-        className="relative w-full h-[88vh] xs:h-[90vh] sm:h-[92vh] max-h-[960px] min-h-[580px] overflow-hidden bg-[#140300] select-none touch-pan-y group"
+        className="relative w-full overflow-hidden bg-[#FAF5EE] text-[#301612] select-none pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-20 lg:pb-24 border-b border-[#E8DEC8]"
         onMouseEnter={() => setIsHeroPaused(true)}
         onMouseLeave={() => setIsHeroPaused(false)}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {celebrationOccasions.map((cake, idx) => {
-          const isActive = idx === selectedOccasionIndex;
+        {/* Top Chocolate Melt Drip Hanging from Header */}
+        <div
+          aria-hidden="true"
+          className="absolute top-0 left-0 right-0 w-full h-16 sm:h-24 md:h-28 lg:h-32 z-30 pointer-events-none select-none overflow-hidden"
+        >
+          <div className="w-full h-full bg-[url('/chocolate-drip-wide.png')] bg-repeat-x bg-contain bg-top drop-shadow-md opacity-95" />
+        </div>
 
-          return (
-            <div
-              key={cake.id}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-                isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
-              }`}
-            >
-              {/* Minimal Full-Bleed Photography with Subtle Parallax */}
-              <div
-                className="absolute inset-0 w-full h-full overflow-hidden will-change-transform"
-                style={{
-                  transform: `translate3d(0, ${Math.min(scrollY * 0.28, 130)}px, 0)`,
-                }}
-              >
-                <img
-                  src={cake.image}
-                  alt={cake.cakeName}
-                  className={`w-full h-full object-cover object-[center_35%] transition-transform duration-[8000ms] ease-out ${
-                    isActive ? 'scale-105' : 'scale-100'
-                  }`}
-                />
-                {/* Ultra-Clean Architectural Dual Vignettes */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/45 to-black/25 pointer-events-none" />
-                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/80 via-black/35 to-transparent pointer-events-none" />
+        {/* Ambient Warm Golden/Caramel Glow in Background */}
+        <div
+          aria-hidden="true"
+          className="absolute -top-12 right-0 w-[500px] h-[500px] bg-gradient-to-br from-[#F5DEB3]/35 via-[#E8B98A]/20 to-transparent rounded-full blur-3xl pointer-events-none -z-0"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 left-10 w-[420px] h-[420px] bg-gradient-to-tr from-[#EEDDC4]/40 to-transparent rounded-full blur-3xl pointer-events-none -z-0"
+        />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          {/* Main 2-Column Hero Presentation */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center min-h-[500px] sm:min-h-[540px]">
+            {/* Left Column: Pill, Bold Headline, Emotional Paragraph, Weight Picker, CTA */}
+            <div className="lg:col-span-7 space-y-6 sm:space-y-7 text-left">
+              {/* Pill Badge */}
+              <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-white/95 backdrop-blur-sm border border-[#E5DAC6] shadow-[0_2px_8px_rgba(48,22,18,0.06)]">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#E57A38] animate-pulse" />
+                <span className="text-xs sm:text-sm font-bold tracking-tight text-[#301612]">
+                  {celebrationOccasions[selectedOccasionIndex].badge}
+                </span>
               </div>
 
-              {/* Minimal Luxury Editorial Content */}
-              <div
-                className="relative z-10 max-w-7xl mx-auto h-full px-5 sm:px-8 lg:px-12 flex flex-col justify-end pt-24 pb-20 xs:pb-22 sm:pb-24 lg:pb-28 will-change-transform"
-                style={{
-                  transform: `translate3d(0, -${Math.min(scrollY * 0.16, 65)}px, 0)`,
-                  opacity: Math.max(0, 1 - scrollY / 600),
-                }}
-              >
-                <div className="max-w-2xl space-y-3 sm:space-y-4">
-                  {/* Subtle Haute Pâtisserie Tag */}
-                  <div
-                    className={`inline-flex items-center gap-2 text-brand-gold text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase font-body transition-all duration-700 ease-out delay-100 ${
-                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-                    }`}
-                  >
-                    <span>Haute Pâtisserie</span>
-                    <span className="text-white/40">&bull;</span>
-                    <span>Kerala Ateliers</span>
-                    <span className="text-white/40">&bull;</span>
-                    <span className="text-white/90 font-bold">{cake.price}</span>
-                  </div>
-
-                  {/* Clean Minimalist Heading */}
-                  <h1
-                    className={`font-heading text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight drop-shadow-xl transition-all duration-700 ease-out delay-200 ${
-                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                    }`}
-                  >
-                    {cake.cakeName}
-                  </h1>
-
-                  {/* Minimal Sub-line Description */}
-                  <p
-                    className={`text-xs sm:text-sm text-white/80 max-w-lg leading-relaxed font-body transition-all duration-700 ease-out delay-250 ${
-                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-                    }`}
-                  >
-                    {cake.description}
+              {/* Headline */}
+              <div className="space-y-2">
+                <h1 className="font-heading font-extrabold text-4xl xs:text-5xl sm:text-6xl lg:text-[64px] xl:text-[70px] text-[#301612] leading-[1.08] tracking-tight">
+                  {selectedOccasionIndex === 0 ? (
+                    <>
+                      A Slice of Pure{' '}
+                      <span className="relative inline-block text-[#301612]">
+                        Happiness.
+                        <span
+                          aria-hidden="true"
+                          className="absolute bottom-1.5 left-0 w-full h-[6px] sm:h-[8px] bg-[#E5B56A]/40 rounded-full -z-10"
+                        />
+                      </span>
+                    </>
+                  ) : (
+                    celebrationOccasions[selectedOccasionIndex].cakeName
+                  )}
+                </h1>
+                {selectedOccasionIndex !== 0 && (
+                  <p className="font-heading text-lg sm:text-xl font-bold text-[#7E4C2E]">
+                    {celebrationOccasions[selectedOccasionIndex].tagline}
                   </p>
+                )}
+              </div>
 
-                  {/* Refined Luxury CTAs */}
-                  <div
-                    className={`pt-2 flex items-center gap-3 transition-all duration-700 ease-out delay-300 ${
-                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-                    }`}
-                  >
-                    <Link
-                      href={`/cakes/${cake.slug}`}
-                      className="btn font-body font-semibold inline-flex items-center justify-center gap-2 py-3 px-7 sm:px-9 rounded-full bg-white text-brand-chocolate hover:bg-brand-gold hover:text-brand-chocolate text-xs sm:text-sm transition-all duration-300 shadow-xl active:scale-95 group/btn"
-                    >
-                      <span>Order Creation</span>
-                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
+              {/* Subtitle Paragraph */}
+              <p className="font-body text-base sm:text-lg lg:text-[19px] text-[#5C3D34] leading-relaxed max-w-xl font-normal">
+                {celebrationOccasions[selectedOccasionIndex].description}
+              </p>
 
-                    <Link
-                      href="/cakes"
-                      className="btn font-body font-semibold inline-flex items-center justify-center py-3 px-6 sm:px-7 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm backdrop-blur-md transition-all duration-300 border border-white/20 active:scale-95"
-                    >
-                      <span>Explore Menu</span>
-                    </Link>
-                  </div>
+              {/* Celebration Weight & Price Selector */}
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-white/80 backdrop-blur-sm border border-[#E5DAC6] shadow-sm max-w-lg space-y-2.5">
+                <div className="flex items-center justify-between text-xs text-[#5C3D34] font-semibold">
+                  <span className="uppercase tracking-wider text-[11px] font-bold text-[#8C5835]">
+                    Select Celebration Size
+                  </span>
+                  <span className="text-xs font-bold text-[#301612]">
+                    Price:{' '}
+                    <span className="text-base font-extrabold text-[#301612]">
+                      ₹{getHeroPrice(celebrationOccasions[selectedOccasionIndex].basePriceNum, selectedHeroWeight)}
+                    </span>
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {(['0.5kg', '1kg', '2kg'] as const).map((w) => {
+                    const isSelected = selectedHeroWeight === w;
+                    const price = getHeroPrice(celebrationOccasions[selectedOccasionIndex].basePriceNum, w);
+                    return (
+                      <button
+                        key={w}
+                        type="button"
+                        onClick={() => setSelectedHeroWeight(w)}
+                        className={`py-2 px-2.5 rounded-xl text-xs font-semibold transition-all border cursor-pointer text-center ${
+                          isSelected
+                            ? 'bg-[#301612] text-white border-[#301612] shadow-sm'
+                            : 'bg-white hover:bg-[#FAF4EB] text-[#5C3D34] border-[#E5DAC6]'
+                        }`}
+                      >
+                        <span className="block font-bold">{w.replace('kg', ' kg')}</span>
+                        <span className={`text-[10px] block ${isSelected ? 'text-[#E5B56A]' : 'text-[#8C5835]'}`}>
+                          ₹{price}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Action CTAs */}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
+                <Link
+                  href={`/cakes/${celebrationOccasions[selectedOccasionIndex].slug}`}
+                  className="btn font-body font-semibold inline-flex items-center justify-center gap-3 py-4 px-8 sm:px-10 rounded-full bg-[#301612] text-white hover:bg-[#46211A] text-sm sm:text-base transition-all duration-300 shadow-xl shadow-[#301612]/20 hover:shadow-2xl hover:scale-[1.02] active:scale-95 group"
+                >
+                  <span>Order Now</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                </Link>
+
+                <Link
+                  href="/cakes"
+                  className="btn font-body font-semibold inline-flex items-center justify-center gap-2 py-4 px-7 sm:px-8 rounded-full bg-white hover:bg-[#FAF4EB] text-[#301612] border border-[#E5DAC6] text-sm sm:text-base transition-all duration-300 shadow-xs hover:shadow-md active:scale-95"
+                >
+                  <span>Explore Menu</span>
+                </Link>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-2 text-xs sm:text-[13px] text-[#5C3D34] font-medium">
+                <div className="flex items-center gap-2">
+                  <Truck className="w-4 h-4 text-[#8C5835]" />
+                  <span>2-Hr Express Kerala Delivery</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-[#8C5835]" />
+                  <span>100% Belgian Cocoa</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                  <span>4.98 Rating (1,420+ Reviews)</span>
                 </div>
               </div>
             </div>
-          );
-        })}
 
-        {/* Minimal Slide Counter & Sleek Thin Progress Tracker (Bottom Right) */}
-        <div className="absolute right-5 sm:right-8 lg:right-12 bottom-8 z-20 flex items-center gap-4 text-white pointer-events-auto">
-          {/* Slide Index e.g. 01 / 05 */}
-          <div className="text-xs font-body font-semibold tracking-widest text-white/90">
-            <span className="text-brand-gold font-bold">{celebrationOccasions[selectedOccasionIndex].index}</span>
-            <span className="text-white/40 mx-1">/</span>
-            <span className="text-white/60">05</span>
+            {/* Right Column: Hero Cake Slice Masterpiece Visual */}
+            <div className="lg:col-span-5 relative flex items-center justify-center pt-4 lg:pt-0">
+              <div className="relative w-full max-w-[420px] sm:max-w-[460px] lg:max-w-[500px]">
+                {/* Soft Radial Backing Shadow / Ambient Glow */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-b from-[#EED7B8]/40 via-[#F3ECE0]/30 to-transparent rounded-full blur-2xl -z-10 scale-95 transform translate-y-6"
+                />
+
+                {/* Floating Signature Tag (Top Right) */}
+                <div className="absolute top-2 sm:top-4 right-1 sm:right-4 z-20 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-[#E5DAC6] shadow-lg flex items-center gap-2.5 animate-in fade-in zoom-in duration-300">
+                  <Sparkles className="w-4 h-4 text-[#C98A2C] shrink-0" />
+                  <div className="text-left leading-tight">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#C98A2C] block">
+                      Single-Origin
+                    </span>
+                    <span className="text-xs font-bold text-[#301612]">
+                      70% Callebaut Ganache
+                    </span>
+                  </div>
+                </div>
+
+                {/* Floating Rating Tag (Bottom Left) */}
+                <div className="absolute bottom-2 sm:bottom-4 left-1 sm:left-4 z-20 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-[#E5DAC6] shadow-lg flex items-center gap-2 animate-in fade-in zoom-in duration-300">
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
+                  <span className="text-xs font-bold text-[#301612]">4.98 / 5.0</span>
+                  <span className="text-[11px] text-[#5C3D34]/80">(1,420 orders)</span>
+                </div>
+
+                {/* Cake Visual with High-End Presentation */}
+                <div className="relative w-full aspect-square sm:aspect-[4/3.8] flex items-center justify-center p-2 sm:p-4">
+                  <img
+                    src={celebrationOccasions[selectedOccasionIndex].image}
+                    alt={celebrationOccasions[selectedOccasionIndex].cakeName}
+                    className="w-full h-full object-contain max-h-[440px] drop-shadow-[0_24px_36px_rgba(48,22,18,0.24)] transition-all duration-700 ease-out hover:scale-105"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Minimal Thin Progress Bar */}
-          <div className="w-16 sm:w-24 h-[2px] bg-white/20 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-brand-gold transition-all duration-75 ease-linear"
-              style={{ width: `${heroProgress}%` }}
-            />
-          </div>
+          {/* Bottom Interactive Flavour Switcher Ribbon */}
+          <div className="mt-12 sm:mt-16 pt-6 border-t border-[#E8DEC8]/80 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#8C5835] uppercase tracking-wider">
+              <span>Signature Ateliers:</span>
+            </div>
 
-          {/* Minimal Controls */}
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={handlePrevHero}
-              aria-label="Previous Creation"
-              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-sm border border-white/20 transition-all active:scale-90 cursor-pointer"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={handleNextHero}
-              aria-label="Next Creation"
-              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-sm border border-white/20 transition-all active:scale-90 cursor-pointer"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {celebrationOccasions.map((c, dotIdx) => {
+                const isCurrent = dotIdx === selectedOccasionIndex;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => {
+                      setHeroProgress(0);
+                      setSelectedOccasionIndex(dotIdx);
+                    }}
+                    className={`px-4 py-2 rounded-full transition-all duration-300 text-xs font-body font-semibold cursor-pointer border ${
+                      isCurrent
+                        ? 'bg-[#301612] text-white border-[#301612] shadow-sm font-bold scale-105'
+                        : 'bg-white hover:bg-[#FAF4EB] text-[#5C3D34] border-[#E5DAC6]'
+                    }`}
+                  >
+                    {c.shortName}
+                  </button>
+                );
+              })}
+            </div>
 
-        {/* Interactive Bottom Flavour Switcher Bar */}
-        <div className="hidden md:flex absolute bottom-8 left-5 sm:left-8 lg:left-12 z-20 pointer-events-auto items-center gap-1.5 p-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15">
-          {celebrationOccasions.map((c, dotIdx) => {
-            const isCurrent = dotIdx === selectedOccasionIndex;
-            return (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => {
-                  setHeroProgress(0);
-                  setSelectedOccasionIndex(dotIdx);
-                }}
-                className={`px-3 py-1 rounded-full transition-all duration-300 text-[11px] font-body font-semibold cursor-pointer ${
-                  isCurrent
-                    ? 'bg-white text-brand-chocolate font-bold shadow-sm'
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {c.shortName}
-              </button>
-            );
-          })}
+            {/* Slider Navigation & Counter */}
+            <div className="flex items-center gap-3 text-xs text-[#5C3D34] font-semibold">
+              <span className="font-bold text-[#301612]">
+                {celebrationOccasions[selectedOccasionIndex].index}
+              </span>
+              <span className="text-[#8C5835]/50">/</span>
+              <span className="text-[#8C5835]">05</span>
+              <div className="flex items-center gap-1 ml-2">
+                <button
+                  type="button"
+                  onClick={handlePrevHero}
+                  aria-label="Previous Creation"
+                  className="w-7 h-7 rounded-full bg-white hover:bg-[#301612] text-[#301612] hover:text-white border border-[#E5DAC6] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-90"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNextHero}
+                  aria-label="Next Creation"
+                  className="w-7 h-7 rounded-full bg-white hover:bg-[#301612] text-[#301612] hover:text-white border border-[#E5DAC6] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-90"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

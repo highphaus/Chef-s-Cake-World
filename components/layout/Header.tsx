@@ -229,16 +229,16 @@ export default function Header() {
   ];
 
   const isHomePage = pathname === '/';
-  const isTransparent = isHomePage && !isScrolled;
+  const isDarkNavbar = isHomePage;
 
   const getNavLinkClass = (active: boolean) => {
     if (active) {
-      return isTransparent
-        ? 'text-white bg-white/20 font-bold backdrop-blur-xs shadow-2xs'
+      return isDarkNavbar
+        ? 'text-[#E5B56A] bg-white/15 font-bold backdrop-blur-xs shadow-2xs'
         : 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs';
     }
-    return isTransparent
-      ? 'text-white/90 hover:text-white hover:bg-white/15'
+    return isDarkNavbar
+      ? 'text-[#FAF5EE]/90 hover:text-[#E5B56A] hover:bg-white/10'
       : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80';
   };
 
@@ -246,9 +246,11 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-40 w-full max-w-full transition-all duration-300 ${
-          isTransparent
-            ? 'bg-gradient-to-b from-black/80 via-black/40 to-transparent border-transparent'
-            : 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15'
+          isDarkNavbar
+            ? isScrolled
+              ? 'bg-[#301612]/95 backdrop-blur-md shadow-md border-b border-[#45221B] text-[#FAF5EE]'
+              : 'bg-[#301612] border-b border-[#45221B] text-[#FAF5EE]'
+            : 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15 text-brand-chocolate'
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
@@ -266,7 +268,7 @@ export default function Header() {
                 className={`p-2 -ml-1 rounded-xl transition-all shrink-0 lg:hidden ${
                   mobileMenuOpen
                     ? 'bg-brand-peach text-brand-caramel'
-                    : isTransparent
+                    : isDarkNavbar
                     ? 'text-white hover:bg-white/20'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
@@ -516,7 +518,7 @@ export default function Header() {
                 type="button"
                 onClick={() => setSearchOpen(!searchOpen)}
                 className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
-                  isTransparent
+                  isDarkNavbar
                     ? 'text-white hover:bg-white/20'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
@@ -532,7 +534,7 @@ export default function Header() {
                   type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                   className={`p-1.5 sm:p-2 rounded-lg transition-colors flex items-center justify-center ${
-                    isTransparent
+                    isDarkNavbar
                       ? 'text-white hover:bg-white/20'
                       : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                   }`}
@@ -622,7 +624,7 @@ export default function Header() {
                 type="button"
                 onClick={() => setIsCartOpen(true)}
                 className={`relative p-1.5 sm:p-2 rounded-lg transition-colors group focus:outline-none shrink-0 ${
-                  isTransparent
+                  isDarkNavbar
                     ? 'text-white hover:bg-white/20'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
@@ -656,7 +658,7 @@ export default function Header() {
                 className={`p-2 rounded-xl transition-all ${
                   searchOpen
                     ? 'bg-brand-peach text-brand-caramel'
-                    : isTransparent
+                    : isDarkNavbar
                     ? 'text-white hover:bg-white/20'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
@@ -671,7 +673,7 @@ export default function Header() {
                 type="button"
                 onClick={() => setIsCartOpen(true)}
                 className={`relative p-2 rounded-xl transition-colors shrink-0 ${
-                  isTransparent
+                  isDarkNavbar
                     ? 'text-white hover:bg-white/20'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
