@@ -283,3 +283,57 @@ textarea {
   -webkit-overflow-scrolling: touch;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   INTERACTIVE CAKE HERO ANIMATIONS & STYLES (Cake Hero)
+────────────────────────────────────────────────────────────── */
+@keyframes cakeSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cakeWedgeSlide {
+  from {
+    transform: rotate(var(--a)) translateX(0);
+  }
+  to {
+    transform: rotate(var(--a)) translateX(92px);
+  }
+}
+
+@keyframes cakeSparkFly {
+  from {
+    transform: translate(var(--x), var(--y)) rotate(0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--dx), var(--dy)) rotate(var(--s));
+    opacity: 0;
+  }
+}
+
+.animate-cake-spin {
+  animation: cakeSpin 120s linear infinite;
+  transform-origin: center;
+}
+
+.cake-wedge {
+  animation: cakeWedgeSlide 0.75s cubic-bezier(0.2, 1.1, 0.3, 1) forwards;
+}
+
+.cake-spark {
+  animation: cakeSparkFly cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cake-spin,
+  .cake-spark {
+    animation: none !important;
+  }
+  .cake-wedge {
+    animation: none !important;
+    transform: rotate(var(--a)) translateX(92px);
+  }
+}
+
+
