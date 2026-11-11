@@ -4,20 +4,20 @@
 
 :root {
   /* Brand Palette */
-  --color-chocolate: #420600; /* Dark Chocolate - Primary */
-  --color-caramel: #BA6300;   /* Caramel Orange - Secondary */
-  --color-gold: #D9C477;      /* Soft Gold - Decorative Accents */
-  --color-peach: #F5D9B5;     /* Warm Peach - Featured Highlights */
-  --color-cream: #E6E7D4;     /* Sage Cream - Background */
+  --color-chocolate: #320500; /* Rich Belgian Couverture Espresso */
+  --color-caramel: #B25E00;   /* Warm Artisan Caramel */
+  --color-gold: #D4B46A;      /* Soft Champagne Gold */
+  --color-peach: #F5EAE0;     /* Refined Warm Linen */
+  --color-cream: #FAF8F5;     /* Pure Alabaster / Architectural Linen Background */
 
   /* Neutral Surface Shades */
-  --color-bg-main: #E6E7D4;
-  --color-surface-card: #FAF8F5;
+  --color-bg-main: #FAF8F5;
+  --color-surface-card: #FFFFFF;
   --color-surface-white: #FFFFFF;
-  --color-text-primary: #420600;
-  --color-text-secondary: #5C4033;
-  --color-text-muted: #7E7268;
-  --color-border-subtle: #D8D2C4;
+  --color-text-primary: #320500;
+  --color-text-secondary: #573E36;
+  --color-text-muted: #80736C;
+  --color-border-subtle: #E8E2D9;
 
   /* Fluid Responsive Typography Scale */
   --font-hero: clamp(2rem, 5vw, 4.75rem);

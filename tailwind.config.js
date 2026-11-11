@@ -25,17 +25,17 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          chocolate: '#420600', // Dark Chocolate - Primary brand colour
-          caramel: '#BA6300',   // Caramel Orange - Secondary brand colour
-          gold: '#D9C477',      // Soft Gold - Decorative accents, badges
-          peach: '#F5D9B5',     // Warm Peach - Promotional backgrounds
-          cream: '#E6E7D4',     // Sage Cream - Main background
+          chocolate: '#320500', // Rich Belgian Couverture Espresso
+          caramel: '#B25E00',   // Warm Artisan Caramel
+          gold: '#D4B46A',      // Soft Champagne Gold
+          peach: '#F5EAE0',     // Refined Warm Linen
+          cream: '#FAF8F5',     // Pure Alabaster / Architectural Linen Background
         },
         surface: {
           light: '#FAF8F5',
           card: '#FFFFFF',
-          border: '#E8E2D8',
-          muted: '#7A6E65',
+          border: '#E8E2D9',
+          muted: '#80736C',
         }
       },
       fontFamily: {
