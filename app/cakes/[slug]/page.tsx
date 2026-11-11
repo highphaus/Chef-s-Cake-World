@@ -282,7 +282,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               <span className="text-xs text-brand-chocolate/50">({product.reviewCount} customer reviews)</span>
             </div>
 
-            <h1 className="font-heading text-3xl sm:text-4xl text-brand-chocolate">
+            <h1 className="product-title font-body font-semibold text-3xl sm:text-4xl text-brand-chocolate">
               {product.name}
             </h1>
 
@@ -523,7 +523,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               type="button"
               onClick={handleAddToCart}
               disabled={isAdding}
-              className="py-3.5 px-6 min-h-[48px] rounded-xl bg-brand-chocolate text-brand-gold font-bold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+              className="btn font-body font-semibold py-3.5 px-6 min-h-[48px] rounded-xl bg-brand-chocolate text-brand-gold text-sm hover:bg-brand-caramel hover:text-white transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <ShoppingBag className="w-4 h-4" />
               <span>{isAdding ? 'Adding to Cart...' : 'Add to Cart'}</span>
@@ -532,7 +532,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             <button
               type="button"
               onClick={handleBuyNow}
-              className="py-3.5 px-6 min-h-[48px] rounded-xl bg-brand-caramel text-white font-bold text-sm hover:bg-brand-chocolate hover:text-brand-gold transition-all shadow-md flex items-center justify-center gap-2"
+              className="btn font-body font-semibold py-3.5 px-6 min-h-[48px] rounded-xl bg-brand-caramel text-white text-sm hover:bg-brand-chocolate hover:text-brand-gold transition-all shadow-md flex items-center justify-center gap-2"
             >
               <span>Instant Buy Now</span>
             </button>

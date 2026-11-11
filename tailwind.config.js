@@ -39,9 +39,9 @@ module.exports = {
         }
       },
       fontFamily: {
-        heading: ['var(--font-heading)', 'Plus Jakarta Sans', 'DM Sans', 'sans-serif'],
+        heading: ['var(--font-heading)', 'Playfair Display', 'Georgia', 'serif'],
         body: ['var(--font-body)', 'DM Sans', 'sans-serif'],
-        sans: ['var(--font-body)', 'DM Sans', 'Plus Jakarta Sans', 'sans-serif'],
+        sans: ['var(--font-body)', 'DM Sans', 'sans-serif'],
       },
       boxShadow: {
         'cake-soft': '0 4px 20px -2px rgba(66, 6, 0, 0.08)',

@@ -41,7 +41,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="pt-2 sm:pt-2.5 flex flex-col justify-between flex-1">
         <Link href={`/cakes/${product.slug}`} className="block">
           <h3
-            className="font-heading text-xs xs:text-sm sm:text-sm font-bold text-brand-chocolate group-hover:text-brand-caramel transition-colors truncate block leading-tight tracking-tight"
+            className="product-title font-body font-semibold text-xs xs:text-sm sm:text-sm text-brand-chocolate group-hover:text-brand-caramel transition-colors truncate block leading-tight tracking-tight"
             title={product.name}
           >
             {product.name}
@@ -56,7 +56,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           <Link
             href={`/cakes/${product.slug}`}
-            className="inline-flex items-center justify-center gap-1 px-2 xs:px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-brand-chocolate text-brand-gold text-[9.5px] xs:text-[10px] sm:text-xs font-bold hover:bg-brand-caramel hover:text-white transition-all shadow-2xs active:scale-95 whitespace-nowrap shrink-0"
+            className="btn font-body font-semibold inline-flex items-center justify-center gap-1 px-2 xs:px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-brand-chocolate text-brand-gold text-[9.5px] xs:text-[10px] sm:text-xs hover:bg-brand-caramel hover:text-white transition-all shadow-2xs active:scale-95 whitespace-nowrap shrink-0"
             title={`Order ${product.name}`}
           >
             <ShoppingBag className="w-2.5 h-2.5 sm:w-3 sm:h-3 shrink-0" />

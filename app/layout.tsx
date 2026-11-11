@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans, DM_Sans } from 'next/font/google';
+import { Playfair_Display, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
@@ -13,9 +13,9 @@ export const viewport: Viewport = {
   themeColor: '#420600',
 };
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-heading',
   display: 'swap',
 });
@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} ${dmSans.variable} overflow-x-hidden max-w-full font-sans`}>
+    <html lang="en" className={`${playfairDisplay.variable} ${dmSans.variable} overflow-x-hidden max-w-full font-sans`}>
       <body className="min-h-screen flex flex-col bg-brand-cream text-brand-chocolate antialiased selection:bg-brand-caramel selection:text-white overflow-x-hidden max-w-full relative">
         <AuthProvider>
           <CartProvider>

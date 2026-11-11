@@ -153,16 +153,36 @@ svg {
   object-fit: cover;
 }
 
-/* Heading Font Assignment: Modern Bold Sans-Serif (The Muffin House style) */
+/* Heading Font Assignment: Playfair Display */
 h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: var(--font-heading), 'Plus Jakarta Sans', 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  letter-spacing: -0.02em;
+  font-family: var(--font-heading), 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.01em;
   font-weight: 700;
 }
 
 /* Body / UI Font Assignment: DM Sans */
-body, p, button, input, select, textarea, table, nav, .font-body {
+body, p, input, select, textarea, table, nav, .font-body {
   font-family: var(--font-body), 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Product Titles: DM Sans, 600 weight */
+.product-title,
+h1.product-title,
+h2.product-title,
+h3.product-title,
+[data-product-title] {
+  font-family: var(--font-body), 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* Buttons: DM Sans, 600 weight */
+button,
+.btn,
+input[type="button"],
+input[type="submit"],
+[role="button"] {
+  font-family: var(--font-body), 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 600 !important;
 }
 
 /* Touch-friendly interactive elements */
