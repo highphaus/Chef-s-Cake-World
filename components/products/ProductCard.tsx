@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ShoppingBag, ArrowUpRight, Star, Sparkles } from 'lucide-react';
+import { ShoppingBag, ArrowUpRight, Star } from 'lucide-react';
 
 interface ProductCardProps {
   product: {
@@ -43,18 +43,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Subtle Gradient Shadow on Hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-        {/* Top Left Craftsmanship Tag */}
-        {product.isBestSeller ? (
-          <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-brand-chocolate/90 backdrop-blur-md text-brand-gold text-[9px] font-bold tracking-wider uppercase shadow-xs flex items-center gap-1 border border-brand-gold/30">
-            <Sparkles className="w-2.5 h-2.5 text-brand-gold" />
-            <span>Signature</span>
-          </span>
-        ) : product.egglessAvailable ? (
+        {/* Top Left Tag */}
+        {product.egglessAvailable && (
           <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-emerald-800 text-[9px] font-bold tracking-wider uppercase shadow-xs flex items-center gap-1 border border-emerald-700/20">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block" />
             <span>Eggless</span>
           </span>
-        ) : null}
+        )}
 
         {/* Top Right Subtle Rating Pill */}
         <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-brand-chocolate text-[10px] font-bold tracking-tight shadow-xs flex items-center gap-1 border border-brand-chocolate/10">
