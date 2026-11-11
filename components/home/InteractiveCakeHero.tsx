@@ -182,20 +182,8 @@ export default function InteractiveCakeHero() {
   return (
     <section
       style={themeVars}
-      className="relative w-full min-h-[100svh] flex flex-col justify-center overflow-hidden pt-24 sm:pt-28 lg:pt-28 pb-10 sm:pb-14 border-b-2 border-[#301612]/12 transition-colors duration-500"
+      className="relative w-full min-h-[100svh] flex flex-col justify-center overflow-hidden bg-white pt-24 sm:pt-28 lg:pt-28 pb-10 sm:pb-14 border-b border-brand-chocolate/10"
     >
-      {/* Subtle Gingham + Flavour Tinted Background */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none transition-colors duration-500"
-        style={{
-          backgroundColor: `color-mix(in srgb, ${f.bg} 12%, #FAF5EE)`,
-          backgroundImage:
-            'linear-gradient(90deg, rgba(255, 255, 255, 0.45) 50%, transparent 50%), linear-gradient(rgba(255, 255, 255, 0.45) 50%, transparent 50%)',
-          backgroundSize: '72px 72px',
-        }}
-      />
-
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* 3-Column Interactive Cake Stage */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center">
