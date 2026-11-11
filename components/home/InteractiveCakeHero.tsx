@@ -6,13 +6,11 @@ import { ArrowRight, RotateCcw, Sparkles, Scissors, Star, Truck, ShieldCheck } f
 import {
   HERO_FLAVOURS,
   LAYER_HEIGHTS,
-  CAKE_ITEMS,
   R,
   RIM,
   HALF,
   SPRINKLES,
   bodyPath,
-  diff,
   pt,
   sector,
   toColour,
@@ -31,55 +29,38 @@ type Spark = {
 
 let sparkId = 0;
 
-const CakePiece = memo(function CakePiece({ d }: { d: string }) {
-  return (
-    <>
-      <path d={d} fill="var(--ink)" stroke="var(--ink)" strokeWidth={2 * RIM + 4} strokeLinejoin="round" />
-      <path
-        d={d}
-        fill="var(--frost)"
-        stroke="var(--sponge)"
-        strokeWidth={2 * RIM}
-        strokeLinejoin="round"
-        paintOrder="stroke"
-      />
-    </>
-  );
-});
-
-const CakeDecor = memo(function CakeDecor({ cut, origin }: { cut: number | null; origin: number | null }) {
-  return (
-    <>
-      {CAKE_ITEMS.map((it, i) => {
-        if (cut !== null && (origin === null) === Math.abs(diff(it.a, cut)) <= HALF) return null;
-        const [x, y] = pt(it.r, origin === null ? it.a : it.a - origin);
-        return it.t === 'dot' ? (
-          <circle key={i} cx={x} cy={y} r={it.s} fill={it.fill} stroke="var(--ink)" strokeWidth={2} />
-        ) : (
-          <rect
-            key={i}
-            x={-8}
-            y={-3}
-            width={16}
-            height={6}
-            rx={3}
-            fill={it.fill}
-            stroke="var(--ink)"
-            strokeWidth={1.5}
-            transform={`translate(${x} ${y}) rotate(${it.rot})`}
-          />
-        );
-      })}
-    </>
-  );
-});
-
 const getAngleFromPointer = (e: PointerEvent<SVGSVGElement> | MouseEvent<SVGSVGElement>) => {
   const rect = e.currentTarget.getBoundingClientRect();
   return Number(
     ((Math.atan2(e.clientY - (rect.top + rect.height / 2), e.clientX - (rect.left + rect.width / 2)) * 180) / Math.PI).toFixed(2)
   );
 };
+
+const LayerCrossSection = memo(function LayerCrossSection({
+  layers,
+}: {
+  layers: { name: string; fill: string }[];
+}) {
+  return (
+    <div className="bg-brand-cream/40 rounded-2xl border border-brand-chocolate/10 p-3">
+      <svg viewBox="0 0 240 112" className="w-full h-auto" aria-hidden="true">
+        <g transform="translate(30 6) skewX(-14)" stroke="#301612" strokeWidth={1.8} strokeLinejoin="round">
+          {layers.map((layer, n) => (
+            <rect
+              key={n}
+              x={14}
+              y={LAYER_HEIGHTS.slice(0, n).reduce((a, b) => a + b, 0)}
+              width={170}
+              height={LAYER_HEIGHTS[n]}
+              rx={n === 4 ? 4 : 0}
+              fill={toColour(layer.fill)}
+            />
+          ))}
+        </g>
+      </svg>
+    </div>
+  );
+});
 
 export default function InteractiveCakeHero() {
   const [idx, setIdx] = useState(0);
@@ -88,9 +69,9 @@ export default function InteractiveCakeHero() {
   const [sparks, setSparks] = useState<Spark[]>([]);
   const [selectedWeight, setSelectedWeight] = useState<'0.5kg' | '1kg' | '2kg'>('0.5kg');
 
-  // Direct DOM refs for 120fps silky hover tracking with zero React re-renders
+  // Direct DOM refs for 120fps silky knife hover tracking with zero React re-renders
   const hoverAngleRef = useRef(-38);
-  const hoverGuideRef = useRef<SVGPathElement>(null);
+  const hoverGuideRef = useRef<SVGGElement>(null);
 
   const f = HERO_FLAVOURS[idx];
 
@@ -115,25 +96,25 @@ export default function InteractiveCakeHero() {
       return;
     }
 
-    const batch: Spark[] = Array.from({ length: 24 }, (_, i) => {
-      const [x, y] = pt(R * 0.75, angle + (Math.random() - 0.5) * 30);
-      const [dx, dy] = pt(120 + Math.random() * 170, angle + (Math.random() - 0.5) * 140);
+    const batch: Spark[] = Array.from({ length: 22 }, (_, i) => {
+      const [x, y] = pt(R * 0.72, angle + (Math.random() - 0.5) * 28);
+      const [dx, dy] = pt(100 + Math.random() * 150, angle + (Math.random() - 0.5) * 130);
       return {
         id: ++sparkId,
         x,
         y,
         dx,
         dy,
-        spin: Number(((Math.random() - 0.5) * 720).toFixed(1)),
-        dur: Math.round(850 + Math.random() * 450),
-        fill: SPRINKLES[i % 5],
+        spin: Number(((Math.random() - 0.5) * 540).toFixed(1)),
+        dur: Math.round(800 + Math.random() * 450),
+        fill: SPRINKLES[i % SPRINKLES.length],
       };
     });
 
     setSparks((prev) => [...prev, ...batch]);
     setTimeout(() => {
       setSparks((prev) => prev.filter((p) => !batch.includes(p)));
-    }, 1400);
+    }, 1350);
   }, []);
 
   const handlePointerMove = useCallback(
@@ -175,9 +156,11 @@ export default function InteractiveCakeHero() {
     '--fill': f.fill,
     '--accent': f.accent,
     '--ink': '#301612',
-    '--paper': '#FFFBF4',
+    '--paper': '#FFFFFF',
     '--plate': '#FFFFFF',
   } as CSSProperties;
+
+  const bodyClipId = `cakeBodyClip-${cutCount}`;
 
   return (
     <section
@@ -185,19 +168,28 @@ export default function InteractiveCakeHero() {
       className="relative w-full min-h-[100svh] flex flex-col justify-center overflow-hidden bg-white pt-24 sm:pt-28 lg:pt-28 pb-10 sm:pb-14 border-b border-brand-chocolate/10"
     >
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
-        {/* 3-Column Interactive Cake Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center">
-          {/* LEFT COLUMN: Choose a Flavour Card */}
+        {/* 3-Column Photorealistic Interactive Cake Stage */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+          {/* LEFT COLUMN: Choose Flavour Card */}
           <div className="lg:col-span-3 order-2 lg:order-1">
-            <div className="bg-[#FFFBF4] border-2 border-[#301612] rounded-3xl p-4 sm:p-5 shadow-[5px_5px_0_#301612]">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="font-heading text-lg font-extrabold text-[#301612]">Choose Flavour</h2>
-                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#FAF1E4] border border-[#301612]/20 text-[#301612]">
-                  {HERO_FLAVOURS.length} Ateliers
+            <div className="bg-white border border-brand-chocolate/12 rounded-3xl p-4 sm:p-5 shadow-[0_14px_40px_-12px_rgba(48,22,18,0.1)]">
+              <div className="flex items-center justify-between mb-3.5">
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-brand-caramel block">
+                    Haute Pâtisserie
+                  </span>
+                  <h2 className="font-heading text-lg font-bold text-[#301612]">Select Creation</h2>
+                </div>
+                <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-brand-cream text-brand-chocolate border border-brand-chocolate/10">
+                  {HERO_FLAVOURS.length} Cakes
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2" role="group" aria-label="Choose cake flavour">
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2"
+                role="group"
+                aria-label="Choose cake creation"
+              >
                 {HERO_FLAVOURS.map((item, i) => {
                   const isSelected = i === idx;
                   return (
@@ -206,54 +198,55 @@ export default function InteractiveCakeHero() {
                       type="button"
                       aria-pressed={isSelected}
                       onClick={() => setIdx(i)}
-                      className={`w-full flex items-center justify-between gap-2.5 p-2.5 rounded-2xl border-2 text-left transition-all cursor-pointer ${
+                      className={`w-full flex items-center justify-between gap-2.5 p-2 rounded-2xl border text-left transition-all cursor-pointer ${
                         isSelected
-                          ? 'border-[#301612] shadow-[3px_3px_0_#301612] font-bold -translate-y-0.5'
-                          : 'border-transparent hover:border-[#301612]/30 hover:bg-[#FAF1E4]/60'
+                          ? 'bg-brand-cream/70 border-brand-chocolate shadow-xs font-bold'
+                          : 'bg-white border-brand-chocolate/10 hover:border-brand-chocolate/35 hover:bg-brand-cream/30'
                       }`}
-                      style={
-                        isSelected
-                          ? { backgroundColor: `color-mix(in srgb, ${item.bg} 18%, #FFFFFF)` }
-                          : undefined
-                      }
                     >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <span
-                          className="w-6 h-6 rounded-full border-2 border-[#301612] shrink-0 shadow-xs"
-                          style={{ backgroundColor: item.bg }}
-                        />
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-11 h-11 rounded-xl overflow-hidden border border-brand-chocolate/15 shrink-0 bg-brand-cream">
+                          <img
+                            src={item.image}
+                            alt={item.shortName}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
                         <div className="min-w-0">
                           <span className="block text-xs sm:text-[13px] text-[#301612] truncate font-semibold">
                             {item.shortName}
                           </span>
-                          <span className="block text-[10px] text-[#5C3D34]/80 truncate">
-                            {item.price} / 0.5kg
+                          <span className="block text-[11px] text-[#5C3D34]/75 truncate">
+                            From {item.price}
                           </span>
                         </div>
                       </div>
+                      {isSelected && (
+                        <span className="w-2 h-2 rounded-full bg-brand-caramel shrink-0 mr-1" />
+                      )}
                     </button>
                   );
                 })}
               </div>
 
               {/* Action Controls under Flavours */}
-              <div className="mt-4 pt-3 border-t border-[#301612]/10 flex items-center justify-between gap-2">
+              <div className="mt-4 pt-3.5 border-t border-brand-chocolate/10 flex items-center justify-between gap-2">
                 {cut !== null ? (
                   <button
                     type="button"
                     onClick={() => setCut(null)}
-                    className="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-[#FAF1E4] border-2 border-[#301612] text-xs font-bold text-[#301612] flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-[2px_2px_0_#301612] active:translate-y-0.5 active:shadow-none"
+                    className="w-full py-2.5 px-3 rounded-xl bg-brand-cream hover:bg-brand-peach/60 border border-brand-chocolate/20 text-xs font-bold text-[#301612] flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    <span>Reset Cake</span>
+                    <span>Reset Whole Cake</span>
                   </button>
                 ) : (
                   <button
                     type="button"
                     onClick={() => doCut(hoverAngleRef.current)}
-                    className="w-full py-2.5 px-3 rounded-xl bg-[#D49B42] hover:bg-[#c28b35] border-2 border-[#301612] text-xs font-bold text-[#301612] flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-[2px_2px_0_#301612] active:translate-y-0.5 active:shadow-none"
+                    className="w-full py-2.5 px-3 rounded-xl bg-[#301612] hover:bg-[#46211A] text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md active:scale-95"
                   >
-                    <Scissors className="w-3.5 h-3.5" />
+                    <Scissors className="w-3.5 h-3.5 text-brand-gold" />
                     <span>Cut a Slice</span>
                   </button>
                 )}
@@ -261,29 +254,70 @@ export default function InteractiveCakeHero() {
             </div>
           </div>
 
-          {/* CENTER COLUMN: Interactive SVG Cake Stage */}
+          {/* CENTER COLUMN: Photorealistic Sliceable Real Cake Stage */}
           <div className="lg:col-span-6 order-1 lg:order-2 relative flex flex-col items-center justify-center">
             <div className="relative w-full max-w-[440px] sm:max-w-[520px] lg:max-w-[560px] aspect-square mx-auto">
               <svg
-                className="relative z-10 w-full h-full block cursor-pointer touch-manipulation overflow-visible select-none focus:outline-none"
+                className="relative z-10 w-full h-full block cursor-crosshair touch-manipulation overflow-visible select-none focus:outline-none"
                 viewBox="-310 -310 620 620"
                 role="button"
                 tabIndex={0}
-                aria-label="Interactive Cake. Move pointer or use arrow keys to aim knife, click or press Enter to cut a slice."
+                aria-label="Interactive Real Cake. Move pointer or use arrow keys to aim knife blade, click or press Enter to cut a slice."
                 onPointerMove={handlePointerMove}
                 onClick={handleSvgClick}
                 onKeyDown={handleKeyDown}
               >
-                {/* Porcelain Cake Plate */}
-                <circle r={288} fill="rgba(48, 22, 18, 0.08)" cx={6} cy={8} />
-                <circle r={285} fill="var(--plate)" stroke="var(--ink)" strokeWidth={3.5} />
+                <defs>
+                  {/* Dynamic Clip Path for Main Cake Body */}
+                  <clipPath id={bodyClipId}>
+                    <path d={bodyPath(cut)} />
+                  </clipPath>
+
+                  {/* Fixed Clip Path for Wedge Slice */}
+                  <clipPath id="cakeWedgeClip">
+                    <path d={sector(R, HALF)} />
+                  </clipPath>
+
+                  {/* Porcelain Serving Platter Shading */}
+                  <radialGradient id="porcelainPlate" cx="50%" cy="46%" r="54%">
+                    <stop offset="0%" stopColor="#FFFFFF" />
+                    <stop offset="78%" stopColor="#FCFAF7" />
+                    <stop offset="100%" stopColor="#EFE9DF" />
+                  </radialGradient>
+
+                  {/* Realistic Soft Platter Shadow */}
+                  <filter id="platterShadow" x="-15%" y="-15%" width="130%" height="135%">
+                    <feDropShadow dx="0" dy="14" stdDeviation="16" floodColor="#301612" floodOpacity="0.12" />
+                  </filter>
+
+                  {/* Realistic Whole Cake Elevation Shadow */}
+                  <filter id="cakeBodyShadow" x="-15%" y="-15%" width="130%" height="135%">
+                    <feDropShadow dx="0" dy="8" stdDeviation="10" floodColor="#301612" floodOpacity="0.28" />
+                  </filter>
+
+                  {/* Realistic Separated Wedge Slice Shadow */}
+                  <filter id="sliceWedgeShadow" x="-25%" y="-25%" width="150%" height="150%">
+                    <feDropShadow dx="5" dy="12" stdDeviation="9" floodColor="#301612" floodOpacity="0.34" />
+                  </filter>
+                </defs>
+
+                {/* Subtle Porcelain Serving Platter */}
+                <circle
+                  r={284}
+                  fill="url(#porcelainPlate)"
+                  stroke="#E7DFD3"
+                  strokeWidth={2}
+                  filter="url(#platterShadow)"
+                />
+                {/* Champagne Gold Rim Accent */}
                 <circle
                   r={262}
                   fill="none"
-                  stroke="var(--accent)"
-                  strokeWidth={10}
-                  strokeDasharray="2 16"
+                  stroke="#D4B46A"
+                  strokeWidth={1.5}
+                  strokeDasharray="3 10"
                   strokeLinecap="round"
+                  opacity={0.75}
                 />
 
                 {/* Rotating Edge Typography Ring */}
@@ -292,58 +326,100 @@ export default function InteractiveCakeHero() {
                   <text
                     style={{
                       fontFamily: 'var(--font-body), sans-serif',
-                      fontWeight: 700,
-                      fontSize: '18.5px',
-                      fill: 'var(--ink)',
-                      letterSpacing: '0.06em',
+                      fontWeight: 600,
+                      fontSize: '16.5px',
+                      fill: '#7E5C4D',
+                      letterSpacing: '0.1em',
                     }}
                   >
-                    <textPath href="#heroRingPath" textLength={1495} lengthAdjust="spacing">
+                    <textPath href="#heroRingPath" textLength={1492} lengthAdjust="spacing">
                       CHEF&apos;S CAKE WORLD &bull; BAKED TO ORDER IN KERALA &bull; 100% BELGIAN COUVERTURE &bull; FRESH DAILY &bull;{' '}
                     </textPath>
                   </text>
                 </g>
 
-                {/* Cake Body & Sprinkles */}
-                <g>
-                  <CakePiece d={bodyPath(cut)} />
-                  <CakeDecor cut={cut} origin={null} />
+                {/* Main Cake Body (Photorealistic Clipped Real Image) */}
+                <g filter="url(#cakeBodyShadow)">
+                  <image
+                    href={f.image}
+                    x={-R}
+                    y={-R}
+                    width={2 * R}
+                    height={2 * R}
+                    preserveAspectRatio="xMidYMid slice"
+                    clipPath={`url(#${bodyClipId})`}
+                  />
+                  {/* Exposed Cream/Cocoa Rim Bevel along Body & Cut Edges */}
+                  <path
+                    d={bodyPath(cut)}
+                    fill="none"
+                    stroke={cut !== null ? 'rgba(48, 22, 18, 0.35)' : 'rgba(212, 180, 106, 0.45)'}
+                    strokeWidth={cut !== null ? 3 : 2}
+                    strokeLinejoin="round"
+                  />
                 </g>
 
-                {/* Animated Cut Wedge */}
+                {/* Animated Cut Wedge (Real Image Pixels Counter-Rotated to Stay Perfectly Aligned) */}
                 {cut !== null && (
-                  <g key={cutCount} className="cake-wedge" style={{ '--a': `${cut}deg` } as CSSProperties}>
-                    <CakePiece d={sector(R, HALF)} />
-                    <CakeDecor cut={cut} origin={cut} />
+                  <g
+                    key={cutCount}
+                    className="cake-wedge"
+                    style={{ '--a': `${cut}deg` } as CSSProperties}
+                    filter="url(#sliceWedgeShadow)"
+                  >
+                    <g clipPath="url(#cakeWedgeClip)">
+                      <image
+                        href={f.image}
+                        x={-R}
+                        y={-R}
+                        width={2 * R}
+                        height={2 * R}
+                        preserveAspectRatio="xMidYMid slice"
+                        transform={`rotate(${-cut})`}
+                      />
+                    </g>
+                    {/* Crisp Subtle Inner Cut Bevel Highlight */}
+                    <path
+                      d={sector(R, HALF)}
+                      fill="none"
+                      stroke="rgba(255, 248, 236, 0.85)"
+                      strokeWidth={2}
+                      strokeLinejoin="round"
+                    />
                   </g>
                 )}
 
-                {/* Hover Knife Aim Guide (Direct DOM Transform for 120fps smoothness) */}
-                <path
-                  ref={hoverGuideRef}
-                  d={sector(R + RIM, HALF)}
-                  transform="rotate(-38)"
-                  fill="rgba(255, 255, 255, 0.35)"
-                  stroke="var(--ink)"
-                  strokeWidth={2.5}
-                  strokeDasharray="7 6"
-                  pointerEvents="none"
-                />
+                {/* Knife Aim Preview Guide (Direct DOM Transform for 120fps Smoothness) */}
+                <g ref={hoverGuideRef} transform="rotate(-38)" pointerEvents="none">
+                  <path
+                    d={sector(R + 4, HALF)}
+                    fill="rgba(255, 255, 255, 0.14)"
+                    stroke="#FFFFFF"
+                    strokeWidth={2}
+                    strokeDasharray="6 5"
+                  />
+                  {/* Subtle Dark Contrast Dashed Outline Underneath */}
+                  <path
+                    d={sector(R + 4, HALF)}
+                    fill="none"
+                    stroke="rgba(48, 22, 18, 0.45)"
+                    strokeWidth={1}
+                    strokeDasharray="6 5"
+                  />
+                </g>
 
-                {/* Flying Sprinkle Sparks on Cut */}
+                {/* Flying 24K Gold Leaf & Cocoa Shaving Sparks on Cut */}
                 <g pointerEvents="none">
                   {sparks.map((p) => (
                     <rect
                       key={p.id}
                       className="cake-spark"
-                      x={-7}
-                      y={-3}
-                      width={14}
-                      height={6}
-                      rx={3}
+                      x={-6}
+                      y={-2.5}
+                      width={12}
+                      height={5}
+                      rx={2}
                       fill={p.fill}
-                      stroke="var(--ink)"
-                      strokeWidth={1.5}
                       style={
                         {
                           '--x': `${p.x}px`,
@@ -358,80 +434,63 @@ export default function InteractiveCakeHero() {
                   ))}
                 </g>
               </svg>
+            </div>
 
-              {/* Center Interactive Cake Seal Plaque */}
-              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-12 text-center">
-                <div className="bg-[#FFFBF4]/95 backdrop-blur-sm border-2 border-[#301612] rounded-full px-6 py-4 sm:px-8 sm:py-6 shadow-[4px_4px_0_#301612] max-w-[210px] sm:max-w-[245px]">
-                  <span className="text-[10px] uppercase font-bold tracking-widest text-[#8C5835] block mb-0.5">
-                    {cut === null ? 'Tap Cake to Slice' : 'Slice Cut'}
-                  </span>
-                  <h1 className="font-heading text-lg sm:text-2xl font-extrabold text-[#301612] leading-tight">
-                    {cut === null ? 'Cut the first slice.' : 'Pure Happiness.'}
-                  </h1>
-                  <p className="text-[11px] sm:text-xs font-semibold text-[#5C3D34] mt-1 leading-snug">
-                    {cut === null ? 'Move over cake to aim. Tap to cut.' : 'Tap again to cut another slice.'}
-                  </p>
-                </div>
-              </div>
+            {/* Clean Unobtrusive Guidance Pill Below Platter */}
+            <div className="mt-2 inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-cream/80 border border-brand-chocolate/12 shadow-xs text-xs font-medium text-[#301612]">
+              <Scissors className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
+              {cut === null ? (
+                <span>
+                  <strong className="font-bold">Move over the cake</strong> to aim blade &bull;{' '}
+                  <strong className="font-bold">Tap anywhere</strong> to cut a slice
+                </span>
+              ) : (
+                <span>
+                  <strong className="font-bold">Slice cut cleanly!</strong> Explore layers or tap cake to slice elsewhere
+                </span>
+              )}
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Slice Blueprint & Order Panel */}
+          {/* RIGHT COLUMN: Inside Masterpiece & Order Card */}
           <aside className="lg:col-span-3 order-3" aria-live="polite">
             <div
-              className={`bg-[#FFFBF4] border-2 border-[#301612] rounded-3xl p-4 sm:p-5 shadow-[5px_5px_0_#301612] transition-all duration-300 ${
-                cut !== null ? 'ring-4 ring-[#D49B42]/45' : ''
+              className={`bg-white border rounded-3xl p-4 sm:p-5 transition-all duration-300 ${
+                cut !== null
+                  ? 'border-brand-gold shadow-[0_18px_45px_-12px_rgba(212,180,106,0.35)] ring-2 ring-brand-gold/25'
+                  : 'border-brand-chocolate/12 shadow-[0_14px_40px_-12px_rgba(48,22,18,0.1)]'
               }`}
             >
               {/* Status Badge & Flavour Heading */}
-              <div className="flex items-start justify-between gap-2 mb-3">
+              <div className="flex items-start justify-between gap-2 mb-3.5">
                 <div>
                   <span
                     className={`inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full border mb-1.5 ${
                       cut !== null
-                        ? 'bg-emerald-100 text-emerald-900 border-emerald-400'
-                        : 'bg-[#FAF1E4] text-[#8C5835] border-[#301612]/20'
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                        : 'bg-brand-cream text-brand-caramel border-brand-chocolate/10'
                     }`}
                   >
                     <Sparkles className="w-3 h-3" />
-                    <span>{cut !== null ? 'Slice Inspected' : 'Inside Layers'}</span>
+                    <span>{cut !== null ? 'Slice Cut & Inspected' : 'Inside Blueprint'}</span>
                   </span>
-                  <h3 className="font-heading text-lg sm:text-xl font-extrabold text-[#301612] leading-tight">
+                  <h1 className="font-heading text-lg sm:text-xl font-bold text-[#301612] leading-tight">
                     {f.name}
-                  </h3>
-                </div>
-
-                {/* Real Cake Mini Preview Photo */}
-                <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl border-2 border-[#301612] overflow-hidden shrink-0 bg-white shadow-xs">
-                  <img src={f.image} alt={f.name} className="w-full h-full object-cover" />
+                  </h1>
                 </div>
               </div>
 
               {/* 5-Layer Isometric Cross-Section Diagram */}
-              <div className="bg-white/85 rounded-2xl border border-[#301612]/15 p-2 mb-3">
-                <svg viewBox="0 0 240 112" className="w-full h-auto" aria-hidden="true">
-                  <g transform="translate(30 6) skewX(-14)" stroke="#301612" strokeWidth={2.5} strokeLinejoin="round">
-                    {f.layers.map((layer, n) => (
-                      <rect
-                        key={n}
-                        x={14}
-                        y={LAYER_HEIGHTS.slice(0, n).reduce((a, b) => a + b, 0)}
-                        width={170}
-                        height={LAYER_HEIGHTS[n]}
-                        rx={n === 4 ? 4 : 0}
-                        fill={toColour(layer.fill)}
-                      />
-                    ))}
-                  </g>
-                </svg>
+              <div className="mb-3.5">
+                <LayerCrossSection layers={f.layers} />
               </div>
 
               {/* Layer Ingredients Legend */}
-              <ul className="space-y-1.5 mb-3.5 text-xs text-[#301612] font-medium">
+              <ul className="space-y-1.5 mb-4 text-xs text-[#301612] font-medium">
                 {f.layers.map((layer, n) => (
-                  <li key={n} className="flex items-center gap-2">
+                  <li key={n} className="flex items-center gap-2.5">
                     <span
-                      className="w-3.5 h-3.5 rounded-sm border-2 border-[#301612] shrink-0"
+                      className="w-3.5 h-3.5 rounded-sm border border-[#301612]/25 shrink-0"
                       style={{ backgroundColor: toColour(layer.fill) }}
                     />
                     <span className="truncate">{layer.name}</span>
@@ -440,10 +499,10 @@ export default function InteractiveCakeHero() {
               </ul>
 
               {/* Weight & Live Pricing Selector */}
-              <div className="mb-3.5 pt-2.5 border-t border-[#301612]/10 space-y-2">
+              <div className="mb-4 pt-3 border-t border-brand-chocolate/10 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-[#5C3D34]">Select Weight</span>
-                  <span className="font-extrabold text-base text-[#301612]">
+                  <span className="font-semibold text-[#5C3D34]">Celebration Size</span>
+                  <span className="font-bold text-lg text-[#301612]">
                     ₹{getPriceForWeight(f.priceNum, selectedWeight).toLocaleString('en-IN')}
                   </span>
                 </div>
@@ -455,10 +514,10 @@ export default function InteractiveCakeHero() {
                         key={w}
                         type="button"
                         onClick={() => setSelectedWeight(w)}
-                        className={`py-1.5 rounded-xl text-[11px] font-bold border-2 transition-all cursor-pointer ${
+                        className={`py-2 rounded-xl text-[11px] font-bold border transition-all cursor-pointer ${
                           active
-                            ? 'bg-[#301612] text-white border-[#301612]'
-                            : 'bg-white text-[#301612] border-[#301612]/20 hover:border-[#301612]'
+                            ? 'bg-[#301612] text-white border-[#301612] shadow-xs'
+                            : 'bg-brand-cream/40 text-[#301612] border-brand-chocolate/15 hover:border-brand-chocolate/40'
                         }`}
                       >
                         {w.replace('kg', ' kg')}
@@ -471,27 +530,27 @@ export default function InteractiveCakeHero() {
               {/* Primary CTA Button */}
               <Link
                 href={`/cakes/${f.slug}`}
-                className="w-full py-3 px-5 rounded-full bg-[#301612] hover:bg-[#46211A] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border-2 border-[#301612] shadow-[3px_3px_0_#D49B42] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_#D49B42] transition-all"
+                className="w-full py-3.5 px-5 rounded-full bg-[#301612] hover:bg-brand-caramel text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl active:scale-95 group"
               >
                 <span>Order This Cake</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
 
-              <p className="text-[11px] text-[#5C3D34]/80 text-center mt-2 font-medium">
-                Fresh 2-Hr Kerala Delivery &bull; 4.98 &#9733; Rated
+              <p className="text-[11px] text-[#5C3D34]/75 text-center mt-2.5 font-medium">
+                Baked Fresh Daily &bull; 2-Hr Kerala Delivery
               </p>
             </div>
           </aside>
         </div>
 
         {/* Bottom Trust Highlights Strip */}
-        <div className="mt-8 pt-4 border-t border-[#301612]/10 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs sm:text-sm font-semibold text-[#301612]">
+        <div className="mt-10 pt-5 border-t border-brand-chocolate/10 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs sm:text-sm font-medium text-[#5C3D34]">
           <div className="flex items-center gap-2">
-            <Truck className="w-4 h-4 text-[#8C5835]" />
+            <Truck className="w-4 h-4 text-brand-caramel" />
             <span>2-Hour Express Kerala Delivery</span>
           </div>
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#8C5835]" />
+            <ShieldCheck className="w-4 h-4 text-brand-caramel" />
             <span>100% Pure Belgian Couverture</span>
           </div>
           <div className="flex items-center gap-2">

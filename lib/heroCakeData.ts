@@ -32,7 +32,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
     priceNum: 699,
     price: '₹699',
     tag: '70% Callebaut Single-Origin',
-    image: '/hero-cake-slice-transparent-hd.png',
+    image: '/Cakes/cake.jpg',
     bg: '#3B1C15',
     frost: '#52261C',
     sponge: '#2E120B',
@@ -146,7 +146,7 @@ export const toColour = (c: string) => (c.startsWith('#') ? c : `var(--${c})`);
 export const R = 212;
 export const RIM = 8;
 export const HALF = 17;
-export const SPRINKLES = ['#FFFFFF', 'var(--accent)', 'var(--fill)', '#301612', '#F4C95D'];
+export const SPRINKLES = ['#D4B46A', '#301612', '#E5B56A', '#B25E00', '#F5E6D3'];
 
 const rad = (d: number) => (d * Math.PI) / 180;
 export const pt = (r: number, a: number): [number, number] => [
@@ -195,3 +195,4 @@ function buildDecorItems(): CakeDecorItem[] {
 }
 
 export const CAKE_ITEMS = buildDecorItems();
+
