@@ -44,7 +44,7 @@ const celebrationOccasions = [
     tagline: 'Pure 70% Callebaut Single-Origin',
     basePriceNum: 699,
     price: '₹699',
-    image: '/Cakes/cake.jpg',
+    image: '/hero%20section/e5e122fe5668e9ba3346dbb50a7a7f58.jpg',
     slug: 'royal-belgian-chocolate-truffle-cake',
     description: 'Triple-layered dark cocoa sponge smothered in silky Callebaut ganache and hand-rolled dark truffles.',
     flavorNotes: ['70% Callebaut Cocoa', 'Single-Origin Ganache', '24K Edible Gold Dust', 'Moist Dutch Sponge'],
