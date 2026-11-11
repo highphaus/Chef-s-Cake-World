@@ -750,431 +750,172 @@ export default function HomePage() {
   return (
     <div className="space-y-16 sm:space-y-24 lg:space-y-28 pb-20 overflow-x-hidden max-w-full bg-brand-cream text-brand-chocolate selection:bg-brand-caramel selection:text-white">
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 1: THE GRAND MAXIMALIST HAUTE PÂTISSERIE HERO
-          (Opulent Visual Grandeur, Theatrical Storytelling & Multi-Sensory Luxury)
+          SECTION 1: THE MINIMAL LUXURY HAUTE PÂTISSERIE HERO
+          (Pure Minimal MNC Aesthetic, Architectural Precision & Serene Space)
       ────────────────────────────────────────────────────────────── */}
       <section
-        className="relative w-full overflow-hidden bg-[#0e0201] text-white select-none group"
+        className="relative w-full h-[88vh] xs:h-[90vh] sm:h-[92vh] max-h-[960px] min-h-[580px] overflow-hidden bg-[#140300] select-none touch-pan-y group"
         onMouseEnter={() => setIsHeroPaused(true)}
         onMouseLeave={() => setIsHeroPaused(false)}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* 1. Grand Royal Marquee Banner (Continuous Live Ticker) */}
-        <div className="relative z-30 w-full overflow-hidden bg-gradient-to-r from-brand-chocolate via-[#420902] to-brand-chocolate py-2.5 border-b border-brand-gold/30 shadow-md">
-          <div className="animate-marquee flex items-center whitespace-nowrap text-[11px] sm:text-xs font-heading font-semibold tracking-[0.22em] uppercase text-brand-gold/90">
-            {[1, 2].map((loop) => (
-              <div key={loop} className="flex items-center gap-8 px-4">
-                <span className="flex items-center gap-2">
-                  <Crown className="w-3.5 h-3.5 text-brand-gold animate-pulse" />
-                  <span>Maison de Haute Pâtisserie</span>
-                </span>
-                <span className="text-brand-gold/40">✦</span>
-                <span className="text-white/90">100% Belgian Callebaut Single-Origin</span>
-                <span className="text-brand-gold/40">✦</span>
-                <span className="text-brand-gold">Midnight 12:00 AM Surprise Guaranteed</span>
-                <span className="text-brand-gold/40">✦</span>
-                <span className="text-white/90">Hand-Sculpted 24K Edible Gold Tiers</span>
-                <span className="text-brand-gold/40">✦</span>
-                <span className="text-emerald-400">100% Certified Vegetarian Atelier</span>
-                <span className="text-brand-gold/40">✦</span>
-                <span className="text-white/90">8 Boutique Ateliers Across Kerala</span>
-                <span className="text-brand-gold/40">✦</span>
-                <span className="text-brand-gold">Freshly Baked To Celebration</span>
-                <span className="text-brand-gold/40">✦</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        {celebrationOccasions.map((cake, idx) => {
+          const isActive = idx === selectedOccasionIndex;
 
-        {/* 2. Theatrical Stage Stage Wrapper */}
-        <div className="relative w-full min-h-[780px] xs:min-h-[820px] sm:min-h-[840px] lg:min-h-[880px] flex items-center">
-          {celebrationOccasions.map((cake, idx) => {
-            const isActive = idx === selectedOccasionIndex;
-            const currentHeroPrice = getHeroPrice(cake.basePriceNum, selectedHeroWeight);
-
-            return (
+          return (
+            <div
+              key={cake.id}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+            >
+              {/* Minimal Full-Bleed Photography with Subtle Parallax */}
               <div
-                key={cake.id}
-                className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-                  isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
-                }`}
+                className="absolute inset-0 w-full h-full overflow-hidden will-change-transform"
+                style={{
+                  transform: `translate3d(0, ${Math.min(scrollY * 0.28, 130)}px, 0)`,
+                }}
               >
-                {/* Grand Ambient Background with Warm Amber Flare & Ken Burns Zoom */}
-                <div
-                  className="absolute inset-0 w-full h-full overflow-hidden will-change-transform"
-                  style={{
-                    transform: `translate3d(0, ${Math.min(scrollY * 0.25, 120)}px, 0)`,
-                  }}
-                >
-                  <img
-                    src={cake.image}
-                    alt={cake.cakeName}
-                    className={`w-full h-full object-cover object-[center_35%] transition-transform duration-[9000ms] ease-out ${
-                      isActive ? 'scale-110' : 'scale-100'
-                    }`}
-                  />
-
-                  {/* Opulent Radial Golden Aura Flare */}
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,rgba(212,180,106,0.22),transparent_65%)] pointer-events-none" />
-
-                  {/* Multi-Layered Cinematic Vignettes for Maximalist Contrast */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0e0201] via-[#0e0201]/75 to-[#0e0201]/40 pointer-events-none" />
-                  <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#0e0201] via-[#0e0201]/85 to-transparent pointer-events-none" />
-
-                  {/* Subtle Faint Luxury Typography Watermark */}
-                  <div className="absolute -top-10 -right-20 select-none pointer-events-none opacity-[0.035] text-[180px] font-heading font-black tracking-widest text-white leading-none whitespace-nowrap hidden xl:block">
-                    CHEF’S CAKE
-                  </div>
-                </div>
-
-                {/* Theatrical Dual-Column Grid */}
-                <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 flex flex-col justify-center">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                    
-                    {/* LEFT COLUMN: Opulent Narrative, Anatomy & Instant Configurator (Col 1-7) */}
-                    <div
-                      className="lg:col-span-7 space-y-4 sm:space-y-6 pt-4 lg:pt-0 will-change-transform"
-                      style={{
-                        transform: `translate3d(0, -${Math.min(scrollY * 0.15, 60)}px, 0)`,
-                        opacity: Math.max(0, 1 - scrollY / 650),
-                      }}
-                    >
-                      {/* Royal Maison Emblem Tag */}
-                      <div
-                        className={`flex flex-wrap items-center gap-2.5 transition-all duration-700 ease-out delay-100 ${
-                          isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-                        }`}
-                      >
-                        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-gold/15 backdrop-blur-md text-brand-gold border border-brand-gold/40 text-[10px] sm:text-xs font-heading font-bold tracking-[0.2em] uppercase shadow-lg">
-                          <Crown className="w-3.5 h-3.5 text-brand-gold" />
-                          <span>{cake.badge}</span>
-                        </span>
-
-                        <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white/90 border border-white/15 text-[10px] sm:text-xs font-body font-medium">
-                          <Star className="w-3 h-3 fill-current text-brand-gold" />
-                          <span>{cake.rating} Rating ({cake.reviews.toLocaleString()}+ Celebrations)</span>
-                        </span>
-                      </div>
-
-                      {/* Colossal Maximalist Headline */}
-                      <div className="space-y-1 sm:space-y-2">
-                        <div
-                          className={`text-brand-gold text-xs sm:text-sm font-heading font-semibold tracking-[0.25em] uppercase transition-all duration-700 ease-out delay-150 ${
-                            isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-                          }`}
-                        >
-                          {cake.tagline}
-                        </div>
-
-                        <h1
-                          className={`font-heading text-3xl xs:text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold text-white leading-[1.05] tracking-tight drop-shadow-2xl transition-all duration-700 ease-out delay-200 ${
-                            isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                          }`}
-                        >
-                          {cake.cakeName.split(' ')[0]}{' '}
-                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold via-amber-200 to-brand-gold drop-shadow-md">
-                            {cake.cakeName.split(' ').slice(1).join(' ')}
-                          </span>
-                        </h1>
-                      </div>
-
-                      {/* Evocative Description */}
-                      <p
-                        className={`text-xs sm:text-sm md:text-base text-white/85 max-w-xl leading-relaxed font-body transition-all duration-700 ease-out delay-250 ${
-                          isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-                        }`}
-                      >
-                        {cake.description}
-                      </p>
-
-                      {/* Sensory Flavor Anatomy Badges (Maximalist Ingredient Highlights) */}
-                      <div
-                        className={`flex flex-wrap gap-2 pt-1 transition-all duration-700 ease-out delay-300 ${
-                          isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-                        }`}
-                      >
-                        {cake.flavorNotes.map((note, noteIdx) => (
-                          <span
-                            key={noteIdx}
-                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-brand-gold/30 text-white/90 text-[10px] sm:text-xs font-body font-medium"
-                          >
-                            <Sparkles className="w-2.5 h-2.5 text-brand-gold" />
-                            <span>{note}</span>
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Interactive Size / Portion Selector Bar */}
-                      <div
-                        className={`pt-2 sm:pt-3 space-y-2 transition-all duration-700 ease-out delay-350 ${
-                          isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between max-w-lg">
-                          <span className="text-[11px] font-heading font-semibold uppercase tracking-wider text-white/70">
-                            Select Celebration Size:
-                          </span>
-                          <span className="text-[11px] font-body text-brand-gold font-semibold">
-                            {selectedHeroWeight === '0.5kg' ? 'Serves 4–6 Guests' : selectedHeroWeight === '1kg' ? 'Serves 8–12 Guests' : 'Serves 16–24 Guests (Grand Tier)'}
-                          </span>
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-lg">
-                          {(['0.5kg', '1kg', '2kg'] as const).map((w) => {
-                            const isWeightActive = selectedHeroWeight === w;
-                            const weightPrice = getHeroPrice(cake.basePriceNum, w);
-
-                            return (
-                              <button
-                                key={w}
-                                type="button"
-                                onClick={() => setSelectedHeroWeight(w)}
-                                className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border text-left transition-all duration-300 cursor-pointer ${
-                                  isWeightActive
-                                    ? 'bg-gradient-to-br from-brand-gold/25 to-brand-caramel/25 border-brand-gold shadow-[0_0_20px_rgba(212,180,106,0.3)] text-white scale-[1.02]'
-                                    : 'bg-white/5 border-white/10 hover:border-white/30 text-white/70 hover:text-white'
-                                }`}
-                              >
-                                <div className="text-[10px] sm:text-xs font-heading font-bold uppercase tracking-wider flex items-center justify-between">
-                                  <span>{w.toUpperCase()}</span>
-                                  {isWeightActive && <Check className="w-3 h-3 text-brand-gold" />}
-                                </div>
-                                <div className="text-xs sm:text-sm font-heading font-extrabold text-brand-gold mt-0.5">
-                                  ₹{weightPrice}
-                                </div>
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                      {/* Grand Maximalist Action Suite */}
-                      <div
-                        className={`pt-2 flex flex-wrap items-center gap-3 sm:gap-4 transition-all duration-700 ease-out delay-400 ${
-                          isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-                        }`}
-                      >
-                        <Link
-                          href={`/cakes/${cake.slug}?weight=${selectedHeroWeight}`}
-                          className="btn font-heading font-bold inline-flex items-center justify-center gap-2.5 py-3.5 px-8 sm:px-10 rounded-full bg-gradient-to-r from-brand-gold via-amber-300 to-brand-gold text-brand-chocolate hover:brightness-110 text-xs sm:text-sm transition-all duration-300 shadow-[0_0_35px_rgba(212,180,106,0.45)] active:scale-95 group/btn"
-                        >
-                          <ShoppingBag className="w-4 h-4 text-brand-chocolate" />
-                          <span>Order Creation • ₹{currentHeroPrice}</span>
-                          <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                        </Link>
-
-                        <Link
-                          href="/custom-cakes"
-                          className="btn font-heading font-semibold inline-flex items-center justify-center gap-2 py-3.5 px-6 sm:px-8 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm backdrop-blur-md transition-all duration-300 border border-brand-gold/40 hover:border-brand-gold active:scale-95"
-                        >
-                          <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
-                          <span>Bespoke Couture Studio</span>
-                        </Link>
-                      </div>
-
-                      {/* Maximalist Assurance Pillars */}
-                      <div
-                        className={`pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] sm:text-xs text-white/70 font-body transition-all duration-700 ease-out delay-450 ${
-                          isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-                        }`}
-                      >
-                        <span className="flex items-center gap-1.5 text-white/90">
-                          <Clock className="w-3.5 h-3.5 text-brand-gold" />
-                          <span>Midnight 12:00 AM Guaranteed</span>
-                        </span>
-                        <span className="flex items-center gap-1.5 text-white/90">
-                          <Zap className="w-3.5 h-3.5 text-amber-400" />
-                          <span>60-Min Express Dispatch</span>
-                        </span>
-                        <span className="flex items-center gap-1.5 text-white/90">
-                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>100% Eggless Option Available</span>
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* RIGHT COLUMN: The Masterpiece Sensory Cards & Live Anatomy (Col 8-12) */}
-                    <div
-                      className="lg:col-span-5 relative flex flex-col gap-4 will-change-transform"
-                      style={{
-                        transform: `translate3d(0, -${Math.min(scrollY * 0.12, 50)}px, 0)`,
-                        opacity: Math.max(0, 1 - scrollY / 650),
-                      }}
-                    >
-                      {/* Floating Glassmorphic Anatomy Card */}
-                      <div
-                        className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-black/60 backdrop-blur-xl border border-brand-gold/30 shadow-2xl space-y-3 transition-all duration-700 ease-out delay-200 ${
-                          isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
-                          <div className="flex items-center gap-2 text-brand-gold">
-                            <Layers className="w-4 h-4" />
-                            <span className="text-xs font-heading font-bold uppercase tracking-wider">
-                              Artisan Anatomy
-                            </span>
-                          </div>
-                          <span className="text-[10px] font-body text-white/60">
-                            Central Atelier
-                          </span>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3 text-xs">
-                          <div>
-                            <span className="text-[10px] text-brand-gold/80 block uppercase tracking-wider font-body font-semibold">
-                              Architecture
-                            </span>
-                            <span className="text-white font-medium block mt-0.5 leading-snug">
-                              {cake.anatomy.layers}
-                            </span>
-                          </div>
-
-                          <div>
-                            <span className="text-[10px] text-brand-gold/80 block uppercase tracking-wider font-body font-semibold">
-                              Mouthfeel
-                            </span>
-                            <span className="text-white font-medium block mt-0.5 leading-snug">
-                              {cake.anatomy.texture}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px]">
-                          <span className="text-white/70">Crafting Time:</span>
-                          <span className="text-brand-gold font-semibold flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            <span>{cake.anatomy.prepTime}</span>
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Floating Kerala Milestone Card */}
-                      <div
-                        className={`p-4 rounded-2xl bg-gradient-to-r from-brand-chocolate/80 to-[#2e0500]/80 backdrop-blur-xl border border-brand-gold/25 shadow-xl flex items-center justify-between transition-all duration-700 ease-out delay-300 ${
-                          isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center border border-brand-gold/40 shrink-0">
-                            <Award className="w-5 h-5 text-brand-gold" />
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-1 text-brand-gold">
-                              {[...Array(5)].map((_, i) => (
-                                <Star key={i} className="w-3 h-3 fill-current" />
-                              ))}
-                              <span className="text-xs font-bold text-white ml-1">{cake.rating}</span>
-                            </div>
-                            <span className="text-[10px] text-white/70 block mt-0.5">
-                              {cake.reviews.toLocaleString()}+ Kerala Celebrations Confirmed
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="text-right">
-                          <span className="text-[9px] uppercase tracking-wider text-brand-gold block font-semibold">
-                            Status
-                          </span>
-                          <span className="text-[11px] font-bold text-emerald-400 flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            <span>Baking Now</span>
-                          </span>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
+                <img
+                  src={cake.image}
+                  alt={cake.cakeName}
+                  className={`w-full h-full object-cover object-[center_35%] transition-transform duration-[8000ms] ease-out ${
+                    isActive ? 'scale-105' : 'scale-100'
+                  }`}
+                />
+                {/* Ultra-Clean Architectural Dual Vignettes */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/45 to-black/25 pointer-events-none" />
+                <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/80 via-black/35 to-transparent pointer-events-none" />
               </div>
-            );
-          })}
-        </div>
 
-        {/* 3. Interactive Masterpiece Rail (Bottom Thumbnails & Controls) */}
-        <div className="relative z-30 w-full bg-black/80 backdrop-blur-xl border-t border-brand-gold/20 px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            
-            {/* 5-Flagship Creation Thumbnails (Direct Interactive Switching) */}
-            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar w-full md:w-auto pb-1 md:pb-0">
-              <span className="hidden xl:inline-block text-[10px] font-heading font-bold uppercase tracking-widest text-brand-gold/70 mr-1 shrink-0">
-                Flagship Edits:
-              </span>
-
-              {celebrationOccasions.map((item, navIdx) => {
-                const isNavCurrent = navIdx === selectedOccasionIndex;
-
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => {
-                      setHeroProgress(0);
-                      setSelectedOccasionIndex(navIdx);
-                    }}
-                    className={`flex items-center gap-2 p-1.5 sm:p-2 rounded-xl transition-all duration-300 text-left shrink-0 cursor-pointer ${
-                      isNavCurrent
-                        ? 'bg-brand-gold/20 border border-brand-gold shadow-[0_0_15px_rgba(212,180,106,0.35)]'
-                        : 'bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 opacity-75 hover:opacity-100'
+              {/* Minimal Luxury Editorial Content */}
+              <div
+                className="relative z-10 max-w-7xl mx-auto h-full px-5 sm:px-8 lg:px-12 flex flex-col justify-end pt-24 pb-20 xs:pb-22 sm:pb-24 lg:pb-28 will-change-transform"
+                style={{
+                  transform: `translate3d(0, -${Math.min(scrollY * 0.16, 65)}px, 0)`,
+                  opacity: Math.max(0, 1 - scrollY / 600),
+                }}
+              >
+                <div className="max-w-2xl space-y-3 sm:space-y-4">
+                  {/* Subtle Haute Pâtisserie Tag */}
+                  <div
+                    className={`inline-flex items-center gap-2 text-brand-gold text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase font-body transition-all duration-700 ease-out delay-100 ${
+                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
                     }`}
                   >
-                    <img
-                      src={item.image}
-                      alt={item.shortName}
-                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg object-cover"
-                    />
-                    <div className="hidden sm:block pr-1">
-                      <span className={`text-[11px] font-heading font-bold block leading-tight ${isNavCurrent ? 'text-brand-gold' : 'text-white'}`}>
-                        {item.shortName}
-                      </span>
-                      <span className="text-[10px] text-white/60 font-body">
-                        From {item.price}
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+                    <span>Haute Pâtisserie</span>
+                    <span className="text-white/40">&bull;</span>
+                    <span>Kerala Ateliers</span>
+                    <span className="text-white/40">&bull;</span>
+                    <span className="text-white/90 font-bold">{cake.price}</span>
+                  </div>
 
-            {/* Slide Timer Counter & Chevron Controls */}
-            <div className="flex items-center gap-4 text-white shrink-0 self-end md:self-auto">
-              {/* Slide Counter (01 / 05) */}
-              <div className="text-xs font-heading font-semibold tracking-widest text-white/90">
-                <span className="text-brand-gold font-extrabold">{celebrationOccasions[selectedOccasionIndex].index}</span>
-                <span className="text-white/40 mx-1">/</span>
-                <span className="text-white/60">05</span>
-              </div>
+                  {/* Clean Minimalist Heading */}
+                  <h1
+                    className={`font-heading text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight drop-shadow-xl transition-all duration-700 ease-out delay-200 ${
+                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    }`}
+                  >
+                    {cake.cakeName}
+                  </h1>
 
-              {/* Real-time Progress Bar */}
-              <div className="w-16 sm:w-28 h-[2.5px] bg-white/20 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-brand-gold to-amber-300 transition-all duration-75 ease-linear shadow-[0_0_8px_rgba(212,180,106,0.8)]"
-                  style={{ width: `${heroProgress}%` }}
-                />
-              </div>
+                  {/* Minimal Sub-line Description */}
+                  <p
+                    className={`text-xs sm:text-sm text-white/80 max-w-lg leading-relaxed font-body transition-all duration-700 ease-out delay-250 ${
+                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+                    }`}
+                  >
+                    {cake.description}
+                  </p>
 
-              {/* Prev / Next Chevrons */}
-              <div className="flex items-center gap-1.5">
-                <button
-                  type="button"
-                  onClick={handlePrevHero}
-                  aria-label="Previous Creation"
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-gold text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-sm border border-brand-gold/30 hover:border-brand-gold transition-all active:scale-90 cursor-pointer"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleNextHero}
-                  aria-label="Next Creation"
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-gold text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-sm border border-brand-gold/30 hover:border-brand-gold transition-all active:scale-90 cursor-pointer"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
+                  {/* Refined Luxury CTAs */}
+                  <div
+                    className={`pt-2 flex items-center gap-3 transition-all duration-700 ease-out delay-300 ${
+                      isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+                    }`}
+                  >
+                    <Link
+                      href={`/cakes/${cake.slug}`}
+                      className="btn font-body font-semibold inline-flex items-center justify-center gap-2 py-3 px-7 sm:px-9 rounded-full bg-white text-brand-chocolate hover:bg-brand-gold hover:text-brand-chocolate text-xs sm:text-sm transition-all duration-300 shadow-xl active:scale-95 group/btn"
+                    >
+                      <span>Order Creation</span>
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </Link>
+
+                    <Link
+                      href="/cakes"
+                      className="btn font-body font-semibold inline-flex items-center justify-center py-3 px-6 sm:px-7 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm backdrop-blur-md transition-all duration-300 border border-white/20 active:scale-95"
+                    >
+                      <span>Explore Menu</span>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
+          );
+        })}
 
+        {/* Minimal Slide Counter & Sleek Thin Progress Tracker (Bottom Right) */}
+        <div className="absolute right-5 sm:right-8 lg:right-12 bottom-8 z-20 flex items-center gap-4 text-white pointer-events-auto">
+          {/* Slide Index e.g. 01 / 05 */}
+          <div className="text-xs font-body font-semibold tracking-widest text-white/90">
+            <span className="text-brand-gold font-bold">{celebrationOccasions[selectedOccasionIndex].index}</span>
+            <span className="text-white/40 mx-1">/</span>
+            <span className="text-white/60">05</span>
           </div>
+
+          {/* Minimal Thin Progress Bar */}
+          <div className="w-16 sm:w-24 h-[2px] bg-white/20 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-brand-gold transition-all duration-75 ease-linear"
+              style={{ width: `${heroProgress}%` }}
+            />
+          </div>
+
+          {/* Minimal Controls */}
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={handlePrevHero}
+              aria-label="Previous Creation"
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-sm border border-white/20 transition-all active:scale-90 cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNextHero}
+              aria-label="Next Creation"
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-brand-chocolate flex items-center justify-center backdrop-blur-sm border border-white/20 transition-all active:scale-90 cursor-pointer"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Interactive Bottom Flavour Switcher Bar */}
+        <div className="hidden md:flex absolute bottom-8 left-5 sm:left-8 lg:left-12 z-20 pointer-events-auto items-center gap-1.5 p-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15">
+          {celebrationOccasions.map((c, dotIdx) => {
+            const isCurrent = dotIdx === selectedOccasionIndex;
+            return (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => {
+                  setHeroProgress(0);
+                  setSelectedOccasionIndex(dotIdx);
+                }}
+                className={`px-3 py-1 rounded-full transition-all duration-300 text-[11px] font-body font-semibold cursor-pointer ${
+                  isCurrent
+                    ? 'bg-white text-brand-chocolate font-bold shadow-sm'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {c.shortName}
+              </button>
+            );
+          })}
         </div>
       </section>
 
