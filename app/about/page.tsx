@@ -23,7 +23,7 @@ export default function AboutPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div className="aspect-[4/3] rounded-3xl overflow-hidden bg-brand-chocolate/10 shadow-xl border-4 border-white relative">
           <img
-            src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop"
+            src="/Cakes/cake.jpg"
             alt="Chef baking artisan cakes in kitchen"
             className="w-full h-full object-cover"
           />

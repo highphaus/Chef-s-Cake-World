@@ -269,7 +269,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
         <div className="lg:col-span-5 space-y-4">
           <div className="aspect-square rounded-3xl overflow-hidden bg-brand-cream/40 border border-brand-chocolate/10 shadow-cake-soft relative group">
             <img
-              src={selectedImage || product.images?.[0] || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop'}
+              src={selectedImage || product.images?.[0] || '/Cakes/cake.jpg'}
               alt={product.name}
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />

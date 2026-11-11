@@ -135,37 +135,37 @@ export default function Header() {
       title: 'Artisan Pastries',
       href: '/cakes?category=pastries',
       desc: 'Individual truffle, red velvet & cheesecake slices',
-      image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=300&auto=format&fit=crop'
+      image: '/Cakes/cake.jpg'
     },
     {
       title: 'Sweets & Desserts',
       href: '/cakes?category=sweets-desserts',
       desc: 'Gulab jamun cups, macarons & tiramisu',
-      image: 'https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=300&auto=format&fit=crop'
+      image: '/Cakes/38499c1ae99d95bfe134d660e4c5d6ea.jpg'
     },
     {
       title: 'Birthday Cakes',
       href: '/cakes?category=birthday-cakes',
       desc: 'Celebration cakes with custom inscriptions',
-      image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=300&auto=format&fit=crop'
+      image: '/Cakes/6077fa416087bf801e907887a53cfe1d.jpg'
     },
     {
       title: 'Belgian Couverture',
       href: '/cakes?category=chocolate-cakes',
       desc: 'Rich 70% Callebaut dark chocolate truffle',
-      image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=300&auto=format&fit=crop'
+      image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg'
     },
     {
       title: '100% Pure Eggless Cakes',
       href: '/cakes?category=eggless-cakes',
       desc: 'Certified vegetarian kitchen creations',
-      image: 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=300&auto=format&fit=crop'
+      image: '/Cakes/da137e0e2f85163498af483676d4ccd8.jpg'
     },
     {
       title: 'Grand Wedding Tiers',
       href: '/cakes?category=wedding-cakes',
       desc: 'Tiered floral & 24K gold masterworks',
-      image: 'https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=300&auto=format&fit=crop'
+      image: '/Cakes/b3392f499749364b011f93c6634cf890.jpg'
     }
   ];
 

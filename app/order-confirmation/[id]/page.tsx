@@ -156,7 +156,7 @@ export default function OrderConfirmationPage() {
             {order.items.map((item: any, idx: number) => (
               <div key={idx} className="flex gap-3 text-xs pb-3 border-b border-brand-chocolate/5">
                 <img
-                  src={item.productImage || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=200'}
+                  src={item.productImage || '/Cakes/cake.jpg'}
                   alt={item.productName}
                   className="w-12 h-12 rounded-lg object-cover bg-brand-cream/40 flex-shrink-0"
                 />

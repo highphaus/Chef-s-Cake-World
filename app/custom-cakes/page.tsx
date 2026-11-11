@@ -399,7 +399,7 @@ export default function CustomCakesPage() {
               </label>
               <input
                 type="url"
-                placeholder="https://images.unsplash.com/... or paste image link"
+                placeholder="https://... or paste your cake reference link"
                 value={formData.referenceImageUrl}
                 onChange={(e) => setFormData({ ...formData, referenceImageUrl: e.target.value })}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-brand-chocolate/20 text-xs sm:text-sm text-brand-chocolate"

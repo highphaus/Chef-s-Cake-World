@@ -35,7 +35,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         className="block relative aspect-square w-full rounded-xl sm:rounded-2xl overflow-hidden bg-brand-cream/30"
       >
         <img
-          src={product.images?.[0] || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600&auto=format&fit=crop'}
+          src={product.images?.[0] || '/Cakes/cake.jpg'}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-700 ease-out"
         />

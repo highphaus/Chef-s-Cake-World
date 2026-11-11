@@ -26,28 +26,28 @@ const CELEBRATION_ADDONS = [
     id: 'addon-candles',
     name: 'Metallic 24K Gold Number Candles',
     price: 79,
-    image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=400&auto=format&fit=crop',
+    image: '/Cakes/cake.jpg',
     tag: 'Celebration Essential',
   },
   {
     id: 'addon-macarons',
     name: 'Artisan French Macarons Box (4 pcs)',
     price: 199,
-    image: 'https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=400&auto=format&fit=crop',
+    image: '/Cakes/6077fa416087bf801e907887a53cfe1d.jpg',
     tag: 'Chef Favorite',
   },
   {
     id: 'addon-sparkler',
     name: 'Golden Celebration Birthday Sparkler',
     price: 99,
-    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=400&auto=format&fit=crop',
+    image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg',
     tag: 'Party Wow',
   },
   {
     id: 'addon-card',
     name: 'Handcrafted Calligraphy Greeting Card',
     price: 49,
-    image: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?q=80&w=400&auto=format&fit=crop',
+    image: '/Cakes/da137e0e2f85163498af483676d4ccd8.jpg',
     tag: 'Bespoke Note',
   },
 ];
@@ -184,7 +184,7 @@ export default function CartDrawer() {
                       {/* Product Thumbnail */}
                       <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-xl overflow-hidden bg-brand-cream/60 relative flex-shrink-0">
                         <img
-                          src={item.productImage || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=400&auto=format&fit=crop'}
+                          src={item.productImage || '/Cakes/cake.jpg'}
                           alt={item.productName}
                           className="w-full h-full object-cover"
                         />
