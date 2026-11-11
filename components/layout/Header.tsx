@@ -26,6 +26,7 @@ import {
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import CartDrawer from '@/components/cart/CartDrawer';
+import WhatsAppConcierge from '@/components/common/WhatsAppConcierge';
 
 export default function Header() {
   const pathname = usePathname();
@@ -933,6 +934,9 @@ export default function Header() {
 
       {/* Cart Drawer */}
       <CartDrawer />
+
+      {/* Floating Live Cake Sommelier / WhatsApp Concierge */}
+      <WhatsAppConcierge />
     </>
   );
 }

@@ -28,7 +28,7 @@ declare global {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, refreshCart } = useCart();
+  const { cart, refreshCart, deliveryDate: contextDeliveryDate, deliverySlot: contextDeliverySlot } = useCart();
   const { user } = useAuth();
 
   const [customerDetails, setCustomerDetails] = useState({
@@ -57,11 +57,20 @@ export default function CheckoutPage() {
 
   // Delivery Scheduling
   const [deliveryDate, setDeliveryDate] = useState(() => {
+    if (contextDeliveryDate) return contextDeliveryDate;
     const d = new Date();
-    d.setDate(d.getDate() + 1);
     return d.toISOString().split('T')[0];
   });
-  const [deliverySlot, setDeliverySlot] = useState('02:00 PM - 05:00 PM (Afternoon)');
+  const [deliverySlot, setDeliverySlot] = useState(() => {
+    if (contextDeliverySlot === 'midnight') return '11:30 PM - 12:00 AM (Midnight Surprise)';
+    if (contextDeliverySlot === 'morning') return '09:00 AM - 12:00 PM (Morning Fresh)';
+    if (contextDeliverySlot === 'evening') return '05:00 PM - 08:30 PM (Evening Prime)';
+    return '02:00 PM - 05:00 PM (Afternoon)';
+  });
+
+  useEffect(() => {
+    if (contextDeliveryDate) setDeliveryDate(contextDeliveryDate);
+  }, [contextDeliveryDate]);
   const [orderNotes, setOrderNotes] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<'RAZORPAY' | 'COD'>('RAZORPAY');
 

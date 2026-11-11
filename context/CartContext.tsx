@@ -34,6 +34,10 @@ interface CartContextType {
   loading: boolean;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
+  deliveryDate: string;
+  setDeliveryDate: (date: string) => void;
+  deliverySlot: string;
+  setDeliverySlot: (slot: string) => void;
   addToCart: (itemData: any) => Promise<void>;
   updateQuantity: (itemId: string, qty: number) => Promise<void>;
   removeItem: (itemId: string) => Promise<void>;
@@ -63,6 +67,31 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [loading, setLoading] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [deliveryDate, setDeliveryDateState] = useState<string>('');
+  const [deliverySlot, setDeliverySlotState] = useState<string>('evening');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedDate = localStorage.getItem('ccw_delivery_date');
+      const savedSlot = localStorage.getItem('ccw_delivery_slot');
+      if (savedDate) setDeliveryDateState(savedDate);
+      if (savedSlot) setDeliverySlotState(savedSlot);
+    }
+  }, []);
+
+  const setDeliveryDate = (date: string) => {
+    setDeliveryDateState(date);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ccw_delivery_date', date);
+    }
+  };
+
+  const setDeliverySlot = (slot: string) => {
+    setDeliverySlotState(slot);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ccw_delivery_slot', slot);
+    }
+  };
 
   const refreshCart = async () => {
     try {
@@ -142,6 +171,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loading,
         isCartOpen,
         setIsCartOpen,
+        deliveryDate,
+        setDeliveryDate,
+        deliverySlot,
+        setDeliverySlot,
         addToCart,
         updateQuantity,
         removeItem,

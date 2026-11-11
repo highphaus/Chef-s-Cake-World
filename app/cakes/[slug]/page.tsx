@@ -16,7 +16,10 @@ import {
   Heart,
   Plus,
   Minus,
-  Info
+  Info,
+  Eye,
+  Layers,
+  Users
 } from 'lucide-react';
 import { api } from '@/lib/api';
 import { useCart } from '@/context/CartContext';
@@ -57,9 +60,35 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   );
   const [isEggless, setIsEggless] = useState<boolean>(initialResolved.egglessAvailable ?? true);
   const [customMessage, setCustomMessage] = useState('');
+  const [showPlaquePreview, setShowPlaquePreview] = useState(true);
+  const [showAnatomy, setShowAnatomy] = useState(false);
+  const [guestCount, setGuestCount] = useState<number>(8);
   const [candlesCount, setCandlesCount] = useState(1);
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
+
+  // Dynamic guest slider synchronizer
+  const handleGuestCountChange = (val: number) => {
+    setGuestCount(val);
+    if (!product?.availableWeights || product.availableWeights.length <= 1) return;
+
+    if (val <= 6) {
+      if (product.availableWeights.includes('0.5 kg')) setSelectedWeight('0.5 kg');
+    } else if (val <= 12) {
+      if (product.availableWeights.includes('1 kg')) setSelectedWeight('1 kg');
+    } else if (val <= 18) {
+      if (product.availableWeights.includes('1.5 kg')) setSelectedWeight('1.5 kg');
+      else if (product.availableWeights.includes('2 kg')) setSelectedWeight('2 kg');
+    } else if (val <= 26) {
+      if (product.availableWeights.includes('2 kg')) setSelectedWeight('2 kg');
+    } else if (val <= 36) {
+      if (product.availableWeights.includes('3 kg')) setSelectedWeight('3 kg');
+      else if (product.availableWeights.includes('2 kg')) setSelectedWeight('2 kg');
+    } else {
+      if (product.availableWeights.includes('4 kg')) setSelectedWeight('4 kg');
+      else if (product.availableWeights.includes('3 kg')) setSelectedWeight('3 kg');
+    }
+  };
 
   // Delivery Availability State
   const [pincode, setPincode] = useState('');
@@ -238,18 +267,48 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         {/* Left: Gallery (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="aspect-square rounded-3xl overflow-hidden bg-brand-cream/40 border border-brand-chocolate/10 shadow-cake-soft relative">
+          <div className="aspect-square rounded-3xl overflow-hidden bg-brand-cream/40 border border-brand-chocolate/10 shadow-cake-soft relative group">
             <img
               src={selectedImage || product.images?.[0] || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop'}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
             {product.isBestSeller && (
-              <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-brand-caramel text-white text-xs font-bold uppercase tracking-wider shadow">
-                Best Seller
+              <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-brand-chocolate text-brand-gold text-[10px] font-bold uppercase tracking-wider shadow">
+                Signature
               </span>
             )}
+
+            {/* Feature 1: Live Artisan Cake Inscription Plaque */}
+            {customMessage.trim() && showPlaquePreview && (
+              <div className="absolute bottom-5 left-1/2 -translate-x-1/2 w-[88%] p-3 rounded-2xl bg-gradient-to-r from-[#240400]/95 via-[#380700]/95 to-[#240400]/95 border border-brand-gold/70 shadow-2xl text-center backdrop-blur-xs animate-in fade-in zoom-in-95 duration-200">
+                <span className="text-[8.5px] uppercase tracking-[0.2em] text-brand-gold/75 block font-body">
+                  Artisan Inscription Plaque
+                </span>
+                <p className="font-heading italic font-bold text-sm sm:text-base text-brand-gold tracking-wide drop-shadow-sm truncate mt-0.5">
+                  &ldquo;{customMessage.trim()}&rdquo;
+                </p>
+              </div>
+            )}
           </div>
+
+          {/* Plaque Preview Indicator */}
+          {customMessage.trim() && (
+            <div className="flex items-center justify-between text-xs px-2 text-brand-chocolate/75 font-body bg-white p-2.5 rounded-xl border border-brand-chocolate/10">
+              <span className="flex items-center gap-1.5 font-semibold text-[11px]">
+                <Sparkles className="w-3.5 h-3.5 text-brand-caramel" />
+                <span>Live Inscription Rendered on Cake</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowPlaquePreview(!showPlaquePreview)}
+                className="text-brand-caramel hover:underline font-bold text-[11px] flex items-center gap-1 cursor-pointer"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>{showPlaquePreview ? 'Hide Plaque' : 'Show Plaque'}</span>
+              </button>
+            </div>
+          )}
 
           {/* Thumbnails */}
           {product.images && product.images.length > 1 && (
@@ -291,13 +350,24 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             </p>
 
             {/* Product Ingredients (Positioned before the amount) */}
-            <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-brand-chocolate/10 text-xs space-y-1.5 shadow-2xs">
-              <h4 className="font-bold text-brand-chocolate flex items-center gap-1.5">
-                <Info className="w-4 h-4 text-brand-caramel shrink-0" />
-                <span className="font-heading text-xs uppercase tracking-wider text-brand-chocolate">
-                  Artisan Ingredients &amp; Allergens
-                </span>
-              </h4>
+            <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-brand-chocolate/10 text-xs space-y-2 shadow-2xs">
+              <div className="flex items-center justify-between">
+                <h4 className="font-bold text-brand-chocolate flex items-center gap-1.5">
+                  <Info className="w-4 h-4 text-brand-caramel shrink-0" />
+                  <span className="font-heading text-xs uppercase tracking-wider text-brand-chocolate">
+                    Artisan Ingredients &amp; Allergens
+                  </span>
+                </h4>
+                <button
+                  type="button"
+                  onClick={() => setShowAnatomy(!showAnatomy)}
+                  className="text-[11px] font-bold text-brand-caramel hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  <span>{showAnatomy ? 'Hide Layers' : 'Explore Cake Anatomy'}</span>
+                </button>
+              </div>
+
               <p className="text-brand-chocolate/75 leading-relaxed font-body">
                 <strong className="text-brand-chocolate">Crafted with:</strong>{' '}
                 {product.ingredients?.join(', ') ||
@@ -307,6 +377,33 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                 <strong className="text-brand-chocolate/85">Allergen Notice:</strong> Contains{' '}
                 {product.allergens?.join(', ') || 'Dairy, Wheat/Gluten'}. Handcrafted in an artisan kitchen that handles tree nuts.
               </p>
+
+              {/* Feature: Interactive Cake Anatomy / Cross-Section Layers */}
+              {showAnatomy && (
+                <div className="mt-3 pt-3 border-t border-brand-chocolate/10 space-y-2 animate-in fade-in duration-200">
+                  <p className="text-[10.5px] font-bold uppercase tracking-wider text-brand-caramel">
+                    Cross-Section Layer Architecture:
+                  </p>
+                  <div className="space-y-1.5 border-l-2 border-brand-caramel pl-3 text-[11px] font-body">
+                    <div>
+                      <strong className="text-brand-chocolate">Crown Layer:</strong>{' '}
+                      <span className="text-brand-chocolate/70">Glossy 70% Callebaut dark chocolate mirror glaze &amp; edible gold leaf.</span>
+                    </div>
+                    <div>
+                      <strong className="text-brand-chocolate">Filling Mousse:</strong>{' '}
+                      <span className="text-brand-chocolate/70">Slow-whipped Belgian couverture ganache with Madagascar bourbon vanilla.</span>
+                    </div>
+                    <div>
+                      <strong className="text-brand-chocolate">Airy Sponge:</strong>{' '}
+                      <span className="text-brand-chocolate/70">Cloud-light cocoa chiffon sponge, moist and velvety.</span>
+                    </div>
+                    <div>
+                      <strong className="text-brand-chocolate">Praline Crunch:</strong>{' '}
+                      <span className="text-brand-chocolate/70">Roasted Piedmont hazelnut crisps and butter speculoos crumble.</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Price display / Amount */}
@@ -334,6 +431,36 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                   {getServingForWeight(selectedWeight)}
                 </span>
               </div>
+
+              {/* Feature: Interactive Guest Serving Advisor Slider */}
+              {product.availableWeights && product.availableWeights.length > 1 && (
+                <div className="mb-3 p-3 rounded-2xl bg-brand-cream/40 border border-brand-chocolate/10 space-y-1.5 font-body">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-brand-chocolate flex items-center gap-1.5 text-[11px]">
+                      <Users className="w-3.5 h-3.5 text-brand-caramel" />
+                      <span>Guest Count Sizing Advisor:</span>
+                    </span>
+                    <span className="font-bold text-brand-caramel text-xs">
+                      {guestCount} Guests (~{Math.round(guestCount * 1.1)} Slices)
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min={4}
+                    max={40}
+                    step={2}
+                    value={guestCount}
+                    onChange={(e) => handleGuestCountChange(Number(e.target.value))}
+                    className="w-full accent-brand-caramel cursor-pointer h-1.5 bg-brand-chocolate/15 rounded-lg"
+                  />
+                  <div className="flex justify-between text-[9.5px] text-brand-chocolate/60">
+                    <span>Intimate (4 Guests)</span>
+                    <span className="text-brand-chocolate font-semibold">Recommended: {selectedWeight}</span>
+                    <span>Grand Party (40 Guests)</span>
+                  </div>
+                </div>
+              )}
+
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5">
                 {product.availableWeights?.map((w: string) => {
                   const isSelected = selectedWeight === w;
