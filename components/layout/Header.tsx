@@ -275,7 +275,7 @@ export default function Header() {
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
 
-              <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0" title="Chef's Cake World">
+              <Link href="/" className="flex items-center group shrink-0" title="Chef's Cake World">
                 <div className="relative w-10 h-10 xs:w-11 xs:h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/logo/chefcake.png"
@@ -283,11 +283,6 @@ export default function Header() {
                     className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
-                <span className={`font-heading text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight whitespace-nowrap transition-colors ${
-                  isTransparent ? 'text-white drop-shadow-md' : 'text-brand-chocolate group-hover:text-brand-caramel'
-                }`}>
-                  Chef&apos;s Cake World
-                </span>
               </Link>
             </div>
 
