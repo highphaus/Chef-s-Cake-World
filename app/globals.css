@@ -153,36 +153,39 @@ svg {
   object-fit: cover;
 }
 
-/* Heading Font Assignment: Playfair Display */
+/* Heading Font Assignment: Plus Jakarta Sans (MNC Minimal Precision) */
 h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: var(--font-heading), 'Playfair Display', Georgia, serif;
-  letter-spacing: -0.01em;
+  font-family: var(--font-heading), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.025em;
   font-weight: 700;
 }
 
-/* Body / UI Font Assignment: DM Sans */
+/* Body / UI Font Assignment: Inter */
 body, p, input, select, textarea, table, nav, .font-body {
-  font-family: var(--font-body), 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-body), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.01em;
 }
 
-/* Product Titles: DM Sans, 600 weight */
+/* Product Titles: Plus Jakarta Sans, 600 weight, sharp & modern */
 .product-title,
 h1.product-title,
 h2.product-title,
 h3.product-title,
 [data-product-title] {
-  font-family: var(--font-body), 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: var(--font-heading), 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-weight: 600 !important;
+  letter-spacing: -0.015em;
 }
 
-/* Buttons: DM Sans, 600 weight */
+/* Buttons: Plus Jakarta Sans, 600 weight, confident & clean */
 button,
 .btn,
 input[type="button"],
 input[type="submit"],
 [role="button"] {
-  font-family: var(--font-body), 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: var(--font-heading), 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-weight: 600 !important;
+  letter-spacing: -0.01em;
 }
 
 /* Touch-friendly interactive elements */

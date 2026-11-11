@@ -39,9 +39,9 @@ module.exports = {
         }
       },
       fontFamily: {
-        heading: ['var(--font-heading)', 'Playfair Display', 'Georgia', 'serif'],
-        body: ['var(--font-body)', 'DM Sans', 'sans-serif'],
-        sans: ['var(--font-body)', 'DM Sans', 'sans-serif'],
+        heading: ['var(--font-heading)', 'Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        body: ['var(--font-body)', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        sans: ['var(--font-heading)', 'Plus Jakarta Sans', 'Inter', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
         'cake-soft': '0 4px 20px -2px rgba(66, 6, 0, 0.08)',
