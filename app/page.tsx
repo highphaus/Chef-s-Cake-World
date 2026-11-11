@@ -218,6 +218,97 @@ export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
   const [selectedHeroWeight, setSelectedHeroWeight] = useState<'0.5kg' | '1kg' | '2kg'>('0.5kg');
 
+  // Celebration Matchmaker State
+  const [matchOccasion, setMatchOccasion] = useState<'birthday' | 'wedding' | 'anniversary' | 'intimate'>('birthday');
+  const [matchFlavor, setMatchFlavor] = useState<'chocolate' | 'velvet' | 'hazelnut' | 'biscoff'>('chocolate');
+  const [matchDietary, setMatchDietary] = useState<'all' | 'eggless'>('all');
+
+  // Anatomy of a Masterpiece State
+  const [activeAnatomyLayer, setActiveAnatomyLayer] = useState(0);
+
+  const getMatchedCake = () => {
+    if (matchFlavor === 'chocolate') {
+      return {
+        name: 'Royal Belgian Chocolate Truffle Cake',
+        slug: 'royal-belgian-chocolate-truffle-cake',
+        image: '/Cakes/cake.jpg',
+        price: '₹699',
+        tag: '70% Callebaut Couverture',
+        description: 'Triple-layered dark cocoa sponge layered with silky Callebaut ganache and hand-rolled dark truffles.',
+        serving: 'Serves 6–10 Guests',
+      };
+    }
+    if (matchFlavor === 'velvet') {
+      return {
+        name: 'Signature Pure Eggless Red Velvet',
+        slug: 'fresh-red-velvet-cream-cheese-luxe',
+        image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg',
+        price: '₹749',
+        tag: '100% Certified Eggless',
+        description: 'Feather-soft crimson cocoa sponge draped in whipped Philadelphia cream cheese and organic bourbon vanilla.',
+        serving: 'Serves 6–10 Guests',
+      };
+    }
+    if (matchFlavor === 'hazelnut') {
+      return {
+        name: 'Decadent Dark Truffle & Roasted Hazelnut',
+        slug: 'decadent-dark-truffle-roasted-hazelnut',
+        image: '/Cakes/6077fa416087bf801e907887a53cfe1d.jpg',
+        price: '₹749',
+        tag: 'Piedmont Praline Crunch',
+        description: 'Bittersweet chocolate mousse layered with roasted hazelnut crunch and a glossy mirror glaze finish.',
+        serving: 'Serves 8–12 Guests',
+      };
+    }
+    return {
+      name: 'Lotus Biscoff Speculoos Dream Cake',
+      slug: 'lotus-biscoff-speculoos-dream-cake',
+      image: '/Cakes/da137e0e2f85163498af483676d4ccd8.jpg',
+      price: '₹799',
+      tag: 'Belgian Speculoos Mousse',
+      description: 'Caramelized cinnamon sponge, silky Biscoff mousse, and crunchy spiced butter cookie crumb.',
+      serving: 'Serves 6–10 Guests',
+    };
+  };
+
+  const cakeAnatomyLayers = [
+    {
+      step: '01',
+      layer: 'Crown & 24K Edible Gold Leaf',
+      ingredient: 'Belgian Couverture Truffles & Pure Gold Leaf',
+      description: 'Every centerpiece is crowned with hand-rolled 70% dark truffles, Valrhona crispy chocolate pearls, and certified edible 24K gold foil.',
+      mouthfeel: 'Delicate crisp crunch followed by slow, luxurious melting richness.'
+    },
+    {
+      step: '02',
+      layer: 'Glossy Mirror Cocoa Drip',
+      ingredient: 'Single-Origin Callebaut Mirror Glaze',
+      description: 'Poured warm at precisely 32°C to create an immaculate dark chocolate glaze that retains its mirror shine throughout chilled delivery.',
+      mouthfeel: 'Silky smooth with a clean, intense cocoa aroma.'
+    },
+    {
+      step: '03',
+      layer: 'Silky Couverture Ganache',
+      ingredient: 'Fresh Dairy Cream & 70% Dark Chocolate',
+      description: 'Whipped in small artisan batches every morning with European farm dairy cream, never artificial hydrogenated vegetable fats.',
+      mouthfeel: 'Velvety, unctuous, and deeply comforting.'
+    },
+    {
+      step: '04',
+      layer: 'Moist Dutch-Processed Sponge',
+      ingredient: 'Dutch Alkalized Cocoa & Madagascar Bourbon Vanilla',
+      description: 'Slow-baked at gentle temperatures to yield a cloud-soft crumb with exceptional natural moisture retention.',
+      mouthfeel: 'Feather-light, perfectly balanced sweetness, melting softly on the tongue.'
+    },
+    {
+      step: '05',
+      layer: 'Piedmont Hazelnut Praline Base',
+      ingredient: 'Roasted Piedmont Hazelnuts & French Feuilletine',
+      description: 'The foundation layer provides structural integrity and an irresistible contrast with crispy caramelized wafer flakes and praline paste.',
+      mouthfeel: 'Crisp, toasted, and delightfully nutty.'
+    }
+  ];
+
   const getHeroPrice = (basePrice: number, weight: '0.5kg' | '1kg' | '2kg') => {
     if (weight === '1kg') return Math.round(basePrice * 1.85);
     if (weight === '2kg') return Math.round(basePrice * 3.5);
@@ -1112,6 +1203,264 @@ export default function HomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
+          SECTION 5: THE CELEBRATION SOMMELIER (Interactive Matchmaker)
+          Helps guests find their ideal creation in 3 elegant taps
+      ────────────────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-white border border-brand-chocolate/10 p-6 sm:p-10 lg:p-12 shadow-xs">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+            
+            {/* Left Configurator Column */}
+            <div className="w-full lg:w-7/12 space-y-6">
+              <div>
+                <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
+                  Concierge Recommendation
+                </span>
+                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate">
+                  The Celebration Matchmaker
+                </h2>
+                <p className="text-xs sm:text-sm text-brand-chocolate/75 font-body mt-1 leading-relaxed">
+                  Select your occasion and sensory preference to reveal the pastry chef&apos;s curated centerpiece.
+                </p>
+              </div>
+
+              {/* Step 1: Occasion */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-heading font-bold text-brand-chocolate uppercase tracking-wider block">
+                  1. Occasion
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: 'birthday', label: 'Birthday Celebration' },
+                    { id: 'wedding', label: 'Wedding & Tiers' },
+                    { id: 'anniversary', label: 'Anniversary Luxe' },
+                    { id: 'intimate', label: 'Intimate Milestone' },
+                  ].map((o) => (
+                    <button
+                      key={o.id}
+                      type="button"
+                      onClick={() => setMatchOccasion(o.id as any)}
+                      className={`btn font-body text-xs font-semibold px-4 py-2 rounded-full transition-all cursor-pointer ${
+                        matchOccasion === o.id
+                          ? 'bg-brand-chocolate text-brand-gold shadow-xs'
+                          : 'bg-brand-cream/60 hover:bg-brand-cream text-brand-chocolate/80 border border-brand-chocolate/10'
+                      }`}
+                    >
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 2: Flavor Mood */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-heading font-bold text-brand-chocolate uppercase tracking-wider block">
+                  2. Flavor Palette
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: 'chocolate', label: '70% Belgian Couverture' },
+                    { id: 'velvet', label: 'Pure Red Velvet Cream Cheese' },
+                    { id: 'hazelnut', label: 'Dark Truffle Roasted Hazelnut' },
+                    { id: 'biscoff', label: 'Lotus Biscoff Speculoos' },
+                  ].map((f) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => setMatchFlavor(f.id as any)}
+                      className={`btn font-body text-xs font-semibold px-4 py-2 rounded-full transition-all cursor-pointer ${
+                        matchFlavor === f.id
+                          ? 'bg-brand-chocolate text-brand-gold shadow-xs'
+                          : 'bg-brand-cream/60 hover:bg-brand-cream text-brand-chocolate/80 border border-brand-chocolate/10'
+                      }`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 3: Dietary */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-heading font-bold text-brand-chocolate uppercase tracking-wider block">
+                  3. Dietary Formulation
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: 'all', label: 'All Formulations' },
+                    { id: 'eggless', label: 'Strictly 100% Eggless Vegetarian' },
+                  ].map((d) => (
+                    <button
+                      key={d.id}
+                      type="button"
+                      onClick={() => setMatchDietary(d.id as any)}
+                      className={`btn font-body text-xs font-semibold px-4 py-2 rounded-full transition-all cursor-pointer ${
+                        matchDietary === d.id
+                          ? 'bg-brand-chocolate text-brand-gold shadow-xs'
+                          : 'bg-brand-cream/60 hover:bg-brand-cream text-brand-chocolate/80 border border-brand-chocolate/10'
+                      }`}
+                    >
+                      {d.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Matched Result Card */}
+            <div className="w-full lg:w-5/12">
+              {(() => {
+                const matched = getMatchedCake();
+                return (
+                  <div className="relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-brand-cream/50 border border-brand-chocolate/10 shadow-xs space-y-4">
+                    <div className="relative aspect-4/3 rounded-xl sm:rounded-2xl overflow-hidden bg-brand-chocolate/5 border border-brand-chocolate/10">
+                      <img
+                        src={matched.image}
+                        alt={matched.name}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-chocolate/90 backdrop-blur-md text-brand-gold text-[10px] font-bold uppercase tracking-wider">
+                        {matched.tag}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <h3 className="font-heading font-bold text-base sm:text-lg text-brand-chocolate truncate">
+                          {matched.name}
+                        </h3>
+                        <span className="font-heading font-extrabold text-brand-caramel text-base sm:text-lg shrink-0">
+                          {matched.price}
+                        </span>
+                      </div>
+                      <p className="text-xs text-brand-chocolate/75 font-body line-clamp-2 leading-relaxed">
+                        {matched.description}
+                      </p>
+                      <div className="pt-1 flex items-center justify-between text-[11px] text-brand-chocolate/60 font-body">
+                        <span>{matched.serving}</span>
+                        <span className="text-emerald-700 font-semibold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Baking slots open</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <Link
+                      href={`/cakes/${matched.slug}`}
+                      className="btn font-body font-semibold w-full py-2.5 rounded-full bg-brand-chocolate text-brand-gold hover:bg-brand-caramel hover:text-white transition-all text-xs flex items-center justify-center gap-2 shadow-xs group"
+                    >
+                      <span>Order Matched Creation</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                );
+              })()}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 6: ANATOMY OF A MASTERPIECE (Interactive Cross-Section)
+      ────────────────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-[#1c0502] text-white p-6 sm:p-10 lg:p-14 shadow-xl">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 border-b border-white/10 pb-4">
+            <div>
+              <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-gold tracking-[0.2em] block mb-1">
+                Culinary Engineering
+              </span>
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-white">
+                Anatomy of a Masterwork
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-white/70 font-body max-w-md leading-relaxed">
+              Explore the five architectural layers engineered by our master chocolatiers for flawless mouthfeel and structural integrity.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left 5 Layer Selectors */}
+            <div className="lg:col-span-6 space-y-2.5">
+              {cakeAnatomyLayers.map((layer, lIdx) => {
+                const isSelected = activeAnatomyLayer === lIdx;
+                return (
+                  <button
+                    key={layer.step}
+                    type="button"
+                    onClick={() => setActiveAnatomyLayer(lIdx)}
+                    className={`w-full p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 ${
+                      isSelected
+                        ? 'bg-white/15 border-brand-gold text-white shadow-md scale-[1.01]'
+                        : 'bg-white/5 border-white/10 hover:border-white/25 text-white/70 hover:text-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className={`text-xs font-heading font-extrabold px-2 py-0.5 rounded-md ${isSelected ? 'bg-brand-gold text-brand-chocolate' : 'bg-white/10 text-brand-gold'}`}>
+                        {layer.step}
+                      </span>
+                      <span className="font-heading font-semibold text-xs sm:text-sm text-white truncate">
+                        {layer.layer}
+                      </span>
+                    </div>
+                    <span className="text-[10.5px] font-body text-brand-gold/80 shrink-0 hidden sm:inline">
+                      {layer.ingredient.split('&')[0]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right Layer Detail Card */}
+            <div className="lg:col-span-6">
+              <div className="p-6 sm:p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-4">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-brand-gold">
+                    Layer {cakeAnatomyLayers[activeAnatomyLayer].step} Profile
+                  </span>
+                  <span className="text-xs text-white/60 font-body">
+                    Handcrafted Daily
+                  </span>
+                </div>
+
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-white">
+                  {cakeAnatomyLayers[activeAnatomyLayer].layer}
+                </h3>
+
+                <div className="space-y-1">
+                  <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-brand-gold/90 block">
+                    Key Ingredients
+                  </span>
+                  <p className="text-xs sm:text-sm text-white font-medium">
+                    {cakeAnatomyLayers[activeAnatomyLayer].ingredient}
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-brand-gold/90 block">
+                    Crafting Technique
+                  </span>
+                  <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-body">
+                    {cakeAnatomyLayers[activeAnatomyLayer].description}
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-white/10 flex items-start gap-2 text-xs">
+                  <Sparkles className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-semibold text-white">Sensory Mouthfeel: </span>
+                    <span className="text-white/80">{cakeAnatomyLayers[activeAnatomyLayer].mouthfeel}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
           SECTION 5: THE BESPOKE COUTURE ATELIER (Editorial Split)
       ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1170,7 +1519,75 @@ export default function HomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 6: OUR 8 KERALA PATISSERIES (Boutique Network)
+          SECTION 8: THE FOUR PILLARS OF DISTINCTION (Culinary Integrity)
+      ────────────────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 pb-3 border-b border-brand-chocolate/10 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
+              Uncompromised Standards
+            </span>
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate">
+              The Four Pillars of Distinction
+            </h2>
+          </div>
+          <span className="text-xs text-brand-chocolate/65 font-body">
+            Audited Culinary Integrity &bull; Since 2012
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              num: '01',
+              title: 'Pure Callebaut Couverture',
+              desc: 'Imported 70% dark Belgian cocoa butter. We strictly reject hydrogenated vegetable fat substitutes used in ordinary cakes.',
+              highlight: 'Wieze, Belgium Sourcing',
+            },
+            {
+              num: '02',
+              title: 'Segregated Vegetarian Line',
+              desc: 'Our dedicated eggless atelier operates with segregated utensils, European yogurt culture, and pure organic vanilla.',
+              highlight: '100% Certified Purity',
+            },
+            {
+              num: '03',
+              title: 'Chime-of-Midnight Dispatch',
+              desc: 'Custom chilled delivery vehicles ensure your cake arrives between 11:30 PM & 12:00 AM with immaculate glaze and zero tilt.',
+              highlight: 'Temperature-Controlled Transit',
+            },
+            {
+              num: '04',
+              title: 'Architectural Sugar Artistry',
+              desc: 'Every wedding and custom tier is handcrafted with food-grade edible 24K gold foil and botanically accurate sugar peonies.',
+              highlight: 'Bespoke Couture Craft',
+            },
+          ].map((pillar) => (
+            <div
+              key={pillar.num}
+              className="p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-[0_2px_12px_rgba(42,6,0,0.03)] hover:shadow-md transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <span className="text-xs font-heading font-bold text-brand-gold tracking-widest block">
+                  PILLAR {pillar.num}
+                </span>
+                <h3 className="font-heading text-lg font-bold text-brand-chocolate">
+                  {pillar.title}
+                </h3>
+                <p className="text-xs text-brand-chocolate/75 font-body leading-relaxed">
+                  {pillar.desc}
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-brand-chocolate/8 text-[11px] font-semibold text-brand-caramel font-body">
+                {pillar.highlight}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 9: OUR 8 KERALA PATISSERIES (Boutique Network)
       ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3 pb-3 border-b border-brand-chocolate/10">
