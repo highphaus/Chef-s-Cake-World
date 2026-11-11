@@ -229,16 +229,16 @@ export default function Header() {
   ];
 
   const isHomePage = pathname === '/';
-  const isDarkNavbar = false;
+  const isTransparent = !isScrolled && !searchOpen && isHomePage;
 
   const getNavLinkClass = (active: boolean) => {
     if (active) {
-      return isDarkNavbar
-        ? 'text-[#E5B56A] bg-white/15 font-bold backdrop-blur-xs shadow-2xs'
+      return isTransparent
+        ? 'text-[#301612] bg-white/70 backdrop-blur-xs border border-[#301612]/15 font-bold shadow-2xs'
         : 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs';
     }
-    return isDarkNavbar
-      ? 'text-[#FAF5EE]/90 hover:text-[#E5B56A] hover:bg-white/10'
+    return isTransparent
+      ? 'text-[#301612]/90 hover:text-[#301612] hover:bg-white/50'
       : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80';
   };
 
@@ -246,11 +246,9 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-40 w-full max-w-full transition-all duration-300 ${
-          isDarkNavbar
-            ? isScrolled
-              ? 'bg-[#301612]/95 backdrop-blur-md shadow-md border-b border-[#45221B] text-[#FAF5EE]'
-              : 'bg-[#301612] border-b border-[#45221B] text-[#FAF5EE]'
-            : 'bg-brand-cream/98 backdrop-blur-md shadow-md border-b border-brand-chocolate/15 text-brand-chocolate'
+          isTransparent
+            ? 'bg-transparent border-b border-transparent shadow-none text-[#301612]'
+            : 'bg-brand-cream/90 backdrop-blur-md shadow-sm border-b border-brand-chocolate/10 text-brand-chocolate'
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
@@ -268,8 +266,8 @@ export default function Header() {
                 className={`p-2 -ml-1 rounded-xl transition-all shrink-0 lg:hidden ${
                   mobileMenuOpen
                     ? 'bg-brand-peach text-brand-caramel'
-                    : isDarkNavbar
-                    ? 'text-white hover:bg-white/20'
+                    : isTransparent
+                    ? 'text-[#301612] hover:bg-white/50'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
                 aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
@@ -518,8 +516,8 @@ export default function Header() {
                 type="button"
                 onClick={() => setSearchOpen(!searchOpen)}
                 className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
-                  isDarkNavbar
-                    ? 'text-white hover:bg-white/20'
+                  isTransparent
+                    ? 'text-[#301612] hover:bg-white/50'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
                 title="Search celebratory cakes"
@@ -534,8 +532,8 @@ export default function Header() {
                   type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                   className={`p-1.5 sm:p-2 rounded-lg transition-colors flex items-center justify-center ${
-                    isDarkNavbar
-                      ? 'text-white hover:bg-white/20'
+                    isTransparent
+                      ? 'text-[#301612] hover:bg-white/50'
                       : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                   }`}
                   aria-label="User account"
@@ -624,8 +622,8 @@ export default function Header() {
                 type="button"
                 onClick={() => setIsCartOpen(true)}
                 className={`relative p-1.5 sm:p-2 rounded-lg transition-colors group focus:outline-none shrink-0 ${
-                  isDarkNavbar
-                    ? 'text-white hover:bg-white/20'
+                  isTransparent
+                    ? 'text-[#301612] hover:bg-white/50'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
                 aria-label={`Cake box containing ${itemCount} items`}
@@ -658,8 +656,8 @@ export default function Header() {
                 className={`p-2 rounded-xl transition-all ${
                   searchOpen
                     ? 'bg-brand-peach text-brand-caramel'
-                    : isDarkNavbar
-                    ? 'text-white hover:bg-white/20'
+                    : isTransparent
+                    ? 'text-[#301612] hover:bg-white/50'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
                 aria-label="Search celebration cakes"
@@ -673,8 +671,8 @@ export default function Header() {
                 type="button"
                 onClick={() => setIsCartOpen(true)}
                 className={`relative p-2 rounded-xl transition-colors shrink-0 ${
-                  isDarkNavbar
-                    ? 'text-white hover:bg-white/20'
+                  isTransparent
+                    ? 'text-[#301612] hover:bg-white/50'
                     : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
                 }`}
                 aria-label={`View cart with ${itemCount} items`}
