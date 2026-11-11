@@ -229,7 +229,7 @@ export default function Header() {
   ];
 
   const isHomePage = pathname === '/';
-  const isDarkNavbar = isHomePage;
+  const isDarkNavbar = false;
 
   const getNavLinkClass = (active: boolean) => {
     if (active) {

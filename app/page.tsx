@@ -35,120 +35,6 @@ import ProductCard from '@/components/products/ProductCard';
 import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 import InteractiveCakeHero from '@/components/home/InteractiveCakeHero';
 
-const celebrationOccasions = [
-  {
-    id: 'chocolate',
-    index: '01',
-    cakeName: 'Royal Belgian Couverture Truffle',
-    shortName: 'Belgian Truffle',
-    badge: 'The Ultimate Chocolate Cake.',
-    tagline: 'Pure 70% Callebaut Single-Origin',
-    basePriceNum: 699,
-    price: '₹699',
-    image: '/hero-cake-slice-transparent-hd.png',
-    slug: 'royal-belgian-chocolate-truffle-cake',
-    description:
-      'Baked with love, so every bite feels like home. We believe the best memories are made around the table, and our cakes are crafted to be at the center of those moments—rich, moist, and a little piece of comfort in every delicious forkful.',
-    flavorNotes: ['70% Callebaut Cocoa', 'Single-Origin Ganache', '24K Edible Gold Dust', 'Moist Dutch Sponge'],
-    anatomy: {
-      layers: 'Triple Sponge & Silky Ganache',
-      texture: 'Decadent, Velvety, Melt-in-Mouth',
-      prepTime: 'Baked Fresh to Order (3 Hrs)'
-    },
-    rating: 4.98,
-    reviews: 1420,
-    accentColor: '#D4B46A'
-  },
-  {
-    id: 'wedding',
-    index: '02',
-    cakeName: 'Grand Floral Wedding Masterpiece',
-    shortName: 'Floral Wedding',
-    badge: 'Couture Celebration Tier',
-    tagline: 'Hand-Sculpted 24K Edible Gold',
-    basePriceNum: 1499,
-    price: '₹1,499',
-    image: '/Cakes/38499c1ae99d95bfe134d660e4c5d6ea.jpg',
-    slug: 'grand-tiered-golden-wedding-masterpiece',
-    description: 'Architectural celebration tiers accented with handcrafted sugar peonies and bourbon vanilla bean sponge.',
-    flavorNotes: ['Madagascar Bourbon Vanilla', 'Handcrafted Sugar Petals', 'White Chocolate Velvet', '24K Gold Filigree'],
-    anatomy: {
-      layers: 'Architectural 3-Tier Atelier',
-      texture: 'Cloud-Light Sponge & Silky Crème',
-      prepTime: 'Sculpted in 24 Hrs'
-    },
-    rating: 4.99,
-    reviews: 860,
-    accentColor: '#E6CA85'
-  },
-  {
-    id: 'truffle',
-    index: '03',
-    cakeName: 'Dark Truffle Roasted Hazelnut',
-    shortName: 'Hazelnut Truffle',
-    badge: 'Artisan Praline Edition',
-    tagline: 'Piedmont Hazelnut Praline',
-    basePriceNum: 749,
-    price: '₹749',
-    image: '/Cakes/6077fa416087bf801e907887a53cfe1d.jpg',
-    slug: 'decadent-dark-truffle-roasted-hazelnut',
-    description: 'Bittersweet chocolate mousse layered with roasted hazelnut crunch and a glossy mirror glaze finish.',
-    flavorNotes: ['Piedmont Roasted Hazelnuts', 'Glossy Mirror Cocoa Glaze', 'Praline Feuilletine', 'Dark Cocoa Mousse'],
-    anatomy: {
-      layers: 'Crunch Layer & Bittersweet Ganache',
-      texture: 'Crunchy Praline & Silky Mousse',
-      prepTime: 'Chilled Setting (4 Hrs)'
-    },
-    rating: 4.95,
-    reviews: 1180,
-    accentColor: '#D4B46A'
-  },
-  {
-    id: 'eggless',
-    index: '04',
-    cakeName: 'Pure Eggless Red Velvet Luxe',
-    shortName: 'Eggless Velvet',
-    badge: '100% Certified Vegetarian',
-    tagline: '100% Certified Vegetarian Atelier',
-    basePriceNum: 749,
-    price: '₹749',
-    image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg',
-    slug: 'fresh-red-velvet-cream-cheese-luxe',
-    description: 'Cloud-soft crimson sponge draped in whipped Philadelphia cream cheese frosting, baked without egg.',
-    flavorNotes: ['Philadelphia Cream Cheese', 'Natural Beet Cocoa Sponge', 'Madagascar Vanilla Coulis', 'Eggless Certified'],
-    anatomy: {
-      layers: 'Crimson Velvet & Whipped Cheese',
-      texture: 'Feather-Soft & Tangy Sweet',
-      prepTime: 'Fresh Morning Bake'
-    },
-    rating: 4.97,
-    reviews: 1650,
-    accentColor: '#10B981'
-  },
-  {
-    id: 'biscoff',
-    index: '05',
-    cakeName: 'Lotus Biscoff Speculoos Dream',
-    shortName: 'Lotus Biscoff',
-    badge: 'Caramelized Confection',
-    tagline: 'Belgian Caramelized Biscuit Mousse',
-    basePriceNum: 799,
-    price: '₹799',
-    image: '/Cakes/da137e0e2f85163498af483676d4ccd8.jpg',
-    slug: 'lotus-biscoff-speculoos-dream-cake',
-    description: 'Caramelized cinnamon sponge, silky Biscoff mousse, and crunchy spiced butter cookie crumb.',
-    flavorNotes: ['Belgian Speculoos Cream', 'Caramelized Cookie Crunch', 'Salted Butter Caramel', 'Spiced Cinnamon Sponge'],
-    anatomy: {
-      layers: 'Speculoos Mousse & Spiced Crumb',
-      texture: 'Rich Caramel & Crisp Biscuit',
-      prepTime: 'Infused over 6 Hrs'
-    },
-    rating: 4.96,
-    reviews: 1290,
-    accentColor: '#D4B46A'
-  }
-];
-
 const customerReviews = [
   {
     id: 1,
@@ -215,10 +101,7 @@ const customerReviews = [
 export default function HomePage() {
   const [categories, setCategories] = useState<any[]>([]);
   const [bestSellers, setBestSellers] = useState<any[]>([]);
-  const [selectedOccasionIndex, setSelectedOccasionIndex] = useState(0);
   const [activeCategoryTab, setActiveCategoryTab] = useState<'all' | 'chocolate' | 'birthday' | 'eggless' | 'wedding' | 'pastries'>('all');
-  const [scrollY, setScrollY] = useState(0);
-  const [selectedHeroWeight, setSelectedHeroWeight] = useState<'0.5kg' | '1kg' | '2kg'>('0.5kg');
 
   // Celebration Matchmaker State
   const [matchOccasion, setMatchOccasion] = useState<'birthday' | 'wedding' | 'anniversary' | 'intimate'>('birthday');
@@ -311,21 +194,6 @@ export default function HomePage() {
     }
   ];
 
-  const getHeroPrice = (basePrice: number, weight: '0.5kg' | '1kg' | '2kg') => {
-    if (weight === '1kg') return Math.round(basePrice * 1.85);
-    if (weight === '2kg') return Math.round(basePrice * 3.5);
-    return basePrice;
-  };
-
-  // Parallax Tracking
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Fetch initial live products from API
   useEffect(() => {
     const fetchHomeData = async () => {
@@ -346,55 +214,6 @@ export default function HomePage() {
     };
     fetchHomeData();
   }, []);
-
-  // Hero Carousel Auto-Timer with Smooth Progress
-  const [heroProgress, setHeroProgress] = useState(0);
-  const [isHeroPaused, setIsHeroPaused] = useState(false);
-
-  useEffect(() => {
-    if (isHeroPaused) return;
-
-    const interval = 50; // Update progress every 50ms
-    const totalDuration = 6000; // 6 seconds per slide
-    const increment = (interval / totalDuration) * 100;
-
-    const timer = setInterval(() => {
-      setHeroProgress((prev) => {
-        if (prev >= 100) {
-          setSelectedOccasionIndex((current) => (current + 1) % celebrationOccasions.length);
-          return 0;
-        }
-        return prev + increment;
-      });
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [isHeroPaused, selectedOccasionIndex]);
-
-  const handleNextHero = () => {
-    setHeroProgress(0);
-    setSelectedOccasionIndex((prev) => (prev + 1) % celebrationOccasions.length);
-  };
-
-  const handlePrevHero = () => {
-    setHeroProgress(0);
-    setSelectedOccasionIndex((prev) => (prev - 1 + celebrationOccasions.length) % celebrationOccasions.length);
-  };
-
-  // Touch Swipe for Hero
-  const touchStartX = useRef<number | null>(null);
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) handleNextHero();
-      else handlePrevHero();
-    }
-    touchStartX.current = null;
-  };
 
   // Category Carousel Auto-scroll
   const categoryScrollRef = useRef<HTMLDivElement>(null);

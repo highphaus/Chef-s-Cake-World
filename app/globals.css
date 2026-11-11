@@ -154,11 +154,13 @@ body {
 }
 
 /* Media Responsiveness */
-img,
-video,
-svg {
-  max-width: 100%;
-  height: auto;
+@layer base {
+  img,
+  video,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 .media-wrapper {
@@ -314,14 +316,19 @@ textarea {
 
 .animate-cake-spin {
   animation: cakeSpin 120s linear infinite;
-  transform-origin: center;
+  transform-box: view-box;
+  transform-origin: 0px 0px;
 }
 
 .cake-wedge {
+  transform-box: view-box;
+  transform-origin: 0px 0px;
   animation: cakeWedgeSlide 0.75s cubic-bezier(0.2, 1.1, 0.3, 1) forwards;
 }
 
 .cake-spark {
+  transform-box: view-box;
+  transform-origin: 0px 0px;
   animation: cakeSparkFly cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 
