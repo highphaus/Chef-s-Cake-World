@@ -320,24 +320,6 @@ export default function InteractiveCakeHero() {
                   opacity={0.75}
                 />
 
-                {/* Rotating Edge Typography Ring */}
-                <g className="animate-cake-spin" pointerEvents="none">
-                  <path id="heroRingPath" d="M-240 0 a240 240 0 1 1 480 0 a240 240 0 1 1 -480 0" fill="none" />
-                  <text
-                    style={{
-                      fontFamily: 'var(--font-body), sans-serif',
-                      fontWeight: 600,
-                      fontSize: '16.5px',
-                      fill: '#7E5C4D',
-                      letterSpacing: '0.1em',
-                    }}
-                  >
-                    <textPath href="#heroRingPath" textLength={1492} lengthAdjust="spacing">
-                      CHEF&apos;S CAKE WORLD &bull; BAKED TO ORDER IN KERALA &bull; 100% BELGIAN COUVERTURE &bull; FRESH DAILY &bull;{' '}
-                    </textPath>
-                  </text>
-                </g>
-
                 {/* Main Cake Body (Photorealistic Clipped Real Image) */}
                 <g filter="url(#cakeBodyShadow)">
                   <image
