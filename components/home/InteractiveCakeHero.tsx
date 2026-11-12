@@ -454,9 +454,22 @@ export default function InteractiveCakeHero() {
                 </div>
               </div>
 
-              {/* 5-Layer Isometric Cross-Section Diagram */}
+              {/* Real Inner Slice Photograph (Revealed when Cake is Cut) or Isometric Cross-Section */}
               <div className="mb-3.5">
-                <LayerCrossSection layers={f.layers} />
+                {cut !== null ? (
+                  <div className="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-brand-chocolate/15 shadow-sm bg-brand-cream/30 animate-in fade-in zoom-in-95 duration-300">
+                    <img
+                      src={f.innerImage}
+                      alt={`${f.name} inner slice layers`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-2 left-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs border border-brand-chocolate/10 text-[10px] font-bold text-[#301612] shadow-xs">
+                      Freshly Sliced &bull; Inside View
+                    </div>
+                  </div>
+                ) : (
+                  <LayerCrossSection layers={f.layers} />
+                )}
               </div>
 
               {/* Layer Ingredients Legend */}

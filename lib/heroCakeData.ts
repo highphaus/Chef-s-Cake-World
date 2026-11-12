@@ -12,6 +12,7 @@ export type HeroCakeFlavour = {
   price: string;
   tag: string;
   image: string;
+  innerImage: string;
   bg: string;
   frost: string;
   sponge: string;
@@ -33,6 +34,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
     price: '₹599',
     tag: 'Dark Chocolate Shavings & Morello Cherries',
     image: '/hero-cakes/black-forest.jpg',
+    innerImage: '/hero%20section/Cut%20inner/6d7a427cd0c48be5f486a4220aa6a805.jpg',
     bg: '#3B1C15',
     frost: '#52261C',
     sponge: '#2E120B',
@@ -56,6 +58,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
     price: '₹699',
     tag: 'Whipped Berry Cream & Glitter Cherries',
     image: '/hero-cakes/cherry-blush.jpg',
+    innerImage: '/hero%20section/Cut%20inner/4f1706623960289a6c81ea446e9baef1.jpg',
     bg: '#BE123C',
     frost: '#FDE2E4',
     sponge: '#FFF1E6',
@@ -79,6 +82,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
     price: '₹699',
     tag: 'Zesty Lemon Curd & Edible Gold Pearls',
     image: '/hero-cakes/golden-lemon.jpg',
+    innerImage: '/hero%20section/Cut%20inner/4f1706623960289a6c81ea446e9baef1.jpg',
     bg: '#B45309',
     frost: '#FEF08A',
     sponge: '#FFFBEB',
@@ -102,6 +106,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
     price: '₹649',
     tag: 'Hand-Piped Swiss Meringue Buttercream',
     image: '/hero-cakes/vanilla-buttercream.jpg',
+    innerImage: '/hero%20section/Cut%20inner/4f1706623960289a6c81ea446e9baef1.jpg',
     bg: '#8C5835',
     frost: '#FFFDF7',
     sponge: '#FAF0CA',
