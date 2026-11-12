@@ -186,7 +186,13 @@ export default function InteractiveCakeHero() {
                       key={item.id}
                       type="button"
                       aria-pressed={isSelected}
-                      onClick={() => setIdx(i)}
+                      onClick={() => {
+                        if (i !== idx) {
+                          setIdx(i);
+                          setCut(null);
+                          setSparks([]);
+                        }
+                      }}
                       className={`w-full flex items-center justify-between gap-2.5 p-2 rounded-2xl border text-left transition-all cursor-pointer ${
                         isSelected
                           ? 'bg-brand-cream/70 border-brand-chocolate shadow-xs font-bold'
