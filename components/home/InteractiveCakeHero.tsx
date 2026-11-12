@@ -160,7 +160,7 @@ export default function InteractiveCakeHero() {
         {/* 3-Column Photorealistic Interactive Cake Stage */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           {/* LEFT COLUMN: Choose Flavour Card */}
-          <div className="lg:col-span-3 order-2 lg:order-1">
+          <div className="lg:col-span-3 order-2 lg:order-1 lg:self-start lg:mt-4">
             <div className="bg-white border border-brand-chocolate/12 rounded-3xl p-4 sm:p-5 shadow-[0_14px_40px_-12px_rgba(48,22,18,0.1)]">
               <div className="flex items-center justify-between mb-3.5">
                 <div>
