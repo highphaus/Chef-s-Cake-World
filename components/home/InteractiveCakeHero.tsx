@@ -29,11 +29,14 @@ type Spark = {
 
 let sparkId = 0;
 
-const getAngleFromPointer = (e: PointerEvent<SVGSVGElement> | MouseEvent<SVGSVGElement>) => {
+const getPointerState = (e: PointerEvent<SVGSVGElement> | MouseEvent<SVGSVGElement>) => {
   const rect = e.currentTarget.getBoundingClientRect();
-  return Number(
-    ((Math.atan2(e.clientY - (rect.top + rect.height / 2), e.clientX - (rect.left + rect.width / 2)) * 180) / Math.PI).toFixed(2)
-  );
+  const dx = e.clientX - (rect.left + rect.width / 2);
+  const dy = e.clientY - (rect.top + rect.height / 2);
+  const scale = 620 / rect.width;
+  const svgDist = Math.hypot(dx, dy) * scale;
+  const angle = Number(((Math.atan2(dy, dx) * 180) / Math.PI).toFixed(2));
+  return { isOverCake: svgDist <= R, angle };
 };
 
 const LayerCrossSection = memo(function LayerCrossSection({
@@ -119,14 +122,28 @@ export default function InteractiveCakeHero() {
 
   const handlePointerMove = useCallback(
     (e: PointerEvent<SVGSVGElement>) => {
-      updateHoverGuide(getAngleFromPointer(e));
+      const { isOverCake, angle } = getPointerState(e);
+      if (isOverCake) {
+        updateHoverGuide(angle);
+        if (hoverGuideRef.current) hoverGuideRef.current.style.opacity = '1';
+        e.currentTarget.style.cursor = 'pointer';
+      } else {
+        if (hoverGuideRef.current) hoverGuideRef.current.style.opacity = '0';
+        e.currentTarget.style.cursor = 'default';
+      }
     },
     [updateHoverGuide]
   );
 
+  const handlePointerLeave = useCallback((e: PointerEvent<SVGSVGElement>) => {
+    if (hoverGuideRef.current) hoverGuideRef.current.style.opacity = '0';
+    e.currentTarget.style.cursor = 'default';
+  }, []);
+
   const handleSvgClick = useCallback(
     (e: MouseEvent<SVGSVGElement>) => {
-      const angle = getAngleFromPointer(e);
+      const { isOverCake, angle } = getPointerState(e);
+      if (!isOverCake) return;
       updateHoverGuide(angle);
       doCut(angle);
     },
@@ -258,12 +275,13 @@ export default function InteractiveCakeHero() {
           <div className="lg:col-span-6 order-1 lg:order-2 relative flex flex-col items-center justify-center">
             <div className="relative w-full max-w-[480px] sm:max-w-[580px] lg:max-w-[620px] aspect-square mx-auto">
               <svg
-                className="relative z-10 w-full h-full block cursor-crosshair touch-manipulation overflow-visible select-none focus:outline-none"
+                className="relative z-10 w-full h-full block cursor-default touch-manipulation overflow-visible select-none focus:outline-none"
                 viewBox="-310 -310 620 620"
                 role="button"
                 tabIndex={0}
-                aria-label="Interactive Real Cake. Move pointer or use arrow keys to aim knife blade, click or press Enter to cut a slice."
+                aria-label="Interactive Real Cake. Move pointer over cake to aim knife blade, click or press Enter to cut a slice."
                 onPointerMove={handlePointerMove}
+                onPointerLeave={handlePointerLeave}
                 onClick={handleSvgClick}
                 onKeyDown={handleKeyDown}
               >
@@ -341,7 +359,12 @@ export default function InteractiveCakeHero() {
                 )}
 
                 {/* Knife Aim Preview Guide (Direct DOM Transform for 120fps Smoothness) */}
-                <g ref={hoverGuideRef} transform="rotate(-38)" pointerEvents="none">
+                <g
+                  ref={hoverGuideRef}
+                  transform="rotate(-38)"
+                  pointerEvents="none"
+                  style={{ opacity: 0, transition: 'opacity 150ms ease' }}
+                >
                   <path
                     d={sector(R + 4, HALF)}
                     fill="rgba(255, 255, 255, 0.14)"
