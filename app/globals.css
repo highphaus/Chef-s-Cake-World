@@ -285,6 +285,28 @@ textarea {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Sleek visible vertical scrollbar for hero cake selector */
+.cake-list-scroll {
+  scrollbar-width: thin !important;
+  scrollbar-color: #B25E00 #F5EAE0 !important;
+  -ms-overflow-style: auto !important;
+}
+.cake-list-scroll::-webkit-scrollbar {
+  display: block !important;
+  width: 6px !important;
+}
+.cake-list-scroll::-webkit-scrollbar-track {
+  background: #F5EAE0;
+  border-radius: 9999px;
+}
+.cake-list-scroll::-webkit-scrollbar-thumb {
+  background: #B25E00;
+  border-radius: 9999px;
+}
+.cake-list-scroll::-webkit-scrollbar-thumb:hover {
+  background: #301612;
+}
+
 /* ─────────────────────────────────────────────────────────────
    INTERACTIVE CAKE HERO ANIMATIONS & STYLES (Cake Hero)
 ────────────────────────────────────────────────────────────── */
