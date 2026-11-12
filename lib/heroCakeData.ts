@@ -120,7 +120,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
 
 export const toColour = (c: string) => (c.startsWith('#') ? c : `var(--${c})`);
 
-export const R = 212;
+export const R = 250;
 export const RIM = 8;
 export const HALF = 17;
 export const SPRINKLES = ['#D4B46A', '#301612', '#E5B56A', '#B25E00', '#F5E6D3'];

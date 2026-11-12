@@ -256,7 +256,7 @@ export default function InteractiveCakeHero() {
 
           {/* CENTER COLUMN: Photorealistic Sliceable Real Cake Stage */}
           <div className="lg:col-span-6 order-1 lg:order-2 relative flex flex-col items-center justify-center">
-            <div className="relative w-full max-w-[440px] sm:max-w-[520px] lg:max-w-[560px] aspect-square mx-auto">
+            <div className="relative w-full max-w-[480px] sm:max-w-[580px] lg:max-w-[620px] aspect-square mx-auto">
               <svg
                 className="relative z-10 w-full h-full block cursor-crosshair touch-manipulation overflow-visible select-none focus:outline-none"
                 viewBox="-310 -310 620 620"
@@ -278,47 +278,16 @@ export default function InteractiveCakeHero() {
                     <path d={sector(R, HALF)} />
                   </clipPath>
 
-                  {/* Porcelain Serving Platter Shading */}
-                  <radialGradient id="porcelainPlate" cx="50%" cy="46%" r="54%">
-                    <stop offset="0%" stopColor="#FFFFFF" />
-                    <stop offset="78%" stopColor="#FCFAF7" />
-                    <stop offset="100%" stopColor="#EFE9DF" />
-                  </radialGradient>
-
-                  {/* Realistic Soft Platter Shadow */}
-                  <filter id="platterShadow" x="-15%" y="-15%" width="130%" height="135%">
-                    <feDropShadow dx="0" dy="14" stdDeviation="16" floodColor="#301612" floodOpacity="0.12" />
-                  </filter>
-
                   {/* Realistic Whole Cake Elevation Shadow */}
                   <filter id="cakeBodyShadow" x="-15%" y="-15%" width="130%" height="135%">
-                    <feDropShadow dx="0" dy="8" stdDeviation="10" floodColor="#301612" floodOpacity="0.28" />
+                    <feDropShadow dx="0" dy="10" stdDeviation="14" floodColor="#301612" floodOpacity="0.22" />
                   </filter>
 
                   {/* Realistic Separated Wedge Slice Shadow */}
                   <filter id="sliceWedgeShadow" x="-25%" y="-25%" width="150%" height="150%">
-                    <feDropShadow dx="5" dy="12" stdDeviation="9" floodColor="#301612" floodOpacity="0.34" />
+                    <feDropShadow dx="5" dy="12" stdDeviation="10" floodColor="#301612" floodOpacity="0.3" />
                   </filter>
                 </defs>
-
-                {/* Subtle Porcelain Serving Platter */}
-                <circle
-                  r={284}
-                  fill="url(#porcelainPlate)"
-                  stroke="#E7DFD3"
-                  strokeWidth={2}
-                  filter="url(#platterShadow)"
-                />
-                {/* Champagne Gold Rim Accent */}
-                <circle
-                  r={262}
-                  fill="none"
-                  stroke="#D4B46A"
-                  strokeWidth={1.5}
-                  strokeDasharray="3 10"
-                  strokeLinecap="round"
-                  opacity={0.75}
-                />
 
                 {/* Main Cake Body (Photorealistic Clipped Real Image) */}
                 <g filter="url(#cakeBodyShadow)">
