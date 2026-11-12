@@ -154,7 +154,7 @@ export default function InteractiveCakeHero() {
   return (
     <section
       style={themeVars}
-      className="relative w-full flex flex-col justify-start overflow-x-clip bg-white pt-16 sm:pt-20 lg:pt-20 pb-8 sm:pb-12 border-b border-brand-chocolate/10"
+      className="relative w-full flex flex-col justify-start overflow-x-clip bg-white pt-12 sm:pt-14 lg:pt-12 pb-8 sm:pb-10 border-b border-brand-chocolate/10"
     >
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* 3-Column Photorealistic Interactive Cake Stage */}
@@ -250,7 +250,7 @@ export default function InteractiveCakeHero() {
           </div>
 
           {/* CENTER COLUMN: Photorealistic Sliceable Real Cake Stage */}
-          <div className="lg:col-span-6 order-1 lg:order-2 relative flex flex-col items-center justify-center">
+          <div className="lg:col-span-6 order-1 lg:order-2 relative flex flex-col items-center justify-center lg:-mt-6">
             <div className="relative w-full max-w-[480px] sm:max-w-[580px] lg:max-w-[620px] aspect-square mx-auto">
               <svg
                 className="relative z-10 w-full h-full block cursor-default touch-manipulation overflow-visible select-none focus:outline-none"
@@ -389,7 +389,7 @@ export default function InteractiveCakeHero() {
             </div>
 
             {/* Clean Unobtrusive Guidance Pill Below Platter */}
-            <div className="mt-2 inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-cream/80 border border-brand-chocolate/12 shadow-xs text-xs font-medium text-[#301612]">
+            <div className="-mt-4 relative z-20 inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-cream/90 border border-brand-chocolate/12 shadow-xs text-xs font-medium text-[#301612]">
               <Scissors className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
               {cut === null ? (
                 <span>
