@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useState, useRef, useCallback, memo, type CSSProperties, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
+import React, { useState, useRef, useCallback, type CSSProperties, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import Link from 'next/link';
 import { ArrowRight, RotateCcw, Sparkles, Scissors, Star, Truck, ShieldCheck } from 'lucide-react';
 import {
   HERO_FLAVOURS,
-  LAYER_HEIGHTS,
   R,
-  RIM,
   HALF,
   SPRINKLES,
   bodyPath,
@@ -38,32 +36,6 @@ const getPointerState = (e: PointerEvent<SVGSVGElement> | MouseEvent<SVGSVGEleme
   const angle = Number(((Math.atan2(dy, dx) * 180) / Math.PI).toFixed(2));
   return { isOverCake: svgDist <= R, angle };
 };
-
-const LayerCrossSection = memo(function LayerCrossSection({
-  layers,
-}: {
-  layers: { name: string; fill: string }[];
-}) {
-  return (
-    <div className="bg-brand-cream/40 rounded-2xl border border-brand-chocolate/10 p-3">
-      <svg viewBox="0 0 240 112" className="w-full h-auto" aria-hidden="true">
-        <g transform="translate(30 6) skewX(-14)" stroke="#301612" strokeWidth={1.8} strokeLinejoin="round">
-          {layers.map((layer, n) => (
-            <rect
-              key={n}
-              x={14}
-              y={LAYER_HEIGHTS.slice(0, n).reduce((a, b) => a + b, 0)}
-              width={170}
-              height={LAYER_HEIGHTS[n]}
-              rx={n === 4 ? 4 : 0}
-              fill={toColour(layer.fill)}
-            />
-          ))}
-        </g>
-      </svg>
-    </div>
-  );
-});
 
 export default function InteractiveCakeHero() {
   const [idx, setIdx] = useState(0);
@@ -426,27 +398,23 @@ export default function InteractiveCakeHero() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Inside Masterpiece & Order Card */}
-          <aside className="lg:col-span-3 order-3" aria-live="polite">
-            <div
-              className={`bg-white border rounded-3xl p-4 sm:p-5 transition-all duration-300 ${
-                cut !== null
-                  ? 'border-brand-gold shadow-[0_18px_45px_-12px_rgba(212,180,106,0.35)] ring-2 ring-brand-gold/25'
-                  : 'border-brand-chocolate/12 shadow-[0_14px_40px_-12px_rgba(48,22,18,0.1)]'
-              }`}
-            >
+          {/* RIGHT COLUMN: Revealed Only When Cake Is Cut */}
+          <aside
+            aria-live="polite"
+            aria-hidden={cut === null}
+            className={`lg:col-span-3 order-3 transition-all duration-500 ease-out ${
+              cut !== null
+                ? 'block opacity-100 translate-x-0 pointer-events-auto'
+                : 'hidden lg:block lg:opacity-0 lg:translate-x-4 lg:pointer-events-none'
+            }`}
+          >
+            <div className="bg-white border border-brand-gold rounded-3xl p-4 sm:p-5 shadow-[0_18px_45px_-12px_rgba(212,180,106,0.35)] ring-2 ring-brand-gold/25">
               {/* Status Badge & Flavour Heading */}
               <div className="flex items-start justify-between gap-2 mb-3.5">
                 <div>
-                  <span
-                    className={`inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full border mb-1.5 ${
-                      cut !== null
-                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                        : 'bg-brand-cream text-brand-caramel border-brand-chocolate/10'
-                    }`}
-                  >
+                  <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full border mb-1.5 bg-emerald-50 text-emerald-800 border-emerald-200">
                     <Sparkles className="w-3 h-3" />
-                    <span>{cut !== null ? 'Slice Cut & Inspected' : 'Inside Blueprint'}</span>
+                    <span>Slice Cut &amp; Inspected</span>
                   </span>
                   <h1 className="font-heading text-lg sm:text-xl font-bold text-[#301612] leading-tight">
                     {f.name}
@@ -454,9 +422,9 @@ export default function InteractiveCakeHero() {
                 </div>
               </div>
 
-              {/* Real Inner Slice Photograph (Revealed when Cake is Cut) or Isometric Cross-Section */}
-              <div className="mb-3.5">
-                {cut !== null ? (
+              {/* Real Inner Slice Photograph (Shown Only When Cake Is Cut) */}
+              {cut !== null && (
+                <div className="mb-3.5">
                   <div className="relative w-full h-44 sm:h-48 rounded-2xl overflow-hidden border border-brand-chocolate/15 shadow-sm bg-brand-cream/30 animate-in fade-in zoom-in-95 duration-300">
                     <img
                       src={f.innerImage}
@@ -467,10 +435,8 @@ export default function InteractiveCakeHero() {
                       Freshly Sliced &bull; Inside View
                     </div>
                   </div>
-                ) : (
-                  <LayerCrossSection layers={f.layers} />
-                )}
-              </div>
+                </div>
+              )}
 
               {/* Layer Ingredients Legend */}
               <ul className="space-y-1.5 mb-4 text-xs text-[#301612] font-medium">
