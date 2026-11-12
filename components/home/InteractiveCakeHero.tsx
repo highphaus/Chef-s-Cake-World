@@ -154,13 +154,13 @@ export default function InteractiveCakeHero() {
   return (
     <section
       style={themeVars}
-      className="relative w-full min-h-[100svh] flex flex-col justify-center overflow-hidden bg-white pt-24 sm:pt-28 lg:pt-28 pb-10 sm:pb-14 border-b border-brand-chocolate/10"
+      className="relative w-full flex flex-col justify-start overflow-hidden bg-white pt-16 sm:pt-20 lg:pt-20 pb-8 sm:pb-12 border-b border-brand-chocolate/10"
     >
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* 3-Column Photorealistic Interactive Cake Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* LEFT COLUMN: Choose Flavour Card */}
-          <div className="lg:col-span-3 order-2 lg:order-1 lg:self-start lg:mt-4">
+          <div className="lg:col-span-3 order-2 lg:order-1 lg:self-start">
             <div className="bg-white border border-brand-chocolate/12 rounded-3xl p-4 sm:p-5 shadow-[0_14px_40px_-12px_rgba(48,22,18,0.1)]">
               <div className="flex items-center justify-between mb-3.5">
                 <div>
