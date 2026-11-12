@@ -175,7 +175,7 @@ export default function InteractiveCakeHero() {
               </div>
 
               <div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 max-h-[196px] overflow-y-auto pr-1.5 cake-list-scroll"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 max-h-[272px] overflow-y-auto pr-1.5 cake-list-scroll"
                 role="group"
                 aria-label="Choose cake creation"
               >
