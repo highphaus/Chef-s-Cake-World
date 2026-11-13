@@ -8,7 +8,7 @@
   background-image: linear-gradient(90deg, var(--check) 50%, transparent 50%),
     linear-gradient(var(--check) 50%, transparent 50%);
   background-size: 64px 64px;
-  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   border-top: 2px solid rgba(48, 22, 18, 0.2);
   border-bottom: 2px solid rgba(48, 22, 18, 0.2);
@@ -26,26 +26,26 @@
   }
 }
 
-/* STICKY CONTAINER: Locks at the top while user scrolls through all flavours */
+/* STICKY CONTAINER: Locks at top: 72px under the fixed navbar */
 .cs-sticky {
   position: sticky;
-  top: 0;
+  top: 72px;
   left: 0;
   width: 100%;
-  height: 100vh;
-  height: 100svh;
+  height: calc(100vh - 72px);
+  height: calc(100svh - 72px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(4.5rem + env(safe-area-inset-top, 0px)) 1.5rem 2rem;
+  padding: 4.5rem 1.5rem 2rem;
   overflow: hidden;
   z-index: 20;
 }
 
-/* TOP TAG & CONTROLS */
+/* TOP BAR: LABEL & FLAVOUR PILLS */
 .cs-top-bar {
   position: absolute;
-  top: calc(1.25rem + env(safe-area-inset-top, 0px));
+  top: 1.25rem;
   left: 1.5rem;
   right: 1.5rem;
   display: flex;
@@ -107,7 +107,7 @@
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* MAIN 2-COL GRID */
+/* MAIN 2-COLUMN GRID */
 .cs-grid {
   width: 100%;
   max-width: 1160px;
@@ -131,7 +131,7 @@
 }
 
 .cs-cakes {
-  max-width: min(520px, 64vh);
+  max-width: min(500px, 62vh);
   justify-self: center;
   width: 100%;
 }
@@ -141,8 +141,9 @@
   grid-area: 1/1;
 }
 
+/* CAKE ROTATION ANIMATION */
 .cs-cake {
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
   will-change: transform, opacity;
 }
 
@@ -154,13 +155,13 @@
 }
 
 .cs-cake.past {
-  transform: translateY(-42%) rotate(-35deg) scale(0.72);
+  transform: translateY(-45%) rotate(-40deg) scale(0.7);
   opacity: 0;
   pointer-events: none;
 }
 
 .cs-cake.next {
-  transform: translateY(42%) rotate(35deg) scale(0.72);
+  transform: translateY(45%) rotate(40deg) scale(0.7);
   opacity: 0;
   pointer-events: none;
 }
@@ -168,6 +169,20 @@
 .cs-cake.on {
   transform: translateY(0) rotate(0deg) scale(1);
   opacity: 1;
+}
+
+/* GENTLE HOVER FLOAT ON ACTIVE CAKE */
+@keyframes cakeFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+.cs-cake.on svg {
+  animation: cakeFloat 4.5s ease-in-out infinite;
 }
 
 /* ARROW BUTTONS UNDER CAKE STAGE */
@@ -180,8 +195,8 @@
 }
 
 .cs-arrow-btn {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.6rem;
+  height: 2.6rem;
   border-radius: 50%;
   background: #FFFDF7;
   border: 2px solid #301612;
@@ -194,7 +209,7 @@
   transition: all 0.15s ease;
 }
 
-.cs-arrow-btn:hover {
+.cs-arrow-btn:hover:not(:disabled) {
   transform: translate(1px, 1px);
   box-shadow: 1px 1px 0 #301612;
   background: var(--accent);
@@ -202,13 +217,13 @@
 
 .cs-arrow-indicator {
   font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #FFFDF7;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
-/* CARDS */
+/* STORY CARDS */
 .cs-card {
   background: #FFFDF7;
   color: #301612;
@@ -221,7 +236,7 @@
   will-change: transform, opacity;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(25px);
+  transform: translateY(28px);
 }
 
 .cs-card.on {
@@ -393,7 +408,9 @@
   .cs-cake,
   .cs-card,
   .cs-dots button,
-  .cs-btn {
+  .cs-btn,
+  .cs-cake.on svg {
     transition: none;
+    animation: none;
   }
 }

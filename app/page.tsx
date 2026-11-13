@@ -661,7 +661,7 @@ export default function HomePage() {
   const activeProducts = getTabProducts();
 
   return (
-    <div className="space-y-16 sm:space-y-24 lg:space-y-28 pb-20 overflow-x-clip max-w-full bg-brand-cream text-brand-chocolate selection:bg-brand-caramel selection:text-white">
+    <div className="space-y-16 sm:space-y-24 lg:space-y-28 pb-20 max-w-full bg-brand-cream text-brand-chocolate selection:bg-brand-caramel selection:text-white">
       {/* ─────────────────────────────────────────────────────────────
           SECTION 1: THE INTERACTIVE CAKE HERO ("Cut the first slice")
       ────────────────────────────────────────────────────────────── */}

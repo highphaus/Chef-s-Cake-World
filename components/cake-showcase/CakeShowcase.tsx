@@ -80,9 +80,46 @@ export default function CakeShowcase({
 }: Props) {
   const [step, setStep] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const stickyRef = useRef<HTMLDivElement | null>(null);
+  const isTransitioningRef = useRef(false);
   const totalCount = flavours.length;
 
-  // Track window scroll to calculate exact active cake step
+  // 1. DIRECT MOUSE WHEEL INTERACTION:
+  // Rolling the wheel inside the sticky showcase immediately advances/rewinds cakes!
+  useEffect(() => {
+    const stickyEl = stickyRef.current;
+    if (!stickyEl) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const delta = e.deltaY;
+      if (Math.abs(delta) < 18) return;
+
+      // Allow natural page scroll if at bounds
+      if (step === 0 && delta < 0) return;
+      if (step === totalCount - 1 && delta > 0) return;
+
+      // Intercept wheel to step through cakes smoothly
+      e.preventDefault();
+      if (isTransitioningRef.current) return;
+
+      isTransitioningRef.current = true;
+      if (delta > 0) {
+        setStep((prev) => Math.min(totalCount - 1, prev + 1));
+      } else {
+        setStep((prev) => Math.max(0, prev - 1));
+      }
+
+      setTimeout(() => {
+        isTransitioningRef.current = false;
+      }, 500);
+    };
+
+    stickyEl.addEventListener('wheel', handleWheel, { passive: false });
+    return () => stickyEl.removeEventListener('wheel', handleWheel);
+  }, [step, totalCount]);
+
+  // 2. WINDOW SCROLL POSITION SYNC:
+  // When scrolling via scrollbar or page scroll, sync the active cake step
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -101,31 +138,59 @@ export default function CakeShowcase({
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [totalCount]);
 
-  // Smoothly scroll to a specific cake
-  const scrollToStep = (targetIdx: number) => {
-    const clamped = Math.max(0, Math.min(totalCount - 1, targetIdx));
-    if (!sectionRef.current) {
-      setStep(clamped);
-      return;
-    }
+  // 3. TOUCH SWIPE INTERACTION:
+  const touchStartY = useRef(0);
+  const touchStartX = useRef(0);
 
-    const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top;
-    const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
-    const targetOffset = (clamped / totalCount) * totalScrollable;
-
-    window.scrollTo({
-      top: sectionTop + targetOffset + 10,
-      behavior: 'smooth',
-    });
-    setStep(clamped);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+    touchStartX.current = e.touches[0].clientX;
   };
 
-  const handleNext = () => scrollToStep(step + 1);
-  const handlePrev = () => scrollToStep(step - 1);
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+
+    // Detect horizontal swipe or vertical swipe
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) {
+        setStep((prev) => Math.min(totalCount - 1, prev + 1));
+      } else {
+        setStep((prev) => Math.max(0, prev - 1));
+      }
+    } else if (Math.abs(diffY) > 50) {
+      if (diffY > 0 && step < totalCount - 1) {
+        setStep((prev) => Math.min(totalCount - 1, prev + 1));
+      } else if (diffY < 0 && step > 0) {
+        setStep((prev) => Math.max(0, prev - 1));
+      }
+    }
+  };
+
+  // 4. DIRECT STEP SELECTOR:
+  const goToStep = (targetIdx: number) => {
+    const clamped = Math.max(0, Math.min(totalCount - 1, targetIdx));
+    setStep(clamped);
+
+    // Sync window scroll smoothly if applicable
+    if (sectionRef.current) {
+      const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top;
+      const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
+      if (totalScrollable > 0) {
+        const targetOffset = (clamped / totalCount) * totalScrollable;
+        window.scrollTo({
+          top: sectionTop + targetOffset + 15,
+          behavior: 'smooth',
+        });
+      }
+    }
+  };
+
+  const handleNext = () => goToStep(step + 1);
+  const handlePrev = () => goToStep(step - 1);
 
   return (
     <section
@@ -138,8 +203,10 @@ export default function CakeShowcase({
         } as CSSProperties
       }
       aria-label={label}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
-      <div className="cs-sticky">
+      <div ref={stickyRef} className="cs-sticky">
         {/* TOP BAR: LABEL & QUICK FLAVOUR SELECTOR PILLS */}
         <div className="cs-top-bar">
           <span className="cs-tag">
@@ -154,7 +221,7 @@ export default function CakeShowcase({
                 <button
                   key={f.name}
                   type="button"
-                  onClick={() => scrollToStep(i)}
+                  onClick={() => goToStep(i)}
                   className={`cs-pill ${isActive ? 'active' : ''}`}
                 >
                   {f.name.split(' ')[0]} {f.name.split(' ')[1] || ''}
@@ -165,7 +232,7 @@ export default function CakeShowcase({
         </div>
 
         <div className="cs-grid">
-          {/* LEFT: ROTATING REAL CAKE PLATES WITH CONTROLS */}
+          {/* LEFT: ROTATING REAL CAKE PLATES WITH DIRECT ARROW CONTROLS */}
           <div className="cs-cakes-wrapper">
             <div className="cs-cakes">
               {flavours.map((f, i) => (
@@ -183,7 +250,10 @@ export default function CakeShowcase({
                 disabled={step === 0}
                 className="cs-arrow-btn"
                 title="Previous Cake"
-                style={{ opacity: step === 0 ? 0.4 : 1, cursor: step === 0 ? 'default' : 'pointer' }}
+                style={{
+                  opacity: step === 0 ? 0.4 : 1,
+                  cursor: step === 0 ? 'default' : 'pointer',
+                }}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -266,7 +336,7 @@ export default function CakeShowcase({
               type="button"
               aria-label={`Show ${f.name}`}
               aria-current={i === step ? 'true' : undefined}
-              onClick={() => scrollToStep(i)}
+              onClick={() => goToStep(i)}
               style={{ background: f.bg }}
               className="cursor-pointer"
             />
