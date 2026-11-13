@@ -67,10 +67,15 @@ export default function CakeShowcase({
 }: Props) {
   const items = flavours || categories;
   const [step, setStep] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const isTransitioningRef = useRef(false);
   const totalCount = items.length;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // 1. DIRECT MOUSE WHEEL INTERACTION:
   // Rolling the wheel inside the sticky showcase advances/rewinds cake categories

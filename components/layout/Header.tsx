@@ -40,6 +40,13 @@ export default function Header() {
   const [branchesDropdownOpen, setBranchesDropdownOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isEgglessActive, setIsEgglessActive] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsEgglessActive(pathname === '/cakes' && window.location.search.includes('eggless'));
+    }
+  }, [pathname]);
 
   const cakesRef = useRef<HTMLDivElement>(null);
   const branchesRef = useRef<HTMLDivElement>(null);
@@ -418,7 +425,7 @@ export default function Header() {
               <Link
                 href="/cakes?category=eggless-cakes"
                 className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${getNavLinkClass(
-                  pathname === '/cakes' && typeof window !== 'undefined' && window.location.search.includes('eggless')
+                  isEgglessActive
                 )}`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block shrink-0" />

@@ -53,8 +53,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} ${inter.variable} overflow-x-clip max-w-full font-sans`}>
-      <body className="min-h-screen flex flex-col bg-brand-cream text-brand-chocolate antialiased selection:bg-brand-caramel selection:text-white overflow-x-clip max-w-full relative">
+    <html lang="en" suppressHydrationWarning className={`${plusJakartaSans.variable} ${inter.variable} overflow-x-clip max-w-full font-sans`}>
+      <body suppressHydrationWarning className="min-h-screen flex flex-col bg-brand-cream text-brand-chocolate antialiased selection:bg-brand-caramel selection:text-white overflow-x-clip max-w-full relative">
         <AuthProvider>
           <CartProvider>
             <Header />
