@@ -36,42 +36,46 @@
 /* CENTER STAGE */
 .cs-stage {
   width: 100%;
-  max-width: 860px;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-/* BIGGER CAKE STAGE IN CENTER */
+/* 3D CAROUSEL CAKE DISPLAY */
 .cs-cakes-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  perspective: 1100px;
+  overflow: visible;
 }
 
 .cs-cakes {
-  width: min(540px, 52vh);
-  height: min(540px, 52vh);
+  width: min(450px, 47vh);
+  height: min(450px, 47vh);
   aspect-ratio: 1/1;
   display: grid;
   place-items: center;
   margin: 0 auto;
+  position: relative;
+  overflow: visible;
 }
 
 @media (min-width: 1024px) {
   .cs-cakes {
-    width: min(580px, 54vh);
-    height: min(580px, 54vh);
+    width: min(490px, 49vh);
+    height: min(490px, 49vh);
   }
 }
 
 @media (min-width: 1440px) {
   .cs-cakes {
-    width: min(640px, 56vh);
-    height: min(640px, 56vh);
+    width: min(530px, 51vh);
+    height: min(530px, 51vh);
   }
 }
 
@@ -84,9 +88,9 @@
   justify-content: center;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease;
+  transition: transform 0.44s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease, filter 0.32s ease;
   will-change: transform, opacity;
-  transform: translateZ(0);
+  transform-style: preserve-3d;
   backface-visibility: hidden;
 }
 
@@ -103,21 +107,64 @@
   overflow: visible;
 }
 
-.cs-cake.past {
-  transform: translate3d(0, -25%, 0) scale(0.75) rotate(-16deg);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.cs-cake.next {
-  transform: translate3d(0, 25%, 0) scale(0.75) rotate(16deg);
-  opacity: 0;
-  pointer-events: none;
-}
-
+/* CENTER CAKE: Big centerpiece */
+.cs-cake.center,
 .cs-cake.on {
-  transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  transform: translate3d(0, 0, 0) scale(1);
   opacity: 1;
+  z-index: 10;
+  pointer-events: auto;
+  filter: drop-shadow(0 20px 28px rgba(48, 22, 18, 0.28));
+  cursor: pointer;
+}
+
+/* LEFT SIDE CAKE: Previewed smaller to the left */
+.cs-cake.left,
+.cs-cake.past {
+  transform: translate3d(-78%, 0, -60px) scale(0.68) rotateY(16deg) rotate(-6deg);
+  opacity: 0.62;
+  z-index: 5;
+  pointer-events: auto;
+  filter: drop-shadow(0 10px 16px rgba(48, 22, 18, 0.16)) brightness(0.92);
+  cursor: pointer;
+}
+
+.cs-cake.left:hover,
+.cs-cake.past:hover {
+  opacity: 0.9;
+  transform: translate3d(-75%, 0, -30px) scale(0.72) rotateY(10deg) rotate(-3deg);
+}
+
+/* RIGHT SIDE CAKE: Previewed smaller to the right */
+.cs-cake.right,
+.cs-cake.next {
+  transform: translate3d(78%, 0, -60px) scale(0.68) rotateY(-16deg) rotate(6deg);
+  opacity: 0.62;
+  z-index: 5;
+  pointer-events: auto;
+  filter: drop-shadow(0 10px 16px rgba(48, 22, 18, 0.16)) brightness(0.92);
+  cursor: pointer;
+}
+
+.cs-cake.right:hover,
+.cs-cake.next:hover {
+  opacity: 0.9;
+  transform: translate3d(75%, 0, -30px) scale(0.72) rotateY(-10deg) rotate(3deg);
+}
+
+/* FAR SIDES: Hidden outside visible stage */
+.cs-cake.far-left {
+  transform: translate3d(-160%, 0, -160px) scale(0.42);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cs-cake.far-right {
+  transform: translate3d(160%, 0, -160px) scale(0.42);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* CATEGORY NAME & DETAILS UNDER THE CAKE (NO BIG BOX) */
@@ -239,8 +286,18 @@
     padding: 0.6rem 0.85rem 1.1rem;
   }
   .cs-cakes {
-    width: min(340px, 42vh);
-    height: min(340px, 42vh);
+    width: min(260px, 35vh);
+    height: min(260px, 35vh);
+  }
+  .cs-cake.left,
+  .cs-cake.past {
+    transform: translate3d(-68%, 0, -40px) scale(0.6) rotateY(12deg);
+    opacity: 0.55;
+  }
+  .cs-cake.right,
+  .cs-cake.next {
+    transform: translate3d(68%, 0, -40px) scale(0.6) rotateY(-12deg);
+    opacity: 0.55;
   }
   .cs-cat-name {
     font-size: 1.65rem;

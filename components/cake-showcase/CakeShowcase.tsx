@@ -9,6 +9,14 @@ import './CakeShowcase.css';
 const R = 212;
 
 const rel = (i: number, step: number) => (i === step ? 'on' : i < step ? 'past' : 'next');
+const getCakePos = (index: number, currentStep: number) => {
+  const diff = index - currentStep;
+  if (diff === 0) return 'center';
+  if (diff === -1) return 'left';
+  if (diff === 1) return 'right';
+  if (diff < -1) return 'far-left';
+  return 'far-right';
+};
 const vars = (c: CategoryCake) =>
   ({
     '--bg': c.bg,
@@ -216,21 +224,29 @@ export default function CakeShowcase({
       onTouchEnd={handleTouchEnd}
     >
       <div ref={stickyRef} className="cs-sticky">
-        {/* CENTER STAGE: BIGGER CAKE + CATEGORY NAME DIRECTLY UNDER (NO BIG BOX) */}
+        {/* CENTER STAGE: 3D CAROUSEL (BIGGER IN CENTER, PREVIEWS ON LEFT & RIGHT) */}
         <div className="cs-stage">
-          {/* 1. LARGER ROTATING CATEGORY CAKE IN CENTER */}
+          {/* 1. CAROUSEL CAKE DISPLAY */}
           <div className="cs-cakes-wrapper">
             <div className="cs-cakes">
               {items.map((c, i) => {
                 const categoryHref = c.slug || orderHref || '/cakes';
+                const pos = getCakePos(i, step);
+                const isCenter = i === step;
                 return (
                   <Link
                     key={c.name}
                     href={categoryHref}
-                    className={`cs-cake ${rel(i, step)}`}
+                    onClick={(e) => {
+                      if (!isCenter) {
+                        e.preventDefault();
+                        goToStep(i);
+                      }
+                    }}
+                    className={`cs-cake ${pos}`}
                     style={vars(c)}
-                    tabIndex={i === step ? 0 : -1}
-                    aria-label={`Explore ${c.name}`}
+                    tabIndex={isCenter ? 0 : -1}
+                    aria-label={isCenter ? `Explore ${c.name}` : `View ${c.name} in center`}
                   >
                     <CakeTop cake={c} />
                   </Link>
