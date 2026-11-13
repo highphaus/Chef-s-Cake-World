@@ -215,7 +215,7 @@ export default function CakeShowcase({
       className="cs"
       style={
         {
-          '--bg': items[step]?.bg || '#E8B984',
+          '--bg': '#FAF8F5',
           height: `${totalCount * 36}vh`,
         } as CSSProperties
       }

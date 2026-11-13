@@ -1,9 +1,9 @@
 .cs {
-  --bg: #E8B984;
+  --bg: #FAF8F5;
   position: relative;
   box-sizing: border-box;
-  background: #E8B984 !important;
-  background-color: #E8B984 !important;
+  background: #FAF8F5 !important;
+  background-color: #FAF8F5 !important;
   background-image: none !important;
   border-top: 1.5px solid rgba(48, 22, 18, 0.12);
   border-bottom: 1.5px solid rgba(48, 22, 18, 0.12);
