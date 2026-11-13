@@ -28,7 +28,7 @@ const vars = (c: CategoryCake) =>
 
 function CakeTop({ cake }: { cake: CategoryCake }) {
   return (
-    <div className="cs-cake-disc">
+    <div className="cs-cake-card">
       <img
         src={cake.image}
         alt={cake.name}
@@ -36,7 +36,7 @@ function CakeTop({ cake }: { cake: CategoryCake }) {
         loading="eager"
         draggable={false}
       />
-      <div className="cs-cake-ring" />
+      <div className="cs-cake-overlay" />
     </div>
   );
 }
@@ -201,7 +201,7 @@ export default function CakeShowcase({
       style={
         {
           '--bg': '#FAF8F5',
-          height: `${totalCount * 20}vh`,
+          height: `${totalCount * 13}vh`,
         } as CSSProperties
       }
       aria-label={label}
