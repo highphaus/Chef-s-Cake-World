@@ -109,9 +109,6 @@ export default function HomePage() {
   const [matchFlavor, setMatchFlavor] = useState<'chocolate' | 'velvet' | 'hazelnut' | 'biscoff'>('chocolate');
   const [matchDietary, setMatchDietary] = useState<'all' | 'eggless'>('all');
 
-  // Anatomy of a Masterpiece State
-  const [activeAnatomyLayer, setActiveAnatomyLayer] = useState(0);
-
   const getMatchedCake = () => {
     if (matchFlavor === 'chocolate') {
       return {
@@ -156,44 +153,6 @@ export default function HomePage() {
       serving: 'Serves 6–10 Guests',
     };
   };
-
-  const cakeAnatomyLayers = [
-    {
-      step: '01',
-      layer: 'Crown & 24K Edible Gold Leaf',
-      ingredient: 'Belgian Couverture Truffles & Pure Gold Leaf',
-      description: 'Every centerpiece is crowned with hand-rolled 70% dark truffles, Valrhona crispy chocolate pearls, and certified edible 24K gold foil.',
-      mouthfeel: 'Delicate crisp crunch followed by slow, luxurious melting richness.'
-    },
-    {
-      step: '02',
-      layer: 'Glossy Mirror Cocoa Drip',
-      ingredient: 'Single-Origin Callebaut Mirror Glaze',
-      description: 'Poured warm at precisely 32°C to create an immaculate dark chocolate glaze that retains its mirror shine throughout chilled delivery.',
-      mouthfeel: 'Silky smooth with a clean, intense cocoa aroma.'
-    },
-    {
-      step: '03',
-      layer: 'Silky Couverture Ganache',
-      ingredient: 'Fresh Dairy Cream & 70% Dark Chocolate',
-      description: 'Whipped in small artisan batches every morning with European farm dairy cream, never artificial hydrogenated vegetable fats.',
-      mouthfeel: 'Velvety, unctuous, and deeply comforting.'
-    },
-    {
-      step: '04',
-      layer: 'Moist Dutch-Processed Sponge',
-      ingredient: 'Dutch Alkalized Cocoa & Madagascar Bourbon Vanilla',
-      description: 'Slow-baked at gentle temperatures to yield a cloud-soft crumb with exceptional natural moisture retention.',
-      mouthfeel: 'Feather-light, perfectly balanced sweetness, melting softly on the tongue.'
-    },
-    {
-      step: '05',
-      layer: 'Piedmont Hazelnut Praline Base',
-      ingredient: 'Roasted Piedmont Hazelnuts & French Feuilletine',
-      description: 'The foundation layer provides structural integrity and an irresistible contrast with crispy caramelized wafer flakes and praline paste.',
-      mouthfeel: 'Crisp, toasted, and delightfully nutty.'
-    }
-  ];
 
   // Fetch initial live products from API
   useEffect(() => {
@@ -1018,105 +977,6 @@ export default function HomePage() {
                   </div>
                 );
               })()}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 6: ANATOMY OF A MASTERPIECE (Interactive Cross-Section)
-      ────────────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-[#1c0502] text-white p-6 sm:p-10 lg:p-14 shadow-xl">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 border-b border-white/10 pb-4">
-            <div>
-              <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-gold tracking-[0.2em] block mb-1">
-                Culinary Engineering
-              </span>
-              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-white">
-                Anatomy of a Masterwork
-              </h2>
-            </div>
-            <p className="text-xs sm:text-sm text-white/70 font-body max-w-md leading-relaxed">
-              Explore the five architectural layers engineered by our master chocolatiers for flawless mouthfeel and structural integrity.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left 5 Layer Selectors */}
-            <div className="lg:col-span-6 space-y-2.5">
-              {cakeAnatomyLayers.map((layer, lIdx) => {
-                const isSelected = activeAnatomyLayer === lIdx;
-                return (
-                  <button
-                    key={layer.step}
-                    type="button"
-                    onClick={() => setActiveAnatomyLayer(lIdx)}
-                    className={`w-full p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 ${
-                      isSelected
-                        ? 'bg-white/15 border-brand-gold text-white shadow-md scale-[1.01]'
-                        : 'bg-white/5 border-white/10 hover:border-white/25 text-white/70 hover:text-white'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className={`text-xs font-heading font-extrabold px-2 py-0.5 rounded-md ${isSelected ? 'bg-brand-gold text-brand-chocolate' : 'bg-white/10 text-brand-gold'}`}>
-                        {layer.step}
-                      </span>
-                      <span className="font-heading font-semibold text-xs sm:text-sm text-white truncate">
-                        {layer.layer}
-                      </span>
-                    </div>
-                    <span className="text-[10.5px] font-body text-brand-gold/80 shrink-0 hidden sm:inline">
-                      {layer.ingredient.split('&')[0]}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Right Layer Detail Card */}
-            <div className="lg:col-span-6">
-              <div className="p-6 sm:p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                  <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-brand-gold">
-                    Layer {cakeAnatomyLayers[activeAnatomyLayer].step} Profile
-                  </span>
-                  <span className="text-xs text-white/60 font-body">
-                    Handcrafted Daily
-                  </span>
-                </div>
-
-                <h3 className="font-heading text-xl sm:text-2xl font-bold text-white">
-                  {cakeAnatomyLayers[activeAnatomyLayer].layer}
-                </h3>
-
-                <div className="space-y-1">
-                  <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-brand-gold/90 block">
-                    Key Ingredients
-                  </span>
-                  <p className="text-xs sm:text-sm text-white font-medium">
-                    {cakeAnatomyLayers[activeAnatomyLayer].ingredient}
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-brand-gold/90 block">
-                    Crafting Technique
-                  </span>
-                  <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-body">
-                    {cakeAnatomyLayers[activeAnatomyLayer].description}
-                  </p>
-                </div>
-
-                <div className="pt-2 border-t border-white/10 flex items-start gap-2 text-xs">
-                  <Sparkles className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-semibold text-white">Sensory Mouthfeel: </span>
-                    <span className="text-white/80">{cakeAnatomyLayers[activeAnatomyLayer].mouthfeel}</span>
-                  </div>
-                </div>
-              </div>
             </div>
 
           </div>
