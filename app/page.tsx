@@ -626,62 +626,6 @@ export default function HomePage() {
       ────────────────────────────────────────────────────────────── */}
       <InteractiveCakeHero />
 
-
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 2: THE PHILOSOPHY BAR (MNC Minimal 4 Pillars)
-      ────────────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 py-6 border-y border-brand-chocolate/10">
-          <div className="space-y-1">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-brand-caramel block">
-              Pure Couverture
-            </span>
-            <h4 className="font-heading text-sm sm:text-base font-bold text-brand-chocolate">
-              100% Belgian Cocoa
-            </h4>
-            <p className="text-[11px] sm:text-xs text-brand-chocolate/70 leading-relaxed font-body">
-              Crafted exclusively with single-origin Callebaut, never vegetable fat substitutes.
-            </p>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-brand-caramel block">
-              Fresh Daily
-            </span>
-            <h4 className="font-heading text-sm sm:text-base font-bold text-brand-chocolate">
-              Baked to Celebration
-            </h4>
-            <p className="text-[11px] sm:text-xs text-brand-chocolate/70 leading-relaxed font-body">
-              Prepared fresh in the boutique nearest to your delivery address on celebration day.
-            </p>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-brand-caramel block">
-              Pure Vegetarian
-            </span>
-            <h4 className="font-heading text-sm sm:text-base font-bold text-brand-chocolate">
-              100% Eggless Kitchen
-            </h4>
-            <p className="text-[11px] sm:text-xs text-brand-chocolate/70 leading-relaxed font-body">
-              Certified separate eggless production lines with cloud-soft moisture and rich crumb.
-            </p>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-brand-caramel block">
-              Cold Chain Logistics
-            </span>
-            <h4 className="font-heading text-sm sm:text-base font-bold text-brand-chocolate">
-              Midnight &amp; Express
-            </h4>
-            <p className="text-[11px] sm:text-xs text-brand-chocolate/70 leading-relaxed font-body">
-              Temperature-controlled delivery ensuring chocolate mirror glaze and structural perfection.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* ─────────────────────────────────────────────────────────────
           SECTION 2.5: ARTISAN CATEGORY SHOWCASE (Category Section)
       ────────────────────────────────────────────────────────────── */}
