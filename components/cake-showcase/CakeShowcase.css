@@ -4,14 +4,14 @@
   --check: rgba(255, 255, 255, 0.08);
   position: relative;
   box-sizing: border-box;
-  border-top: 2px solid rgba(48, 22, 18, 0.2);
-  border-bottom: 2px solid rgba(48, 22, 18, 0.2);
   background-color: var(--page);
   background-image: linear-gradient(90deg, var(--check) 50%, transparent 50%),
     linear-gradient(var(--check) 50%, transparent 50%);
   background-size: 64px 64px;
-  transition: background-color 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  border-top: 2px solid rgba(48, 22, 18, 0.2);
+  border-bottom: 2px solid rgba(48, 22, 18, 0.2);
 }
 
 .cs *,
@@ -26,25 +26,40 @@
   }
 }
 
+/* STICKY CONTAINER: Locks at the top while user scrolls through all flavours */
 .cs-sticky {
   position: sticky;
   top: 0;
+  left: 0;
+  width: 100%;
   height: 100vh;
   height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(4.5rem + env(safe-area-inset-top, 0px)) 1.25rem 2rem;
+  padding: calc(4.5rem + env(safe-area-inset-top, 0px)) 1.5rem 2rem;
   overflow: hidden;
+  z-index: 20;
+}
+
+/* TOP TAG & CONTROLS */
+.cs-top-bar {
+  position: absolute;
+  top: calc(1.25rem + env(safe-area-inset-top, 0px));
+  left: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 30;
+  flex-wrap: wrap;
 }
 
 .cs-tag {
-  position: absolute;
-  top: calc(1.5rem + env(safe-area-inset-top, 0px));
-  left: 2rem;
   font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   letter-spacing: 0.02em;
   background: #FFFDF7;
   color: #301612;
@@ -52,14 +67,52 @@
   border: 2px solid #301612;
   border-radius: 999px;
   box-shadow: 3px 3px 0 #301612;
-  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
+.cs-flavour-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 0.2rem;
+}
+
+.cs-pill {
+  font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1.5px solid #301612;
+  background: rgba(255, 253, 247, 0.85);
+  color: #301612;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.cs-pill:hover {
+  background: #FFFDF7;
+  transform: translateY(-1px);
+}
+
+.cs-pill.active {
+  background: #301612;
+  color: #FFFDF7;
+  border-color: #301612;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* MAIN 2-COL GRID */
 .cs-grid {
   width: 100%;
-  max-width: 1140px;
+  max-width: 1160px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 2.5rem 3.5rem;
   align-items: center;
 }
@@ -70,9 +123,17 @@
   width: 100%;
 }
 
+.cs-cakes-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .cs-cakes {
-  max-width: min(540px, 68vh);
+  max-width: min(520px, 64vh);
   justify-self: center;
+  width: 100%;
 }
 
 .cs-cake,
@@ -81,27 +142,73 @@
 }
 
 .cs-cake {
-  transition: transform 0.9s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+  will-change: transform, opacity;
 }
 
 .cs-cake svg {
   width: 100%;
+  height: auto;
   display: block;
   overflow: visible;
 }
 
 .cs-cake.past {
-  transform: translateY(-45%) rotate(-40deg) scale(0.7);
+  transform: translateY(-42%) rotate(-35deg) scale(0.72);
   opacity: 0;
   pointer-events: none;
 }
 
 .cs-cake.next {
-  transform: translateY(45%) rotate(40deg) scale(0.7);
+  transform: translateY(42%) rotate(35deg) scale(0.72);
   opacity: 0;
   pointer-events: none;
 }
 
+.cs-cake.on {
+  transform: translateY(0) rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+/* ARROW BUTTONS UNDER CAKE STAGE */
+.cs-arrows {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  z-index: 25;
+}
+
+.cs-arrow-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #FFFDF7;
+  border: 2px solid #301612;
+  color: #301612;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #301612;
+  transition: all 0.15s ease;
+}
+
+.cs-arrow-btn:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #301612;
+  background: var(--accent);
+}
+
+.cs-arrow-indicator {
+  font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FFFDF7;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* CARDS */
 .cs-card {
   background: #FFFDF7;
   color: #301612;
@@ -110,24 +217,27 @@
   padding: 1.75rem 2rem;
   box-shadow: 6px 6px 0 #301612;
   max-width: 32rem;
-  transition: transform 0.7s cubic-bezier(0.2, 1.1, 0.3, 1), opacity 0.5s,
-    visibility 0s 0.5s;
-  visibility: hidden;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  will-change: transform, opacity;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(25px);
 }
 
 .cs-card.on {
-  visibility: visible;
-  transition-delay: 0.2s, 0.2s, 0s;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .cs-card.past {
-  transform: translateY(-40px) rotate(-2deg);
+  transform: translateY(-30px) rotate(-1.5deg);
   opacity: 0;
   pointer-events: none;
 }
 
 .cs-card.next {
-  transform: translateY(40px) rotate(2deg);
+  transform: translateY(30px) rotate(1.5deg);
   opacity: 0;
   pointer-events: none;
 }
@@ -143,7 +253,7 @@
 .cs-card h3 {
   font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
   font-weight: 800;
-  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  font-size: clamp(1.5rem, 2.5vw, 2.05rem);
   line-height: 1.15;
   color: #301612;
   margin: 0.35rem 0 0.65rem;
@@ -153,7 +263,7 @@
   margin: 0 0 1rem;
   line-height: 1.55;
   font-size: 0.95rem;
-  color: rgba(48, 22, 18, 0.8);
+  color: rgba(48, 22, 18, 0.82);
 }
 
 .cs-card ul {
@@ -217,6 +327,7 @@
   outline-offset: 3px;
 }
 
+/* SIDE DOTS */
 .cs-dots {
   position: absolute;
   right: 1.5rem;
@@ -224,7 +335,7 @@
   transform: translateY(-50%);
   display: grid;
   gap: 0.8rem;
-  z-index: 10;
+  z-index: 30;
 }
 
 .cs-dots button {
@@ -243,24 +354,13 @@
   box-shadow: 0 0 0 3px #FFFDF7, 0 0 0 5px #301612;
 }
 
-.cs-marks {
-  margin-top: -100vh;
-  margin-top: -100svh;
-  pointer-events: none;
-}
-
-.cs-marks div {
-  height: 100vh;
-  height: 100svh;
-}
-
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .cs-grid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
   }
   .cs-cakes {
-    max-width: min(100%, 36vh);
+    max-width: min(100%, 34vh);
   }
   .cs-card {
     padding: 1.25rem 1.4rem;
@@ -272,13 +372,19 @@
   }
   .cs-dots {
     right: 0.75rem;
-    top: 5.5rem;
+    top: auto;
+    bottom: 1.5rem;
     transform: none;
+    display: flex;
+    flex-direction: row;
   }
-  .cs-tag {
+  .cs-top-bar {
     left: 1rem;
+    right: 1rem;
     top: 1rem;
-    font-size: 0.85rem;
+  }
+  .cs-flavour-pills {
+    display: none;
   }
 }
 
