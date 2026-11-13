@@ -870,64 +870,6 @@ export default function HomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 5: THE BESPOKE COUTURE ATELIER (Editorial Split)
-      ────────────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-brand-chocolate text-white p-6 sm:p-10 lg:p-16 shadow-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column: Editorial Narrative */}
-            <div className="lg:col-span-7 space-y-4 sm:space-y-6">
-              <span className="text-[10px] sm:text-xs uppercase font-bold tracking-[0.2em] text-brand-gold block">
-                Bespoke Confectionery Atelier
-              </span>
-
-              <h2 className="font-heading text-2xl xs:text-3xl sm:text-4xl lg:text-5xl text-brand-cream leading-tight">
-                Where Sculptural Art Meets Haute Pâtisserie.
-              </h2>
-
-              <p className="text-xs sm:text-sm lg:text-base text-brand-cream/80 leading-relaxed font-body max-w-xl">
-                From multi-tiered sculpted wedding floral centerpieces to bespoke conceptual birthday cakes, our master
-                decorators transform your imagination into edible reality with pure Belgian couverture and zero artificial compromises.
-              </p>
-
-              <div className="pt-2 flex flex-wrap gap-3">
-                <Link
-                  href="/custom-cakes"
-                  className="btn font-body font-semibold py-3 px-7 rounded-full bg-brand-caramel hover:bg-white text-white hover:text-brand-chocolate text-xs sm:text-sm transition-all shadow-md active:scale-95 flex items-center gap-2 group/btn"
-                >
-                  <span>Commission a Custom Cake</span>
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </Link>
-
-                <Link
-                  href="/branches"
-                  className="btn font-body font-semibold py-3 px-6 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm border border-white/20 transition-all active:scale-95"
-                >
-                  <span>Consult at Boutique</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Column: Editorial Visual */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-white/5">
-                <img
-                  src="/Cakes/e8b9a0c87a7d23ac176188e63655a4d1.jpg"
-                  alt="Bespoke Cake Atelier"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/50 backdrop-blur-md border border-white/20 text-xs">
-                  <p className="font-heading text-brand-gold font-bold">Grand Tiered Masterwork</p>
-                  <p className="text-[11px] text-white/80 font-body">24K Edible Gold &bull; Hand-sculpted Florals</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────────
           SECTION 8: THE FOUR PILLARS OF DISTINCTION (Culinary Integrity)
       ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
