@@ -50,26 +50,10 @@
   right: 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
   z-index: 30;
   flex-wrap: wrap;
-}
-
-.cs-tag {
-  font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.02em;
-  background: #FFFDF7;
-  color: #301612;
-  padding: 0.35rem 1.1rem;
-  border: 2px solid #301612;
-  border-radius: 999px;
-  box-shadow: 3px 3px 0 #301612;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
 }
 
 .cs-flavour-pills {

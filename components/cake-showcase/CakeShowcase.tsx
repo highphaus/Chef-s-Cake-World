@@ -207,13 +207,8 @@ export default function CakeShowcase({
       onTouchEnd={handleTouchEnd}
     >
       <div ref={stickyRef} className="cs-sticky">
-        {/* TOP BAR: LABEL & QUICK FLAVOUR SELECTOR PILLS */}
+        {/* TOP BAR: QUICK FLAVOUR SELECTOR PILLS */}
         <div className="cs-top-bar">
-          <span className="cs-tag">
-            <Sparkles className="w-3.5 h-3.5 text-brand-caramel" />
-            <span>{label}</span>
-          </span>
-
           <div className="cs-flavour-pills">
             {flavours.map((f, i) => {
               const isActive = i === step;

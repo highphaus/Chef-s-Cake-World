@@ -34,7 +34,6 @@ import { OFFICIAL_BRANCHES } from '@/lib/branchesData';
 import ProductCard from '@/components/products/ProductCard';
 import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 import InteractiveCakeHero from '@/components/home/InteractiveCakeHero';
-import CakeShowcase from '@/components/cake-showcase/CakeShowcase';
 
 const customerReviews = [
   {
@@ -723,10 +722,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 2.5: FLAVOUR SHOWCASE (Scroll-pinned spinning cake)
-      ────────────────────────────────────────────────────────────── */}
-      <CakeShowcase label="Signature Flavour Showcase" orderHref="/cakes" />
 
       {/* ─────────────────────────────────────────────────────────────
           SECTION 3: CURATED COLLECTIONS (EDITORIAL GALLERY PLATES)
