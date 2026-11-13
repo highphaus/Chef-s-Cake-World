@@ -236,27 +236,18 @@ export default function Header() {
   ];
 
   const isHomePage = pathname === '/';
-  const isTransparent = !isScrolled && !searchOpen && isHomePage;
 
   const getNavLinkClass = (active: boolean) => {
     if (active) {
-      return isTransparent
-        ? 'text-[#301612] bg-white/70 backdrop-blur-xs border border-[#301612]/15 font-bold shadow-2xs'
-        : 'text-brand-chocolate bg-brand-peach/70 font-bold shadow-2xs';
+      return 'text-brand-gold bg-white/10 font-bold shadow-2xs';
     }
-    return isTransparent
-      ? 'text-[#301612]/90 hover:text-[#301612] hover:bg-white/50'
-      : 'text-brand-chocolate/85 hover:text-brand-caramel hover:bg-brand-cream/80';
+    return 'text-brand-cream/85 hover:text-brand-gold hover:bg-white/5';
   };
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 w-full max-w-full transition-all duration-300 ${
-          isTransparent
-            ? 'bg-transparent border-b border-transparent shadow-none text-[#301612]'
-            : 'bg-brand-cream/90 backdrop-blur-md shadow-sm border-b border-brand-chocolate/10 text-brand-chocolate'
-        }`}
+        className="fixed top-0 left-0 right-0 z-40 w-full max-w-full transition-all duration-300 bg-brand-chocolate text-brand-cream shadow-md border-b border-brand-caramel/25"
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
           <div className="flex items-center justify-between h-16 sm:h-20 lg:h-[88px] xl:h-24 gap-2 xl:gap-6">
@@ -272,10 +263,8 @@ export default function Header() {
                 }}
                 className={`p-2 -ml-1 rounded-xl transition-all shrink-0 lg:hidden ${
                   mobileMenuOpen
-                    ? 'bg-brand-peach text-brand-caramel'
-                    : isTransparent
-                    ? 'text-[#301612] hover:bg-white/50'
-                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                    ? 'bg-white/15 text-brand-gold'
+                    : 'text-brand-cream hover:text-brand-gold hover:bg-white/10'
                 }`}
                 aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
                 title="Menu"
@@ -321,7 +310,7 @@ export default function Header() {
                   <span>Cakes</span>
                   <ChevronDown
                     className={`w-3 h-3 transition-transform duration-200 ${
-                      cakesDropdownOpen ? 'rotate-180 text-brand-caramel' : ''
+                      cakesDropdownOpen ? 'rotate-180 text-brand-gold' : 'text-brand-cream/60'
                     }`}
                   />
                 </Link>
@@ -532,11 +521,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(!searchOpen)}
-                className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
-                  isTransparent
-                    ? 'text-[#301612] hover:bg-white/50'
-                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
-                }`}
+                className="p-1.5 sm:p-2 rounded-lg transition-colors text-brand-cream hover:text-brand-gold hover:bg-white/10"
                 title="Search celebratory cakes"
                 aria-label="Open Search"
               >
@@ -548,11 +533,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className={`p-1.5 sm:p-2 rounded-lg transition-colors flex items-center justify-center ${
-                    isTransparent
-                      ? 'text-[#301612] hover:bg-white/50'
-                      : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
-                  }`}
+                  className="p-1.5 sm:p-2 rounded-lg transition-colors flex items-center justify-center text-brand-cream hover:text-brand-gold hover:bg-white/10"
                   aria-label="User account"
                   title={user ? user.name : 'Sign In / Account'}
                 >
@@ -638,17 +619,13 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className={`relative p-1.5 sm:p-2 rounded-lg transition-colors group focus:outline-none shrink-0 ${
-                  isTransparent
-                    ? 'text-[#301612] hover:bg-white/50'
-                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
-                }`}
+                className="relative p-1.5 sm:p-2 rounded-lg transition-colors group focus:outline-none shrink-0 text-brand-cream hover:text-brand-gold hover:bg-white/10"
                 aria-label={`Cake box containing ${itemCount} items`}
                 title="View your celebration cake box"
               >
                 <CakeSlice className="w-4.5 h-4.5 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-200" />
                 {itemCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-brand-caramel text-white font-bold text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-xs">
+                  <span className="absolute -top-0.5 -right-0.5 bg-brand-gold text-brand-chocolate font-extrabold text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-xs">
                     {itemCount}
                   </span>
                 )}
@@ -672,10 +649,8 @@ export default function Header() {
                 }}
                 className={`p-2 rounded-xl transition-all ${
                   searchOpen
-                    ? 'bg-brand-peach text-brand-caramel'
-                    : isTransparent
-                    ? 'text-[#301612] hover:bg-white/50'
-                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
+                    ? 'bg-white/15 text-brand-gold'
+                    : 'text-brand-cream hover:text-brand-gold hover:bg-white/10'
                 }`}
                 aria-label="Search celebration cakes"
                 title="Search cakes"
@@ -687,17 +662,13 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className={`relative p-2 rounded-xl transition-colors shrink-0 ${
-                  isTransparent
-                    ? 'text-[#301612] hover:bg-white/50'
-                    : 'text-brand-chocolate hover:text-brand-caramel hover:bg-brand-peach/40'
-                }`}
+                className="relative p-2 rounded-xl transition-colors shrink-0 text-brand-cream hover:text-brand-gold hover:bg-white/10"
                 aria-label={`View cart with ${itemCount} items`}
                 title="View cart"
               >
                 <ShoppingBag className="w-5 h-5" />
                 {itemCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-brand-caramel text-white font-bold text-[9.5px] min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs border border-white leading-none">
+                  <span className="absolute -top-0.5 -right-0.5 bg-brand-gold text-brand-chocolate font-extrabold text-[9.5px] min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs leading-none">
                     {itemCount > 99 ? '99+' : itemCount}
                   </span>
                 )}
@@ -708,7 +679,7 @@ export default function Header() {
 
         {/* 5. Expanding Luxury Search Drawer */}
         {searchOpen && (
-          <div className="border-t border-brand-chocolate/10 bg-white/95 backdrop-blur-md px-4 py-4 animate-in fade-in slide-in-from-top-1 duration-200">
+          <div className="border-t border-brand-caramel/25 bg-brand-chocolate text-brand-cream px-4 py-4 animate-in fade-in slide-in-from-top-1 duration-200">
             <div className="max-w-4xl mx-auto space-y-3">
               <form onSubmit={handleSearchSubmit} className="relative">
                 <input
@@ -717,12 +688,12 @@ export default function Header() {
                   placeholder="Search celebratory cakes by flavor, occasion, weight..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-11 pr-24 py-3 rounded-2xl border border-brand-chocolate/20 text-sm font-semibold text-brand-chocolate bg-brand-cream/20 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-caramel"
+                  className="w-full pl-11 pr-24 py-3 rounded-2xl border border-brand-caramel/30 text-sm font-semibold text-white bg-white/10 placeholder-brand-cream/60 focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-brand-gold"
                 />
-                <Search className="w-5 h-5 text-brand-chocolate/50 absolute left-4 top-1/2 -translate-y-1/2" />
+                <Search className="w-5 h-5 text-brand-cream/60 absolute left-4 top-1/2 -translate-y-1/2" />
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 rounded-xl bg-brand-chocolate text-brand-gold text-xs font-bold hover:bg-brand-caramel hover:text-white transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 rounded-xl bg-brand-caramel text-white text-xs font-bold hover:bg-brand-gold hover:text-brand-chocolate transition-colors"
                 >
                   Search
                 </button>
@@ -730,7 +701,7 @@ export default function Header() {
 
               {/* Quick Tags */}
               <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                <span className="text-brand-chocolate/60 font-semibold">Popular Searches:</span>
+                <span className="text-brand-cream/70 font-semibold">Popular Searches:</span>
                 {quickSearchTags.map((tag) => (
                   <button
                     key={tag}
@@ -739,7 +710,7 @@ export default function Header() {
                       setSearchQuery(tag);
                       window.location.href = `/cakes?search=${encodeURIComponent(tag)}`;
                     }}
-                    className="px-2.5 py-1 rounded-lg bg-brand-cream text-brand-chocolate hover:bg-brand-peach font-medium transition-colors text-[11px]"
+                    className="px-2.5 py-1 rounded-lg bg-white/10 text-brand-cream hover:bg-brand-caramel hover:text-white font-medium transition-colors text-[11px]"
                   >
                     {tag}
                   </button>
@@ -750,10 +721,8 @@ export default function Header() {
         )}
       </header>
 
-      {/* Spacer for non-homepage routes so content is not obscured by the fixed header */}
-      {!isHomePage && (
-        <div className="h-16 sm:h-20 lg:h-[88px] xl:h-24 w-full" aria-hidden="true" />
-      )}
+      {/* Spacer so content is not obscured by the fixed header */}
+      <div className="h-16 sm:h-20 lg:h-[88px] xl:h-24 w-full" aria-hidden="true" />
 
       {/* 6. Mobile Side Drawer Navigation */}
       {mobileMenuOpen && (

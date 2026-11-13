@@ -220,64 +220,48 @@ export default function HomePage() {
       name: 'Birthday Favorites',
       slug: 'birthday-cakes',
       image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg',
-      price: 'From ₹599',
-      badge: 'Popular',
       blurb: 'Artisanal birthday & celebration cakes baked fresh daily.',
     },
     {
       name: 'Belgian Couverture',
       slug: 'chocolate-cakes',
       image: '/Cakes/cake.jpg',
-      price: 'From ₹649',
-      badge: 'Signature',
       blurb: 'Single-origin 70% Callebaut dark ganache creations.',
     },
     {
       name: 'Artisan Pastries',
       slug: 'pastries',
       image: '/Cakes/38499c1ae99d95bfe134d660e4c5d6ea.jpg',
-      price: 'From ₹119',
-      badge: 'Fresh Daily',
       blurb: 'French wild blueberry cheesecake, truffles & slices.',
     },
     {
       name: 'Pure Eggless',
       slug: 'eggless-cakes',
       image: '/Cakes/6077fa416087bf801e907887a53cfe1d.jpg',
-      price: 'From ₹649',
-      badge: '100% Pure Veg',
       blurb: 'Certified pure vegetarian oven with cloud-soft moisture.',
     },
     {
       name: 'Wedding Atelier',
       slug: 'wedding-cakes',
       image: '/Cakes/da137e0e2f85163498af483676d4ccd8.jpg',
-      price: 'From ₹1,800',
-      badge: 'Bespoke Tiers',
       blurb: 'Architectural multi-tier centerpieces with 24K gold foil.',
     },
     {
       name: 'Sweets & Desserts',
       slug: 'sweets-desserts',
       image: '/Cakes/b3392f499749364b011f93c6634cf890.jpg',
-      price: 'From ₹139',
-      badge: 'Handcrafted',
       blurb: 'Parisian macarons, saffron rabdi & fudge brownies.',
     },
     {
       name: 'Bespoke Custom',
       slug: 'designer-cakes',
       image: '/Cakes/3b109e1a28abe394a7b3a23ecf94450b.jpg',
-      price: 'From ₹899',
-      badge: 'Custom Themes',
       blurb: 'Hand-sculpted celebration cakes made to your theme.',
     },
     {
       name: 'Anniversary Luxe',
       slug: 'anniversary-cakes',
       image: '/Cakes/2bb7cee4f7aea565457d0eec341cb3d7.jpg',
-      price: 'From ₹749',
-      badge: 'Romantic',
       blurb: 'Heart-shaped red velvet cakes with Belgian chocolate accents.',
     },
   ];
@@ -287,8 +271,6 @@ export default function HomePage() {
         ...DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length],
         ...cat,
         image: cat.image || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].image,
-        price: cat.price || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].price,
-        badge: cat.badge || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].badge,
         blurb: cat.blurb || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].blurb,
       }))
     : DEFAULT_CATEGORIES;
@@ -693,7 +675,7 @@ export default function HomePage() {
               href={`/cakes?category=${cat.slug}`}
               className="group flex flex-col w-[235px] xs:w-[255px] shrink-0 snap-start bg-white rounded-2xl border border-brand-chocolate/10 shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden active:scale-[0.99]"
             >
-              {/* Image Container with Badges */}
+              {/* Image Container */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-brand-chocolate/5">
                 <img
                   src={cat.image}
@@ -701,21 +683,7 @@ export default function HomePage() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-
-                {/* Top Floating Badges */}
-                <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1 pointer-events-none">
-                  {cat.price && (
-                    <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-white/95 text-brand-chocolate shadow-xs border border-brand-chocolate/10">
-                      {cat.price}
-                    </span>
-                  )}
-                  {cat.badge && (
-                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#301612]/90 text-[#E8B984] backdrop-blur-xs">
-                      {cat.badge}
-                    </span>
-                  )}
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
 
               {/* Body Content & Explore CTA */}
@@ -731,11 +699,8 @@ export default function HomePage() {
                   )}
                 </div>
 
-                <div className="pt-2 border-t border-brand-chocolate/8 flex items-center justify-between mt-auto">
-                  <span className="text-[10px] font-semibold text-brand-chocolate/60">
-                    Artisanal
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#301612] text-[#E8B984] group-hover:bg-brand-caramel group-hover:text-[#301612] transition-all shadow-xs">
+                <div className="pt-2 border-t border-brand-chocolate/8 flex items-center justify-end mt-auto">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold bg-[#301612] text-[#E8B984] group-hover:bg-brand-caramel group-hover:text-[#301612] transition-all shadow-xs">
                     Explore
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                   </span>
@@ -753,7 +718,7 @@ export default function HomePage() {
               href={`/cakes?category=${cat.slug}`}
               className="group flex flex-col bg-white rounded-2xl sm:rounded-3xl border border-brand-chocolate/10 hover:border-brand-caramel/60 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             >
-              {/* Image Container with Badges */}
+              {/* Image Container */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-brand-chocolate/5">
                 <img
                   src={cat.image}
@@ -761,21 +726,7 @@ export default function HomePage() {
                   className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
-
-                {/* Top Floating Badges */}
-                <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1 pointer-events-none">
-                  {cat.price && (
-                    <span className="text-[10px] sm:text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-white/95 text-brand-chocolate shadow-xs border border-brand-chocolate/10">
-                      {cat.price}
-                    </span>
-                  )}
-                  {cat.badge && (
-                    <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#301612]/85 text-[#E8B984] backdrop-blur-xs">
-                      {cat.badge}
-                    </span>
-                  )}
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
               </div>
 
               {/* Body Content & Explore CTA */}
@@ -791,11 +742,8 @@ export default function HomePage() {
                   )}
                 </div>
 
-                <div className="pt-2 border-t border-brand-chocolate/8 flex items-center justify-between mt-auto">
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-brand-chocolate/60 group-hover:text-brand-caramel transition-colors font-body hidden sm:inline">
-                    Browse atelier
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-[#301612] text-[#E8B984] group-hover:bg-brand-caramel group-hover:text-[#301612] transition-all shadow-xs ml-auto">
+                <div className="pt-2 border-t border-brand-chocolate/8 flex items-center justify-end mt-auto">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-[#301612] text-[#E8B984] group-hover:bg-brand-caramel group-hover:text-[#301612] transition-all shadow-xs">
                     Explore
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                   </span>
