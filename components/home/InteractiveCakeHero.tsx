@@ -48,6 +48,54 @@ export default function InteractiveCakeHero() {
   const hoverAngleRef = useRef(-38);
   const hoverGuideRef = useRef<SVGGElement>(null);
 
+  // Mobile Carousel Touch & Gesture Navigation
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const isSwiping = useRef(false);
+
+  const handleMobileTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    isSwiping.current = false;
+  };
+
+  const handleMobileTouchMove = (e: React.TouchEvent) => {
+    const diffX = e.touches[0].clientX - touchStartX.current;
+    const diffY = e.touches[0].clientY - touchStartY.current;
+    if (Math.abs(diffX) > 10 && Math.abs(diffX) > Math.abs(diffY)) {
+      isSwiping.current = true;
+    }
+  };
+
+  const handleMobileTouchEnd = (e: React.TouchEvent) => {
+    const diffX = e.changedTouches[0].clientX - touchStartX.current;
+    const diffY = e.changedTouches[0].clientY - touchStartY.current;
+
+    // Horizontal swipe detected
+    if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX < 0) {
+        // Swipe left -> Next cake
+        setIdx((prev) => (prev + 1) % HERO_FLAVOURS.length);
+      } else {
+        // Swipe right -> Previous cake
+        setIdx((prev) => (prev - 1 + HERO_FLAVOURS.length) % HERO_FLAVOURS.length);
+      }
+      setCut(null);
+      setSparks([]);
+    } else if (!isSwiping.current && Math.abs(diffX) < 10 && Math.abs(diffY) < 10) {
+      // Clean tap detected -> Cut slice
+      doCut(-38);
+    }
+  };
+
+  const getMobilePos = (itemIdx: number) => {
+    const total = HERO_FLAVOURS.length;
+    let diff = (itemIdx - idx) % total;
+    if (diff < -Math.floor(total / 2)) diff += total;
+    if (diff > Math.floor(total / 2)) diff -= total;
+    return diff;
+  };
+
   const f = HERO_FLAVOURS[idx];
 
   const getPriceForWeight = (basePrice: number, weight: '0.5kg' | '1kg' | '2kg') => {
@@ -159,8 +207,8 @@ export default function InteractiveCakeHero() {
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* 3-Column Photorealistic Interactive Cake Stage */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-start">
-          {/* LEFT COLUMN: Choose Flavour Card */}
-          <div className="lg:col-span-3 order-2 lg:order-1 lg:self-start lg:mt-10">
+          {/* LEFT COLUMN: Choose Flavour Card (DESKTOP ONLY) */}
+          <div className="hidden lg:block lg:col-span-3 lg:order-1 lg:self-start lg:mt-10">
             <div className="bg-white border border-brand-chocolate/12 rounded-3xl p-4 sm:p-5 shadow-[0_14px_40px_-12px_rgba(48,22,18,0.1)]">
               <div className="flex items-center justify-between mb-3.5">
                 <div>
@@ -250,157 +298,387 @@ export default function InteractiveCakeHero() {
           </div>
 
           {/* CENTER COLUMN: Photorealistic Sliceable Real Cake Stage */}
-          <div className="lg:col-span-6 order-1 lg:order-2 relative flex flex-col items-center justify-center lg:-mt-6">
-            <div className="relative w-full max-w-[480px] sm:max-w-[580px] lg:max-w-[620px] aspect-square mx-auto">
-              <svg
-                className="relative z-10 w-full h-full block cursor-default touch-manipulation overflow-visible select-none focus:outline-none"
-                viewBox="-310 -310 620 620"
-                role="button"
-                tabIndex={0}
-                aria-label="Interactive Real Cake. Move pointer over cake to aim knife blade, click or press Enter to cut a slice."
-                onPointerMove={handlePointerMove}
-                onPointerLeave={handlePointerLeave}
-                onClick={handleSvgClick}
-                onKeyDown={handleKeyDown}
-              >
-                <defs>
-                  {/* Dynamic Clip Path for Main Cake Body */}
-                  <clipPath id={bodyClipId}>
-                    <path d={bodyPath(cut)} />
-                  </clipPath>
+          <div className="lg:col-span-6 order-1 lg:order-2 relative flex flex-col items-center justify-center lg:-mt-6 w-full">
+            {/* 1. DESKTOP VIEW (100% Original Slicing & Aiming Experience for Bigger Devices) */}
+            <div className="hidden lg:flex flex-col items-center justify-center w-full">
+              <div className="relative w-full max-w-[480px] sm:max-w-[580px] lg:max-w-[620px] aspect-square mx-auto">
+                <svg
+                  className="relative z-10 w-full h-full block cursor-default touch-manipulation overflow-visible select-none focus:outline-none"
+                  viewBox="-310 -310 620 620"
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Interactive Real Cake. Move pointer over cake to aim knife blade, click or press Enter to cut a slice."
+                  onPointerMove={handlePointerMove}
+                  onPointerLeave={handlePointerLeave}
+                  onClick={handleSvgClick}
+                  onKeyDown={handleKeyDown}
+                >
+                  <defs>
+                    {/* Dynamic Clip Path for Main Cake Body */}
+                    <clipPath id={bodyClipId}>
+                      <path d={bodyPath(cut)} />
+                    </clipPath>
 
-                  {/* Fixed Clip Path for Wedge Slice */}
-                  <clipPath id="cakeWedgeClip">
-                    <path d={sector(R, HALF)} />
-                  </clipPath>
+                    {/* Fixed Clip Path for Wedge Slice */}
+                    <clipPath id="cakeWedgeClip">
+                      <path d={sector(R, HALF)} />
+                    </clipPath>
 
-                  {/* Realistic Whole Cake Elevation Shadow */}
-                  <filter id="cakeBodyShadow" x="-15%" y="-15%" width="130%" height="135%">
-                    <feDropShadow dx="0" dy="10" stdDeviation="14" floodColor="#301612" floodOpacity="0.22" />
-                  </filter>
+                    {/* Realistic Whole Cake Elevation Shadow */}
+                    <filter id="cakeBodyShadow" x="-15%" y="-15%" width="130%" height="135%">
+                      <feDropShadow dx="0" dy="10" stdDeviation="14" floodColor="#301612" floodOpacity="0.22" />
+                    </filter>
 
-                  {/* Realistic Separated Wedge Slice Shadow */}
-                  <filter id="sliceWedgeShadow" x="-25%" y="-25%" width="150%" height="150%">
-                    <feDropShadow dx="5" dy="12" stdDeviation="10" floodColor="#301612" floodOpacity="0.3" />
-                  </filter>
-                </defs>
+                    {/* Realistic Separated Wedge Slice Shadow */}
+                    <filter id="sliceWedgeShadow" x="-25%" y="-25%" width="150%" height="150%">
+                      <feDropShadow dx="5" dy="12" stdDeviation="10" floodColor="#301612" floodOpacity="0.3" />
+                    </filter>
+                  </defs>
 
-                {/* Main Cake Body (Photorealistic Clipped Real Image) */}
-                <g filter="url(#cakeBodyShadow)">
-                  <image
-                    href={f.image}
-                    x={-R}
-                    y={-R}
-                    width={2 * R}
-                    height={2 * R}
-                    preserveAspectRatio="xMidYMid slice"
-                    clipPath={`url(#${bodyClipId})`}
-                  />
-                  {/* Exposed Cream/Cocoa Rim Bevel along Body & Cut Edges */}
-                  <path
-                    d={bodyPath(cut)}
-                    fill="none"
-                    stroke={cut !== null ? 'rgba(48, 22, 18, 0.35)' : 'rgba(212, 180, 106, 0.45)'}
-                    strokeWidth={cut !== null ? 3 : 2}
-                    strokeLinejoin="round"
-                  />
-                </g>
-
-                {/* Animated Cut Wedge (Real Image Pixels Counter-Rotated to Stay Perfectly Aligned) */}
-                {cut !== null && (
-                  <g
-                    key={cutCount}
-                    className="cake-wedge"
-                    style={{ '--a': `${cut}deg` } as CSSProperties}
-                    filter="url(#sliceWedgeShadow)"
-                  >
-                    <g clipPath="url(#cakeWedgeClip)">
-                      <image
-                        href={f.image}
-                        x={-R}
-                        y={-R}
-                        width={2 * R}
-                        height={2 * R}
-                        preserveAspectRatio="xMidYMid slice"
-                        transform={`rotate(${-cut})`}
-                      />
-                    </g>
-                    {/* Crisp Subtle Inner Cut Bevel Highlight */}
+                  {/* Main Cake Body (Photorealistic Clipped Real Image) */}
+                  <g filter="url(#cakeBodyShadow)">
+                    <image
+                      href={f.image}
+                      x={-R}
+                      y={-R}
+                      width={2 * R}
+                      height={2 * R}
+                      preserveAspectRatio="xMidYMid slice"
+                      clipPath={`url(#${bodyClipId})`}
+                    />
+                    {/* Exposed Cream/Cocoa Rim Bevel along Body & Cut Edges */}
                     <path
-                      d={sector(R, HALF)}
+                      d={bodyPath(cut)}
                       fill="none"
-                      stroke="rgba(255, 248, 236, 0.85)"
-                      strokeWidth={2}
+                      stroke={cut !== null ? 'rgba(48, 22, 18, 0.35)' : 'rgba(212, 180, 106, 0.45)'}
+                      strokeWidth={cut !== null ? 3 : 2}
                       strokeLinejoin="round"
                     />
                   </g>
-                )}
 
-                {/* Knife Aim Preview Guide (Direct DOM Transform for 120fps Smoothness) */}
-                <g
-                  ref={hoverGuideRef}
-                  transform="rotate(-38)"
-                  pointerEvents="none"
-                  style={{ opacity: 0, transition: 'opacity 150ms ease' }}
-                >
-                  <path
-                    d={sector(R + 4, HALF)}
-                    fill="rgba(255, 255, 255, 0.14)"
-                    stroke="#FFFFFF"
-                    strokeWidth={2}
-                    strokeDasharray="6 5"
-                  />
-                  {/* Subtle Dark Contrast Dashed Outline Underneath */}
-                  <path
-                    d={sector(R + 4, HALF)}
-                    fill="none"
-                    stroke="rgba(48, 22, 18, 0.45)"
-                    strokeWidth={1}
-                    strokeDasharray="6 5"
-                  />
-                </g>
+                  {/* Animated Cut Wedge (Real Image Pixels Counter-Rotated to Stay Perfectly Aligned) */}
+                  {cut !== null && (
+                    <g
+                      key={cutCount}
+                      className="cake-wedge"
+                      style={{ '--a': `${cut}deg` } as CSSProperties}
+                      filter="url(#sliceWedgeShadow)"
+                    >
+                      <g clipPath="url(#cakeWedgeClip)">
+                        <image
+                          href={f.image}
+                          x={-R}
+                          y={-R}
+                          width={2 * R}
+                          height={2 * R}
+                          preserveAspectRatio="xMidYMid slice"
+                          transform={`rotate(${-cut})`}
+                        />
+                      </g>
+                      {/* Crisp Subtle Inner Cut Bevel Highlight */}
+                      <path
+                        d={sector(R, HALF)}
+                        fill="none"
+                        stroke="rgba(255, 248, 236, 0.85)"
+                        strokeWidth={2}
+                        strokeLinejoin="round"
+                      />
+                    </g>
+                  )}
 
-                {/* Flying 24K Gold Leaf & Cocoa Shaving Sparks on Cut */}
-                <g pointerEvents="none">
-                  {sparks.map((p) => (
-                    <rect
-                      key={p.id}
-                      className="cake-spark"
-                      x={-6}
-                      y={-2.5}
-                      width={12}
-                      height={5}
-                      rx={2}
-                      fill={p.fill}
-                      style={
-                        {
-                          '--x': `${p.x}px`,
-                          '--y': `${p.y}px`,
-                          '--dx': `${p.x + p.dx}px`,
-                          '--dy': `${p.y + p.dy}px`,
-                          '--s': `${p.spin}deg`,
-                          animationDuration: `${p.dur}ms`,
-                        } as CSSProperties
-                      }
+                  {/* Knife Aim Preview Guide (Direct DOM Transform for 120fps Smoothness) */}
+                  <g
+                    ref={hoverGuideRef}
+                    transform="rotate(-38)"
+                    pointerEvents="none"
+                    style={{ opacity: 0, transition: 'opacity 150ms ease' }}
+                  >
+                    <path
+                      d={sector(R + 4, HALF)}
+                      fill="rgba(255, 255, 255, 0.14)"
+                      stroke="#FFFFFF"
+                      strokeWidth={2}
+                      strokeDasharray="6 5"
                     />
-                  ))}
-                </g>
-              </svg>
+                    {/* Subtle Dark Contrast Dashed Outline Underneath */}
+                    <path
+                      d={sector(R + 4, HALF)}
+                      fill="none"
+                      stroke="rgba(48, 22, 18, 0.45)"
+                      strokeWidth={1}
+                      strokeDasharray="6 5"
+                    />
+                  </g>
+
+                  {/* Flying 24K Gold Leaf & Cocoa Shaving Sparks on Cut */}
+                  <g pointerEvents="none">
+                    {sparks.map((p) => (
+                      <rect
+                        key={p.id}
+                        className="cake-spark"
+                        x={-6}
+                        y={-2.5}
+                        width={12}
+                        height={5}
+                        rx={2}
+                        fill={p.fill}
+                        style={
+                          {
+                            '--x': `${p.x}px`,
+                            '--y': `${p.y}px`,
+                            '--dx': `${p.x + p.dx}px`,
+                            '--dy': `${p.y + p.dy}px`,
+                            '--s': `${p.spin}deg`,
+                            animationDuration: `${p.dur}ms`,
+                          } as CSSProperties
+                        }
+                      />
+                    ))}
+                  </g>
+                </svg>
+              </div>
+
+              {/* Clean Guidance Pill Below Platter (Desktop) */}
+              <div className="-mt-4 relative z-20 inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-cream/90 border border-brand-chocolate/12 shadow-xs text-xs font-medium text-[#301612]">
+                <Scissors className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
+                {cut === null ? (
+                  <span>
+                    <strong className="font-bold">Move over the cake</strong> to aim blade &bull;{' '}
+                    <strong className="font-bold">Tap anywhere</strong> to cut a slice
+                  </span>
+                ) : (
+                  <span>
+                    <strong className="font-bold">Slice cut cleanly!</strong> Explore layers or tap cake to slice elsewhere
+                  </span>
+                )}
+              </div>
             </div>
 
-            {/* Clean Unobtrusive Guidance Pill Below Platter */}
-            <div className="-mt-4 relative z-20 inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-cream/90 border border-brand-chocolate/12 shadow-xs text-xs font-medium text-[#301612]">
-              <Scissors className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
-              {cut === null ? (
-                <span>
-                  <strong className="font-bold">Move over the cake</strong> to aim blade &bull;{' '}
-                  <strong className="font-bold">Tap anywhere</strong> to cut a slice
-                </span>
-              ) : (
-                <span>
-                  <strong className="font-bold">Slice cut cleanly!</strong> Explore layers or tap cake to slice elsewhere
-                </span>
-              )}
+            {/* 2. MOBILE VIEW (Fluid 3D Gesture Carousel Without Buttons for Smaller Devices) */}
+            <div className="block lg:hidden w-full relative flex flex-col items-center justify-center mb-2">
+              {/* Carousel Stage with Touch Swipe */}
+              <div
+                className="relative w-full max-w-[310px] xs:max-w-[350px] aspect-square mx-auto overflow-visible select-none"
+                onTouchStart={handleMobileTouchStart}
+                onTouchMove={handleMobileTouchMove}
+                onTouchEnd={handleMobileTouchEnd}
+              >
+                {HERO_FLAVOURS.map((item, i) => {
+                  const diff = getMobilePos(i);
+                  const isCenter = diff === 0;
+                  const isLeft = diff === -1;
+                  const isRight = diff === 1;
+
+                  let transformStyle: CSSProperties = {
+                    transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
+                    willChange: 'transform, opacity',
+                  };
+
+                  if (isCenter) {
+                    transformStyle = {
+                      ...transformStyle,
+                      transform: 'translate3d(0, 0, 0) scale(1)',
+                      opacity: 1,
+                      zIndex: 10,
+                      pointerEvents: 'auto',
+                    };
+                  } else if (isLeft) {
+                    transformStyle = {
+                      ...transformStyle,
+                      transform: 'translate3d(-80%, 0, -25px) scale(0.64)',
+                      opacity: 0.55,
+                      zIndex: 5,
+                      pointerEvents: 'auto',
+                      filter: 'drop-shadow(0 6px 14px rgba(48,22,18,0.2)) brightness(0.9)',
+                    };
+                  } else if (isRight) {
+                    transformStyle = {
+                      ...transformStyle,
+                      transform: 'translate3d(80%, 0, -25px) scale(0.64)',
+                      opacity: 0.55,
+                      zIndex: 5,
+                      pointerEvents: 'auto',
+                      filter: 'drop-shadow(0 6px 14px rgba(48,22,18,0.2)) brightness(0.9)',
+                    };
+                  } else {
+                    transformStyle = {
+                      ...transformStyle,
+                      transform: `translate3d(${diff > 0 ? 160 : -160}%, 0, -50px) scale(0.4)`,
+                      opacity: 0,
+                      zIndex: 1,
+                      pointerEvents: 'none',
+                    };
+                  }
+
+                  return (
+                    <div
+                      key={item.id}
+                      className="absolute inset-0 flex items-center justify-center"
+                      style={transformStyle}
+                    >
+                      {isCenter ? (
+                        <svg
+                          className="w-full h-full block touch-manipulation overflow-visible select-none cursor-pointer"
+                          viewBox="-310 -310 620 620"
+                          onClick={() => doCut(-38)}
+                        >
+                          <defs>
+                            <clipPath id={`${bodyClipId}-mob`}>
+                              <path d={bodyPath(cut)} />
+                            </clipPath>
+                            <clipPath id="cakeWedgeClip-mob">
+                              <path d={sector(R, HALF)} />
+                            </clipPath>
+                            <filter id="cakeBodyShadow-mob" x="-15%" y="-15%" width="130%" height="135%">
+                              <feDropShadow dx="0" dy="10" stdDeviation="14" floodColor="#301612" floodOpacity="0.22" />
+                            </filter>
+                            <filter id="sliceWedgeShadow-mob" x="-25%" y="-25%" width="150%" height="150%">
+                              <feDropShadow dx="5" dy="12" stdDeviation="10" floodColor="#301612" floodOpacity="0.3" />
+                            </filter>
+                          </defs>
+
+                          {/* Main Cake Body */}
+                          <g filter="url(#cakeBodyShadow-mob)">
+                            <image
+                              href={item.image}
+                              x={-R}
+                              y={-R}
+                              width={2 * R}
+                              height={2 * R}
+                              preserveAspectRatio="xMidYMid slice"
+                              clipPath={`url(#${bodyClipId}-mob)`}
+                            />
+                            <path
+                              d={bodyPath(cut)}
+                              fill="none"
+                              stroke={cut !== null ? 'rgba(48, 22, 18, 0.35)' : 'rgba(212, 180, 106, 0.45)'}
+                              strokeWidth={cut !== null ? 3 : 2}
+                              strokeLinejoin="round"
+                            />
+                          </g>
+
+                          {/* Animated Cut Wedge */}
+                          {cut !== null && (
+                            <g
+                              key={cutCount}
+                              className="cake-wedge"
+                              style={{ '--a': `${cut}deg` } as CSSProperties}
+                              filter="url(#sliceWedgeShadow-mob)"
+                            >
+                              <g clipPath="url(#cakeWedgeClip-mob)">
+                                <image
+                                  href={item.image}
+                                  x={-R}
+                                  y={-R}
+                                  width={2 * R}
+                                  height={2 * R}
+                                  preserveAspectRatio="xMidYMid slice"
+                                  transform={`rotate(${-cut})`}
+                                />
+                              </g>
+                              <path
+                                d={sector(R, HALF)}
+                                fill="none"
+                                stroke="rgba(255, 248, 236, 0.85)"
+                                strokeWidth={2}
+                                strokeLinejoin="round"
+                              />
+                            </g>
+                          )}
+
+                          {/* Flying sparks */}
+                          <g pointerEvents="none">
+                            {sparks.map((p) => (
+                              <rect
+                                key={p.id}
+                                className="cake-spark"
+                                x={-6}
+                                y={-2.5}
+                                width={12}
+                                height={5}
+                                rx={2}
+                                fill={p.fill}
+                                style={
+                                  {
+                                    '--x': `${p.x}px`,
+                                    '--y': `${p.y}px`,
+                                    '--dx': `${p.x + p.dx}px`,
+                                    '--dy': `${p.y + p.dy}px`,
+                                    '--s': `${p.spin}deg`,
+                                    animationDuration: `${p.dur}ms`,
+                                  } as CSSProperties
+                                }
+                              />
+                            ))}
+                          </g>
+                        </svg>
+                      ) : (
+                        <div
+                          className="w-[78%] h-[78%] rounded-full overflow-hidden border-[2.5px] border-[#E8B984] shadow-md relative bg-white cursor-pointer"
+                          onClick={() => {
+                            setIdx(i);
+                            setCut(null);
+                            setSparks([]);
+                          }}
+                        >
+                          <img
+                            src={item.image}
+                            alt={item.shortName}
+                            className="w-full h-full object-cover rounded-full pointer-events-none"
+                            draggable={false}
+                          />
+                          <div className="absolute inset-0 bg-black/15 rounded-full pointer-events-none" />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Mobile Carousel Meta & Guidance (No buttons) */}
+              <div className="mt-2 text-center flex flex-col items-center">
+                {/* Reset / Guidance Pill */}
+                {cut !== null ? (
+                  <button
+                    type="button"
+                    onClick={() => setCut(null)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-cream hover:bg-brand-peach border border-brand-chocolate/20 text-xs font-bold text-[#301612] transition-all shadow-xs cursor-pointer active:scale-95"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    <span>Reset Whole Cake</span>
+                  </button>
+                ) : (
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-cream/90 border border-brand-chocolate/12 shadow-2xs text-[11px] font-semibold text-[#301612]">
+                    <Scissors className="w-3 h-3 text-brand-caramel" />
+                    <span>Swipe to switch &bull; Tap cake to slice</span>
+                  </div>
+                )}
+
+                {/* Active Cake Title and Tag */}
+                <div className="mt-2">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-brand-caramel block">
+                    {f.tag}
+                  </span>
+                  <h2 className="font-heading text-lg font-extrabold text-[#301612] leading-tight">
+                    {f.name}
+                  </h2>
+                  <span className="text-xs font-bold text-[#5C3D34] mt-0.5 block">
+                    Starting at {f.price}
+                  </span>
+                </div>
+
+                {/* Carousel Indicator Dots (No Buttons) */}
+                <div className="flex items-center justify-center gap-1.5 mt-2" aria-hidden="true">
+                  {HERO_FLAVOURS.map((_, dotIdx) => (
+                    <span
+                      key={dotIdx}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        dotIdx === idx ? 'w-5 bg-brand-chocolate' : 'w-1.5 bg-brand-chocolate/25'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
