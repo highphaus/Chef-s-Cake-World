@@ -25,7 +25,7 @@ function CakeTop({ cake }: { cake: CategoryCake }) {
     <svg
       viewBox="-225 -225 450 450"
       aria-hidden="true"
-      className="w-full h-full drop-shadow-[0_28px_45px_rgba(0,0,0,0.48)]"
+      className="w-full h-full drop-shadow-[0_24px_40px_rgba(48,22,18,0.35)]"
     >
       <defs>
         <clipPath id={clipId}>
@@ -71,40 +71,63 @@ export default function CakeShowcase({
   const sectionRef = useRef<HTMLElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const isTransitioningRef = useRef(false);
+  const transitionTimerRef = useRef<NodeJS.Timeout | null>(null);
   const totalCount = items.length;
 
   useEffect(() => {
     setMounted(true);
+    return () => {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+    };
   }, []);
 
+  // DIRECT STEP NAVIGATOR & SCROLL POSITION SYNC
+  const goToStep = (targetIdx: number) => {
+    const clamped = Math.max(0, Math.min(totalCount - 1, targetIdx));
+    setStep(clamped);
+
+    isTransitioningRef.current = true;
+    if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+    transitionTimerRef.current = setTimeout(() => {
+      isTransitioningRef.current = false;
+    }, 550);
+
+    // Sync window scroll position smoothly to exact step offset
+    if (sectionRef.current) {
+      const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top;
+      const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
+      if (totalScrollable > 0) {
+        const targetOffset = (clamped / (totalCount - 1)) * totalScrollable;
+        window.scrollTo({
+          top: sectionTop + targetOffset + 5,
+          behavior: 'smooth',
+        });
+      }
+    }
+  };
+
   // 1. DIRECT MOUSE WHEEL INTERACTION:
-  // Rolling the wheel inside the sticky showcase advances/rewinds cake categories
+  // Rolling the wheel inside sticky showcase steps through categories with precise scroll sync
   useEffect(() => {
     const stickyEl = stickyRef.current;
     if (!stickyEl) return;
 
     const handleWheel = (e: WheelEvent) => {
       const delta = e.deltaY;
-      if (Math.abs(delta) < 18) return;
+      if (Math.abs(delta) < 16) return;
 
-      // Allow natural page scroll if at bounds
+      // Allow natural page scroll if at outer bounds
       if (step === 0 && delta < 0) return;
       if (step === totalCount - 1 && delta > 0) return;
 
-      // Intercept wheel to step through categories smoothly
+      // Intercept wheel to transition categories cleanly
       e.preventDefault();
       if (isTransitioningRef.current) return;
 
-      isTransitioningRef.current = true;
-      if (delta > 0) {
-        setStep((prev) => Math.min(totalCount - 1, prev + 1));
-      } else {
-        setStep((prev) => Math.max(0, prev - 1));
+      const nextStep = delta > 0 ? Math.min(totalCount - 1, step + 1) : Math.max(0, step - 1);
+      if (nextStep !== step) {
+        goToStep(nextStep);
       }
-
-      setTimeout(() => {
-        isTransitioningRef.current = false;
-      }, 500);
     };
 
     stickyEl.addEventListener('wheel', handleWheel, { passive: false });
@@ -112,21 +135,23 @@ export default function CakeShowcase({
   }, [step, totalCount]);
 
   // 2. WINDOW SCROLL POSITION SYNC:
-  // When scrolling via scrollbar or page scroll, sync the active category step
+  // When scrolling via scrollbar or page scroll gestures, map position cleanly to active step
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (isTransitioningRef.current || !sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const totalScrollable = rect.height - window.innerHeight;
 
-      if (totalScrollable > 0 && rect.top <= 0 && rect.bottom >= window.innerHeight) {
-        const progress = Math.min(Math.max(-rect.top / totalScrollable, 0), 0.999);
-        const newStep = Math.min(Math.floor(progress * totalCount), totalCount - 1);
-        setStep(newStep);
-      } else if (rect.top > 0) {
-        setStep(0);
-      } else if (rect.bottom < window.innerHeight) {
-        setStep(totalCount - 1);
+      if (totalScrollable > 0) {
+        if (rect.top <= 80 && rect.bottom >= window.innerHeight - 40) {
+          const progress = Math.min(Math.max(-rect.top / totalScrollable, 0), 1);
+          const newStep = Math.min(Math.round(progress * (totalCount - 1)), totalCount - 1);
+          setStep(newStep);
+        } else if (rect.top > 80) {
+          setStep(0);
+        } else if (rect.bottom < window.innerHeight - 40) {
+          setStep(totalCount - 1);
+        }
       }
     };
 
@@ -147,37 +172,18 @@ export default function CakeShowcase({
     const diffY = touchStartY.current - e.changedTouches[0].clientY;
     const diffX = touchStartX.current - e.changedTouches[0].clientX;
 
-    // Detect horizontal swipe or vertical swipe
+    // Detect horizontal or vertical swipe
     if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX > 0) {
-        setStep((prev) => Math.min(totalCount - 1, prev + 1));
-      } else {
-        setStep((prev) => Math.max(0, prev - 1));
+      if (diffX > 0 && step < totalCount - 1) {
+        goToStep(step + 1);
+      } else if (diffX < 0 && step > 0) {
+        goToStep(step - 1);
       }
-    } else if (Math.abs(diffY) > 50) {
+    } else if (Math.abs(diffY) > 45) {
       if (diffY > 0 && step < totalCount - 1) {
-        setStep((prev) => Math.min(totalCount - 1, prev + 1));
+        goToStep(step + 1);
       } else if (diffY < 0 && step > 0) {
-        setStep((prev) => Math.max(0, prev - 1));
-      }
-    }
-  };
-
-  // 4. DIRECT STEP SELECTOR:
-  const goToStep = (targetIdx: number) => {
-    const clamped = Math.max(0, Math.min(totalCount - 1, targetIdx));
-    setStep(clamped);
-
-    // Sync window scroll smoothly if applicable
-    if (sectionRef.current) {
-      const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top;
-      const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
-      if (totalScrollable > 0) {
-        const targetOffset = (clamped / totalCount) * totalScrollable;
-        window.scrollTo({
-          top: sectionTop + targetOffset + 15,
-          behavior: 'smooth',
-        });
+        goToStep(step - 1);
       }
     }
   };
@@ -188,8 +194,8 @@ export default function CakeShowcase({
       className="cs"
       style={
         {
-          '--bg': items[step]?.bg,
-          height: `${totalCount * 100}vh`,
+          '--bg': items[step]?.bg || '#E8B984',
+          height: `${totalCount * 65}vh`,
         } as CSSProperties
       }
       aria-label={label}
