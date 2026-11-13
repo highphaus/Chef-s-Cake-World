@@ -26,9 +26,10 @@ module.exports = {
       colors: {
         brand: {
           chocolate: '#320500', // Rich Belgian Couverture Espresso
-          caramel: '#B25E00',   // Warm Artisan Caramel
-          gold: '#D4B46A',      // Soft Champagne Gold
-          peach: '#F5EAE0',     // Refined Warm Linen
+          caramel: '#E8B984',   // Requested Signature Brand Color #E8B984
+          gold: '#E8B984',      // Requested Signature Brand Color #E8B984
+          accent: '#E8B984',    // Requested Signature Brand Color #E8B984
+          peach: '#FDF6EE',     // Soft warm tint derived from #E8B984
           cream: '#FAF8F5',     // Pure Alabaster / Architectural Linen Background
         },
         surface: {
@@ -52,4 +53,3 @@ module.exports = {
   },
   plugins: [],
 };
-

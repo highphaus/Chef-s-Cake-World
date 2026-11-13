@@ -87,7 +87,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
     frost: '#FEF08A',
     sponge: '#FFFBEB',
     fill: '#F59E0B',
-    accent: '#D4B46A',
+    accent: '#E8B984',
     centerText: '#301612',
     layers: [
       { name: 'Lemon Cream & 24K Gold Pearls', fill: 'frost' },
@@ -110,7 +110,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
     bg: '#8C5835',
     frost: '#FFFDF7',
     sponge: '#FAF0CA',
-    fill: '#D4B46A',
+    fill: '#E8B984',
     accent: '#B25E00',
     centerText: '#301612',
     layers: [
@@ -255,7 +255,7 @@ export const HERO_FLAVOURS: HeroCakeFlavour[] = [
     frost: '#5E3019',
     sponge: '#2E1409',
     fill: '#C68B59',
-    accent: '#D4B46A',
+    accent: '#E8B984',
     centerText: '#FAF5EE',
     layers: [
       { name: 'Dark Ganache & Ferrero Crown', fill: 'frost' },
@@ -272,7 +272,7 @@ export const toColour = (c: string) => (c.startsWith('#') ? c : `var(--${c})`);
 export const R = 250;
 export const RIM = 8;
 export const HALF = 17;
-export const SPRINKLES = ['#D4B46A', '#301612', '#E5B56A', '#B25E00', '#F5E6D3'];
+export const SPRINKLES = ['#E8B984', '#301612', '#E8B984', '#D48C46', '#FDF6EE'];
 
 const rad = (d: number) => (d * Math.PI) / 180;
 export const pt = (r: number, a: number): [number, number] => [

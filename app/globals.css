@@ -5,9 +5,10 @@
 :root {
   /* Brand Palette */
   --color-chocolate: #320500; /* Rich Belgian Couverture Espresso */
-  --color-caramel: #B25E00;   /* Warm Artisan Caramel */
-  --color-gold: #D4B46A;      /* Soft Champagne Gold */
-  --color-peach: #F5EAE0;     /* Refined Warm Linen */
+  --color-caramel: #E8B984;   /* Requested signature warm color #E8B984 */
+  --color-gold: #E8B984;      /* Requested signature warm color #E8B984 */
+  --color-accent: #E8B984;    /* Primary Brand Accent #E8B984 */
+  --color-peach: #FDF6EE;     /* Soft warm tint derived from #E8B984 */
   --color-cream: #FAF8F5;     /* Pure Alabaster / Architectural Linen Background */
 
   /* Neutral Surface Shades */
@@ -237,11 +238,11 @@ textarea {
     background: #E6E7D4;
   }
   ::-webkit-scrollbar-thumb {
-    background: #BA6300;
+    background: #E8B984;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #420600;
+    background: #D9A066;
   }
 }
 
@@ -288,7 +289,7 @@ textarea {
 /* Sleek visible vertical scrollbar for hero cake selector */
 .cake-list-scroll {
   scrollbar-width: thin !important;
-  scrollbar-color: #B25E00 #F5EAE0 !important;
+  scrollbar-color: #E8B984 #FDF6EE !important;
   -ms-overflow-style: auto !important;
 }
 .cake-list-scroll::-webkit-scrollbar {
@@ -296,15 +297,15 @@ textarea {
   width: 6px !important;
 }
 .cake-list-scroll::-webkit-scrollbar-track {
-  background: #F5EAE0;
+  background: #FDF6EE;
   border-radius: 9999px;
 }
 .cake-list-scroll::-webkit-scrollbar-thumb {
-  background: #B25E00;
+  background: #E8B984;
   border-radius: 9999px;
 }
 .cake-list-scroll::-webkit-scrollbar-thumb:hover {
-  background: #301612;
+  background: #D9A066;
 }
 
 /* ─────────────────────────────────────────────────────────────
