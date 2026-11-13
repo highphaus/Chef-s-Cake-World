@@ -25,8 +25,7 @@ export const CATEGORY_CAKES: CategoryCake[] = [
   {
     name: 'Celebration Cakes',
     shortName: 'Celebration',
-    blurb:
-      'Multi-layered artisanal birthday, anniversary & milestone cakes baked fresh daily with single-origin Callebaut chocolate and fresh velvet cream.',
+    blurb: 'Artisanal birthday & milestone cakes baked fresh daily.',
     price: '₹599',
     image: '/hero-cakes/black-forest.jpg',
     slug: '/cakes',
@@ -46,8 +45,7 @@ export const CATEGORY_CAKES: CategoryCake[] = [
   {
     name: 'Artisan Pastries',
     shortName: 'Pastries',
-    blurb:
-      'Individual handcrafted luxury pastry slices and assorted gift boxes. Perfectly portioned Belgian truffles, cheesecakes, and Lotus Biscoff gateaux.',
+    blurb: 'Belgian truffles, cheesecakes & handcrafted luxury slices.',
     price: '₹119',
     image: '/hero section/Cut inner/6d7a427cd0c48be5f486a4220aa6a805.jpg',
     slug: '/pastries',
@@ -67,8 +65,7 @@ export const CATEGORY_CAKES: CategoryCake[] = [
   {
     name: '100% Pure Eggless Cakes',
     shortName: '100% Eggless',
-    blurb:
-      'Certified pure vegetarian cake atelier with dedicated segregated ovens across Kerala hubs. Unrivalled cloud-like moisture and depth of flavour.',
+    blurb: 'Certified pure vegetarian cakes from segregated ovens.',
     price: '₹649',
     image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg',
     slug: '/cakes?category=eggless-cakes',
@@ -88,8 +85,7 @@ export const CATEGORY_CAKES: CategoryCake[] = [
   {
     name: 'Wedding & Tiered Masterpieces',
     shortName: 'Wedding Masterpieces',
-    blurb:
-      'Bespoke multi-tier architectural centerpieces finished with edible 24K gold foil, handcrafted sugar florals, and private design consultation.',
+    blurb: 'Bespoke architectural multi-tier centerpieces with 24K gold foil.',
     price: '₹1,800',
     image: '/hero-cakes/vanilla-buttercream.jpg',
     slug: '/custom-cakes',
@@ -109,8 +105,7 @@ export const CATEGORY_CAKES: CategoryCake[] = [
   {
     name: 'Gourmet Sweets & Desserts',
     shortName: 'Sweets & Desserts',
-    blurb:
-      'Handcrafted fusion dessert cups, Parisian macarons, rich chocolate brownies, and festive gift boxes prepared fresh with authentic ingredients.',
+    blurb: 'Handcrafted dessert cups, Parisian macarons & rich brownies.',
     price: '₹139',
     image: '/hero-cakes/golden-lemon.jpg',
     slug: '/cakes?category=sweets-desserts',

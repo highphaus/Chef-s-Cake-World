@@ -216,25 +216,6 @@ export default function CakeShowcase({
       onTouchEnd={handleTouchEnd}
     >
       <div ref={stickyRef} className="cs-sticky">
-        {/* TOP BAR: QUICK CATEGORY SELECTOR PILLS */}
-        <div className="cs-top-bar">
-          <div className="cs-flavour-pills">
-            {items.map((c, i) => {
-              const isActive = i === step;
-              return (
-                <button
-                  key={c.name}
-                  type="button"
-                  onClick={() => goToStep(i)}
-                  className={`cs-pill ${isActive ? 'active' : ''}`}
-                >
-                  {c.shortName || c.name}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
         {/* CENTER STAGE: BIGGER CAKE + CATEGORY NAME DIRECTLY UNDER (NO BIG BOX) */}
         <div className="cs-stage">
           {/* 1. LARGER ROTATING CATEGORY CAKE IN CENTER */}
@@ -254,7 +235,6 @@ export default function CakeShowcase({
               const categoryHref = c.slug || orderHref || '/cakes';
               return (
                 <div key={c.name} className={`cs-title-wrap ${rel(i, step)}`}>
-                  <span className="cs-cat-tag">Category {i + 1} of {totalCount}</span>
                   <h2 className="cs-cat-name">
                     {c.name}
                   </h2>

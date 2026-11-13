@@ -28,56 +28,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.6rem 1.25rem 1rem;
+  padding: 1rem 1.5rem 1.25rem;
   overflow: hidden;
   z-index: 20;
-}
-
-/* TOP BAR: QUICK CATEGORY SELECTOR PILLS */
-.cs-top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-  z-index: 30;
-  width: 100%;
-}
-
-.cs-flavour-pills {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  overflow-x: auto;
-  max-width: 100%;
-  padding: 0.2rem;
-}
-
-.cs-pill {
-  font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 0.38rem 1rem;
-  border-radius: 999px;
-  border: 1.5px solid #301612;
-  background: rgba(255, 253, 247, 0.92);
-  color: #301612;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(48, 22, 18, 0.08);
-}
-
-.cs-pill:hover {
-  background: #FFFDF7;
-  transform: translateY(-1px);
-}
-
-.cs-pill.active {
-  background: #301612;
-  color: #E8B984;
-  border-color: #301612;
-  box-shadow: 2px 2px 0 rgba(48, 22, 18, 0.3);
 }
 
 /* CENTER STAGE */
@@ -203,21 +156,6 @@
   pointer-events: none;
 }
 
-.cs-cat-tag {
-  font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
-  font-size: 0.74rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #E8B984;
-  background: #301612;
-  border: 1px solid #301612;
-  padding: 0.22rem 0.8rem;
-  border-radius: 999px;
-  margin-bottom: 0.35rem;
-  box-shadow: 0 2px 6px rgba(48, 22, 18, 0.2);
-}
-
 .cs-cat-name {
   font-family: var(--font-plus-jakarta-sans), -apple-system, sans-serif;
   font-weight: 800;
@@ -225,16 +163,16 @@
   line-height: 1.15;
   color: #301612;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-  margin: 0;
+  margin: 0 0 0.35rem;
   letter-spacing: -0.02em;
 }
 
 .cs-cat-blurb {
-  font-size: clamp(0.88rem, 1.25vw, 1.02rem);
-  line-height: 1.5;
+  font-size: clamp(0.88rem, 1.25vw, 1rem);
+  line-height: 1.45;
   color: #4A2820;
-  margin: 0.3rem auto 0.85rem;
-  max-width: 580px;
+  margin: 0 auto 0.75rem;
+  max-width: 520px;
   font-weight: 500;
 }
 
@@ -298,15 +236,12 @@
   }
   .cs-cat-name {
     font-size: 1.65rem;
+    margin-bottom: 0.25rem;
   }
   .cs-cat-blurb {
     font-size: 0.82rem;
-    line-height: 1.4;
-    margin: 0.25rem auto 0.65rem;
-  }
-  .cs-pill {
-    font-size: 0.72rem;
-    padding: 0.3rem 0.8rem;
+    line-height: 1.35;
+    margin: 0 auto 0.65rem;
   }
   .cs-cat-price {
     font-size: 0.98rem;
