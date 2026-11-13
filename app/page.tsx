@@ -218,6 +218,18 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [isBranchesPaused]);
 
+  // Mobile Category Carousel Navigation
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const scrollCategory = (direction: 'left' | 'right') => {
+    if (!categoryScrollRef.current) return;
+    const clientWidth = categoryScrollRef.current.clientWidth;
+    const scrollAmount = clientWidth < 640 ? clientWidth * 0.75 : 300;
+    categoryScrollRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
+
   // Reviews Carousel Movement & Navigation
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
   const [isReviewsPaused, setIsReviewsPaused] = useState(false);
@@ -674,7 +686,7 @@ export default function HomePage() {
           SECTION 2: CURATED COLLECTIONS (EDITORIAL GALLERY PLATES)
       ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 pb-3 border-b border-brand-chocolate/10 gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-5 sm:mb-8 pb-3 border-b border-brand-chocolate/10 gap-3">
           <div>
             <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
               Curated Ateliers
@@ -687,17 +699,102 @@ export default function HomePage() {
             </p>
           </div>
 
-          <Link
-            href="/categories"
-            className="text-xs sm:text-sm font-bold text-[#301612] hover:text-brand-caramel flex items-center gap-1.5 group font-body px-3.5 py-1.5 rounded-full border border-brand-chocolate/15 bg-white hover:border-brand-caramel transition-all self-start sm:self-auto shadow-2xs"
-          >
-            <span>View All Categories</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto">
+            {/* Mobile Navigation Buttons (< >) */}
+            <div className="flex md:hidden items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => scrollCategory('left')}
+                aria-label="Previous category"
+                className="w-8 h-8 rounded-full border border-brand-chocolate/20 bg-white text-brand-chocolate flex items-center justify-center hover:bg-brand-cream active:scale-95 transition-all shadow-2xs"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollCategory('right')}
+                aria-label="Next category"
+                className="w-8 h-8 rounded-full border border-brand-chocolate/20 bg-white text-brand-chocolate flex items-center justify-center hover:bg-brand-cream active:scale-95 transition-all shadow-2xs"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <Link
+              href="/categories"
+              className="text-xs sm:text-sm font-bold text-[#301612] hover:text-brand-caramel flex items-center gap-1.5 group font-body px-3.5 py-1.5 rounded-full border border-brand-chocolate/15 bg-white hover:border-brand-caramel transition-all shadow-2xs"
+            >
+              <span>View All Categories</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
 
-        {/* Curated Category Grid: 4 columns on desktop, 2 columns on mobile */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6">
+        {/* Mobile Horizontal Carousel: Touch Swipe + Button Navigation */}
+        <div
+          ref={categoryScrollRef}
+          className="flex md:hidden gap-3.5 overflow-x-auto scroll-smooth pb-3 px-1 -mx-1 snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]"
+        >
+          {displayCategories.map((cat: any) => (
+            <Link
+              key={`mobile-${cat.slug}`}
+              href={`/cakes?category=${cat.slug}`}
+              className="group flex flex-col w-[235px] xs:w-[255px] shrink-0 snap-start bg-white rounded-2xl border border-brand-chocolate/10 shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden active:scale-[0.99]"
+            >
+              {/* Image Container with Badges */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-brand-chocolate/5">
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+
+                {/* Top Floating Badges */}
+                <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1 pointer-events-none">
+                  {cat.price && (
+                    <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-white/95 text-brand-chocolate shadow-xs border border-brand-chocolate/10">
+                      {cat.price}
+                    </span>
+                  )}
+                  {cat.badge && (
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#301612]/90 text-[#E8B984] backdrop-blur-xs">
+                      {cat.badge}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Body Content & Explore CTA */}
+              <div className="p-3.5 flex flex-col justify-between flex-1 gap-2 bg-white">
+                <div>
+                  <h3 className="font-heading font-extrabold text-sm text-brand-chocolate group-hover:text-brand-caramel transition-colors line-clamp-1">
+                    {cat.name}
+                  </h3>
+                  {cat.blurb && (
+                    <p className="text-[11px] text-[#573E36] line-clamp-2 mt-1 leading-snug font-body">
+                      {cat.blurb}
+                    </p>
+                  )}
+                </div>
+
+                <div className="pt-2 border-t border-brand-chocolate/8 flex items-center justify-between mt-auto">
+                  <span className="text-[10px] font-semibold text-brand-chocolate/60">
+                    Artisanal
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#301612] text-[#E8B984] group-hover:bg-brand-caramel group-hover:text-[#301612] transition-all shadow-xs">
+                    Explore
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Curated Category Grid: 4 columns on desktop (Hidden on mobile) */}
+        <div className="hidden md:grid md:grid-cols-4 gap-5 lg:gap-6">
           {displayCategories.map((cat: any) => (
             <Link
               key={cat.slug}

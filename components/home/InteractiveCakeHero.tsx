@@ -635,49 +635,23 @@ export default function InteractiveCakeHero() {
                 })}
               </div>
 
-              {/* Mobile Carousel Meta & Guidance (No buttons) */}
+              {/* Mobile Carousel Guidance (Only "Swipe to switch • Tap cake to slice") */}
               <div className="mt-2 text-center flex flex-col items-center">
-                {/* Reset / Guidance Pill */}
                 {cut !== null ? (
                   <button
                     type="button"
                     onClick={() => setCut(null)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-cream hover:bg-brand-peach border border-brand-chocolate/20 text-xs font-bold text-[#301612] transition-all shadow-xs cursor-pointer active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-cream hover:bg-brand-peach border border-brand-chocolate/20 text-xs font-bold text-[#301612] transition-all shadow-xs cursor-pointer active:scale-95"
                   >
-                    <RotateCcw className="w-3 h-3" />
+                    <RotateCcw className="w-3.5 h-3.5" />
                     <span>Reset Whole Cake</span>
                   </button>
                 ) : (
-                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-cream/90 border border-brand-chocolate/12 shadow-2xs text-[11px] font-semibold text-[#301612]">
-                    <Scissors className="w-3 h-3 text-brand-caramel" />
+                  <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-brand-cream/90 border border-brand-chocolate/12 shadow-2xs text-[11px] font-semibold text-[#301612]">
+                    <Scissors className="w-3.5 h-3.5 text-brand-caramel" />
                     <span>Swipe to switch &bull; Tap cake to slice</span>
                   </div>
                 )}
-
-                {/* Active Cake Title and Tag */}
-                <div className="mt-2">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-brand-caramel block">
-                    {f.tag}
-                  </span>
-                  <h2 className="font-heading text-lg font-extrabold text-[#301612] leading-tight">
-                    {f.name}
-                  </h2>
-                  <span className="text-xs font-bold text-[#5C3D34] mt-0.5 block">
-                    Starting at {f.price}
-                  </span>
-                </div>
-
-                {/* Carousel Indicator Dots (No Buttons) */}
-                <div className="flex items-center justify-center gap-1.5 mt-2" aria-hidden="true">
-                  {HERO_FLAVOURS.map((_, dotIdx) => (
-                    <span
-                      key={dotIdx}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        dotIdx === idx ? 'w-5 bg-brand-chocolate' : 'w-1.5 bg-brand-chocolate/25'
-                      }`}
-                    />
-                  ))}
-                </div>
               </div>
             </div>
           </div>
