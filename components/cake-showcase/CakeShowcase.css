@@ -2,11 +2,11 @@
   --bg: #E8B984;
   position: relative;
   box-sizing: border-box;
-  background-color: #E8B984;
-  background: radial-gradient(circle at 50% 36%, #FFF6EC 0%, #F5D7B7 36%, #E8B984 76%, #D89E62 100%);
-  border-top: 2px solid rgba(48, 22, 18, 0.15);
-  border-bottom: 2px solid rgba(48, 22, 18, 0.15);
-  transition: background 0.6s ease;
+  background: #E8B984 !important;
+  background-color: #E8B984 !important;
+  background-image: none !important;
+  border-top: 1.5px solid rgba(48, 22, 18, 0.12);
+  border-bottom: 1.5px solid rgba(48, 22, 18, 0.12);
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -129,8 +129,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease;
   will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .cs-cake svg {
@@ -141,34 +143,20 @@
 }
 
 .cs-cake.past {
-  transform: scale(0.68) translateY(-32%) rotate(-25deg);
+  transform: translate3d(0, -25%, 0) scale(0.75) rotate(-16deg);
   opacity: 0;
   pointer-events: none;
 }
 
 .cs-cake.next {
-  transform: scale(0.68) translateY(32%) rotate(25deg);
+  transform: translate3d(0, 25%, 0) scale(0.75) rotate(16deg);
   opacity: 0;
   pointer-events: none;
 }
 
 .cs-cake.on {
-  transform: scale(1) translateY(0) rotate(0deg);
+  transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
   opacity: 1;
-}
-
-/* GENTLE HOVER FLOAT ON ACTIVE CAKE */
-@keyframes cakeFloat {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(1deg);
-  }
-}
-
-.cs-cake.on svg {
-  animation: cakeFloat 4.5s ease-in-out infinite;
 }
 
 /* CATEGORY NAME & DETAILS UNDER THE CAKE (NO BIG BOX) */
@@ -189,27 +177,28 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.24s ease;
   will-change: transform, opacity;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(18px);
+  transform: translate3d(0, 14px, 0);
+  backface-visibility: hidden;
 }
 
 .cs-title-wrap.on {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 .cs-title-wrap.past {
-  transform: translateY(-18px);
+  transform: translate3d(0, -14px, 0);
   opacity: 0;
   pointer-events: none;
 }
 
 .cs-title-wrap.next {
-  transform: translateY(18px);
+  transform: translate3d(0, 14px, 0);
   opacity: 0;
   pointer-events: none;
 }

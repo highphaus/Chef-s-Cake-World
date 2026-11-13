@@ -25,7 +25,7 @@ function CakeTop({ cake }: { cake: CategoryCake }) {
     <svg
       viewBox="-225 -225 450 450"
       aria-hidden="true"
-      className="w-full h-full drop-shadow-[0_24px_40px_rgba(48,22,18,0.35)]"
+      className="w-full h-full drop-shadow-[0_16px_22px_rgba(48,22,18,0.22)]"
     >
       <defs>
         <clipPath id={clipId}>
@@ -70,63 +70,68 @@ export default function CakeShowcase({
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
-  const isTransitioningRef = useRef(false);
-  const transitionTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const lastWheelTimeRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
   const totalCount = items.length;
 
   useEffect(() => {
     setMounted(true);
-    return () => {
-      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
-    };
   }, []);
 
-  // DIRECT STEP NAVIGATOR & SCROLL POSITION SYNC
+  // DIRECT STEP NAVIGATOR & INSTANT SCROLL POSITION SYNC
   const goToStep = (targetIdx: number) => {
     const clamped = Math.max(0, Math.min(totalCount - 1, targetIdx));
     setStep(clamped);
+    lastWheelTimeRef.current = Date.now();
 
-    isTransitioningRef.current = true;
-    if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
-    transitionTimerRef.current = setTimeout(() => {
-      isTransitioningRef.current = false;
-    }, 550);
-
-    // Sync window scroll position smoothly to exact step offset
+    // Instantly sync window scroll position so the browser scrollbar stays aligned without causing animation lag
     if (sectionRef.current) {
-      const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top;
+      const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top - 72;
       const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
       if (totalScrollable > 0) {
         const targetOffset = (clamped / (totalCount - 1)) * totalScrollable;
         window.scrollTo({
-          top: sectionTop + targetOffset + 5,
-          behavior: 'smooth',
+          top: sectionTop + targetOffset,
+          behavior: 'auto',
         });
       }
     }
   };
 
-  // 1. DIRECT MOUSE WHEEL INTERACTION:
-  // Rolling the wheel inside sticky showcase steps through categories with precise scroll sync
+  // 1. INSTANT MOUSE WHEEL INTERACTION (ZERO INPUT LAG):
   useEffect(() => {
     const stickyEl = stickyRef.current;
     if (!stickyEl) return;
 
     const handleWheel = (e: WheelEvent) => {
       const delta = e.deltaY;
-      if (Math.abs(delta) < 16) return;
+      if (Math.abs(delta) < 14) return;
 
       // Allow natural page scroll if at outer bounds
       if (step === 0 && delta < 0) return;
       if (step === totalCount - 1 && delta > 0) return;
 
-      // Intercept wheel to transition categories cleanly
       e.preventDefault();
-      if (isTransitioningRef.current) return;
+
+      const now = Date.now();
+      // Debounce slightly (200ms) so one wheel notch triggers exactly one step
+      if (now - lastWheelTimeRef.current < 200) return;
+      lastWheelTimeRef.current = now;
 
       const nextStep = delta > 0 ? Math.min(totalCount - 1, step + 1) : Math.max(0, step - 1);
       if (nextStep !== step) {
-        goToStep(nextStep);
+        setStep(nextStep);
+        if (sectionRef.current) {
+          const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top - 72;
+          const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
+          if (totalScrollable > 0) {
+            const targetOffset = (nextStep / (totalCount - 1)) * totalScrollable;
+            window.scrollTo({
+              top: sectionTop + targetOffset,
+              behavior: 'auto',
+            });
+          }
+        }
       }
     };
 
@@ -134,29 +139,37 @@ export default function CakeShowcase({
     return () => stickyEl.removeEventListener('wheel', handleWheel);
   }, [step, totalCount]);
 
-  // 2. WINDOW SCROLL POSITION SYNC:
-  // When scrolling via scrollbar or page scroll gestures, map position cleanly to active step
+  // 2. PASSIVE WINDOW SCROLL POSITION SYNC (RAF DRIVEN - 60/120 FPS):
   useEffect(() => {
     const handleScroll = () => {
-      if (isTransitioningRef.current || !sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const totalScrollable = rect.height - window.innerHeight;
+      // Ignore scroll events during wheel or click transitions to avoid feedback loops
+      if (Date.now() - lastWheelTimeRef.current < 260) return;
 
-      if (totalScrollable > 0) {
-        if (rect.top <= 80 && rect.bottom >= window.innerHeight - 40) {
-          const progress = Math.min(Math.max(-rect.top / totalScrollable, 0), 1);
-          const newStep = Math.min(Math.round(progress * (totalCount - 1)), totalCount - 1);
-          setStep(newStep);
-        } else if (rect.top > 80) {
-          setStep(0);
-        } else if (rect.bottom < window.innerHeight - 40) {
-          setStep(totalCount - 1);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        if (!sectionRef.current) return;
+        const rect = sectionRef.current.getBoundingClientRect();
+        const totalScrollable = rect.height - window.innerHeight;
+
+        if (totalScrollable > 0) {
+          if (rect.top <= 80 && rect.bottom >= window.innerHeight - 30) {
+            const progress = Math.min(Math.max((72 - rect.top) / totalScrollable, 0), 1);
+            const newStep = Math.min(Math.round(progress * (totalCount - 1)), totalCount - 1);
+            setStep((prev) => (prev === newStep ? prev : newStep));
+          } else if (rect.top > 80) {
+            setStep((prev) => (prev === 0 ? prev : 0));
+          } else if (rect.bottom < window.innerHeight - 30) {
+            setStep((prev) => (prev === totalCount - 1 ? prev : totalCount - 1));
+          }
         }
-      }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, [totalCount]);
 
   // 3. TOUCH SWIPE INTERACTION:
