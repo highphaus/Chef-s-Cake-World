@@ -29,13 +29,13 @@ module.exports = {
           caramel: '#E8B984',   // Requested Signature Brand Color #E8B984
           gold: '#E8B984',      // Requested Signature Brand Color #E8B984
           accent: '#E8B984',    // Requested Signature Brand Color #E8B984
-          peach: '#FDF6EE',     // Soft warm tint derived from #E8B984
-          cream: '#FAF8F5',     // Pure Alabaster / Architectural Linen Background
+          peach: '#F6D6B6',     // Soft warm tint derived from #E8B984
+          cream: '#E8B984',     // Requested Signature Background Color #E8B984
         },
         surface: {
-          light: '#FAF8F5',
+          light: '#E8B984',
           card: '#FFFFFF',
-          border: '#E8E2D9',
+          border: 'rgba(50, 5, 0, 0.15)',
           muted: '#80736C',
         }
       },

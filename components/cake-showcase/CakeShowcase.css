@@ -82,10 +82,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
   transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease;
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
+}
+
+.cs-cake:focus-visible {
+  outline: 3px solid #301612;
+  outline-offset: 6px;
+  border-radius: 50%;
 }
 
 .cs-cake svg {

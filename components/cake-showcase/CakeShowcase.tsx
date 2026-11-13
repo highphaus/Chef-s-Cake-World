@@ -221,11 +221,21 @@ export default function CakeShowcase({
           {/* 1. LARGER ROTATING CATEGORY CAKE IN CENTER */}
           <div className="cs-cakes-wrapper">
             <div className="cs-cakes">
-              {items.map((c, i) => (
-                <div key={c.name} className={`cs-cake ${rel(i, step)}`} style={vars(c)}>
-                  <CakeTop cake={c} />
-                </div>
-              ))}
+              {items.map((c, i) => {
+                const categoryHref = c.slug || orderHref || '/cakes';
+                return (
+                  <Link
+                    key={c.name}
+                    href={categoryHref}
+                    className={`cs-cake ${rel(i, step)}`}
+                    style={vars(c)}
+                    tabIndex={i === step ? 0 : -1}
+                    aria-label={`Explore ${c.name}`}
+                  >
+                    <CakeTop cake={c} />
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

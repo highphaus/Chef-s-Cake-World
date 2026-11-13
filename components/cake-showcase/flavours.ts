@@ -23,12 +23,12 @@ export type Flavour = CategoryCake;
 
 export const CATEGORY_CAKES: CategoryCake[] = [
   {
-    name: 'Celebration Cakes',
-    shortName: 'Celebration',
+    name: 'Birthday Cakes',
+    shortName: 'Birthday Cakes',
     blurb: 'Artisanal birthday & milestone cakes baked fresh daily.',
     price: '₹599',
     image: '/hero-cakes/black-forest.jpg',
-    slug: '/cakes',
+    slug: '/cakes?category=birthday-cakes',
     bg: '#E8B984',
     frost: '#52261C',
     sponge: '#2E120B',
@@ -64,7 +64,7 @@ export const CATEGORY_CAKES: CategoryCake[] = [
   },
   {
     name: '100% Pure Eggless Cakes',
-    shortName: '100% Eggless',
+    shortName: 'Eggless Cakes',
     blurb: 'Certified pure vegetarian cakes from segregated ovens.',
     price: '₹649',
     image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg',
@@ -83,8 +83,8 @@ export const CATEGORY_CAKES: CategoryCake[] = [
     ],
   },
   {
-    name: 'Wedding & Tiered Masterpieces',
-    shortName: 'Wedding Masterpieces',
+    name: 'Wedding & Tiered Cakes',
+    shortName: 'Wedding Cakes',
     blurb: 'Bespoke architectural multi-tier centerpieces with 24K gold foil.',
     price: '₹1,800',
     image: '/hero-cakes/vanilla-buttercream.jpg',

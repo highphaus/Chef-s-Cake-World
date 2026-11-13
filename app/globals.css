@@ -8,17 +8,17 @@
   --color-caramel: #E8B984;   /* Requested signature warm color #E8B984 */
   --color-gold: #E8B984;      /* Requested signature warm color #E8B984 */
   --color-accent: #E8B984;    /* Primary Brand Accent #E8B984 */
-  --color-peach: #FDF6EE;     /* Soft warm tint derived from #E8B984 */
-  --color-cream: #FAF8F5;     /* Pure Alabaster / Architectural Linen Background */
+  --color-peach: #F6D6B6;     /* Soft warm tint derived from #E8B984 */
+  --color-cream: #E8B984;     /* Requested signature background color #E8B984 */
 
   /* Neutral Surface Shades */
-  --color-bg-main: #FAF8F5;
+  --color-bg-main: #E8B984;
   --color-surface-card: #FFFFFF;
   --color-surface-white: #FFFFFF;
   --color-text-primary: #320500;
   --color-text-secondary: #573E36;
   --color-text-muted: #80736C;
-  --color-border-subtle: #E8E2D9;
+  --color-border-subtle: rgba(50, 5, 0, 0.15);
 
   /* Fluid Responsive Typography Scale */
   --font-hero: clamp(2rem, 5vw, 4.75rem);
