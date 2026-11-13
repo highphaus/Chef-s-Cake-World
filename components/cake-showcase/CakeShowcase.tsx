@@ -255,7 +255,7 @@ export default function CakeShowcase({
             </div>
           </div>
 
-          {/* 2. CATEGORY NAME & ACTION DIRECTLY UNDER THE CAKE */}
+          {/* 2. CATEGORY NAME, PRICE & EXPLORE BUTTON DIRECTLY UNDER THE CAKE */}
           <div className="cs-category-info" aria-live="polite">
             {items.map((c, i) => {
               const categoryHref = c.slug || orderHref || '/cakes';
@@ -264,9 +264,6 @@ export default function CakeShowcase({
                   <h2 className="cs-cat-name">
                     {c.name}
                   </h2>
-                  <p className="cs-cat-blurb">
-                    {c.blurb}
-                  </p>
 
                   <div className="cs-cat-action">
                     <span className="cs-cat-price">From {c.price}</span>
@@ -275,7 +272,7 @@ export default function CakeShowcase({
                       className="cs-cat-btn"
                       tabIndex={i === step ? 0 : -1}
                     >
-                      <span>Explore {c.shortName || 'Category'}</span>
+                      <span>Explore</span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
