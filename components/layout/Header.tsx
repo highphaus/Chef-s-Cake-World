@@ -404,6 +404,16 @@ export default function Header() {
                 )}
               </div>
 
+              {/* Pastries Link */}
+              <Link
+                href="/pastries"
+                className={`px-2.5 py-1 rounded-lg text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${getNavLinkClass(
+                  pathname === '/pastries' || pathname.startsWith('/pastries/')
+                )}`}
+              >
+                <span>Pastries</span>
+              </Link>
+
               {/* Eggless Cakes Link */}
               <Link
                 href="/cakes?category=eggless-cakes"
@@ -790,9 +800,11 @@ export default function Header() {
               </Link>
 
               <Link
-                href="/cakes?category=pastries"
+                href="/pastries"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between text-brand-chocolate hover:bg-white/60"
+                className={`px-3.5 py-3 rounded-xl transition-colors min-h-[44px] flex items-center justify-between ${
+                  pathname === '/pastries' ? 'bg-brand-peach text-brand-chocolate font-bold shadow-2xs' : 'text-brand-chocolate hover:bg-white/60'
+                }`}
               >
                 <span>Artisan Pastries</span>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-peach text-brand-chocolate font-bold">

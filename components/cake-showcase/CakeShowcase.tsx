@@ -2,25 +2,25 @@
 
 import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
-import { FLAVOURS, toColour, type Flavour } from './flavours';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CATEGORY_CAKES, toColour, type CategoryCake } from './flavours';
 import './CakeShowcase.css';
 
 const R = 212;
 const INK = '#2B1030';
 
 const rel = (i: number, step: number) => (i === step ? 'on' : i < step ? 'past' : 'next');
-const vars = (f: Flavour) =>
+const vars = (c: CategoryCake) =>
   ({
-    '--bg': f.bg,
-    '--frost': f.frost,
-    '--sponge': f.sponge,
-    '--fill': f.fill,
-    '--accent': f.accent,
+    '--bg': c.bg,
+    '--frost': c.frost,
+    '--sponge': c.sponge,
+    '--fill': c.fill,
+    '--accent': c.accent,
   }) as CSSProperties;
 
-function CakeTop({ flavour }: { flavour: Flavour }) {
-  const clipId = `showcase-clip-${flavour.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
+function CakeTop({ cake }: { cake: CategoryCake }) {
+  const clipId = `showcase-clip-${cake.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
 
   return (
     <svg viewBox="-310 -310 620 620" aria-hidden="true" className="w-full h-full drop-shadow-2xl">
@@ -45,11 +45,11 @@ function CakeTop({ flavour }: { flavour: Flavour }) {
         opacity="0.85"
       />
 
-      {/* Photorealistic Real Cake Image Clipped into Circular Base */}
-      {flavour.image ? (
+      {/* Photorealistic Category Cake Image Clipped into Circular Base */}
+      {cake.image ? (
         <g clipPath={`url(#${clipId})`}>
           <image
-            href={flavour.image}
+            href={cake.image}
             x={-R}
             y={-R}
             width={2 * R}
@@ -68,24 +68,27 @@ function CakeTop({ flavour }: { flavour: Flavour }) {
 }
 
 type Props = {
-  flavours?: Flavour[];
+  categories?: CategoryCake[];
+  flavours?: CategoryCake[];
   orderHref?: string;
   label?: string;
 };
 
 export default function CakeShowcase({
-  flavours = FLAVOURS,
-  orderHref = '/cakes',
-  label = 'Signature Flavour Showcase',
+  categories = CATEGORY_CAKES,
+  flavours,
+  orderHref,
+  label = 'Artisan Cake Categories',
 }: Props) {
+  const items = flavours || categories;
   const [step, setStep] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const isTransitioningRef = useRef(false);
-  const totalCount = flavours.length;
+  const totalCount = items.length;
 
   // 1. DIRECT MOUSE WHEEL INTERACTION:
-  // Rolling the wheel inside the sticky showcase immediately advances/rewinds cakes!
+  // Rolling the wheel inside the sticky showcase advances/rewinds cake categories
   useEffect(() => {
     const stickyEl = stickyRef.current;
     if (!stickyEl) return;
@@ -98,7 +101,7 @@ export default function CakeShowcase({
       if (step === 0 && delta < 0) return;
       if (step === totalCount - 1 && delta > 0) return;
 
-      // Intercept wheel to step through cakes smoothly
+      // Intercept wheel to step through categories smoothly
       e.preventDefault();
       if (isTransitioningRef.current) return;
 
@@ -119,7 +122,7 @@ export default function CakeShowcase({
   }, [step, totalCount]);
 
   // 2. WINDOW SCROLL POSITION SYNC:
-  // When scrolling via scrollbar or page scroll, sync the active cake step
+  // When scrolling via scrollbar or page scroll, sync the active category step
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -198,7 +201,7 @@ export default function CakeShowcase({
       className="cs"
       style={
         {
-          '--bg': flavours[step]?.bg,
+          '--bg': items[step]?.bg,
           height: `${totalCount * 100}vh`,
         } as CSSProperties
       }
@@ -207,19 +210,19 @@ export default function CakeShowcase({
       onTouchEnd={handleTouchEnd}
     >
       <div ref={stickyRef} className="cs-sticky">
-        {/* TOP BAR: QUICK FLAVOUR SELECTOR PILLS */}
+        {/* TOP BAR: QUICK CATEGORY SELECTOR PILLS */}
         <div className="cs-top-bar">
           <div className="cs-flavour-pills">
-            {flavours.map((f, i) => {
+            {items.map((c, i) => {
               const isActive = i === step;
               return (
                 <button
-                  key={f.name}
+                  key={c.name}
                   type="button"
                   onClick={() => goToStep(i)}
                   className={`cs-pill ${isActive ? 'active' : ''}`}
                 >
-                  {f.name.split(' ')[0]} {f.name.split(' ')[1] || ''}
+                  {c.shortName || c.name}
                 </button>
               );
             })}
@@ -227,12 +230,12 @@ export default function CakeShowcase({
         </div>
 
         <div className="cs-grid">
-          {/* LEFT: ROTATING REAL CAKE PLATES WITH DIRECT ARROW CONTROLS */}
+          {/* LEFT: ROTATING REAL CATEGORY CAKE PLATES WITH DIRECT ARROW CONTROLS */}
           <div className="cs-cakes-wrapper">
             <div className="cs-cakes">
-              {flavours.map((f, i) => (
-                <div key={f.name} className={`cs-cake ${rel(i, step)}`} style={vars(f)}>
-                  <CakeTop flavour={f} />
+              {items.map((c, i) => (
+                <div key={c.name} className={`cs-cake ${rel(i, step)}`} style={vars(c)}>
+                  <CakeTop cake={c} />
                 </div>
               ))}
             </div>
@@ -244,7 +247,7 @@ export default function CakeShowcase({
                 onClick={handlePrev}
                 disabled={step === 0}
                 className="cs-arrow-btn"
-                title="Previous Cake"
+                title="Previous Category"
                 style={{
                   opacity: step === 0 ? 0.4 : 1,
                   cursor: step === 0 ? 'default' : 'pointer',
@@ -254,7 +257,7 @@ export default function CakeShowcase({
               </button>
 
               <span className="cs-arrow-indicator">
-                Cake {step + 1} of {totalCount}
+                Category {step + 1} of {totalCount}
               </span>
 
               <button
@@ -262,7 +265,7 @@ export default function CakeShowcase({
                 onClick={handleNext}
                 disabled={step === totalCount - 1}
                 className="cs-arrow-btn"
-                title="Next Cake"
+                title="Next Category"
                 style={{
                   opacity: step === totalCount - 1 ? 0.4 : 1,
                   cursor: step === totalCount - 1 ? 'default' : 'pointer',
@@ -273,24 +276,24 @@ export default function CakeShowcase({
             </div>
           </div>
 
-          {/* RIGHT: SLIDING STORY CARDS */}
+          {/* RIGHT: SLIDING STORY CARDS FOR CATEGORIES */}
           <div className="cs-cards" aria-live="polite">
-            {flavours.map((f, i) => {
-              const cakeHref = f.slug ? `/cakes/${f.slug}` : orderHref;
+            {items.map((c, i) => {
+              const categoryHref = c.slug || orderHref || '/cakes';
               return (
-                <article key={f.name} className={`cs-card ${rel(i, step)}`} style={vars(f)}>
+                <article key={c.name} className={`cs-card ${rel(i, step)}`} style={vars(c)}>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="cs-n">Flavour {i + 1} of {totalCount}</span>
+                    <span className="cs-n">Category {i + 1} of {totalCount}</span>
                     <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-brand-peach/80 text-brand-chocolate">
-                      Real Artisan Bake
+                      Artisan Category
                     </span>
                   </div>
 
-                  <h3>{f.name}</h3>
-                  <p>{f.blurb}</p>
+                  <h3>{c.name}</h3>
+                  <p>{c.blurb}</p>
 
                   <ul>
-                    {f.layers.map((l, n) => (
+                    {c.layers.map((l, n) => (
                       <li key={n}>
                         <i style={{ background: toColour(l.fill) }} />
                         <span>{l.name}</span>
@@ -301,19 +304,19 @@ export default function CakeShowcase({
                   <div className="cs-row pt-3 border-t border-brand-chocolate/15">
                     <div>
                       <span className="text-[10px] uppercase font-bold text-brand-chocolate/60 block">
-                        Fresh Daily
+                        Kerala Boutiques
                       </span>
                       <strong className="text-sm sm:text-base font-extrabold text-brand-chocolate">
-                        From {f.price} per kg
+                        From {c.price}
                       </strong>
                     </div>
 
                     <Link
                       className="cs-btn inline-flex items-center gap-1.5 cursor-pointer"
-                      href={cakeHref}
+                      href={categoryHref}
                       tabIndex={i === step ? 0 : -1}
                     >
-                      <span>Order This Cake</span>
+                      <span>Explore Category</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>

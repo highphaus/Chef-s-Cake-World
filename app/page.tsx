@@ -34,6 +34,7 @@ import { OFFICIAL_BRANCHES } from '@/lib/branchesData';
 import ProductCard from '@/components/products/ProductCard';
 import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 import InteractiveCakeHero from '@/components/home/InteractiveCakeHero';
+import CakeShowcase from '@/components/cake-showcase/CakeShowcase';
 
 const customerReviews = [
   {
@@ -722,6 +723,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 2.5: ARTISAN CATEGORY SHOWCASE (Category Section)
+      ────────────────────────────────────────────────────────────── */}
+      <CakeShowcase label="Artisan Cake Categories" />
 
       {/* ─────────────────────────────────────────────────────────────
           SECTION 3: CURATED COLLECTIONS (EDITORIAL GALLERY PLATES)

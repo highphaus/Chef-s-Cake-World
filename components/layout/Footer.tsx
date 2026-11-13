@@ -81,6 +81,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/pastries" className="hover:text-brand-caramel transition-colors block py-0.5">
+                  Artisan Pastries
+                </Link>
+              </li>
+              <li>
                 <Link href="/custom-cakes" className="hover:text-brand-caramel transition-colors block py-0.5">
                   Custom Cakes
                 </Link>
