@@ -27,36 +27,17 @@ const vars = (c: CategoryCake) =>
   }) as CSSProperties;
 
 function CakeTop({ cake }: { cake: CategoryCake }) {
-  const clipId = `showcase-clip-${cake.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
-
   return (
-    <svg
-      viewBox="-225 -225 450 450"
-      aria-hidden="true"
-      className="w-full h-full drop-shadow-[0_16px_22px_rgba(48,22,18,0.22)]"
-    >
-      <defs>
-        <clipPath id={clipId}>
-          <circle cx="0" cy="0" r={R} />
-        </clipPath>
-      </defs>
-
-      {/* Photorealistic Category Cake Image Clipped into Circular Base */}
-      {cake.image ? (
-        <g clipPath={`url(#${clipId})`}>
-          <image
-            href={cake.image}
-            x={-R}
-            y={-R}
-            width={2 * R}
-            height={2 * R}
-            preserveAspectRatio="xMidYMid slice"
-          />
-        </g>
-      ) : (
-        <circle r={R} fill="var(--frost)" stroke="var(--sponge)" strokeWidth={8} paintOrder="stroke" />
-      )}
-    </svg>
+    <div className="cs-cake-disc">
+      <img
+        src={cake.image}
+        alt={cake.name}
+        className="cs-cake-img"
+        loading="eager"
+        draggable={false}
+      />
+      <div className="cs-cake-ring" />
+    </div>
   );
 }
 
@@ -65,13 +46,17 @@ type Props = {
   flavours?: CategoryCake[];
   orderHref?: string;
   label?: string;
+  title?: string;
+  badge?: string;
 };
 
 export default function CakeShowcase({
   categories = CATEGORY_CAKES,
   flavours,
   orderHref,
-  label = 'Artisan Cake Categories',
+  label = 'Explore by Category',
+  title = 'Explore by Category',
+  badge = 'Curated Ateliers',
 }: Props) {
   const items = flavours || categories;
   const [step, setStep] = useState(0);
@@ -226,6 +211,12 @@ export default function CakeShowcase({
       <div ref={stickyRef} className="cs-sticky">
         {/* CENTER STAGE: 3D CAROUSEL (BIGGER IN CENTER, PREVIEWS ON LEFT & RIGHT) */}
         <div className="cs-stage">
+          {/* SECTION HEADER: "Explore by Category" */}
+          <div className="cs-header">
+            {badge && <span className="cs-header-badge">{badge}</span>}
+            <h2 className="cs-header-title">{title}</h2>
+          </div>
+
           {/* 1. CAROUSEL CAKE DISPLAY */}
           <div className="cs-cakes-wrapper">
             <div className="cs-cakes">

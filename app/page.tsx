@@ -629,7 +629,11 @@ export default function HomePage() {
       {/* ─────────────────────────────────────────────────────────────
           SECTION 2.5: ARTISAN CATEGORY SHOWCASE (Category Section)
       ────────────────────────────────────────────────────────────── */}
-      <CakeShowcase label="Artisan Cake Categories" />
+      <CakeShowcase
+        title="Explore by Category"
+        badge="Curated Ateliers"
+        label="Explore by Category"
+      />
 
       {/* ─────────────────────────────────────────────────────────────
           SECTION 3: CURATED COLLECTIONS (EDITORIAL GALLERY PLATES)
