@@ -34,6 +34,7 @@ import { OFFICIAL_BRANCHES } from '@/lib/branchesData';
 import ProductCard from '@/components/products/ProductCard';
 import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 import InteractiveCakeHero from '@/components/home/InteractiveCakeHero';
+import ScrollCake from '@/components/home/ScrollCake';
 
 const customerReviews = [
   {
@@ -665,6 +666,11 @@ export default function HomePage() {
           SECTION 1: THE INTERACTIVE CAKE HERO ("Cut the first slice")
       ────────────────────────────────────────────────────────────── */}
       <InteractiveCakeHero />
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 1.5: SCROLL CAKE ("How your cake comes together")
+      ────────────────────────────────────────────────────────────── */}
+      <ScrollCake />
 
       {/* ─────────────────────────────────────────────────────────────
           SECTION 2: THE PHILOSOPHY BAR (MNC Minimal 4 Pillars)

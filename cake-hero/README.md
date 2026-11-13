@@ -1,5 +1,12 @@
-# Sugar & Crumb: cake hero (Next.js)
-npm install && npm run dev  → http://localhost:3000
-- Flavours, colours, prices: lib/flavours.ts
-- Cake geometry and decorations: lib/cake.ts
-- Hero component: components/CakeHero.tsx, styles in app/globals.css
+# Sugar & Crumb: cake hero + scroll-built cake (Next.js)
+
+    npm install
+    npm run dev      # http://localhost:3000
+    npm run build && npm start
+
+Where to edit
+- lib/flavours.ts: flavours, colours, layer names, prices
+- components/CakeHero.tsx: interactive hero (cut the first slice)
+- components/ScrollCake.tsx: scroll-built cake. Edit the NOTES array for the copy
+- app/page.tsx: page order
+- app/globals.css, components/ScrollCake.css: styles
