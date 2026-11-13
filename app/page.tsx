@@ -629,16 +629,18 @@ export default function HomePage() {
       {/* ─────────────────────────────────────────────────────────────
           SECTION 2.5: ARTISAN CATEGORY SHOWCASE (Category Section)
       ────────────────────────────────────────────────────────────── */}
-      <CakeShowcase
-        title="Explore by Category"
-        badge="Curated Ateliers"
-        label="Explore by Category"
-      />
+      <div className="!my-0">
+        <CakeShowcase
+          title="Explore by Category"
+          badge="Curated Ateliers"
+          label="Explore by Category"
+        />
+      </div>
 
       {/* ─────────────────────────────────────────────────────────────
           SECTION 3: CURATED COLLECTIONS (EDITORIAL GALLERY PLATES)
       ────────────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 !mt-4 sm:!mt-6">
         <div className="flex items-baseline justify-between mb-6 sm:mb-8 pb-3 border-b border-brand-chocolate/10">
           <div>
             <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">

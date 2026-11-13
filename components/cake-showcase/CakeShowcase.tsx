@@ -78,9 +78,9 @@ export default function CakeShowcase({
     lastWheelTimeRef.current = Date.now();
 
     // Instantly sync window scroll position so the browser scrollbar stays aligned without causing animation lag
-    if (sectionRef.current) {
-      const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top - 72;
-      const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
+    if (sectionRef.current && stickyRef.current) {
+      const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top - 74;
+      const totalScrollable = sectionRef.current.offsetHeight - stickyRef.current.offsetHeight;
       if (totalScrollable > 0) {
         const targetOffset = (clamped / (totalCount - 1)) * totalScrollable;
         window.scrollTo({
@@ -114,9 +114,9 @@ export default function CakeShowcase({
       const nextStep = delta > 0 ? Math.min(totalCount - 1, step + 1) : Math.max(0, step - 1);
       if (nextStep !== step) {
         setStep(nextStep);
-        if (sectionRef.current) {
-          const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top - 72;
-          const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
+        if (sectionRef.current && stickyRef.current) {
+          const sectionTop = window.scrollY + sectionRef.current.getBoundingClientRect().top - 74;
+          const totalScrollable = sectionRef.current.offsetHeight - stickyRef.current.offsetHeight;
           if (totalScrollable > 0) {
             const targetOffset = (nextStep / (totalCount - 1)) * totalScrollable;
             window.scrollTo({
@@ -140,18 +140,19 @@ export default function CakeShowcase({
 
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {
-        if (!sectionRef.current) return;
+        if (!sectionRef.current || !stickyRef.current) return;
         const rect = sectionRef.current.getBoundingClientRect();
-        const totalScrollable = rect.height - window.innerHeight;
+        const stickyH = stickyRef.current.offsetHeight;
+        const totalScrollable = rect.height - stickyH;
 
         if (totalScrollable > 0) {
-          if (rect.top <= 80 && rect.bottom >= window.innerHeight - 30) {
-            const progress = Math.min(Math.max((72 - rect.top) / totalScrollable, 0), 1);
+          if (rect.top <= 76 && rect.top >= 74 - totalScrollable) {
+            const progress = Math.min(Math.max((74 - rect.top) / totalScrollable, 0), 1);
             const newStep = Math.min(Math.round(progress * (totalCount - 1)), totalCount - 1);
             setStep((prev) => (prev === newStep ? prev : newStep));
-          } else if (rect.top > 80) {
+          } else if (rect.top > 76) {
             setStep((prev) => (prev === 0 ? prev : 0));
-          } else if (rect.bottom < window.innerHeight - 30) {
+          } else {
             setStep((prev) => (prev === totalCount - 1 ? prev : totalCount - 1));
           }
         }
@@ -201,7 +202,7 @@ export default function CakeShowcase({
       style={
         {
           '--bg': '#FAF8F5',
-          height: `${totalCount * 13}vh`,
+          height: `calc(350px + ${totalCount * 85}px)`,
         } as CSSProperties
       }
       aria-label={label}
