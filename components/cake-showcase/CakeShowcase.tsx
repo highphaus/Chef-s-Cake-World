@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { CATEGORY_CAKES, toColour, type CategoryCake } from './flavours';
+import { CATEGORY_CAKES, type CategoryCake } from './flavours';
 import './CakeShowcase.css';
 
 const R = 212;
@@ -25,7 +25,7 @@ function CakeTop({ cake }: { cake: CategoryCake }) {
     <svg
       viewBox="-225 -225 450 450"
       aria-hidden="true"
-      className="w-full h-full drop-shadow-[0_22px_36px_rgba(0,0,0,0.42)]"
+      className="w-full h-full drop-shadow-[0_28px_45px_rgba(0,0,0,0.48)]"
     >
       <defs>
         <clipPath id={clipId}>
@@ -33,7 +33,7 @@ function CakeTop({ cake }: { cake: CategoryCake }) {
         </clipPath>
       </defs>
 
-      {/* Photorealistic Category Cake Image Clipped into Circular Base (No Surrounding Outer Ring/Plate) */}
+      {/* Photorealistic Category Cake Image Clipped into Circular Base */}
       {cake.image ? (
         <g clipPath={`url(#${clipId})`}>
           <image
@@ -192,7 +192,7 @@ export default function CakeShowcase({
       onTouchEnd={handleTouchEnd}
     >
       <div ref={stickyRef} className="cs-sticky">
-        {/* TOP BAR: QUICK CATEGORY SELECTOR PILLS (CENTERED) */}
+        {/* TOP BAR: QUICK CATEGORY SELECTOR PILLS */}
         <div className="cs-top-bar">
           <div className="cs-flavour-pills">
             {items.map((c, i) => {
@@ -211,9 +211,9 @@ export default function CakeShowcase({
           </div>
         </div>
 
-        {/* CENTER STAGE: CAKE & DETAILS FULLY CENTERED */}
+        {/* CENTER STAGE: BIGGER CAKE + CATEGORY NAME DIRECTLY UNDER (NO BIG BOX) */}
         <div className="cs-stage">
-          {/* ROTATING REAL CATEGORY CAKE (CENTERED, NO SURROUNDING CIRCLE PLATE/ARROWS) */}
+          {/* 1. LARGER ROTATING CATEGORY CAKE IN CENTER */}
           <div className="cs-cakes-wrapper">
             <div className="cs-cakes">
               {items.map((c, i) => (
@@ -224,51 +224,32 @@ export default function CakeShowcase({
             </div>
           </div>
 
-          {/* SLIDING STORY CARDS FOR CATEGORIES (CENTERED DIRECTLY BELOW CAKE) */}
-          <div className="cs-cards" aria-live="polite">
+          {/* 2. CATEGORY NAME & ACTION DIRECTLY UNDER THE CAKE */}
+          <div className="cs-category-info" aria-live="polite">
             {items.map((c, i) => {
               const categoryHref = c.slug || orderHref || '/cakes';
               return (
-                <article key={c.name} className={`cs-card ${rel(i, step)}`} style={vars(c)}>
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <span className="cs-n">Category {i + 1} of {totalCount}</span>
-                    <span className="text-[10.5px] font-bold px-2.5 py-0.5 rounded-full bg-brand-peach/80 text-brand-chocolate">
-                      Artisan Category
-                    </span>
-                  </div>
+                <div key={c.name} className={`cs-title-wrap ${rel(i, step)}`}>
+                  <span className="cs-cat-tag">Category {i + 1} of {totalCount}</span>
+                  <h2 className="cs-cat-name">
+                    {c.name}
+                  </h2>
+                  <p className="cs-cat-blurb">
+                    {c.blurb}
+                  </p>
 
-                  <h3>{c.name}</h3>
-                  <p>{c.blurb}</p>
-
-                  <ul className="cs-layers">
-                    {c.layers.map((l, n) => (
-                      <li key={n}>
-                        <i style={{ background: toColour(l.fill) }} />
-                        <span>{l.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="cs-row pt-3 border-t border-brand-chocolate/15">
-                    <div>
-                      <span className="text-[9.5px] uppercase font-bold text-brand-chocolate/60 block">
-                        Kerala Boutiques
-                      </span>
-                      <strong className="text-sm sm:text-base font-extrabold text-brand-chocolate">
-                        From {c.price}
-                      </strong>
-                    </div>
-
+                  <div className="cs-cat-action">
+                    <span className="cs-cat-price">From {c.price}</span>
                     <Link
-                      className="cs-btn inline-flex items-center gap-1.5 cursor-pointer"
                       href={categoryHref}
+                      className="cs-cat-btn"
                       tabIndex={i === step ? 0 : -1}
                     >
-                      <span>Explore Category</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <span>Explore {c.shortName || 'Category'}</span>
+                      <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
-                </article>
+                </div>
               );
             })}
           </div>
