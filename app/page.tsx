@@ -174,28 +174,6 @@ export default function HomePage() {
     fetchHomeData();
   }, []);
 
-  // Category Carousel Auto-scroll
-  const categoryScrollRef = useRef<HTMLDivElement>(null);
-  const [isCategoryPaused, setIsCategoryPaused] = useState(false);
-
-  useEffect(() => {
-    if (isCategoryPaused) return;
-
-    const timer = setInterval(() => {
-      if (categoryScrollRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = categoryScrollRef.current;
-        const step = clientWidth < 640 ? 190 : 260;
-        if (scrollLeft + clientWidth >= scrollWidth - 15) {
-          categoryScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          categoryScrollRef.current.scrollBy({ left: step, behavior: 'smooth' });
-        }
-      }
-    }, 3200);
-
-    return () => clearInterval(timer);
-  }, [isCategoryPaused]);
-
   // Product Showcase Scroll Track
   const productScrollRef = useRef<HTMLDivElement>(null);
   const scrollProducts = (dir: 'left' | 'right') => {
@@ -273,16 +251,83 @@ export default function HomePage() {
   }, [isReviewsPaused]);
 
   // Master Categories
-  const displayCategories = categories.length > 0 ? categories : [
-    { name: 'Belgian Couverture', slug: 'chocolate-cakes', image: '/Cakes/cake.jpg' },
-    { name: 'Artisan Pastries', slug: 'pastries', image: '/Cakes/38499c1ae99d95bfe134d660e4c5d6ea.jpg' },
-    { name: 'Pure Eggless', slug: 'eggless-cakes', image: '/Cakes/6077fa416087bf801e907887a53cfe1d.jpg' },
-    { name: 'Birthday Favorites', slug: 'birthday-cakes', image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg' },
-    { name: 'Wedding Atelier', slug: 'wedding-cakes', image: '/Cakes/da137e0e2f85163498af483676d4ccd8.jpg' },
-    { name: 'Sweets & Desserts', slug: 'sweets-desserts', image: '/Cakes/b3392f499749364b011f93c6634cf890.jpg' },
-    { name: 'Bespoke Custom', slug: 'designer-cakes', image: '/Cakes/3b109e1a28abe394a7b3a23ecf94450b.jpg' },
-    { name: 'Anniversary Luxe', slug: 'anniversary-cakes', image: '/Cakes/2bb7cee4f7aea565457d0eec341cb3d7.jpg' }
+  const DEFAULT_CATEGORIES = [
+    {
+      name: 'Birthday Favorites',
+      slug: 'birthday-cakes',
+      image: '/Cakes/d3a5afe4913cfb730896c2b6a1cce517.jpg',
+      price: 'From ₹599',
+      badge: 'Popular',
+      blurb: 'Artisanal birthday & celebration cakes baked fresh daily.',
+    },
+    {
+      name: 'Belgian Couverture',
+      slug: 'chocolate-cakes',
+      image: '/Cakes/cake.jpg',
+      price: 'From ₹649',
+      badge: 'Signature',
+      blurb: 'Single-origin 70% Callebaut dark ganache creations.',
+    },
+    {
+      name: 'Artisan Pastries',
+      slug: 'pastries',
+      image: '/Cakes/38499c1ae99d95bfe134d660e4c5d6ea.jpg',
+      price: 'From ₹119',
+      badge: 'Fresh Daily',
+      blurb: 'French wild blueberry cheesecake, truffles & slices.',
+    },
+    {
+      name: 'Pure Eggless',
+      slug: 'eggless-cakes',
+      image: '/Cakes/6077fa416087bf801e907887a53cfe1d.jpg',
+      price: 'From ₹649',
+      badge: '100% Pure Veg',
+      blurb: 'Certified pure vegetarian oven with cloud-soft moisture.',
+    },
+    {
+      name: 'Wedding Atelier',
+      slug: 'wedding-cakes',
+      image: '/Cakes/da137e0e2f85163498af483676d4ccd8.jpg',
+      price: 'From ₹1,800',
+      badge: 'Bespoke Tiers',
+      blurb: 'Architectural multi-tier centerpieces with 24K gold foil.',
+    },
+    {
+      name: 'Sweets & Desserts',
+      slug: 'sweets-desserts',
+      image: '/Cakes/b3392f499749364b011f93c6634cf890.jpg',
+      price: 'From ₹139',
+      badge: 'Handcrafted',
+      blurb: 'Parisian macarons, saffron rabdi & fudge brownies.',
+    },
+    {
+      name: 'Bespoke Custom',
+      slug: 'designer-cakes',
+      image: '/Cakes/3b109e1a28abe394a7b3a23ecf94450b.jpg',
+      price: 'From ₹899',
+      badge: 'Custom Themes',
+      blurb: 'Hand-sculpted celebration cakes made to your theme.',
+    },
+    {
+      name: 'Anniversary Luxe',
+      slug: 'anniversary-cakes',
+      image: '/Cakes/2bb7cee4f7aea565457d0eec341cb3d7.jpg',
+      price: 'From ₹749',
+      badge: 'Romantic',
+      blurb: 'Heart-shaped red velvet cakes with Belgian chocolate accents.',
+    },
   ];
+
+  const displayCategories = categories.length > 0
+    ? categories.map((cat: any, idx: number) => ({
+        ...DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length],
+        ...cat,
+        image: cat.image || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].image,
+        price: cat.price || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].price,
+        badge: cat.badge || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].badge,
+        blurb: cat.blurb || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].blurb,
+      }))
+    : DEFAULT_CATEGORIES;
 
   // Master Curated Product Lists
   const displayBestSellers = bestSellers.length > 0 ? bestSellers : [
@@ -629,53 +674,84 @@ export default function HomePage() {
           SECTION 2: CURATED COLLECTIONS (EDITORIAL GALLERY PLATES)
       ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-baseline justify-between mb-6 sm:mb-8 pb-3 border-b border-brand-chocolate/10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 pb-3 border-b border-brand-chocolate/10 gap-3">
           <div>
             <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
               Curated Ateliers
             </span>
-            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate">
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate font-extrabold">
               Explore By Category
             </h2>
+            <p className="text-xs sm:text-sm text-[#573E36] mt-1 font-body">
+              Handcrafted artisanal cakes & gourmet patisserie baked fresh daily for your celebration
+            </p>
           </div>
 
           <Link
             href="/categories"
-            className="text-xs sm:text-sm font-semibold text-brand-caramel hover:text-brand-chocolate flex items-center gap-1 group font-body"
+            className="text-xs sm:text-sm font-bold text-[#301612] hover:text-brand-caramel flex items-center gap-1.5 group font-body px-3.5 py-1.5 rounded-full border border-brand-chocolate/15 bg-white hover:border-brand-caramel transition-all self-start sm:self-auto shadow-2xs"
           >
             <span>View All Categories</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        {/* Minimalist Horizontal Scrolling Track with High-Fashion Aspect */}
-        <div
-          ref={categoryScrollRef}
-          onMouseEnter={() => setIsCategoryPaused(true)}
-          onMouseLeave={() => setIsCategoryPaused(false)}
-          onTouchStart={() => setIsCategoryPaused(true)}
-          onTouchEnd={() => setIsCategoryPaused(false)}
-          className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
+        {/* Curated Category Grid: 4 columns on desktop, 2 columns on mobile */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6">
           {displayCategories.map((cat: any) => (
             <Link
               key={cat.slug}
               href={`/cakes?category=${cat.slug}`}
-              className="group flex flex-col shrink-0 w-[120px] xs:w-[136px] sm:w-[160px] text-center"
+              className="group flex flex-col bg-white rounded-2xl sm:rounded-3xl border border-brand-chocolate/10 hover:border-brand-caramel/60 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             >
-              <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-brand-chocolate/5 border border-brand-chocolate/10 group-hover:border-brand-caramel/50 transition-all duration-500 shadow-2xs group-hover:shadow-md">
+              {/* Image Container with Badges */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-brand-chocolate/5">
                 <img
                   src={cat.image}
                   alt={cat.name}
                   className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+                  loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+
+                {/* Top Floating Badges */}
+                <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1 pointer-events-none">
+                  {cat.price && (
+                    <span className="text-[10px] sm:text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-white/95 text-brand-chocolate shadow-xs border border-brand-chocolate/10">
+                      {cat.price}
+                    </span>
+                  )}
+                  {cat.badge && (
+                    <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#301612]/85 text-[#E8B984] backdrop-blur-xs">
+                      {cat.badge}
+                    </span>
+                  )}
+                </div>
               </div>
 
-              <h3 className="font-heading font-semibold text-xs sm:text-sm text-brand-chocolate group-hover:text-brand-caramel transition-colors mt-2.5 truncate px-1">
-                {cat.name}
-              </h3>
+              {/* Body Content & Explore CTA */}
+              <div className="p-3 sm:p-4 flex flex-col justify-between flex-1 gap-2 bg-white">
+                <div>
+                  <h3 className="font-heading font-extrabold text-xs sm:text-base text-brand-chocolate group-hover:text-brand-caramel transition-colors line-clamp-1">
+                    {cat.name}
+                  </h3>
+                  {cat.blurb && (
+                    <p className="text-[11px] sm:text-xs text-[#573E36] line-clamp-1 sm:line-clamp-2 mt-1 leading-snug font-body">
+                      {cat.blurb}
+                    </p>
+                  )}
+                </div>
+
+                <div className="pt-2 border-t border-brand-chocolate/8 flex items-center justify-between mt-auto">
+                  <span className="text-[10px] sm:text-[11px] font-semibold text-brand-chocolate/60 group-hover:text-brand-caramel transition-colors font-body hidden sm:inline">
+                    Browse atelier
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-[#301612] text-[#E8B984] group-hover:bg-brand-caramel group-hover:text-[#301612] transition-all shadow-xs ml-auto">
+                    Explore
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </span>
+                </div>
+              </div>
             </Link>
           ))}
         </div>
