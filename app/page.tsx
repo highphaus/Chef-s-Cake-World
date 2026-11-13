@@ -34,7 +34,6 @@ import { OFFICIAL_BRANCHES } from '@/lib/branchesData';
 import ProductCard from '@/components/products/ProductCard';
 import PincodeCheckerModal from '@/components/common/PincodeCheckerModal';
 import InteractiveCakeHero from '@/components/home/InteractiveCakeHero';
-import CakeShowcase from '@/components/cake-showcase/CakeShowcase';
 
 const customerReviews = [
   {
@@ -627,20 +626,9 @@ export default function HomePage() {
       <InteractiveCakeHero />
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 2.5: ARTISAN CATEGORY SHOWCASE (Category Section)
+          SECTION 2: CURATED COLLECTIONS (EDITORIAL GALLERY PLATES)
       ────────────────────────────────────────────────────────────── */}
-      <div className="!my-0">
-        <CakeShowcase
-          title="Explore by Category"
-          badge="Curated Ateliers"
-          label="Explore by Category"
-        />
-      </div>
-
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 3: CURATED COLLECTIONS (EDITORIAL GALLERY PLATES)
-      ────────────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 !mt-4 sm:!mt-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-baseline justify-between mb-6 sm:mb-8 pb-3 border-b border-brand-chocolate/10">
           <div>
             <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
