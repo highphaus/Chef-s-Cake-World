@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useCallback, type CSSProperties, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import Link from 'next/link';
-import { ArrowRight, RotateCcw, Sparkles, Scissors, Star, Truck, ShieldCheck } from 'lucide-react';
+import { ArrowRight, RotateCcw, Sparkles, Scissors } from 'lucide-react';
 import {
   HERO_FLAVOURS,
   R,
@@ -500,22 +500,6 @@ export default function InteractiveCakeHero() {
               </p>
             </div>
           </aside>
-        </div>
-
-        {/* Bottom Trust Highlights Strip */}
-        <div className="mt-10 pt-5 border-t border-brand-chocolate/10 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs sm:text-sm font-medium text-[#5C3D34]">
-          <div className="flex items-center gap-2">
-            <Truck className="w-4 h-4 text-brand-caramel" />
-            <span>2-Hour Express Kerala Delivery</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-brand-caramel" />
-            <span>100% Pure Belgian Couverture</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
-            <span>4.98 / 5.0 (1,420+ Verified Orders)</span>
-          </div>
         </div>
       </div>
     </section>
