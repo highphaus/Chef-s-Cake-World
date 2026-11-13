@@ -623,26 +623,6 @@ export default function HomePage() {
           </div>
 
           <div className="flex items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto">
-            {/* Mobile Navigation Buttons (< >) */}
-            <div className="flex md:hidden items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => scrollCategory('left')}
-                aria-label="Previous category"
-                className="w-8 h-8 rounded-full border border-brand-chocolate/20 bg-white text-brand-chocolate flex items-center justify-center hover:bg-brand-cream active:scale-95 transition-all shadow-2xs"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollCategory('right')}
-                aria-label="Next category"
-                className="w-8 h-8 rounded-full border border-brand-chocolate/20 bg-white text-brand-chocolate flex items-center justify-center hover:bg-brand-cream active:scale-95 transition-all shadow-2xs"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-
             <Link
               href="/categories"
               className="text-xs sm:text-sm font-bold text-[#301612] hover:text-brand-caramel flex items-center gap-1.5 group font-body px-3.5 py-1.5 rounded-full border border-brand-chocolate/15 bg-white hover:border-brand-caramel transition-all shadow-2xs"
@@ -653,11 +633,32 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Mobile Horizontal Carousel: Touch Swipe + Button Navigation (Single 1-Row Carousel) */}
-        <div
-          ref={categoryScrollRef}
-          className="flex flex-nowrap md:hidden gap-3.5 overflow-x-auto scroll-smooth pb-3 px-1 -mx-1 snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]"
-        >
+        {/* Mobile Horizontal Carousel Container with Left & Right Centered Buttons */}
+        <div className="relative md:hidden">
+          {/* Left Arrow Button (Centered on Left Edge) */}
+          <button
+            type="button"
+            onClick={() => scrollCategory('left')}
+            aria-label="Previous category"
+            className="absolute left-1 xs:left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Right Arrow Button (Centered on Right Edge) */}
+          <button
+            type="button"
+            onClick={() => scrollCategory('right')}
+            aria-label="Next category"
+            className="absolute right-1 xs:right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+
+          <div
+            ref={categoryScrollRef}
+            className="flex flex-nowrap gap-3.5 overflow-x-auto scroll-smooth pb-3 px-1 -mx-1 snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]"
+          >
           {displayCategories.map((cat: any) => (
             <Link
               key={`mobile-${cat.slug}`}
@@ -698,6 +699,7 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
+      </div>
 
         {/* Curated Category Grid: 4 columns on desktop (Hidden on mobile) */}
         <div className="hidden md:grid md:grid-cols-4 gap-5 lg:gap-6">
@@ -749,35 +751,13 @@ export default function HomePage() {
       ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8 gap-4 pb-3 border-b border-brand-chocolate/10">
-          <div className="flex items-center justify-between w-full md:w-auto">
-            <div>
-              <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
-                The Signature Edit
-              </span>
-              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate font-extrabold">
-                Masterwork Creations
-              </h2>
-            </div>
-
-            {/* Mobile Navigation Buttons (< >) */}
-            <div className="flex md:hidden items-center gap-1.5 shrink-0">
-              <button
-                type="button"
-                onClick={() => scrollProducts('left')}
-                aria-label="Previous Products"
-                className="w-8 h-8 rounded-full border border-brand-chocolate/20 bg-white text-brand-chocolate flex items-center justify-center hover:bg-brand-cream active:scale-95 transition-all shadow-2xs"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollProducts('right')}
-                aria-label="Next Products"
-                className="w-8 h-8 rounded-full border border-brand-chocolate/20 bg-white text-brand-chocolate flex items-center justify-center hover:bg-brand-cream active:scale-95 transition-all shadow-2xs"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+          <div>
+            <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
+              The Signature Edit
+            </span>
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-brand-chocolate font-extrabold">
+              Masterwork Creations
+            </h2>
           </div>
 
           {/* Interactive Category Filter Tabs (MNC Clean Pill Switcher) */}
@@ -809,22 +789,24 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Product Grid / Track */}
+        {/* Product Grid / Track with Left & Right Centered Buttons */}
         <div className="relative group/ptrack">
-          {/* Desktop Navigation Controls */}
+          {/* Left Arrow Button (Centered on Left Edge) */}
           <button
             type="button"
             onClick={() => scrollProducts('left')}
             aria-label="Previous Products"
-            className="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-95 cursor-pointer"
+            className="flex absolute left-1 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
+
+          {/* Right Arrow Button (Centered on Right Edge) */}
           <button
             type="button"
             onClick={() => scrollProducts('right')}
             aria-label="Next Products"
-            className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-95 cursor-pointer"
+            className="flex absolute right-1 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -860,85 +842,85 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="flex items-center gap-2">
-            {/* Mobile Carousel Navigation Buttons */}
-            <div className="flex lg:hidden items-center gap-1.5 shrink-0">
-              <button
-                type="button"
-                onClick={() => scrollPillars('left')}
-                aria-label="Previous Pillar"
-                className="w-8 h-8 rounded-full border border-brand-chocolate/20 bg-white text-brand-chocolate flex items-center justify-center hover:bg-brand-cream active:scale-95 transition-all shadow-2xs"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollPillars('right')}
-                aria-label="Next Pillar"
-                className="w-8 h-8 rounded-full border border-brand-chocolate/20 bg-white text-brand-chocolate flex items-center justify-center hover:bg-brand-cream active:scale-95 transition-all shadow-2xs"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-
-            <span className="hidden lg:inline text-xs text-brand-chocolate/65 font-body">
-              Audited Culinary Integrity &bull; Since 2012
-            </span>
-          </div>
+          <span className="hidden lg:inline text-xs text-brand-chocolate/65 font-body">
+            Audited Culinary Integrity &bull; Since 2012
+          </span>
         </div>
 
-        {/* Four Pillars Carousel on Mobile / 4-Col Grid on Desktop */}
-        <div
-          ref={pillarsScrollRef}
-          className="flex lg:grid lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto lg:overflow-visible scroll-smooth pb-3 -mx-4 px-4 lg:mx-0 lg:px-0 no-scrollbar scrollbar-none snap-x snap-mandatory"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {[
-            {
-              num: '01',
-              title: 'Pure Callebaut Couverture',
-              desc: 'Imported 70% dark Belgian cocoa butter. We strictly reject hydrogenated vegetable fat substitutes used in ordinary cakes.',
-              highlight: 'Wieze, Belgium Sourcing',
-            },
-            {
-              num: '02',
-              title: 'Segregated Vegetarian Line',
-              desc: 'Our dedicated eggless atelier operates with segregated utensils, European yogurt culture, and pure organic vanilla.',
-              highlight: '100% Certified Purity',
-            },
-            {
-              num: '03',
-              title: 'Chime-of-Midnight Dispatch',
-              desc: 'Custom chilled delivery vehicles ensure your cake arrives between 11:30 PM & 12:00 AM with immaculate glaze and zero tilt.',
-              highlight: 'Temperature-Controlled Transit',
-            },
-            {
-              num: '04',
-              title: 'Architectural Sugar Artistry',
-              desc: 'Every wedding and custom tier is handcrafted with food-grade edible 24K gold foil and botanically accurate sugar peonies.',
-              highlight: 'Bespoke Couture Craft',
-            },
-          ].map((pillar) => (
-            <div
-              key={pillar.num}
-              className="w-[260px] xs:w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink snap-start p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-[0_2px_12px_rgba(42,6,0,0.03)] hover:shadow-md transition-all flex flex-col justify-between"
-            >
-              <div className="space-y-3">
-                <span className="text-xs font-heading font-bold text-brand-gold tracking-widest block">
-                  PILLAR {pillar.num}
-                </span>
-                <h3 className="font-heading text-lg font-bold text-brand-chocolate">
-                  {pillar.title}
-                </h3>
-                <p className="text-xs text-brand-chocolate/75 font-body leading-relaxed">
-                  {pillar.desc}
-                </p>
+        {/* Four Pillars Carousel on Mobile / 4-Col Grid on Desktop with Left & Right Centered Buttons */}
+        <div className="relative">
+          {/* Left Arrow Button on Mobile */}
+          <button
+            type="button"
+            onClick={() => scrollPillars('left')}
+            aria-label="Previous Pillar"
+            className="flex lg:hidden absolute left-1 xs:left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Right Arrow Button on Mobile */}
+          <button
+            type="button"
+            onClick={() => scrollPillars('right')}
+            aria-label="Next Pillar"
+            className="flex lg:hidden absolute right-1 xs:right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+
+          <div
+            ref={pillarsScrollRef}
+            className="flex lg:grid lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto lg:overflow-visible scroll-smooth pb-3 -mx-4 px-4 lg:mx-0 lg:px-0 no-scrollbar scrollbar-none snap-x snap-mandatory"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {[
+              {
+                num: '01',
+                title: 'Pure Callebaut Couverture',
+                desc: 'Imported 70% dark Belgian cocoa butter. We strictly reject hydrogenated vegetable fat substitutes used in ordinary cakes.',
+                highlight: 'Wieze, Belgium Sourcing',
+              },
+              {
+                num: '02',
+                title: 'Segregated Vegetarian Line',
+                desc: 'Our dedicated eggless atelier operates with segregated utensils, European yogurt culture, and pure organic vanilla.',
+                highlight: '100% Certified Purity',
+              },
+              {
+                num: '03',
+                title: 'Chime-of-Midnight Dispatch',
+                desc: 'Custom chilled delivery vehicles ensure your cake arrives between 11:30 PM & 12:00 AM with immaculate glaze and zero tilt.',
+                highlight: 'Temperature-Controlled Transit',
+              },
+              {
+                num: '04',
+                title: 'Architectural Sugar Artistry',
+                desc: 'Every wedding and custom tier is handcrafted with food-grade edible 24K gold foil and botanically accurate sugar peonies.',
+                highlight: 'Bespoke Couture Craft',
+              },
+            ].map((pillar) => (
+              <div
+                key={pillar.num}
+                className="w-[260px] xs:w-[280px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink snap-start p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-[0_2px_12px_rgba(42,6,0,0.03)] hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <span className="text-xs font-heading font-bold text-brand-gold tracking-widest block">
+                    PILLAR {pillar.num}
+                  </span>
+                  <h3 className="font-heading text-lg font-bold text-brand-chocolate">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-xs text-brand-chocolate/75 font-body leading-relaxed">
+                    {pillar.desc}
+                  </p>
+                </div>
+                <div className="pt-4 mt-4 border-t border-brand-chocolate/8 text-[11px] font-semibold text-brand-caramel font-body">
+                  {pillar.highlight}
+                </div>
               </div>
-              <div className="pt-4 mt-4 border-t border-brand-chocolate/8 text-[11px] font-semibold text-brand-caramel font-body">
-                {pillar.highlight}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -946,7 +928,7 @@ export default function HomePage() {
           SECTION 9: OUR 8 KERALA PATISSERIES (Boutique Network)
       ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3 pb-3 border-b border-brand-chocolate/10">
+        <div className="mb-6 sm:mb-8 pb-3 border-b border-brand-chocolate/10 flex items-end justify-between gap-3">
           <div>
             <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
               Store Network
@@ -955,88 +937,99 @@ export default function HomePage() {
               Visit Our 8 Kerala Patisseries
             </h2>
           </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => scrollBranches('left')}
-              aria-label="Previous Boutique"
-              className="w-8 h-8 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-2xs border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-90 cursor-pointer"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollBranches('right')}
-              aria-label="Next Boutique"
-              className="w-8 h-8 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-2xs border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-90 cursor-pointer"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+          <span className="text-xs text-brand-chocolate/65 font-body hidden sm:inline">
+            Same-day pickup &amp; delivery across 8 Kerala hubs
+          </span>
         </div>
 
-        {/* Horizontal Scrolling Track of Boutiques */}
-        <div
-          ref={branchesScrollRef}
-          onMouseEnter={() => setIsBranchesPaused(true)}
-          onMouseLeave={() => setIsBranchesPaused(false)}
-          onTouchStart={() => setIsBranchesPaused(true)}
-          onTouchEnd={() => setIsBranchesPaused(false)}
-          className="flex gap-4 sm:gap-5 overflow-x-auto scroll-smooth pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none snap-x snap-mandatory"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {OFFICIAL_BRANCHES.map((b) => (
-            <div
-              key={b.branchCode}
-              className="w-[260px] xs:w-[280px] sm:w-[300px] shrink-0 snap-start bg-white rounded-2xl p-4 sm:p-5 border border-brand-chocolate/10 shadow-[0_2px_12px_rgba(42,6,0,0.03)] hover:shadow-md transition-all flex flex-col justify-between"
-            >
-              <div className="space-y-2">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="space-y-0.5 min-w-0">
-                    <h3 className="font-heading text-base font-bold text-brand-chocolate truncate">
-                      {b.shortName}
-                    </h3>
-                    <div className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-700">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>Patisserie &amp; Kitchen Open</span>
-                    </div>
-                  </div>
-                  <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-brand-chocolate/5 text-brand-chocolate shrink-0">
+        {/* Horizontal Scrolling Track of Boutiques with Left & Right Centered Buttons */}
+        <div className="relative group/btrack">
+          {/* Left Arrow Button (Vertically Centered on Left Edge) */}
+          <button
+            type="button"
+            onClick={() => scrollBranches('left')}
+            aria-label="Previous Boutique"
+            className="flex absolute left-1 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Right Arrow Button (Vertically Centered on Right Edge) */}
+          <button
+            type="button"
+            onClick={() => scrollBranches('right')}
+            aria-label="Next Boutique"
+            className="flex absolute right-1 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+
+          <div
+            ref={branchesScrollRef}
+            onMouseEnter={() => setIsBranchesPaused(true)}
+            onMouseLeave={() => setIsBranchesPaused(false)}
+            onTouchStart={() => setIsBranchesPaused(true)}
+            onTouchEnd={() => setIsBranchesPaused(false)}
+            className="flex gap-4 sm:gap-5 overflow-x-auto scroll-smooth pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none snap-x snap-mandatory"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {OFFICIAL_BRANCHES.map((b) => (
+              <div
+                key={b.branchCode}
+                className="w-[270px] xs:w-[290px] sm:w-[310px] shrink-0 snap-start bg-white rounded-2xl p-3 sm:p-4 border border-brand-chocolate/10 shadow-[0_2px_12px_rgba(42,6,0,0.03)] hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
+              >
+                {/* Branch Boutique Image Portion */}
+                <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-brand-chocolate/5 mb-3 group/img">
+                  <img
+                    src={b.image || '/story/ccstory23.jpg'}
+                    alt={`${b.name} Boutique`}
+                    className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+                  <span className="absolute top-2 left-2 text-[9px] font-bold px-2 py-0.5 rounded-full bg-brand-chocolate/90 text-brand-gold backdrop-blur-xs shadow-xs">
                     {b.branchCode.replace('CCW-', '')}
+                  </span>
+                  <span className="absolute bottom-2 left-2 flex items-center gap-1.5 text-[10px] font-semibold text-white drop-shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Kitchen &amp; Boutique Open</span>
                   </span>
                 </div>
 
-                <p className="text-xs text-brand-chocolate/70 leading-relaxed line-clamp-2 font-body">
-                  {b.address}
-                </p>
+                <div className="space-y-1.5">
+                  <h3 className="font-heading text-base font-bold text-brand-chocolate truncate">
+                    {b.shortName}
+                  </h3>
+                  <p className="text-xs text-brand-chocolate/70 leading-relaxed line-clamp-2 font-body">
+                    {b.address}
+                  </p>
+                  <div className="text-[11px] text-brand-chocolate/65 pt-1 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
+                    <span>{b.openingHours}</span>
+                  </div>
+                </div>
 
-                <div className="text-[11px] text-brand-chocolate/65 pt-1 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-brand-caramel shrink-0" />
-                  <span>{b.openingHours}</span>
+                <div className="pt-3 mt-3 border-t border-brand-chocolate/8 flex items-center gap-2">
+                  <a
+                    href={`tel:${b.rawPhone}`}
+                    className="btn font-body font-semibold flex-1 py-1.5 px-2 rounded-xl bg-brand-cream/60 hover:bg-brand-caramel hover:text-white text-brand-chocolate text-[11px] transition-all flex items-center justify-center gap-1"
+                  >
+                    <Phone className="w-3 h-3 text-brand-caramel" />
+                    <span>Call</span>
+                  </a>
+                  <a
+                    href={b.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(b.address)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn font-body font-semibold py-1.5 px-3 rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white text-[11px] transition-all flex items-center justify-center gap-1"
+                  >
+                    <Navigation className="w-3 h-3" />
+                    <span>Map</span>
+                  </a>
                 </div>
               </div>
-
-              <div className="pt-3 mt-3 border-t border-brand-chocolate/8 flex items-center gap-2">
-                <a
-                  href={`tel:${b.rawPhone}`}
-                  className="btn font-body font-semibold flex-1 py-1.5 px-2 rounded-xl bg-brand-cream/60 hover:bg-brand-caramel hover:text-white text-brand-chocolate text-[11px] transition-all flex items-center justify-center gap-1"
-                >
-                  <Phone className="w-3 h-3 text-brand-caramel" />
-                  <span>Call</span>
-                </a>
-                <a
-                  href={b.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(b.address)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn font-body font-semibold py-1.5 px-3 rounded-xl bg-brand-chocolate hover:bg-brand-caramel text-brand-gold hover:text-white text-[11px] transition-all flex items-center justify-center gap-1"
-                >
-                  <Navigation className="w-3 h-3" />
-                  <span>Map</span>
-                </a>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1068,7 +1061,7 @@ export default function HomePage() {
           SECTION 8: CLIENT TESTIMONIALS (Editorial Quotes)
       ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3 pb-3 border-b border-brand-chocolate/10">
+        <div className="mb-6 sm:mb-8 gap-3 pb-3 border-b border-brand-chocolate/10 flex items-end justify-between">
           <div>
             <span className="text-[10px] xs:text-[11px] uppercase font-bold text-brand-caramel tracking-[0.2em] block mb-1">
               Guest Praise
@@ -1077,42 +1070,75 @@ export default function HomePage() {
               Celebrated Across Kerala
             </h2>
           </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => scrollReviews('left')}
-              aria-label="Previous Review"
-              className="w-8 h-8 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-2xs border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-90 cursor-pointer"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollReviews('right')}
-              aria-label="Next Review"
-              className="w-8 h-8 rounded-full bg-white text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-2xs border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-90 cursor-pointer"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+          <span className="text-xs text-brand-chocolate/65 font-body hidden sm:inline">
+            Real celebration stories &amp; 5-star experiences
+          </span>
         </div>
 
-        {/* Scrolling Review Quotes */}
-        <div
-          ref={reviewsScrollRef}
-          onMouseEnter={() => setIsReviewsPaused(true)}
-          onMouseLeave={() => setIsReviewsPaused(false)}
-          onTouchStart={() => setIsReviewsPaused(true)}
-          onTouchEnd={() => setIsReviewsPaused(false)}
-          className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none snap-x snap-mandatory"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {customerReviews.map((rev) => (
-            <div
-              key={rev.id}
-              className="w-[280px] xs:w-[310px] sm:w-[340px] shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-[0_2px_12px_rgba(42,6,0,0.03)] flex flex-col justify-between"
-            >
+        {/* Scrolling Review Quotes with Left & Right Centered Buttons */}
+        <div className="relative group/rtrack">
+          {/* Left Arrow Button (Vertically Centered on Left Edge) */}
+          <button
+            type="button"
+            onClick={() => scrollReviews('left')}
+            aria-label="Previous Review"
+            className="flex absolute left-1 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Right Arrow Button (Vertically Centered on Right Edge) */}
+          <button
+            type="button"
+            onClick={() => scrollReviews('right')}
+            aria-label="Next Review"
+            className="flex absolute right-1 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+
+          <div
+            ref={reviewsScrollRef}
+            onMouseEnter={() => setIsReviewsPaused(true)}
+            onMouseLeave={() => setIsReviewsPaused(false)}
+            onTouchStart={() => setIsReviewsPaused(true)}
+            onTouchEnd={() => setIsReviewsPaused(false)}
+            className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scrollbar-none snap-x snap-mandatory"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {customerReviews.map((rev) => (
+              <div
+                key={rev.id}
+                className="w-[280px] xs:w-[310px] sm:w-[340px] shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-white border border-brand-chocolate/10 shadow-[0_2px_12px_rgba(42,6,0,0.03)] flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex text-brand-caramel">
+                      {[...Array(rev.rating)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                      ))}
+                    </div>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-caramel/10 text-brand-caramel font-body">
+                      {rev.occasion}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-brand-chocolate/85 italic leading-relaxed font-body">
+                    &ldquo;{rev.comment}&rdquo;
+                  </p>
+                </div>
+
+                <div className="pt-3 mt-3 border-t border-brand-chocolate/8 flex items-center justify-between text-xs font-body">
+                  <div>
+                    <span className="font-bold text-brand-chocolate block">{rev.name}</span>
+                    <span className="text-[10.5px] text-brand-caramel font-semibold block">{rev.cake}</span>
+                  </div>
+                  <span className="text-[10px] text-brand-chocolate/60 shrink-0">{rev.location}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex text-brand-caramel">

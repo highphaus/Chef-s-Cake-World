@@ -13,6 +13,7 @@ export interface BranchItem {
   mapQuery: string;
   mapUrl?: string;
   landmark: string;
+  image?: string;
 }
 
 export const OFFICIAL_BRANCHES: BranchItem[] = [
@@ -29,7 +30,8 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     city: 'Alamcode, Attingal',
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Alamcode Attingal",
-    landmark: 'Near Alamcode Town Junction'
+    landmark: 'Near Alamcode Town Junction',
+    image: '/story/ccstory23.jpg'
   },
   {
     branchCode: 'CCW-KL-02',
@@ -44,7 +46,8 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     city: 'Kazhakootam',
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Ambalathinkara Kazhakootam",
-    landmark: 'Near Ambalathinkara Main Road'
+    landmark: 'Near Ambalathinkara Main Road',
+    image: '/hero section/389b2411a02123d77893478f9f904dee.jpg'
   },
   {
     branchCode: 'CCW-KL-03',
@@ -59,7 +62,8 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     city: 'Trivandrum City',
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Kumarapuram Thiruvananthapuram",
-    landmark: 'Near Medical College - Kumarapuram Road'
+    landmark: 'Near Medical College - Kumarapuram Road',
+    image: '/hero section/c3704644895e682030e64e6b28158764.jpg'
   },
   {
     branchCode: 'CCW-KL-04',
@@ -74,7 +78,8 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     city: 'Trivandrum City',
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Ulloor Thiruvananthapuram",
-    landmark: 'Near Ulloor Signal Junction'
+    landmark: 'Near Ulloor Signal Junction',
+    image: '/hero section/b365bc8b7168a4c58653c26aef2dfdaf.jpg'
   },
   {
     branchCode: 'CCW-KL-05',
@@ -89,7 +94,8 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     city: 'Vattappara',
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Vattappara Thiruvananthapuram",
-    landmark: 'Vattappara Main Junction'
+    landmark: 'Vattappara Main Junction',
+    image: '/hero section/e2d1f099b04a18a0449fd8992bf96653.jpg'
   },
   {
     branchCode: 'CCW-KL-06',
@@ -105,7 +111,8 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Vetturoad Kazhakoottm",
     mapUrl: 'https://maps.app.goo.gl/kZZ4BkUdYE1kBwKn6',
-    landmark: 'Vetturoad Junction, NH Bypass (near Kaniyapuram)'
+    landmark: 'Vetturoad Junction, NH Bypass (near Kaniyapuram)',
+    image: '/story/ccstory23.jpg'
   },
   {
     branchCode: 'CCW-KL-07',
@@ -120,7 +127,8 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     city: 'Attingal Town',
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Attingal Main Road",
-    landmark: 'Near KSRTC Bus Stand & Municipal Town Hall'
+    landmark: 'Near KSRTC Bus Stand & Municipal Town Hall',
+    image: '/hero section/389b2411a02123d77893478f9f904dee.jpg'
   },
   {
     branchCode: 'CCW-KL-08',
@@ -135,7 +143,8 @@ export const OFFICIAL_BRANCHES: BranchItem[] = [
     city: 'Kazhakootam',
     pickupAvailable: true,
     mapQuery: "Chef's Cake World Kazhakootam Technopark",
-    landmark: 'Opposite Technopark Main Entrance'
+    landmark: 'Opposite Technopark Main Entrance',
+    image: '/hero section/c3704644895e682030e64e6b28158764.jpg'
   }
 ];
 
