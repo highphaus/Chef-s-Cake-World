@@ -2,12 +2,11 @@
 
 import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { CATEGORY_CAKES, toColour, type CategoryCake } from './flavours';
 import './CakeShowcase.css';
 
 const R = 212;
-const INK = '#2B1030';
 
 const rel = (i: number, step: number) => (i === step ? 'on' : i < step ? 'past' : 'next');
 const vars = (c: CategoryCake) =>
@@ -23,29 +22,18 @@ function CakeTop({ cake }: { cake: CategoryCake }) {
   const clipId = `showcase-clip-${cake.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
 
   return (
-    <svg viewBox="-310 -310 620 620" aria-hidden="true" className="w-full h-full drop-shadow-2xl">
+    <svg
+      viewBox="-225 -225 450 450"
+      aria-hidden="true"
+      className="w-full h-full drop-shadow-[0_22px_36px_rgba(0,0,0,0.42)]"
+    >
       <defs>
         <clipPath id={clipId}>
           <circle cx="0" cy="0" r={R} />
         </clipPath>
-        <filter id={`platter-glow-${clipId}`} x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="16" stdDeviation="20" floodColor="#000000" floodOpacity="0.32" />
-        </filter>
       </defs>
 
-      {/* Outer Platter Edge */}
-      <circle r={285} fill="#FFFFFF" stroke={INK} strokeWidth={3} filter={`url(#platter-glow-${clipId})`} />
-      <circle
-        r={262}
-        fill="none"
-        stroke="var(--accent)"
-        strokeWidth={8}
-        strokeDasharray="4 16"
-        strokeLinecap="round"
-        opacity="0.85"
-      />
-
-      {/* Photorealistic Category Cake Image Clipped into Circular Base */}
+      {/* Photorealistic Category Cake Image Clipped into Circular Base (No Surrounding Outer Ring/Plate) */}
       {cake.image ? (
         <g clipPath={`url(#${clipId})`}>
           <image
@@ -58,11 +46,8 @@ function CakeTop({ cake }: { cake: CategoryCake }) {
           />
         </g>
       ) : (
-        <circle r={R} fill="var(--frost)" stroke="var(--sponge)" strokeWidth={16} paintOrder="stroke" />
+        <circle r={R} fill="var(--frost)" stroke="var(--sponge)" strokeWidth={8} paintOrder="stroke" />
       )}
-
-      {/* Outer Crust Bevel Ring */}
-      <circle r={R} fill="none" stroke={INK} strokeWidth={3.5} />
     </svg>
   );
 }
@@ -192,9 +177,6 @@ export default function CakeShowcase({
     }
   };
 
-  const handleNext = () => goToStep(step + 1);
-  const handlePrev = () => goToStep(step - 1);
-
   return (
     <section
       ref={sectionRef}
@@ -210,7 +192,7 @@ export default function CakeShowcase({
       onTouchEnd={handleTouchEnd}
     >
       <div ref={stickyRef} className="cs-sticky">
-        {/* TOP BAR: QUICK CATEGORY SELECTOR PILLS */}
+        {/* TOP BAR: QUICK CATEGORY SELECTOR PILLS (CENTERED) */}
         <div className="cs-top-bar">
           <div className="cs-flavour-pills">
             {items.map((c, i) => {
@@ -229,8 +211,9 @@ export default function CakeShowcase({
           </div>
         </div>
 
-        <div className="cs-grid">
-          {/* LEFT: ROTATING REAL CATEGORY CAKE PLATES WITH DIRECT ARROW CONTROLS */}
+        {/* CENTER STAGE: CAKE & DETAILS FULLY CENTERED */}
+        <div className="cs-stage">
+          {/* ROTATING REAL CATEGORY CAKE (CENTERED, NO SURROUNDING CIRCLE PLATE/ARROWS) */}
           <div className="cs-cakes-wrapper">
             <div className="cs-cakes">
               {items.map((c, i) => (
@@ -239,52 +222,17 @@ export default function CakeShowcase({
                 </div>
               ))}
             </div>
-
-            {/* PREV / NEXT DIRECT CONTROLS */}
-            <div className="cs-arrows">
-              <button
-                type="button"
-                onClick={handlePrev}
-                disabled={step === 0}
-                className="cs-arrow-btn"
-                title="Previous Category"
-                style={{
-                  opacity: step === 0 ? 0.4 : 1,
-                  cursor: step === 0 ? 'default' : 'pointer',
-                }}
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-
-              <span className="cs-arrow-indicator">
-                Category {step + 1} of {totalCount}
-              </span>
-
-              <button
-                type="button"
-                onClick={handleNext}
-                disabled={step === totalCount - 1}
-                className="cs-arrow-btn"
-                title="Next Category"
-                style={{
-                  opacity: step === totalCount - 1 ? 0.4 : 1,
-                  cursor: step === totalCount - 1 ? 'default' : 'pointer',
-                }}
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
           </div>
 
-          {/* RIGHT: SLIDING STORY CARDS FOR CATEGORIES */}
+          {/* SLIDING STORY CARDS FOR CATEGORIES (CENTERED DIRECTLY BELOW CAKE) */}
           <div className="cs-cards" aria-live="polite">
             {items.map((c, i) => {
               const categoryHref = c.slug || orderHref || '/cakes';
               return (
                 <article key={c.name} className={`cs-card ${rel(i, step)}`} style={vars(c)}>
-                  <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center justify-center gap-2 mb-1">
                     <span className="cs-n">Category {i + 1} of {totalCount}</span>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-brand-peach/80 text-brand-chocolate">
+                    <span className="text-[10.5px] font-bold px-2.5 py-0.5 rounded-full bg-brand-peach/80 text-brand-chocolate">
                       Artisan Category
                     </span>
                   </div>
@@ -292,7 +240,7 @@ export default function CakeShowcase({
                   <h3>{c.name}</h3>
                   <p>{c.blurb}</p>
 
-                  <ul>
+                  <ul className="cs-layers">
                     {c.layers.map((l, n) => (
                       <li key={n}>
                         <i style={{ background: toColour(l.fill) }} />
@@ -303,7 +251,7 @@ export default function CakeShowcase({
 
                   <div className="cs-row pt-3 border-t border-brand-chocolate/15">
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-brand-chocolate/60 block">
+                      <span className="text-[9.5px] uppercase font-bold text-brand-chocolate/60 block">
                         Kerala Boutiques
                       </span>
                       <strong className="text-sm sm:text-base font-extrabold text-brand-chocolate">
