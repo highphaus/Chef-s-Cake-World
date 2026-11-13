@@ -227,6 +227,7 @@ export default function HomePage() {
   }, [isReviewsPaused]);
 
   // Master Categories
+  // Master Categories: Exactly 1 row of 4 premier collections
   const DEFAULT_CATEGORIES = [
     {
       name: 'Birthday Favorites',
@@ -251,30 +252,6 @@ export default function HomePage() {
       slug: 'eggless-cakes',
       image: '/Cakes/6077fa416087bf801e907887a53cfe1d.jpg',
       blurb: 'Certified pure vegetarian oven with cloud-soft moisture.',
-    },
-    {
-      name: 'Wedding Atelier',
-      slug: 'wedding-cakes',
-      image: '/Cakes/da137e0e2f85163498af483676d4ccd8.jpg',
-      blurb: 'Architectural multi-tier centerpieces with 24K gold foil.',
-    },
-    {
-      name: 'Sweets & Desserts',
-      slug: 'sweets-desserts',
-      image: '/Cakes/b3392f499749364b011f93c6634cf890.jpg',
-      blurb: 'Parisian macarons, saffron rabdi & fudge brownies.',
-    },
-    {
-      name: 'Bespoke Custom',
-      slug: 'designer-cakes',
-      image: '/Cakes/3b109e1a28abe394a7b3a23ecf94450b.jpg',
-      blurb: 'Hand-sculpted celebration cakes made to your theme.',
-    },
-    {
-      name: 'Anniversary Luxe',
-      slug: 'anniversary-cakes',
-      image: '/Cakes/2bb7cee4f7aea565457d0eec341cb3d7.jpg',
-      blurb: 'Heart-shaped red velvet cakes with Belgian chocolate accents.',
     },
   ];
 
@@ -676,10 +653,10 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Mobile Horizontal Carousel: Touch Swipe + Button Navigation */}
+        {/* Mobile Horizontal Carousel: Touch Swipe + Button Navigation (Single 1-Row Carousel) */}
         <div
           ref={categoryScrollRef}
-          className="flex md:hidden gap-3.5 overflow-x-auto scroll-smooth pb-3 px-1 -mx-1 snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]"
+          className="flex flex-nowrap md:hidden gap-3.5 overflow-x-auto scroll-smooth pb-3 px-1 -mx-1 snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]"
         >
           {displayCategories.map((cat: any) => (
             <Link
