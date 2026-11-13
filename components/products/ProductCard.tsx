@@ -42,41 +42,50 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Subtle Gradient Shadow on Hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-        {/* Top Left Tag */}
-        {product.egglessAvailable && (
-          <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-emerald-800 text-[9px] font-bold tracking-wider uppercase shadow-xs flex items-center gap-1 border border-emerald-700/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block" />
-            <span>Eggless</span>
-          </span>
-        )}
-
-        {/* Top Right Subtle Rating Pill */}
-        <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-brand-chocolate text-[10px] font-bold tracking-tight shadow-xs flex items-center gap-1 border border-brand-chocolate/10">
-          <Star className="w-2.5 h-2.5 fill-current text-brand-caramel" />
-          <span>{rating.toFixed(1)}</span>
-        </span>
       </Link>
 
       {/* 2. Editorial Product Information */}
       <div className="pt-3 sm:pt-3.5 flex flex-col justify-between flex-1">
         <div>
           {/* Micro Category / Flavour Note */}
-          <div className="flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-brand-caramel tracking-wide uppercase font-body truncate mb-0.5">
+          <div className="flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-brand-caramel tracking-wide uppercase font-body truncate mb-1">
             <span>{flavourNote}</span>
             <span className="text-brand-chocolate/30">&bull;</span>
             <span className="text-brand-chocolate/55 font-normal lowercase">{sizeNote}</span>
           </div>
 
-          {/* Product Title */}
-          <Link href={`/cakes/${product.slug}`} className="block">
-            <h3
-              className="product-title font-body font-semibold text-xs sm:text-sm text-brand-chocolate group-hover:text-brand-caramel transition-colors line-clamp-1 leading-snug tracking-tight"
-              title={product.name}
+          {/* Product Title with Veg Representation Dot & Rating */}
+          <div className="flex items-center justify-between gap-1.5">
+            <Link
+              href={`/cakes/${product.slug}`}
+              className="flex items-center gap-1.5 min-w-0 flex-1 group/title"
             >
-              {product.name}
-            </h3>
-          </Link>
+              {product.egglessAvailable && (
+                <span
+                  className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-[2px] border border-emerald-600 bg-white shrink-0 p-[2px]"
+                  title="100% Pure Vegetarian / Eggless"
+                  aria-label="Pure Vegetarian"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                </span>
+              )}
+              <h3
+                className="product-title font-body font-semibold text-xs sm:text-sm text-brand-chocolate group-hover/title:text-brand-caramel transition-colors truncate leading-snug tracking-tight"
+                title={product.name}
+              >
+                {product.name}
+              </h3>
+            </Link>
+
+            {/* Rating next to cake name */}
+            <div
+              className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-amber-50/90 border border-amber-200/70 text-brand-chocolate text-[10px] sm:text-[10.5px] font-bold shrink-0"
+              title={`Rated ${rating.toFixed(1)} out of 5 stars`}
+            >
+              <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-500" />
+              <span>{rating.toFixed(1)}</span>
+            </div>
+          </div>
         </div>
 
         {/* 3. Luxury Price & Quick Order Pill */}
