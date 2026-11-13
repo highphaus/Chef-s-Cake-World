@@ -216,7 +216,7 @@ export default function CakeShowcase({
       style={
         {
           '--bg': '#FAF8F5',
-          height: `${totalCount * 36}vh`,
+          height: `${totalCount * 20}vh`,
         } as CSSProperties
       }
       aria-label={label}
