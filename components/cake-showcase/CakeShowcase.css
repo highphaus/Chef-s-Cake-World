@@ -36,7 +36,7 @@
 /* CENTER STAGE */
 .cs-stage {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1240px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,8 +55,8 @@
 }
 
 .cs-cakes {
-  width: min(450px, 47vh);
-  height: min(450px, 47vh);
+  width: min(420px, 45vh);
+  height: min(420px, 45vh);
   aspect-ratio: 1/1;
   display: grid;
   place-items: center;
@@ -67,15 +67,15 @@
 
 @media (min-width: 1024px) {
   .cs-cakes {
-    width: min(490px, 49vh);
-    height: min(490px, 49vh);
+    width: min(460px, 47vh);
+    height: min(460px, 47vh);
   }
 }
 
 @media (min-width: 1440px) {
   .cs-cakes {
-    width: min(530px, 51vh);
-    height: min(530px, 51vh);
+    width: min(500px, 49vh);
+    height: min(500px, 49vh);
   }
 }
 
@@ -118,11 +118,11 @@
   cursor: pointer;
 }
 
-/* LEFT SIDE CAKE: Previewed smaller to the left */
+/* LEFT SIDE CAKE: Distinct gap from center */
 .cs-cake.left,
 .cs-cake.past {
-  transform: translate3d(-78%, 0, -60px) scale(0.68) rotateY(16deg) rotate(-6deg);
-  opacity: 0.62;
+  transform: translate3d(-102%, 0, -75px) scale(0.68) rotateY(16deg) rotate(-5deg);
+  opacity: 0.65;
   z-index: 5;
   pointer-events: auto;
   filter: drop-shadow(0 10px 16px rgba(48, 22, 18, 0.16)) brightness(0.92);
@@ -131,15 +131,15 @@
 
 .cs-cake.left:hover,
 .cs-cake.past:hover {
-  opacity: 0.9;
-  transform: translate3d(-75%, 0, -30px) scale(0.72) rotateY(10deg) rotate(-3deg);
+  opacity: 0.92;
+  transform: translate3d(-98%, 0, -35px) scale(0.72) rotateY(10deg) rotate(-2deg);
 }
 
-/* RIGHT SIDE CAKE: Previewed smaller to the right */
+/* RIGHT SIDE CAKE: Distinct gap from center */
 .cs-cake.right,
 .cs-cake.next {
-  transform: translate3d(78%, 0, -60px) scale(0.68) rotateY(-16deg) rotate(6deg);
-  opacity: 0.62;
+  transform: translate3d(102%, 0, -75px) scale(0.68) rotateY(-16deg) rotate(5deg);
+  opacity: 0.65;
   z-index: 5;
   pointer-events: auto;
   filter: drop-shadow(0 10px 16px rgba(48, 22, 18, 0.16)) brightness(0.92);
@@ -148,20 +148,20 @@
 
 .cs-cake.right:hover,
 .cs-cake.next:hover {
-  opacity: 0.9;
-  transform: translate3d(75%, 0, -30px) scale(0.72) rotateY(-10deg) rotate(3deg);
+  opacity: 0.92;
+  transform: translate3d(98%, 0, -35px) scale(0.72) rotateY(-10deg) rotate(2deg);
 }
 
 /* FAR SIDES: Hidden outside visible stage */
 .cs-cake.far-left {
-  transform: translate3d(-160%, 0, -160px) scale(0.42);
+  transform: translate3d(-190%, 0, -180px) scale(0.4);
   opacity: 0;
   z-index: 1;
   pointer-events: none;
 }
 
 .cs-cake.far-right {
-  transform: translate3d(160%, 0, -160px) scale(0.42);
+  transform: translate3d(190%, 0, -180px) scale(0.4);
   opacity: 0;
   z-index: 1;
   pointer-events: none;
@@ -286,18 +286,18 @@
     padding: 0.6rem 0.85rem 1.1rem;
   }
   .cs-cakes {
-    width: min(260px, 35vh);
-    height: min(260px, 35vh);
+    width: min(240px, 32vh);
+    height: min(240px, 32vh);
   }
   .cs-cake.left,
   .cs-cake.past {
-    transform: translate3d(-68%, 0, -40px) scale(0.6) rotateY(12deg);
-    opacity: 0.55;
+    transform: translate3d(-88%, 0, -45px) scale(0.58) rotateY(12deg);
+    opacity: 0.58;
   }
   .cs-cake.right,
   .cs-cake.next {
-    transform: translate3d(68%, 0, -40px) scale(0.6) rotateY(-12deg);
-    opacity: 0.55;
+    transform: translate3d(88%, 0, -45px) scale(0.58) rotateY(-12deg);
+    opacity: 0.58;
   }
   .cs-cat-name {
     font-size: 1.65rem;
