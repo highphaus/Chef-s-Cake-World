@@ -327,21 +327,6 @@ export default function CakeShowcase({
             })}
           </div>
         </div>
-
-        {/* SIDE DOT NAVIGATION */}
-        <nav className="cs-dots" aria-label="Flavours">
-          {flavours.map((f, i) => (
-            <button
-              key={f.name}
-              type="button"
-              aria-label={`Show ${f.name}`}
-              aria-current={i === step ? 'true' : undefined}
-              onClick={() => goToStep(i)}
-              style={{ background: f.bg }}
-              className="cursor-pointer"
-            />
-          ))}
-        </nav>
       </div>
     </section>
   );

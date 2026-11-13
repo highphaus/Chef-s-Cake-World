@@ -336,37 +336,9 @@
   box-shadow: 1px 1px 0 #301612;
 }
 
-.cs-btn:focus-visible,
-.cs-dots button:focus-visible {
+.cs-btn:focus-visible {
   outline: 3px solid #301612;
   outline-offset: 3px;
-}
-
-/* SIDE DOTS */
-.cs-dots {
-  position: absolute;
-  right: 1.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  display: grid;
-  gap: 0.8rem;
-  z-index: 30;
-}
-
-.cs-dots button {
-  width: 1.15rem;
-  height: 1.15rem;
-  border-radius: 50%;
-  border: 2.5px solid #FFFDF7;
-  box-shadow: 0 0 0 2px #301612;
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s;
-}
-
-.cs-dots button[aria-current="true"] {
-  transform: scale(1.5);
-  box-shadow: 0 0 0 3px #FFFDF7, 0 0 0 5px #301612;
 }
 
 @media (max-width: 900px) {
@@ -385,14 +357,6 @@
     font-size: 0.85rem;
     gap: 0.35rem;
   }
-  .cs-dots {
-    right: 0.75rem;
-    top: auto;
-    bottom: 1.5rem;
-    transform: none;
-    display: flex;
-    flex-direction: row;
-  }
   .cs-top-bar {
     left: 1rem;
     right: 1rem;
@@ -407,7 +371,6 @@
   .cs,
   .cs-cake,
   .cs-card,
-  .cs-dots button,
   .cs-btn,
   .cs-cake.on svg {
     transition: none;
