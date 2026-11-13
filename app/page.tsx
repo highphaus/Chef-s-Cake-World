@@ -278,14 +278,14 @@ export default function HomePage() {
     },
   ];
 
-  const displayCategories = categories.length > 0
+  const displayCategories = (categories.length > 0
     ? categories.map((cat: any, idx: number) => ({
         ...DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length],
         ...cat,
         image: cat.image || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].image,
         blurb: cat.blurb || DEFAULT_CATEGORIES[idx % DEFAULT_CATEGORIES.length].blurb,
       }))
-    : DEFAULT_CATEGORIES;
+    : DEFAULT_CATEGORIES).slice(0, 4);
 
   // Master Curated Product Lists
   const displayBestSellers = bestSellers.length > 0 ? bestSellers : [
