@@ -1139,33 +1139,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex text-brand-caramel">
-                    {[...Array(rev.rating)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                    ))}
-                  </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-caramel/10 text-brand-caramel font-body">
-                    {rev.occasion}
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-brand-chocolate/85 italic leading-relaxed font-body">
-                  &ldquo;{rev.comment}&rdquo;
-                </p>
-              </div>
-
-              <div className="pt-3 mt-3 border-t border-brand-chocolate/8 flex items-center justify-between text-xs font-body">
-                <div>
-                  <span className="font-bold text-brand-chocolate block">{rev.name}</span>
-                  <span className="text-[10.5px] text-brand-caramel font-semibold block">{rev.cake}</span>
-                </div>
-                <span className="text-[10px] text-brand-chocolate/60 shrink-0">{rev.location}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ─────────────────────────────────────────────────────────────
           SECTION 9: BRAND MANIFESTO (Quiet Luxury Statement)
