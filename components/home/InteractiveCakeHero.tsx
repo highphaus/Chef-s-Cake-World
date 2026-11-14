@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useCallback, type CSSProperties, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import Link from 'next/link';
-import { ArrowRight, RotateCcw, Sparkles, Scissors } from 'lucide-react';
+import { ArrowRight, RotateCcw, Sparkles, Scissors, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   HERO_FLAVOURS,
   R,
@@ -302,6 +302,32 @@ export default function InteractiveCakeHero() {
             {/* 1. DESKTOP VIEW (100% Original Slicing & Aiming Experience for Bigger Devices) */}
             <div className="hidden lg:flex flex-col items-center justify-center w-full">
               <div className="relative w-full max-w-[480px] sm:max-w-[580px] lg:max-w-[620px] aspect-square mx-auto">
+                {/* Left Arrow Button (Vertically Centered in Middle Portion) */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIdx((prev) => (prev - 1 + HERO_FLAVOURS.length) % HERO_FLAVOURS.length);
+                    setCut(null);
+                  }}
+                  aria-label="Previous cake flavour"
+                  className="absolute -left-4 xl:-left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+
+                {/* Right Arrow Button (Vertically Centered in Middle Portion) */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIdx((prev) => (prev + 1) % HERO_FLAVOURS.length);
+                    setCut(null);
+                  }}
+                  aria-label="Next cake flavour"
+                  className="absolute -right-4 xl:-right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+
                 <svg
                   className="relative z-10 w-full h-full block cursor-default touch-manipulation overflow-visible select-none focus:outline-none"
                   viewBox="-310 -310 620 620"
@@ -454,15 +480,42 @@ export default function InteractiveCakeHero() {
               </div>
             </div>
 
-            {/* 2. MOBILE VIEW (Fluid 3D Gesture Carousel Without Buttons for Smaller Devices) */}
+            {/* 2. MOBILE VIEW (Fluid 3D Gesture Carousel with Left & Right Middle Arrow Buttons) */}
             <div className="block lg:hidden w-full relative flex flex-col items-center justify-center mb-2">
-              {/* Carousel Stage with Touch Swipe */}
+              {/* Carousel Stage with Touch Swipe & Middle Edge Arrow Buttons */}
               <div
                 className="relative w-full max-w-[310px] xs:max-w-[350px] aspect-square mx-auto overflow-visible select-none"
                 onTouchStart={handleMobileTouchStart}
                 onTouchMove={handleMobileTouchMove}
                 onTouchEnd={handleMobileTouchEnd}
               >
+                {/* Left Arrow Button (Vertically Centered in Middle Portion) */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIdx((prev) => (prev - 1 + HERO_FLAVOURS.length) % HERO_FLAVOURS.length);
+                    setCut(null);
+                  }}
+                  aria-label="Previous cake flavour"
+                  className="absolute -left-2 xs:-left-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+
+                {/* Right Arrow Button (Vertically Centered in Middle Portion) */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIdx((prev) => (prev + 1) % HERO_FLAVOURS.length);
+                    setCut(null);
+                  }}
+                  aria-label="Next cake flavour"
+                  className="absolute -right-2 xs:-right-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
                 {HERO_FLAVOURS.map((item, i) => {
                   const diff = getMobilePos(i);
                   const isCenter = diff === 0;

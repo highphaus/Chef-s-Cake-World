@@ -635,24 +635,24 @@ export default function HomePage() {
 
         {/* Mobile Horizontal Carousel Container with Left & Right Centered Buttons */}
         <div className="relative md:hidden">
-          {/* Left Arrow Button (Centered on Left Edge) */}
+          {/* Left Arrow Button (Centered on Left Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollCategory('left')}
             aria-label="Previous category"
-            className="absolute left-1 xs:left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="absolute left-0 xs:left-1 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Right Arrow Button (Centered on Right Edge) */}
+          {/* Right Arrow Button (Centered on Right Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollCategory('right')}
             aria-label="Next category"
-            className="absolute right-1 xs:right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="absolute right-0 xs:right-1 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 flex items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
           <div
@@ -791,24 +791,24 @@ export default function HomePage() {
 
         {/* Product Grid / Track with Left & Right Centered Buttons */}
         <div className="relative group/ptrack">
-          {/* Left Arrow Button (Centered on Left Edge) */}
+          {/* Left Arrow Button (Centered on Left Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollProducts('left')}
             aria-label="Previous Products"
-            className="flex absolute left-1 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="flex absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Right Arrow Button (Centered on Right Edge) */}
+          {/* Right Arrow Button (Centered on Right Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollProducts('right')}
             aria-label="Next Products"
-            className="flex absolute right-1 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="flex absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
           <div
@@ -849,24 +849,24 @@ export default function HomePage() {
 
         {/* Four Pillars Carousel on Mobile / 4-Col Grid on Desktop with Left & Right Centered Buttons */}
         <div className="relative">
-          {/* Left Arrow Button on Mobile */}
+          {/* Left Arrow Button on Mobile (Centered on Left Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollPillars('left')}
             aria-label="Previous Pillar"
-            className="flex lg:hidden absolute left-1 xs:left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="flex lg:hidden absolute left-0 xs:left-1 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Right Arrow Button on Mobile */}
+          {/* Right Arrow Button on Mobile (Centered on Right Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollPillars('right')}
             aria-label="Next Pillar"
-            className="flex lg:hidden absolute right-1 xs:right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="flex lg:hidden absolute right-0 xs:right-1 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
           <div
@@ -944,24 +944,24 @@ export default function HomePage() {
 
         {/* Horizontal Scrolling Track of Boutiques with Left & Right Centered Buttons */}
         <div className="relative group/btrack">
-          {/* Left Arrow Button (Vertically Centered on Left Edge) */}
+          {/* Left Arrow Button (Vertically Centered on Left Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollBranches('left')}
             aria-label="Previous Boutique"
-            className="flex absolute left-1 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="flex absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Right Arrow Button (Vertically Centered on Right Edge) */}
+          {/* Right Arrow Button (Vertically Centered on Right Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollBranches('right')}
             aria-label="Next Boutique"
-            className="flex absolute right-1 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="flex absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
           <div
@@ -1077,24 +1077,24 @@ export default function HomePage() {
 
         {/* Scrolling Review Quotes with Left & Right Centered Buttons */}
         <div className="relative group/rtrack">
-          {/* Left Arrow Button (Vertically Centered on Left Edge) */}
+          {/* Left Arrow Button (Vertically Centered on Left Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollReviews('left')}
             aria-label="Previous Review"
-            className="flex absolute left-1 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="flex absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Right Arrow Button (Vertically Centered on Right Edge) */}
+          {/* Right Arrow Button (Vertically Centered on Right Edge in Middle Portion) */}
           <button
             type="button"
             onClick={() => scrollReviews('right')}
             aria-label="Next Review"
-            className="flex absolute right-1 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-md border border-brand-chocolate/15 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
+            className="flex absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-brand-chocolate hover:bg-brand-chocolate hover:text-brand-gold shadow-lg border border-brand-chocolate/20 items-center justify-center transition-all active:scale-90 cursor-pointer backdrop-blur-xs"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
           <div
